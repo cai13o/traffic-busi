@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.busi.mapper.TInstDeviceDao">
+
+    <resultMap id="BaseResultMap" type="cn.com.busi.entity.TInstDevice">
+        <!--@Table t_inst_device-->
+        <result property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="institution" column="institution" jdbcType="VARCHAR"/>
+        <result property="model" column="model" jdbcType="VARCHAR"/>
+        <result property="idno" column="idNo" jdbcType="VARCHAR"/>
+        <result property="trace" column="trace" jdbcType="VARCHAR"/>
+        <result property="checkins" column="checkIns" jdbcType="VARCHAR"/>
+        <result property="checkdate" column="checkDate" jdbcType="VARCHAR"/>
+        <result property="cycle" column="cycle" jdbcType="VARCHAR"/>
+        <result property="nextdate" column="nextDate" jdbcType="VARCHAR"/>
+        <result property="uselife" column="useLife" jdbcType="VARCHAR"/>
+        <result property="remarks" column="remarks" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="BaseResultMap">
+        select
+          id, name, institution, model, idNo, trace, checkIns, checkDate, cycle, nextDate, useLife, remarks
+        from wolf-cloud.t_inst_device
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="BaseResultMap">
+        select
+          id, name, institution, model, idNo, trace, checkIns, checkDate, cycle, nextDate, useLife, remarks
+        from wolf-cloud.t_inst_device
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="BaseResultMap">
+        select
+          id, name, institution, model, idNo, trace, checkIns, checkDate, cycle, nextDate, useLife, remarks
+        from t_inst_device
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="institution != null and institution != ''">
+                and institution like concat(concat('%',#{institution}),'%')
+            </if>
+            <if test="model != null and model != ''">
+                and model = #{model}
+            </if>
+            <if test="idno != null and idno != ''">
+                and idNo = #{idno}
+            </if>
+            <if test="trace != null and trace != ''">
+                and trace = #{trace}
+            </if>
+            <if test="checkins != null and checkins != ''">
+                and checkIns = #{checkins}
+            </if>
+            <if test="checkdate != null and checkdate != ''">
+                and checkDate = #{checkdate}
+            </if>
+            <if test="cycle != null and cycle != ''">
+                and cycle = #{cycle}
+            </if>
+            <if test="nextdate != null and nextdate != ''">
+                and nextDate like concat(concat('%',#{nextdate}),'%')
+            </if>
+            <if test="uselife != null and uselife != ''">
+                and useLife = #{uselife}
+            </if>
+            <if test="remarks != null and remarks != ''">
+                and remarks = #{remarks}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into wolf-cloud.t_inst_device(name, institution, model, idNo, trace, checkIns, checkDate, cycle, nextDate, useLife, remarks)
+        values (#{name}, #{institution}, #{model}, #{idno}, #{trace}, #{checkins}, #{checkdate}, #{cycle}, #{nextdate}, #{uselife}, #{remarks})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update wolf-cloud.t_inst_device
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="institution != null and institution != ''">
+                institution = #{institution},
+            </if>
+            <if test="model != null and model != ''">
+                model = #{model},
+            </if>
+            <if test="idno != null and idno != ''">
+                idNo = #{idno},
+            </if>
+            <if test="trace != null and trace != ''">
+                trace = #{trace},
+            </if>
+            <if test="checkins != null and checkins != ''">
+                checkIns = #{checkins},
+            </if>
+            <if test="checkdate != null and checkdate != ''">
+                checkDate = #{checkdate},
+            </if>
+            <if test="cycle != null and cycle != ''">
+                cycle = #{cycle},
+            </if>
+            <if test="nextdate != null and nextdate != ''">
+                nextDate = #{nextdate},
+            </if>
+            <if test="uselife != null and uselife != ''">
+                useLife = #{uselife},
+            </if>
+            <if test="remarks != null and remarks != ''">
+                remarks = #{remarks},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from wolf-cloud.t_inst_device where id = #{id}
+    </delete>
+
+</mapper>

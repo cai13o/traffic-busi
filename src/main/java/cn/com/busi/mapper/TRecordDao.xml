@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.busi.mapper.TRecordDao">
+
+    <resultMap id="BaseResultMap" type="cn.com.busi.entity.TRecord">
+        <!--@Table t_record-->
+        <result property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="jylsh" column="jylsh" jdbcType="VARCHAR"/>
+        <result property="jyjgbh" column="jyjgbh" jdbcType="VARCHAR"/>
+        <result property="jyjgmc" column="jyjgmc" jdbcType="VARCHAR"/>
+        <result property="jcxdh" column="jcxdh" jdbcType="VARCHAR"/>
+        <result property="wtr" column="wtr" jdbcType="VARCHAR"/>
+        <result property="dlyszh" column="dlyszh" jdbcType="VARCHAR"/>
+        <result property="jylb" column="jylb" jdbcType="VARCHAR"/>
+        <result property="ywlx" column="ywlx" jdbcType="VARCHAR"/>
+        <result property="jcxb" column="jcxb" jdbcType="VARCHAR"/>
+        <result property="jcrq" column="jcrq" jdbcType="TIMESTAMP"/>
+        <result property="jcjldbh" column="jcjldbh" jdbcType="VARCHAR"/>
+        <result property="cphm" column="cphm" jdbcType="VARCHAR"/>
+        <result property="hpzl" column="hpzl" jdbcType="VARCHAR"/>
+        <result property="gcpzh" column="gcpzh" jdbcType="VARCHAR"/>
+        <result property="gclx" column="gclx" jdbcType="VARCHAR"/>
+        <result property="clccrq" column="clccrq" jdbcType="TIMESTAMP"/>
+        <result property="wjdly" column="wjdly" jdbcType="VARCHAR"/>
+        <result property="ycy" column="ycy" jdbcType="VARCHAR"/>
+        <result property="wqczy" column="wqczy" jdbcType="VARCHAR"/>
+        <result property="zcdjrq" column="zcdjrq" jdbcType="TIMESTAMP"/>
+        <result property="vin" column="vin" jdbcType="VARCHAR"/>
+        <result property="clxh" column="clxh" jdbcType="VARCHAR"/>
+        <result property="fdjh" column="fdjh" jdbcType="VARCHAR"/>
+        <result property="csys" column="csys" jdbcType="VARCHAR"/>
+        <result property="xszlc" column="xszlc" jdbcType="VARCHAR"/>
+        <result property="qdxs" column="qdxs" jdbcType="VARCHAR"/>
+        <result property="zxzxjxs" column="zxzxjxs" jdbcType="VARCHAR"/>
+        <result property="gczs" column="gczs" jdbcType="VARCHAR"/>
+        <result property="zdjygw" column="zdjygw" jdbcType="VARCHAR"/>
+        <result property="dgjygw" column="dgjygw" jdbcType="VARCHAR"/>
+        <result property="dlxjygw" column="dlxjygw" jdbcType="VARCHAR"/>
+        <result property="tDetail" column="t_detail" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="BaseResultMap">
+        select
+          id, jylsh, jyjgbh, jyjgmc, jcxdh, wtr, dlyszh, jylb, ywlx, jcxb, jcrq, jcjldbh, cphm, hpzl, gcpzh, gclx, clccrq, wjdly, ycy, wqczy, zcdjrq, vin, clxh, fdjh, csys, xszlc, qdxs, zxzxjxs, gczs, zdjygw, dgjygw, dlxjygw, t_detail
+        from wolf-cloud.t_record
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="BaseResultMap">
+        select
+          id, jylsh, jyjgbh, jyjgmc, jcxdh, wtr, dlyszh, jylb, ywlx, jcxb, jcrq, jcjldbh, cphm, hpzl, gcpzh, gclx, clccrq, wjdly, ycy, wqczy, zcdjrq, vin, clxh, fdjh, csys, xszlc, qdxs, zxzxjxs, gczs, zdjygw, dgjygw, dlxjygw, t_detail
+        from wolf-cloud.t_record
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="BaseResultMap">
+        select
+          id, jylsh, jyjgbh, jyjgmc, jcxdh, wtr, dlyszh, jylb, ywlx, jcxb, jcrq, jcjldbh, cphm, hpzl, gcpzh, gclx, clccrq, wjdly, ycy, wqczy, zcdjrq, vin, clxh, fdjh, csys, xszlc, qdxs, zxzxjxs, gczs, zdjygw, dgjygw, dlxjygw, t_detail
+        from wolf-cloud.t_record
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="jylsh != null and jylsh != ''">
+                and jylsh = #{jylsh}
+            </if>
+            <if test="jyjgbh != null and jyjgbh != ''">
+                and jyjgbh = #{jyjgbh}
+            </if>
+            <if test="jyjgmc != null and jyjgmc != ''">
+                and jyjgmc = #{jyjgmc}
+            </if>
+            <if test="jcxdh != null and jcxdh != ''">
+                and jcxdh = #{jcxdh}
+            </if>
+            <if test="wtr != null and wtr != ''">
+                and wtr = #{wtr}
+            </if>
+            <if test="dlyszh != null and dlyszh != ''">
+                and dlyszh = #{dlyszh}
+            </if>
+            <if test="jylb != null and jylb != ''">
+                and jylb = #{jylb}
+            </if>
+            <if test="ywlx != null and ywlx != ''">
+                and ywlx = #{ywlx}
+            </if>
+            <if test="jcxb != null and jcxb != ''">
+                and jcxb = #{jcxb}
+            </if>
+            <if test="jcrq != null">
+                and jcrq = #{jcrq}
+            </if>
+            <if test="jcjldbh != null and jcjldbh != ''">
+                and jcjldbh = #{jcjldbh}
+            </if>
+            <if test="cphm != null and cphm != ''">
+                and cphm = #{cphm}
+            </if>
+            <if test="hpzl != null and hpzl != ''">
+                and hpzl = #{hpzl}
+            </if>
+            <if test="gcpzh != null and gcpzh != ''">
+                and gcpzh = #{gcpzh}
+            </if>
+            <if test="gclx != null and gclx != ''">
+                and gclx = #{gclx}
+            </if>
+            <if test="clccrq != null">
+                and clccrq = #{clccrq}
+            </if>
+            <if test="wjdly != null and wjdly != ''">
+                and wjdly = #{wjdly}
+            </if>
+            <if test="ycy != null and ycy != ''">
+                and ycy = #{ycy}
+            </if>
+            <if test="wqczy != null and wqczy != ''">
+                and wqczy = #{wqczy}
+            </if>
+            <if test="zcdjrq != null">
+                and zcdjrq = #{zcdjrq}
+            </if>
+            <if test="vin != null and vin != ''">
+                and vin = #{vin}
+            </if>
+            <if test="clxh != null and clxh != ''">
+                and clxh = #{clxh}
+            </if>
+            <if test="fdjh != null and fdjh != ''">
+                and fdjh = #{fdjh}
+            </if>
+            <if test="csys != null and csys != ''">
+                and csys = #{csys}
+            </if>
+            <if test="xszlc != null and xszlc != ''">
+                and xszlc = #{xszlc}
+            </if>
+            <if test="qdxs != null and qdxs != ''">
+                and qdxs = #{qdxs}
+            </if>
+            <if test="zxzxjxs != null and zxzxjxs != ''">
+                and zxzxjxs = #{zxzxjxs}
+            </if>
+            <if test="gczs != null and gczs != ''">
+                and gczs = #{gczs}
+            </if>
+            <if test="zdjygw != null and zdjygw != ''">
+                and zdjygw = #{zdjygw}
+            </if>
+            <if test="dgjygw != null and dgjygw != ''">
+                and dgjygw = #{dgjygw}
+            </if>
+            <if test="dlxjygw != null and dlxjygw != ''">
+                and dlxjygw = #{dlxjygw}
+            </if>
+            <if test="tDetail != null and tDetail != ''">
+                and t_detail = #{tDetail}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into wolf-cloud.t_record(jylsh, jyjgbh, jyjgmc, jcxdh, wtr, dlyszh, jylb, ywlx, jcxb, jcrq, jcjldbh, cphm, hpzl, gcpzh, gclx, clccrq, wjdly, ycy, wqczy, zcdjrq, vin, clxh, fdjh, csys, xszlc, qdxs, zxzxjxs, gczs, zdjygw, dgjygw, dlxjygw, t_detail)
+        values (#{jylsh}, #{jyjgbh}, #{jyjgmc}, #{jcxdh}, #{wtr}, #{dlyszh}, #{jylb}, #{ywlx}, #{jcxb}, #{jcrq}, #{jcjldbh}, #{cphm}, #{hpzl}, #{gcpzh}, #{gclx}, #{clccrq}, #{wjdly}, #{ycy}, #{wqczy}, #{zcdjrq}, #{vin}, #{clxh}, #{fdjh}, #{csys}, #{xszlc}, #{qdxs}, #{zxzxjxs}, #{gczs}, #{zdjygw}, #{dgjygw}, #{dlxjygw}, #{tDetail})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update wolf-cloud.t_record
+        <set>
+            <if test="jylsh != null and jylsh != ''">
+                jylsh = #{jylsh},
+            </if>
+            <if test="jyjgbh != null and jyjgbh != ''">
+                jyjgbh = #{jyjgbh},
+            </if>
+            <if test="jyjgmc != null and jyjgmc != ''">
+                jyjgmc = #{jyjgmc},
+            </if>
+            <if test="jcxdh != null and jcxdh != ''">
+                jcxdh = #{jcxdh},
+            </if>
+            <if test="wtr != null and wtr != ''">
+                wtr = #{wtr},
+            </if>
+            <if test="dlyszh != null and dlyszh != ''">
+                dlyszh = #{dlyszh},
+            </if>
+            <if test="jylb != null and jylb != ''">
+                jylb = #{jylb},
+            </if>
+            <if test="ywlx != null and ywlx != ''">
+                ywlx = #{ywlx},
+            </if>
+            <if test="jcxb != null and jcxb != ''">
+                jcxb = #{jcxb},
+            </if>
+            <if test="jcrq != null">
+                jcrq = #{jcrq},
+            </if>
+            <if test="jcjldbh != null and jcjldbh != ''">
+                jcjldbh = #{jcjldbh},
+            </if>
+            <if test="cphm != null and cphm != ''">
+                cphm = #{cphm},
+            </if>
+            <if test="hpzl != null and hpzl != ''">
+                hpzl = #{hpzl},
+            </if>
+            <if test="gcpzh != null and gcpzh != ''">
+                gcpzh = #{gcpzh},
+            </if>
+            <if test="gclx != null and gclx != ''">
+                gclx = #{gclx},
+            </if>
+            <if test="clccrq != null">
+                clccrq = #{clccrq},
+            </if>
+            <if test="wjdly != null and wjdly != ''">
+                wjdly = #{wjdly},
+            </if>
+            <if test="ycy != null and ycy != ''">
+                ycy = #{ycy},
+            </if>
+            <if test="wqczy != null and wqczy != ''">
+                wqczy = #{wqczy},
+            </if>
+            <if test="zcdjrq != null">
+                zcdjrq = #{zcdjrq},
+            </if>
+            <if test="vin != null and vin != ''">
+                vin = #{vin},
+            </if>
+            <if test="clxh != null and clxh != ''">
+                clxh = #{clxh},
+            </if>
+            <if test="fdjh != null and fdjh != ''">
+                fdjh = #{fdjh},
+            </if>
+            <if test="csys != null and csys != ''">
+                csys = #{csys},
+            </if>
+            <if test="xszlc != null and xszlc != ''">
+                xszlc = #{xszlc},
+            </if>
+            <if test="qdxs != null and qdxs != ''">
+                qdxs = #{qdxs},
+            </if>
+            <if test="zxzxjxs != null and zxzxjxs != ''">
+                zxzxjxs = #{zxzxjxs},
+            </if>
+            <if test="gczs != null and gczs != ''">
+                gczs = #{gczs},
+            </if>
+            <if test="zdjygw != null and zdjygw != ''">
+                zdjygw = #{zdjygw},
+            </if>
+            <if test="dgjygw != null and dgjygw != ''">
+                dgjygw = #{dgjygw},
+            </if>
+            <if test="dlxjygw != null and dlxjygw != ''">
+                dlxjygw = #{dlxjygw},
+            </if>
+            <if test="tDetail != null and tDetail != ''">
+                t_detail = #{tDetail},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from wolf-cloud.t_record where id = #{id}
+    </delete>
+
+</mapper>

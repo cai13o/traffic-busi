@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.busi.mapper.TInstPersonDao">
+
+    <resultMap id="BaseResultMap" type="cn.com.busi.entity.TInstPerson">
+        <!--@Table t_inst_person-->
+        <result property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="institution" column="institution" jdbcType="VARCHAR"/>
+        <result property="gender" column="gender" jdbcType="VARCHAR"/>
+        <result property="idno" column="idNo" jdbcType="VARCHAR"/>
+        <result property="major" column="major" jdbcType="VARCHAR"/>
+        <result property="recode" column="recode" jdbcType="VARCHAR"/>
+        <result property="position" column="position" jdbcType="VARCHAR"/>
+        <result property="certificate" column="certificate" jdbcType="VARCHAR"/>
+        <result property="enddate" column="endDate" jdbcType="VARCHAR"/>
+        <result property="fileman" column="fileMan" jdbcType="VARCHAR"/>
+        <result property="regidate" column="regiDate" jdbcType="VARCHAR"/>
+        <result property="remarks" column="remarks" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="BaseResultMap">
+        select
+          id, name, institution, gender, idNo, major, recode, position, certificate, endDate, fileMan, regiDate, remarks
+        from t_inst_person
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="BaseResultMap">
+        select
+          id, name, institution, gender, idNo, major, recode, position, certificate, endDate, fileMan, regiDate, remarks
+        from wolf-cloud.t_inst_person
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="BaseResultMap">
+        select
+          id, name, institution, gender, idNo, major, recode, position, certificate, endDate, fileMan, regiDate, remarks
+        from t_inst_person
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="name != null and name != ''">
+                and name like concat(concat('%',#{name}),'%')
+            </if>
+            <if test="institution != null and institution != ''">
+                and institution like concat(concat('%',#{institution}),'%')
+            </if>
+            <if test="gender != null and gender != ''">
+                and gender = #{gender}
+            </if>
+            <if test="idno != null and idno != ''">
+                and idNo = #{idno}
+            </if>
+            <if test="major != null and major != ''">
+                and major = #{major}
+            </if>
+            <if test="recode != null and recode != ''">
+                and recode = #{recode}
+            </if>
+            <if test="position != null and position != ''">
+                and position = #{position}
+            </if>
+            <if test="certificate != null and certificate != ''">
+                and certificate = #{certificate}
+            </if>
+            <if test="enddate != null and enddate != ''">
+                and endDate = #{enddate}
+            </if>
+            <if test="fileman != null and fileman != ''">
+                and fileMan = #{fileman}
+            </if>
+            <if test="regidate != null and regidate != ''">
+                and regiDate = #{regidate}
+            </if>
+            <if test="remarks != null and remarks != ''">
+                and remarks = #{remarks}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into wolf-cloud.t_inst_person(name, institution, gender, idNo, major, recode, position, certificate, endDate, fileMan, regiDate, remarks)
+        values (#{name}, #{institution}, #{gender}, #{idno}, #{major}, #{recode}, #{position}, #{certificate}, #{enddate}, #{fileman}, #{regidate}, #{remarks})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update wolf-cloud.t_inst_person
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="institution != null and institution != ''">
+                institution = #{institution},
+            </if>
+            <if test="gender != null and gender != ''">
+                gender = #{gender},
+            </if>
+            <if test="idno != null and idno != ''">
+                idNo = #{idno},
+            </if>
+            <if test="major != null and major != ''">
+                major = #{major},
+            </if>
+            <if test="recode != null and recode != ''">
+                recode = #{recode},
+            </if>
+            <if test="position != null and position != ''">
+                position = #{position},
+            </if>
+            <if test="certificate != null and certificate != ''">
+                certificate = #{certificate},
+            </if>
+            <if test="enddate != null and enddate != ''">
+                endDate = #{enddate},
+            </if>
+            <if test="fileman != null and fileman != ''">
+                fileMan = #{fileman},
+            </if>
+            <if test="regidate != null and regidate != ''">
+                regiDate = #{regidate},
+            </if>
+            <if test="remarks != null and remarks != ''">
+                remarks = #{remarks},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from wolf-cloud.t_inst_person where id = #{id}
+    </delete>
+
+</mapper>

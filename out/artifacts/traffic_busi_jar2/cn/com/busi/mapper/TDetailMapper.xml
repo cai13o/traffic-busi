@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.busi.mapper.TDetailMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="tDetailResultMap" type="cn.com.busi.entity.TDetail">
+        <id column="id" property="id"/>
+        <result column="jylsh" property="jylsh"/>
+        <result column="bgbh" property="bgbh"/>
+        <result column="zzrdzsbh" property="zzrdzsbh"/>
+        <result column="jyjgdz" property="jyjgdz"/>
+        <result column="jyjgdh" property="jyjgdh"/>
+        <result column="cphm" property="cphm"/>
+        <result column="wtr" property="wtr"/>
+        <result column="dlyszh" property="dlyszh"/>
+        <result column="cllx" property="cllx"/>
+        <result column="ppxh" property="ppxh"/>
+        <result column="zcdjrq" property="zcdjrq"/>
+        <result column="ccny" property="ccny"/>
+        <result column="csys" property="csys"/>
+        <result column="vin" property="vin"/>
+        <result column="fdjhm" property="fdjhm"/>
+        <result column="xzqy" property="xzqy"/>
+        <result column="gcphm" property="gcphm"/>
+        <result column="gwtr" property="gwtr"/>
+        <result column="gdlyszh" property="gdlyszh"/>
+        <result column="gcllx" property="gcllx"/>
+        <result column="gppxh" property="gppxh"/>
+        <result column="gzcdjrq" property="gzcdjrq"/>
+        <result column="gccny" property="gccny"/>
+        <result column="gvin" property="gvin"/>
+        <result column="gxsz" property="gxsz"/>
+        <result column="jylb" property="jylb"/>
+        <result column="ywlx" property="ywlx"/>
+        <result column="jyrq" property="jyrq"/>
+        <result column="t_detail" property="tDetail"/>
+    </resultMap>
+
+    <insert id="insertTDetail" parameterType="cn.com.busi.entity.TDetail">
+        INSERT INTO t_detail (
+         id,jylsh,bgbh,zzrdzsbh,jyjgdz,jyjgdh,cphm,wtr
+         ,dlyszh,cllx,ppxh,zcdjrq,ccny,csys,vin,fdjhm
+         ,xzqy,gcphm,gwtr,gdlyszh,gcllx,gppxh,gzcdjrq
+         ,gccny,gvin,gxsz,jylb,ywlx,jyrq,t_detail
+        ) VALUES (
+         #{id},#{jylsh},#{bgbh},#{zzrdzsbh},#{jyjgdz},
+         #{jyjgdh},#{cphm},#{wtr},#{dlyszh},#{cllx},
+         #{ppxh},#{zcdjrq},#{ccny},#{csys},#{vin},
+         #{fdjhm},#{xzqy},#{gcphm},#{gwtr},#{gdlyszh},
+         #{gcllx},#{gppxh},#{gzcdjrq},#{gccny},#{gvin},
+         #{gxsz},#{jylb},#{ywlx},#{jyrq},#{tDetail})
+    </insert>
+
+</mapper>
