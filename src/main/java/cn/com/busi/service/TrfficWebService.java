@@ -31,4 +31,40 @@ public interface TrfficWebService {
      * *********************************************
      */
     String insertZongHeXNJYBGD(String json);
+
+    /**
+     *
+     * *********************************************
+     * @method      :  InsertZongHeXNJYBGD
+     * @description :  新增检测机构基本信息
+     * @date        :  2020/5/28
+     * @author      :  WangXiaoTao
+     * @version     :  1.0
+     * *********************************************
+     */
+    String insertInstitutionInfo (String json);
+
+    /**
+     *
+     * *********************************************
+     * @method      :  InsertZongHeXNJYBGD
+     * @description :  新增检测机构人员信息
+     * @date        :  2020/5/28
+     * @author      :  WangXiaoTao
+     * @version     :  1.0
+     * *********************************************
+     */
+    String insertInstitutionPerson (String json);
+
+    /**
+     *
+     * *********************************************
+     * @method      :  InsertZongHeXNJYBGD
+     * @description :  新增检测机构设备信息
+     * @date        :  2020/5/28
+     * @author      :  WangXiaoTao
+     * @version     :  1.0
+     * *********************************************
+     */
+    String insertInstitutionDevice (String json);
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.com.busi.mapper.TInstPersonDao">
+<mapper namespace="cn.com.busi.dao.TInstPersonDao">
 
     <resultMap id="BaseResultMap" type="cn.com.busi.entity.TInstPerson">
         <!--@Table t_inst_person-->
@@ -17,20 +17,22 @@
         <result property="fileman" column="fileMan" jdbcType="VARCHAR"/>
         <result property="regidate" column="regiDate" jdbcType="VARCHAR"/>
         <result property="remarks" column="remarks" jdbcType="VARCHAR"/>
+        <result property="opflag" column="opFlag" jdbcType="VARCHAR"/>
+        <result property="opdate" column="opDate" jdbcType="VARCHAR"/>
     </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="BaseResultMap">
         select
-          id, name, institution, gender, idNo, major, recode, position, certificate, endDate, fileMan, regiDate, remarks
-        from t_inst_person
+          id, name, institution, gender, idNo, major, recode, position, certificate, endDate, fileMan, regiDate, remarks, opFlag, opDate
+        from wolf-cloud.t_inst_person
         where id = #{id}
     </select>
 
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="BaseResultMap">
         select
-          id, name, institution, gender, idNo, major, recode, position, certificate, endDate, fileMan, regiDate, remarks
+          id, name, institution, gender, idNo, major, recode, position, certificate, endDate, fileMan, regiDate, remarks, opFlag, opDate
         from wolf-cloud.t_inst_person
         limit #{offset}, #{limit}
     </select>
@@ -38,8 +40,8 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="BaseResultMap">
         select
-          id, name, institution, gender, idNo, major, recode, position, certificate, endDate, fileMan, regiDate, remarks
-        from t_inst_person
+          id, name, institution, gender, idNo, major, recode, position, certificate, endDate, fileMan, regiDate, remarks, opFlag, opDate
+        from wolf-cloud.t_inst_person
         <where>
             <if test="id != null and id != ''">
                 and id = #{id}
@@ -80,13 +82,19 @@
             <if test="remarks != null and remarks != ''">
                 and remarks = #{remarks}
             </if>
+            <if test="opflag != null and opflag != ''">
+                and opFlag = #{opflag}
+            </if>
+            <if test="opdate != null and opdate != ''">
+                and opDate = #{opdate}
+            </if>
         </where>
     </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into wolf-cloud.t_inst_person(name, institution, gender, idNo, major, recode, position, certificate, endDate, fileMan, regiDate, remarks)
-        values (#{name}, #{institution}, #{gender}, #{idno}, #{major}, #{recode}, #{position}, #{certificate}, #{enddate}, #{fileman}, #{regidate}, #{remarks})
+        insert into wolf-cloud.t_inst_person(name, institution, gender, idNo, major, recode, position, certificate, endDate, fileMan, regiDate, remarks, opFlag, opDate)
+        values (#{name}, #{institution}, #{gender}, #{idno}, #{major}, #{recode}, #{position}, #{certificate}, #{enddate}, #{fileman}, #{regidate}, #{remarks}, #{opflag}, #{opdate})
     </insert>
 
     <!--通过主键修改数据-->
@@ -128,6 +136,12 @@
             </if>
             <if test="remarks != null and remarks != ''">
                 remarks = #{remarks},
+            </if>
+            <if test="opflag != null and opflag != ''">
+                opFlag = #{opflag},
+            </if>
+            <if test="opdate != null and opdate != ''">
+                opDate = #{opdate},
             </if>
         </set>
         where id = #{id}

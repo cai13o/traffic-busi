@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.com.busi.mapper.TInstDeviceDao">
+<mapper namespace="cn.com.busi.dao.TInstDeviceDao">
 
     <resultMap id="BaseResultMap" type="cn.com.busi.entity.TInstDevice">
         <!--@Table t_inst_device-->
@@ -16,12 +16,14 @@
         <result property="nextdate" column="nextDate" jdbcType="VARCHAR"/>
         <result property="uselife" column="useLife" jdbcType="VARCHAR"/>
         <result property="remarks" column="remarks" jdbcType="VARCHAR"/>
+        <result property="opflag" column="opFlag" jdbcType="VARCHAR"/>
+        <result property="opdate" column="opDate" jdbcType="VARCHAR"/>
     </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="BaseResultMap">
         select
-          id, name, institution, model, idNo, trace, checkIns, checkDate, cycle, nextDate, useLife, remarks
+          id, name, institution, model, idNo, trace, checkIns, checkDate, cycle, nextDate, useLife, remarks, opFlag, opDate
         from wolf-cloud.t_inst_device
         where id = #{id}
     </select>
@@ -29,7 +31,7 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="BaseResultMap">
         select
-          id, name, institution, model, idNo, trace, checkIns, checkDate, cycle, nextDate, useLife, remarks
+          id, name, institution, model, idNo, trace, checkIns, checkDate, cycle, nextDate, useLife, remarks, opFlag, opDate
         from wolf-cloud.t_inst_device
         limit #{offset}, #{limit}
     </select>
@@ -37,8 +39,8 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="BaseResultMap">
         select
-          id, name, institution, model, idNo, trace, checkIns, checkDate, cycle, nextDate, useLife, remarks
-        from t_inst_device
+          id, name, institution, model, idNo, trace, checkIns, checkDate, cycle, nextDate, useLife, remarks, opFlag, opDate
+        from wolf-cloud.t_inst_device
         <where>
             <if test="id != null and id != ''">
                 and id = #{id}
@@ -68,13 +70,19 @@
                 and cycle = #{cycle}
             </if>
             <if test="nextdate != null and nextdate != ''">
-                and nextDate like concat(concat('%',#{nextdate}),'%')
+                and nextDate = #{nextdate}
             </if>
             <if test="uselife != null and uselife != ''">
                 and useLife = #{uselife}
             </if>
             <if test="remarks != null and remarks != ''">
                 and remarks = #{remarks}
+            </if>
+            <if test="opflag != null and opflag != ''">
+                and opFlag = #{opflag}
+            </if>
+            <if test="opdate != null and opdate != ''">
+                and opDate = #{opdate}
             </if>
         </where>
     </select>

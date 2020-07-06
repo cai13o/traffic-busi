@@ -29,7 +29,7 @@ public class TReportController {
     @Resource
     private TReportService tReportService;
 
-    Map map;
+    Map<String,Object> map;
 
     /**
      * 通过主键查询单条数据
@@ -43,49 +43,74 @@ public class TReportController {
     }
 
     @GetMapping("firstSelect")
-    public Object firstSelect(String page, String limit, String xzqy, String cllx, String ppxh, String rllb, String jyjgmc, String jcjl, String startDate, String endDate) {
-        map = new HashMap();
+    public Object firstSelect(String page, String limit, String xzqy, String cllx, String ppxh, String clrllb, String jcjgmc, String jcjl, String startDate, String endDate) {
+        map = new HashMap<String,Object>();
         Integer intPage = Integer.parseInt(page);
         Integer intLimit = Integer.parseInt(limit);
         int offset = (intPage - 1) * intPage;
         TReport tReport = new TReport();
         TRecord tRecord = new TRecord();
-        tReport.setXzqy(xzqy);
+        System.out.println(tReport.toString());
         tReport.setCllx(cllx);
         tReport.setPpxh(ppxh);
-        tRecord.setJyjgmc(jyjgmc);
-        tRecord.setRllb(rllb);
+        tReport.setJcjgmc(jcjgmc);
+        tReport.setClrllb(clrllb);
         tReport.setJcjl(jcjl);
         TStatistics tStatistics = new TStatistics();
         tReport.setXzqy(xzqy);
-        System.out.println(xzqy.isEmpty());
-        if (xzqy != null && !xzqy.isEmpty()) {
-            tStatistics.setXzqy("xzqy");
+        System.out.println(endDate.trim().isEmpty() + ":" + endDate.length());
+        if (null != xzqy) {
+            if (!xzqy.trim().isEmpty()) {
+                tStatistics.setXzqy("xzqy");
+                tReport.setXzqy(xzqy.trim());
+            }
         }
-        if (cllx != null && !cllx.isEmpty()) {
-            tStatistics.setCllx("cllx");
+        if (null != jcjgmc) {
+            if (!jcjgmc.trim().isEmpty()) {
+                tStatistics.setJcjgmc("jcjgmc");
+                tReport.setJcjgmc(jcjgmc.trim());
+            }
         }
-        if (ppxh != null && !ppxh.isEmpty()) {
-            tStatistics.setPpxh("ppxh");
+        if (null != jcjl) {
+            if (!jcjl.trim().isEmpty()) {
+                tStatistics.setJcjl("jcjl");
+                tReport.setJcjl(jcjl.trim());
+            }
         }
-        if (jyjgmc != null && !jyjgmc.isEmpty()) {
-            tStatistics.setJyjgmc("jyjgmc");
+        if (null != clrllb) {
+            if (!clrllb.trim().isEmpty()) {
+                tStatistics.setClrllb("clrllb");
+                tReport.setClrllb(clrllb.trim());
+            }
         }
-        if (jcjl != null && !jcjl.isEmpty()) {
-            tStatistics.setJcjl("jcjl");
+        if (null != cllx) {
+            if (!cllx.trim().isEmpty()) {
+                tStatistics.setCllx("cllx");
+                tReport.setCllx(cllx.trim());
+            }
         }
-        if (startDate != null && endDate != null && !startDate.isEmpty() && !endDate.isEmpty()) {
-            tStatistics.setStartDate(startDate);
-            tStatistics.setEndDate(endDate);
-            tStatistics.setJcrq("jcrq");
+        if (null != ppxh) {
+            if (!ppxh.trim().isEmpty()) {
+                tStatistics.setPpxh("ppxh");
+                tReport.setPpxh(ppxh.trim());
+            }
         }
 
-//        if ((xzqy == null || xzqy.isEmpty()) && (cllx == null || cllx.isEmpty()) && (ppxh == null || ppxh.isEmpty()) && (jyjgmc == null || jyjgmc.isEmpty()) && (startDate == null || startDate.isEmpty()) && (endDate == null || endDate.isEmpty())) {
-//            return map;
-//        }
+
+        if (null != startDate && null != endDate) {
+            if (!startDate.trim().isEmpty() && !endDate.trim().isEmpty()) {
+                tStatistics.setStartDate(startDate);
+                tStatistics.setEndDate(endDate);
+                tStatistics.setJcrq("jcrq");
+            }
+        }
+
+        if ((xzqy == null || xzqy.isEmpty()) && (cllx == null || cllx.isEmpty()) && (ppxh == null || ppxh.isEmpty()) && (jcjgmc == null || jcjgmc.isEmpty()) && (startDate == null || startDate.isEmpty()) && (endDate == null || endDate.isEmpty())) {
+            return map;
+        }
 
         PageHelper.startPage(intPage, intLimit);
-        List<Map> list = this.tReportService.firstSelect(tReport, tRecord, tStatistics);
+        List<Map> list = this.tReportService.firstSelect(tReport, tStatistics);
         //将查询到的数据封装到PageInfo对象
         PageInfo<TInstInfo> pageInfo = new PageInfo(list, intLimit);
         map.put("code", "20000");
@@ -94,18 +119,18 @@ public class TReportController {
     }
 
     @GetMapping("carAll")
-    public Object carAll(String page, String limit, String xzqy, String cllx, String ppxh, String rllb, String jyjgmc, String jcjl, String startDate, String endDate) {
+    public Object carAll(String page, String limit, String xzqy, String cllx, String ppxh, String rllb, String
+            jyjgmc, String jcjl, String startDate, String endDate) {
         map = new HashMap();
         Integer intPage = Integer.parseInt(page);
         Integer intLimit = Integer.parseInt(limit);
         int offset = (intPage - 1) * intPage;
         TReport tReport = new TReport();
-        TRecord tRecord = new TRecord();
         tReport.setXzqy(xzqy);
         tReport.setCllx(cllx);
         tReport.setPpxh(ppxh);
-        tRecord.setJyjgmc(jyjgmc);
-        tRecord.setRllb(rllb);
+        tReport.setJcjgmc(jyjgmc);
+        tReport.setClrllb(rllb);
         tReport.setJcjl(jcjl);
         TStatistics tStatistics = new TStatistics();
         tReport.setXzqy(xzqy);
@@ -119,7 +144,7 @@ public class TReportController {
             tStatistics.setPpxh("ppxh");
         }
         if (jyjgmc != null && !jyjgmc.isEmpty()) {
-            tStatistics.setJyjgmc("jyjgmc");
+            tStatistics.setJcjgmc("jyjgmc");
         }
         if (jcjl != null && !jcjl.isEmpty()) {
             tStatistics.setJcjl("jcjl");
@@ -132,7 +157,7 @@ public class TReportController {
 
 
         PageHelper.startPage(intPage, intLimit);
-        List<Map> list = this.tReportService.carAll(tReport, tRecord, tStatistics);
+        List<Map> list = this.tReportService.carAll(tReport, tStatistics);
         //将查询到的数据封装到PageInfo对象
         PageInfo<TInstInfo> pageInfo = new PageInfo(list, intLimit);
         map.put("code", "20000");
@@ -141,7 +166,8 @@ public class TReportController {
     }
 
     @GetMapping("singleSelect")
-    public Object singleSelect(String page, String limit, String xzqy, String cllx, String ppxh, String rllb, String jyjgmc, String jcjl, String startDate, String endDate, String dxhgl) {
+    public Object singleSelect(String page, String limit, String xzqy, String cllx, String ppxh, String
+            rllb, String jyjgmc, String jcjl, String startDate, String endDate, String dxhgl) {
         map = new HashMap();
         Integer intPage = Integer.parseInt(page);
         Integer intLimit = Integer.parseInt(limit);
@@ -167,7 +193,7 @@ public class TReportController {
             tStatistics.setPpxh("ppxh");
         }
         if (jyjgmc != null && !jyjgmc.isEmpty()) {
-            tStatistics.setJyjgmc("jyjgmc");
+            tStatistics.setJcjgmc("jyjgmc");
         }
         if (jcjl != null && !jcjl.isEmpty()) {
             tStatistics.setJcjl("jcjl");
@@ -183,7 +209,7 @@ public class TReportController {
 //        }
 
         PageHelper.startPage(intPage, intLimit);
-        List<Map> list = this.tReportService.firstSelect(tReport, tRecord, tStatistics);
+        List<Map> list = this.tReportService.firstSelect(tReport, tStatistics);
         //将查询到的数据封装到PageInfo对象
         PageInfo<TInstInfo> pageInfo = new PageInfo(list, intLimit);
         map.put("code", "20000");

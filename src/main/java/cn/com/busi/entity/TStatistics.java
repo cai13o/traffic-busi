@@ -7,8 +7,8 @@ public class TStatistics {
     private String xzqy;
     private String cllx;
     private String ppxh;
-    private String rllb;
-    private String jyjgmc;
+    private String clrllb;
+    private String jcjgmc;
     private String jcjl;
     private String jcrq;
     private String startDate;

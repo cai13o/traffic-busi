@@ -38,4 +38,8 @@ public class TInstDevice implements Serializable {
     
     private String remarks;
 
+    private String opflag;
+
+    private String opdate;
+
 }

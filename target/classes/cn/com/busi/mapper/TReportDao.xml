@@ -58,7 +58,7 @@
             <if test="tRecord.jyjgmc != null and tRecord.jyjgmc != ''">
                 and jyjgmc like concat(concat('%',#{tRecord.jyjgmc}),'%')
             </if>
-            <if test="tRecord.rllb != null and tRecord.rllb != ''">
+            <if test="tRecord.clrllb != null and tRecord.rllb != ''">
                 and rllb like concat(concat('%',#{tRecord.rllb}),'%')
             </if>
             <if test="tStatistics.startDate != null and tStatistics.startDate != ''">

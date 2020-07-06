@@ -82,6 +82,22 @@
     "ktShortType" : "String",
     "custom" : false,
     "ext" : { }
+  }, {
+    "name" : "opflag",
+    "comment" : null,
+    "type" : null,
+    "shortType" : null,
+    "ktShortType" : "String",
+    "custom" : false,
+    "ext" : { }
+  }, {
+    "name" : "opdate",
+    "comment" : null,
+    "type" : null,
+    "shortType" : null,
+    "ktShortType" : "String",
+    "custom" : false,
+    "ext" : { }
   } ],
   "pkColumn" : null,
   "otherColumn" : null,

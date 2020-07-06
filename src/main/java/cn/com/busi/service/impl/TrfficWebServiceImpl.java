@@ -42,6 +42,33 @@ public class TrfficWebServiceImpl implements TrfficWebService {
         return s;
     }
 
+    @Override
+    public String insertInstitutionInfo(String json) {
+        log.info(String.format("【收到的请求报文data=%s】",json));
+        String parsingMessage = parsingMessage(json);
+        String s = busiService.insertInstitutionInfo(parsingMessage);
+        log.info(String.format("【响应报文data=%s】",s));
+        return s;
+    }
+
+    @Override
+    public String insertInstitutionPerson(String json) {
+        log.info(String.format("【收到的请求报文data=%s】",json));
+        String parsingMessage = parsingMessage(json);
+        String s = busiService.insertInstitutionPerson(parsingMessage);
+        log.info(String.format("【响应报文data=%s】",s));
+        return s;
+    }
+
+    @Override
+    public String insertInstitutionDevice(String json) {
+        log.info(String.format("【收到的请求报文data=%s】",json));
+        String parsingMessage = parsingMessage(json);
+        String s = busiService.insertInstitutionDevice(parsingMessage);
+        log.info(String.format("【响应报文data=%s】",s));
+        return s;
+    }
+
     /**
      *
      * ********************************************

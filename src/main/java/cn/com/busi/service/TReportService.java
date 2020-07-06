@@ -28,7 +28,7 @@ public interface TReportService {
      * 查询多条数据
      *
      * @param offset 查询起始位置
-     * @param limit 查询条数
+     * @param limit  查询条数
      * @return 对象列表
      */
     List<TReport> queryAllByLimit(int offset, int limit);
@@ -57,12 +57,11 @@ public interface TReportService {
      */
     boolean deleteById(String id);
 
-    List<Map> firstSelect(TReport tReport, TRecord tRecord, TStatistics tStatistics);
+    List<Map> firstSelect(TReport tReport, TStatistics tStatistics);
 
-    List<Map> carAll(TReport tReport, TRecord tRecord, TStatistics tStatistics);
+    List<Map> carAll(TReport tReport, TStatistics tStatistics);
 
-    List<Map> singleSelect(TReport tReport, TRecord tRecord , TStatistics tStatistics);
-
+    List<Map> singleSelect(TReport tReport, TStatistics tStatistics);
 
 
 }
