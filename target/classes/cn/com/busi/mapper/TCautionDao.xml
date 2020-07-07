@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.busi.mapper.TCautionDao">
+
+    <resultMap id="BaseResultMap" type="cn.com.busi.entity.TCaution">
+        <!--@Table t_caution-->
+        <result property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="jglx" column="jglx" jdbcType="VARCHAR"/>
+        <result property="ssqy" column="ssqy" jdbcType="VARCHAR"/>
+        <result property="rymc" column="rymc" jdbcType="VARCHAR"/>
+        <result property="sbxh" column="sbxh" jdbcType="VARCHAR"/>
+        <result property="jgzzrdzsbh" column="jgzzrdzsbh" jdbcType="VARCHAR"/>
+        <result property="ssjg" column="ssjg" jdbcType="VARCHAR"/>
+        <result property="jglxr" column="jglxr" jdbcType="VARCHAR"/>
+        <result property="lrsj" column="lrsj" jdbcType="TIMESTAMP"/>
+        <result property="status" column="status" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="BaseResultMap">
+        select
+          id, jglx, ssqy, rymc, sbxh, jgzzrdzsbh, ssjg, jglxr, lrsj, status
+        from t_caution
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="BaseResultMap">
+        select
+          id, jglx, ssqy, rymc, sbxh, jgzzrdzsbh, ssjg, jglxr, lrsj, status
+        from t_caution
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="BaseResultMap">
+        select
+          id, jglx, ssqy, rymc, sbxh, jgzzrdzsbh, ssjg, jglxr, lrsj, status
+        from t_caution
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="jglx != null and jglx != ''">
+                and jglx = #{jglx}
+            </if>
+            <if test="ssqy != null and ssqy != ''">
+                and ssqy = #{ssqy}
+            </if>
+            <if test="rymc != null and rymc != ''">
+                and rymc = #{rymc}
+            </if>
+            <if test="sbxh != null and sbxh != ''">
+                and sbxh = #{sbxh}
+            </if>
+            <if test="jgzzrdzsbh != null and jgzzrdzsbh != ''">
+                and jgzzrdzsbh = #{jgzzrdzsbh}
+            </if>
+            <if test="ssjg != null and ssjg != ''">
+                and ssjg = #{ssjg}
+            </if>
+            <if test="jglxr != null and jglxr != ''">
+                and jglxr = #{jglxr}
+            </if>
+            <if test="lrsj != null">
+                and lrsj = #{lrsj}
+            </if>
+            <if test="status != null and status != ''">
+                and status = #{status}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into wolf-cloud.t_caution(jglx, ssqy, rymc, sbxh, jgzzrdzsbh, ssjg, jglxr, lrsj, status)
+        values (#{jglx}, #{ssqy}, #{rymc}, #{sbxh}, #{jgzzrdzsbh}, #{ssjg}, #{jglxr}, #{lrsj}, #{status})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update wolf-cloud.t_caution
+        <set>
+            <if test="jglx != null and jglx != ''">
+                jglx = #{jglx},
+            </if>
+            <if test="ssqy != null and ssqy != ''">
+                ssqy = #{ssqy},
+            </if>
+            <if test="rymc != null and rymc != ''">
+                rymc = #{rymc},
+            </if>
+            <if test="sbxh != null and sbxh != ''">
+                sbxh = #{sbxh},
+            </if>
+            <if test="jgzzrdzsbh != null and jgzzrdzsbh != ''">
+                jgzzrdzsbh = #{jgzzrdzsbh},
+            </if>
+            <if test="ssjg != null and ssjg != ''">
+                ssjg = #{ssjg},
+            </if>
+            <if test="jglxr != null and jglxr != ''">
+                jglxr = #{jglxr},
+            </if>
+            <if test="lrsj != null">
+                lrsj = #{lrsj},
+            </if>
+            <if test="status != null and status != ''">
+                status = #{status},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from wolf-cloud.t_caution where id = #{id}
+    </delete>
+
+</mapper>
