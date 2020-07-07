@@ -46,6 +46,17 @@ public class TReportServiceImpl implements TReportService {
     }
 
     /**
+     * 通过实体作为筛选条件查询
+     *
+     * @param tReport 实例对象
+     * @return 对象列表
+     */
+    @Override
+    public List<TReport> queryAll(TReport tReport) {
+        return this.tReportDao.queryAll(tReport);
+    }
+
+    /**
      * 新增数据
      *
      * @param tReport 实例对象
@@ -80,18 +91,4 @@ public class TReportServiceImpl implements TReportService {
         return this.tReportDao.deleteById(id) > 0;
     }
 
-    @Override
-    public List<Map> firstSelect(TReport tReport, TStatistics tStatistics) {
-        return this.tReportDao.firstSelect(tReport, tStatistics);
-    }
-
-    @Override
-    public List<Map> carAll(TReport tReport, TStatistics tStatistics) {
-        return this.tReportDao.carAll(tReport, tStatistics);
-    }
-
-    @Override
-    public List<Map> singleSelect(TReport tReport, TStatistics tStatistics) {
-        return this.tReportDao.singleSelect(tReport, tStatistics);
-    }
 }

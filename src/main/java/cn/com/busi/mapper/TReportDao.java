@@ -67,10 +67,4 @@ public interface TReportDao {
      */
     int deleteById(String id);
 
-    List<Map> firstSelect( @Param("tReport") TReport tReport ,@Param("tStatistics") TStatistics tStatistics);
-
-    List<Map> carAll( @Param("tReport") TReport tReport ,@Param("tStatistics") TStatistics tStatistics);
-
-    List<Map> singleSelect( @Param("tReport") TReport tReport ,@Param("tStatistics") TStatistics tStatistics);
-
 }

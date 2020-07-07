@@ -43,7 +43,7 @@
     <select id="queryById" resultMap="BaseResultMap">
         select
           id, jylsh, jyjgbh, jyjgmc, jcxdh, wtr, dlyszh, jylb, ywlx, jcxb, jcrq, jcjldbh, cphm, hpzl, gcpzh, gclx, clccrq, wjdly, ycy, wqczy, zcdjrq, vin, clxh, fdjh, csys, xszlc, qdxs, zxzxjxs, gczs, zdjygw, dgjygw, dlxjygw, t_detail
-        from wolf-cloud.t_record
+        from t_record
         where id = #{id}
     </select>
 
@@ -51,7 +51,7 @@
     <select id="queryAllByLimit" resultMap="BaseResultMap">
         select
           id, jylsh, jyjgbh, jyjgmc, jcxdh, wtr, dlyszh, jylb, ywlx, jcxb, jcrq, jcjldbh, cphm, hpzl, gcpzh, gclx, clccrq, wjdly, ycy, wqczy, zcdjrq, vin, clxh, fdjh, csys, xszlc, qdxs, zxzxjxs, gczs, zdjygw, dgjygw, dlxjygw, t_detail
-        from wolf-cloud.t_record
+        from t_record
         limit #{offset}, #{limit}
     </select>
 
@@ -59,7 +59,7 @@
     <select id="queryAll" resultMap="BaseResultMap">
         select
           id, jylsh, jyjgbh, jyjgmc, jcxdh, wtr, dlyszh, jylb, ywlx, jcxb, jcrq, jcjldbh, cphm, hpzl, gcpzh, gclx, clccrq, wjdly, ycy, wqczy, zcdjrq, vin, clxh, fdjh, csys, xszlc, qdxs, zxzxjxs, gczs, zdjygw, dgjygw, dlxjygw, t_detail
-        from wolf-cloud.t_record
+        from t_record
         <where>
             <if test="id != null and id != ''">
                 and id = #{id}

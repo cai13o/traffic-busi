@@ -2,6 +2,8 @@ package cn.com.busi.entity;
 
 import lombok.Data;
 
+import java.util.Date;
+
 @Data
 public class TStatistics {
     private String xzqy;
@@ -11,7 +13,8 @@ public class TStatistics {
     private String jcjgmc;
     private String jcjl;
     private String jcrq;
-    private String startDate;
-    private String endDate;
+    private Date startDate;
+    private Date endDate;
     private String hgl;
+    private String singlePass;
 }

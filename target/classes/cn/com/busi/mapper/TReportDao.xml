@@ -2,252 +2,350 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.com.busi.mapper.TReportDao">
 
-    <resultMap id="GetResultMap" type="java.util.Map">
+    <resultMap id="BaseResultMap" type="cn.com.busi.entity.TReport">
         <!--@Table t_report-->
         <result property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="bgbh" column="bgbh" jdbcType="VARCHAR"/>
+        <result property="zzrdzsbh" column="zzrdzsbh" jdbcType="VARCHAR"/>
+        <result property="jyjgdz" column="jyjgdz" jdbcType="VARCHAR"/>
+        <result property="jyjgdh" column="jyjgdh" jdbcType="VARCHAR"/>
+        <result property="cphm" column="cphm" jdbcType="VARCHAR"/>
+        <result property="wtr" column="wtr" jdbcType="VARCHAR"/>
         <result property="cllx" column="cllx" jdbcType="VARCHAR"/>
         <result property="ppxh" column="ppxh" jdbcType="VARCHAR"/>
+        <result property="dlyszh" column="dlyszh" jdbcType="VARCHAR"/>
+        <result property="zcdjrq" column="zcdjrq" jdbcType="TIMESTAMP"/>
+        <result property="ccny" column="ccny" jdbcType="TIMESTAMP"/>
+        <result property="csys" column="csys" jdbcType="VARCHAR"/>
+        <result property="vin" column="vin" jdbcType="VARCHAR"/>
+        <result property="fdjhm" column="fdjhm" jdbcType="VARCHAR"/>
         <result property="xzqy" column="xzqy" jdbcType="VARCHAR"/>
-        <result property="hgl" column="hgl" jdbcType="VARCHAR"/>
-        <result property="rllb" column="rllb" jdbcType="VARCHAR"/>
-        <result property="jyjgmc" column="jyjgmc" jdbcType="VARCHAR"/>
+        <result property="jylb" column="jylb" jdbcType="VARCHAR"/>
+        <result property="ywlx" column="ywlx" jdbcType="VARCHAR"/>
+        <result property="jcrq" column="jcrq" jdbcType="TIMESTAMP"/>
+        <result property="wyxrd" column="wyxrd" jdbcType="VARCHAR"/>
+        <result property="gzxxzd" column="gzxxzd" jdbcType="VARCHAR"/>
+        <result property="wgjc" column="wgjc" jdbcType="VARCHAR"/>
+        <result property="yxjc" column="yxjc" jdbcType="VARCHAR"/>
+        <result property="dpjc" column="dpjc" jdbcType="VARCHAR"/>
+        <result property="hcpd" column="hcpd" jdbcType="VARCHAR"/>
+        <result property="dlx" column="dlx" jdbcType="VARCHAR"/>
+        <result property="jjx" column="jjx" jdbcType="VARCHAR"/>
+        <result property="yzzdl" column="yzzdl" jdbcType="VARCHAR"/>
+        <result property="yzbphl" column="yzbphl" jdbcType="VARCHAR"/>
+        <result property="ezzdl" column="ezzdl" jdbcType="VARCHAR"/>
+        <result property="ezbphl" column="ezbphl" jdbcType="VARCHAR"/>
+        <result property="tzzdl" column="tzzdl" jdbcType="VARCHAR"/>
+        <result property="tzbphl" column="tzbphl" jdbcType="VARCHAR"/>
+        <result property="dcqyczheczdl" column="dcqyczheczdl" jdbcType="VARCHAR"/>
+        <result property="dcqyczhuczdl" column="dcqyczhuczdl" jdbcType="VARCHAR"/>
+        <result property="mark" column="mark" jdbcType="VARCHAR"/>
         <result property="jcjl" column="jcjl" jdbcType="VARCHAR"/>
-        <result property="jcrq" column="jcrq" jdbcType="VARCHAR"/>
-        <result property="clzs" column="clzs" jdbcType="VARCHAR"/>
+        <result property="zjcs" column="zjcs" jdbcType="VARCHAR"/>
+        <result property="jcjgmc" column="jcjgmc" jdbcType="VARCHAR"/>
+        <result property="clrllb" column="clrllb" jdbcType="VARCHAR"/>
+        <result property="sqqzr" column="sqqzr" jdbcType="VARCHAR"/>
+        <result property="clzbzl" column="clzbzl" jdbcType="VARCHAR"/>
+        <result property="tDetail" column="t_detail" jdbcType="VARCHAR"/>
     </resultMap>
 
-    <!--车辆总数查询-->
-    <select id="carAll" resultMap="GetResultMap">
+    <!--查询单个-->
+    <select id="queryById" resultMap="BaseResultMap">
         select
-        COUNT(*) as clzs
-        <trim prefix="," prefixOverrides=",">
-            <if test="tStatistics.xzqy != null and tStatistics.xzqy != ''">
-                ${tStatistics.xzqy}
-            </if>
-            <if test="tStatistics.cllx != null and tStatistics.cllx != ''">
-                ${tStatistics.cllx}
-            </if>
-            <if test="tStatistics.ppxh != null and tStatistics.ppxh != ''">
-                ${tStatistics.ppxh}
-            </if>
-            <if test="tStatistics.rllb != null and tStatistics.rllb != ''">
-                ${tStatistics.rllb}
-            </if>
-            <if test="tStatistics.jyjgmc != null and tStatistics.jyjgmc != ''">
-                ${tStatistics.jyjgmc}
-            </if>
-            <if test="tStatistics.jcjl != null and tStatistics.jcjl != ''">
-                ${tStatistics.jcjl}
-            </if>
-            <if test="tStatistics.jcrq != null and tStatistics.jcrq != ''">
-                ${tStatistics.jcrq}
-            </if>
-        </trim>
-        from t_report t,t_record d
-        <where>
-            t.bgbh=d.jyjgbh
-            <if test="tReport.xzqy != null and tReport.xzqy != ''">
-                and xzqy like concat(concat('%',#{tReport.xzqy}),'%')
-            </if>
-            <if test="tReport.cllx != null and tReport.cllx != ''">
-                and cllx like concat(concat('%',#{tReport.cllx}),'%')
-            </if>
-            <if test="tReport.ppxh != null and tReport.ppxh != ''">
-                and ppxh like concat(concat('%',#{tReport.ppxh}),'%')
-            </if>
-            <if test="tRecord.jyjgmc != null and tRecord.jyjgmc != ''">
-                and jyjgmc like concat(concat('%',#{tRecord.jyjgmc}),'%')
-            </if>
-            <if test="tRecord.clrllb != null and tRecord.rllb != ''">
-                and rllb like concat(concat('%',#{tRecord.rllb}),'%')
-            </if>
-            <if test="tStatistics.startDate != null and tStatistics.startDate != ''">
-                and jcrq  &gt;= ${tStatistics.startDate}
-            </if>
-            <if test="tStatistics.endDate != null and tStatistics.endDate != ''">
-                and jcrq  &gt;= ${tStatistics.endDate}
-            </if>
-        </where>
-        <trim prefix="group by" prefixOverrides=",">
-            <if test="tStatistics.xzqy != null and tStatistics.xzqy != ''">
-                ${tStatistics.xzqy}
-            </if>
-            <if test="tStatistics.cllx != null and tStatistics.cllx != ''">
-                ${tStatistics.cllx}
-            </if>
-            <if test="tStatistics.ppxh != null and tStatistics.ppxh != ''">
-                ${tStatistics.ppxh}
-            </if>
-            <if test="tStatistics.rllb != null and tStatistics.rllb != ''">
-                ${tStatistics.rllb}
-            </if>
-            <if test="tStatistics.jyjgmc != null and tStatistics.jyjgmc != ''">
-                ${tStatistics.jyjgmc}
-            </if>
-            <if test="tStatistics.jcjl != null and tStatistics.jcjl != ''">
-                ${tStatistics.jcjl}
-            </if>
-            <if test="tStatistics.jcrq != null and tStatistics.jcrq != ''">
-                ${tStatistics.jcrq}
-            </if>
-        </trim>
+          id, bgbh, zzrdzsbh, jyjgdz, jyjgdh, cphm, wtr, cllx, ppxh, dlyszh, zcdjrq, ccny, csys, vin, fdjhm, xzqy, jylb, ywlx, jcrq, wyxrd, gzxxzd, wgjc, yxjc, dpjc, hcpd, dlx, jjx, yzzdl, yzbphl, ezzdl, ezbphl, tzzdl, tzbphl, dcqyczheczdl, dcqyczhuczdl, mark, jcjl, zjcs, jcjgmc, clrllb, sqqzr, clzbzl, t_detail
+        from t_report
+        where id = #{id}
     </select>
 
-    <!--初审合格率查询-->
-    <select id="firstSelect" resultMap="GetResultMap">
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="BaseResultMap">
         select
-        COUNT(case when jcjl !='不合格' then 1 else null end)/COUNT(*) as hgl
-        <trim prefix="," prefixOverrides=",">
-            <if test="tStatistics.xzqy != null and tStatistics.xzqy != ''">
-                ${tStatistics.xzqy}
-            </if>
-            <if test="tStatistics.cllx != null and tStatistics.cllx != ''">
-                ${tStatistics.cllx}
-            </if>
-            <if test="tStatistics.ppxh != null and tStatistics.ppxh != ''">
-                ${tStatistics.ppxh}
-            </if>
-            <if test="tStatistics.rllb != null and tStatistics.rllb != ''">
-                ${tStatistics.rllb}
-            </if>
-            <if test="tStatistics.jyjgmc != null and tStatistics.jyjgmc != ''">
-                ${tStatistics.jyjgmc}
-            </if>
-            <if test="tStatistics.jcjl != null and tStatistics.jcjl != ''">
-                ${tStatistics.jcjl}
-            </if>
-            <if test="tStatistics.jcrq != null and tStatistics.jcrq != ''">
-                ${tStatistics.jcrq}
-            </if>
-        </trim>
-        from t_report t,t_record d
-        <where>
-            t.bgbh=d.jyjgbh
-            <if test="tReport.xzqy != null and tReport.xzqy != ''">
-                and xzqy like concat(concat('%',#{tReport.xzqy}),'%')
-            </if>
-            <if test="tReport.cllx != null and tReport.cllx != ''">
-                and cllx like concat(concat('%',#{tReport.cllx}),'%')
-            </if>
-            <if test="tReport.ppxh != null and tReport.ppxh != ''">
-                and ppxh like concat(concat('%',#{tReport.ppxh}),'%')
-            </if>
-            <if test="tRecord.jyjgmc != null and tRecord.jyjgmc != ''">
-                and jyjgmc like concat(concat('%',#{tRecord.jyjgmc}),'%')
-            </if>
-            <if test="tRecord.rllb != null and tRecord.rllb != ''">
-                and rllb like concat(concat('%',#{tRecord.rllb}),'%')
-            </if>
-            <if test="tReport.jcjl != null and tReport.jcjl != ''">
-                and jcjl like concat(concat('%',#{tReport.jcjl}),'%')
-            </if>
-            <if test="tStatistics.startDate != null and tStatistics.startDate != ''">
-                and jcrq  &gt;= ${tStatistics.startDate}
-            </if>
-            <if test="tStatistics.endDate != null and tStatistics.endDate != ''">
-                and jcrq  &gt;= ${tStatistics.endDate}
-            </if>
-        </where>
-        <trim prefix="group by" prefixOverrides=",">
-            <if test="tStatistics.xzqy != null and tStatistics.xzqy != ''">
-                ${tStatistics.xzqy}
-            </if>
-            <if test="tStatistics.cllx != null and tStatistics.cllx != ''" >
-                ${tStatistics.cllx}
-            </if>
-            <if test="tStatistics.ppxh != null and tStatistics.ppxh != ''">
-                ${tStatistics.ppxh}
-            </if>
-            <if test="tStatistics.rllb != null and tStatistics.rllb != ''">
-                ${tStatistics.rllb}
-            </if>
-            <if test="tStatistics.jyjgmc != null and tStatistics.jyjgmc != ''">
-                ${tStatistics.jyjgmc}
-            </if>
-            <if test="tStatistics.jcjl != null and tStatistics.jcjl != ''">
-                ${tStatistics.jcjl}
-            </if>
-            <if test="tStatistics.jcrq != null and tStatistics.jcrq != ''">
-                ${tStatistics.jcrq}
-            </if>
-        </trim>
+          id, bgbh, zzrdzsbh, jyjgdz, jyjgdh, cphm, wtr, cllx, ppxh, dlyszh, zcdjrq, ccny, csys, vin, fdjhm, xzqy, jylb, ywlx, jcrq, wyxrd, gzxxzd, wgjc, yxjc, dpjc, hcpd, dlx, jjx, yzzdl, yzbphl, ezzdl, ezbphl, tzzdl, tzbphl, dcqyczheczdl, dcqyczhuczdl, mark, jcjl, zjcs, jcjgmc, clrllb, sqqzr, clzbzl, t_detail
+        from t_report
+        limit #{offset}, #{limit}
     </select>
 
-    <!--单项合格率查询查询-->
-    <select id="singleSelect" resultMap="GetResultMap">
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="BaseResultMap">
         select
-        COUNT(case when ${tStatistics.hgl} !='不合格' AND ${tStatistics.hgl} !='-' then 1 else null end)/COUNT(*) as hgl
-        <trim prefix="," prefixOverrides=",">
-            <if test="tStatistics.xzqy != null and tStatistics.xzqy != ''">
-                ${tStatistics.xzqy}
-            </if>
-            <if test="tStatistics.cllx != null and tStatistics.cllx != ''">
-                ${tStatistics.cllx}
-            </if>
-            <if test="tStatistics.ppxh != null and tStatistics.ppxh != ''">
-                ${tStatistics.ppxh}
-            </if>
-            <if test="tStatistics.rllb != null and tStatistics.rllb != ''">
-                ${tStatistics.rllb}
-            </if>
-            <if test="tStatistics.jyjgmc != null and tStatistics.jyjgmc != ''">
-                ${tStatistics.jyjgmc}
-            </if>
-            <if test="tStatistics.jcjl != null and tStatistics.jcjl != ''">
-                ${tStatistics.jcjl}
-            </if>
-            <if test="tStatistics.jcrq != null and tStatistics.jcrq != ''">
-                ${tStatistics.jcrq}
-            </if>
-        </trim>
-        from t_report t,t_record d
+        id, bgbh, zzrdzsbh, jyjgdz, jyjgdh, cphm, wtr, cllx, ppxh, dlyszh, zcdjrq, ccny, csys, vin, fdjhm, xzqy, jylb, ywlx, jcrq, wyxrd, gzxxzd, wgjc, yxjc, dpjc, hcpd, dlx, jjx, yzzdl, yzbphl, ezzdl, ezbphl, tzzdl, tzbphl, dcqyczheczdl, dcqyczhuczdl, mark, jcjl, zjcs, jcjgmc, clrllb, sqqzr, clzbzl, t_detail
+        from t_report
         <where>
-            t.bgbh=d.jyjgbh
-            <if test="tReport.xzqy != null and tReport.xzqy != ''">
-                and xzqy like concat(concat('%',#{tReport.xzqy}),'%')
+            <if test="id != null and id != ''">
+                and id = #{id}
             </if>
-            <if test="tReport.cllx != null and tReport.cllx != ''">
-                and cllx like concat(concat('%',#{tReport.cllx}),'%')
+            <if test="bgbh != null and bgbh != ''">
+                and bgbh = #{bgbh}
             </if>
-            <if test="tReport.ppxh != null and tReport.ppxh != ''">
-                and ppxh like concat(concat('%',#{tReport.ppxh}),'%')
+            <if test="zzrdzsbh != null and zzrdzsbh != ''">
+                and zzrdzsbh = #{zzrdzsbh}
             </if>
-            <if test="tRecord.jyjgmc != null and tRecord.jyjgmc != ''">
-                and jyjgmc like concat(concat('%',#{tRecord.jyjgmc}),'%')
+            <if test="jyjgdz != null and jyjgdz != ''">
+                and jyjgdz = #{jyjgdz}
             </if>
-            <if test="tRecord.rllb != null and tRecord.rllb != ''">
-                and rllb like concat(concat('%',#{tRecord.rllb}),'%')
+            <if test="jyjgdh != null and jyjgdh != ''">
+                and jyjgdh = #{jyjgdh}
             </if>
-            <if test="tStatistics.startDate != null and tStatistics.startDate != ''">
-                and jcrq  &gt;= ${tStatistics.startDate}
+            <if test="cphm != null and cphm != ''">
+                and cphm = #{cphm}
             </if>
-            <if test="tStatistics.endDate != null and tStatistics.endDate != ''">
-                and jcrq  &gt;= ${tStatistics.endDate}
+            <if test="wtr != null and wtr != ''">
+                and wtr = #{wtr}
+            </if>
+            <if test="cllx != null and cllx != ''">
+                and cllx = #{cllx}
+            </if>
+            <if test="ppxh != null and ppxh != ''">
+                and ppxh = #{ppxh}
+            </if>
+            <if test="dlyszh != null and dlyszh != ''">
+                and dlyszh = #{dlyszh}
+            </if>
+            <if test="zcdjrq != null">
+                and zcdjrq = #{zcdjrq}
+            </if>
+            <if test="ccny != null">
+                and ccny = #{ccny}
+            </if>
+            <if test="csys != null and csys != ''">
+                and csys = #{csys}
+            </if>
+            <if test="vin != null and vin != ''">
+                and vin = #{vin}
+            </if>
+            <if test="fdjhm != null and fdjhm != ''">
+                and fdjhm = #{fdjhm}
+            </if>
+            <if test="xzqy != null and xzqy != ''">
+                and xzqy = #{xzqy}
+            </if>
+            <if test="jylb != null and jylb != ''">
+                and jylb = #{jylb}
+            </if>
+            <if test="ywlx != null and ywlx != ''">
+                and ywlx = #{ywlx}
+            </if>
+            <if test="jcrq != null">
+                and jcrq = #{jcrq}
+            </if>
+            <if test="wyxrd != null and wyxrd != ''">
+                and wyxrd = #{wyxrd}
+            </if>
+            <if test="gzxxzd != null and gzxxzd != ''">
+                and gzxxzd = #{gzxxzd}
+            </if>
+            <if test="wgjc != null and wgjc != ''">
+                and wgjc = #{wgjc}
+            </if>
+            <if test="yxjc != null and yxjc != ''">
+                and yxjc = #{yxjc}
+            </if>
+            <if test="dpjc != null and dpjc != ''">
+                and dpjc = #{dpjc}
+            </if>
+            <if test="hcpd != null and hcpd != ''">
+                and hcpd = #{hcpd}
+            </if>
+            <if test="dlx != null and dlx != ''">
+                and dlx = #{dlx}
+            </if>
+            <if test="jjx != null and jjx != ''">
+                and jjx = #{jjx}
+            </if>
+            <if test="yzzdl != null and yzzdl != ''">
+                and yzzdl = #{yzzdl}
+            </if>
+            <if test="yzbphl != null and yzbphl != ''">
+                and yzbphl = #{yzbphl}
+            </if>
+            <if test="ezzdl != null and ezzdl != ''">
+                and ezzdl = #{ezzdl}
+            </if>
+            <if test="ezbphl != null and ezbphl != ''">
+                and ezbphl = #{ezbphl}
+            </if>
+            <if test="tzzdl != null and tzzdl != ''">
+                and tzzdl = #{tzzdl}
+            </if>
+            <if test="tzbphl != null and tzbphl != ''">
+                and tzbphl = #{tzbphl}
+            </if>
+            <if test="dcqyczheczdl != null and dcqyczheczdl != ''">
+                and dcqyczheczdl = #{dcqyczheczdl}
+            </if>
+            <if test="dcqyczhuczdl != null and dcqyczhuczdl != ''">
+                and dcqyczhuczdl = #{dcqyczhuczdl}
+            </if>
+            <if test="mark != null and mark != ''">
+                and mark = #{mark}
+            </if>
+            <if test="jcjl != null and jcjl != ''">
+                and jcjl = #{jcjl}
+            </if>
+            <if test="zjcs != null and zjcs != ''">
+                and zjcs = #{zjcs}
+            </if>
+            <if test="jcjgmc != null and jcjgmc != ''">
+                and jcjgmc = #{jcjgmc}
+            </if>
+            <if test="clrllb != null and clrllb != ''">
+                and clrllb = #{clrllb}
+            </if>
+            <if test="sqqzr != null and sqqzr != ''">
+                and sqqzr = #{sqqzr}
+            </if>
+            <if test="clzbzl != null and clzbzl != ''">
+                and clzbzl = #{clzbzl}
+            </if>
+            <if test="tDetail != null and tDetail != ''">
+                and t_detail = #{tDetail}
             </if>
         </where>
-        <trim prefix="group by" prefixOverrides=",">
-            <if test="tStatistics.xzqy != null  and tStatistics.xzqy != ''">
-                ${tStatistics.xzqy}
-            </if>
-            <if test="tStatistics.cllx != null  and tStatistics.cllx != ''">
-                ${tStatistics.cllx}
-            </if>
-            <if test="tStatistics.ppxh != null  and tStatistics.ppxh != ''">
-                ${tStatistics.ppxh}
-            </if>
-            <if test="tStatistics.rllb != null  and tStatistics.rllb != ''">
-                ${tStatistics.rllb}
-            </if>
-            <if test="tStatistics.jyjgmc != null  and tStatistics.jyjgmc != ''">
-                ${tStatistics.jyjgmc}
-            </if>
-            <if test="tStatistics.jcjl != null  and tStatistics.jcjl != ''">
-                ${tStatistics.jcjl}
-            </if>
-            <if test="tStatistics.jcrq != null  and tStatistics.jcrq != ''">
-                ${tStatistics.jcrq}
-            </if>
-        </trim>
     </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into wolf-cloud.t_report(bgbh, zzrdzsbh, jyjgdz, jyjgdh, cphm, wtr, cllx, ppxh, dlyszh, zcdjrq, ccny, csys, vin, fdjhm, xzqy, jylb, ywlx, jcrq, wyxrd, gzxxzd, wgjc, yxjc, dpjc, hcpd, dlx, jjx, yzzdl, yzbphl, ezzdl, ezbphl, tzzdl, tzbphl, dcqyczheczdl, dcqyczhuczdl, mark, jcjl, zjcs, jcjgmc, clrllb, sqqzr, clzbzl, t_detail)
+        values (#{bgbh}, #{zzrdzsbh}, #{jyjgdz}, #{jyjgdh}, #{cphm}, #{wtr}, #{cllx}, #{ppxh}, #{dlyszh}, #{zcdjrq}, #{ccny}, #{csys}, #{vin}, #{fdjhm}, #{xzqy}, #{jylb}, #{ywlx}, #{jcrq}, #{wyxrd}, #{gzxxzd}, #{wgjc}, #{yxjc}, #{dpjc}, #{hcpd}, #{dlx}, #{jjx}, #{yzzdl}, #{yzbphl}, #{ezzdl}, #{ezbphl}, #{tzzdl}, #{tzbphl}, #{dcqyczheczdl}, #{dcqyczhuczdl}, #{mark}, #{jcjl}, #{zjcs}, #{jcjgmc}, #{clrllb}, #{sqqzr}, #{clzbzl}, #{tDetail})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update wolf-cloud.t_report
+        <set>
+            <if test="bgbh != null and bgbh != ''">
+                bgbh = #{bgbh},
+            </if>
+            <if test="zzrdzsbh != null and zzrdzsbh != ''">
+                zzrdzsbh = #{zzrdzsbh},
+            </if>
+            <if test="jyjgdz != null and jyjgdz != ''">
+                jyjgdz = #{jyjgdz},
+            </if>
+            <if test="jyjgdh != null and jyjgdh != ''">
+                jyjgdh = #{jyjgdh},
+            </if>
+            <if test="cphm != null and cphm != ''">
+                cphm = #{cphm},
+            </if>
+            <if test="wtr != null and wtr != ''">
+                wtr = #{wtr},
+            </if>
+            <if test="cllx != null and cllx != ''">
+                cllx = #{cllx},
+            </if>
+            <if test="ppxh != null and ppxh != ''">
+                ppxh = #{ppxh},
+            </if>
+            <if test="dlyszh != null and dlyszh != ''">
+                dlyszh = #{dlyszh},
+            </if>
+            <if test="zcdjrq != null">
+                zcdjrq = #{zcdjrq},
+            </if>
+            <if test="ccny != null">
+                ccny = #{ccny},
+            </if>
+            <if test="csys != null and csys != ''">
+                csys = #{csys},
+            </if>
+            <if test="vin != null and vin != ''">
+                vin = #{vin},
+            </if>
+            <if test="fdjhm != null and fdjhm != ''">
+                fdjhm = #{fdjhm},
+            </if>
+            <if test="xzqy != null and xzqy != ''">
+                xzqy = #{xzqy},
+            </if>
+            <if test="jylb != null and jylb != ''">
+                jylb = #{jylb},
+            </if>
+            <if test="ywlx != null and ywlx != ''">
+                ywlx = #{ywlx},
+            </if>
+            <if test="jcrq != null">
+                jcrq = #{jcrq},
+            </if>
+            <if test="wyxrd != null and wyxrd != ''">
+                wyxrd = #{wyxrd},
+            </if>
+            <if test="gzxxzd != null and gzxxzd != ''">
+                gzxxzd = #{gzxxzd},
+            </if>
+            <if test="wgjc != null and wgjc != ''">
+                wgjc = #{wgjc},
+            </if>
+            <if test="yxjc != null and yxjc != ''">
+                yxjc = #{yxjc},
+            </if>
+            <if test="dpjc != null and dpjc != ''">
+                dpjc = #{dpjc},
+            </if>
+            <if test="hcpd != null and hcpd != ''">
+                hcpd = #{hcpd},
+            </if>
+            <if test="dlx != null and dlx != ''">
+                dlx = #{dlx},
+            </if>
+            <if test="jjx != null and jjx != ''">
+                jjx = #{jjx},
+            </if>
+            <if test="yzzdl != null and yzzdl != ''">
+                yzzdl = #{yzzdl},
+            </if>
+            <if test="yzbphl != null and yzbphl != ''">
+                yzbphl = #{yzbphl},
+            </if>
+            <if test="ezzdl != null and ezzdl != ''">
+                ezzdl = #{ezzdl},
+            </if>
+            <if test="ezbphl != null and ezbphl != ''">
+                ezbphl = #{ezbphl},
+            </if>
+            <if test="tzzdl != null and tzzdl != ''">
+                tzzdl = #{tzzdl},
+            </if>
+            <if test="tzbphl != null and tzbphl != ''">
+                tzbphl = #{tzbphl},
+            </if>
+            <if test="dcqyczheczdl != null and dcqyczheczdl != ''">
+                dcqyczheczdl = #{dcqyczheczdl},
+            </if>
+            <if test="dcqyczhuczdl != null and dcqyczhuczdl != ''">
+                dcqyczhuczdl = #{dcqyczhuczdl},
+            </if>
+            <if test="mark != null and mark != ''">
+                mark = #{mark},
+            </if>
+            <if test="jcjl != null and jcjl != ''">
+                jcjl = #{jcjl},
+            </if>
+            <if test="zjcs != null and zjcs != ''">
+                zjcs = #{zjcs},
+            </if>
+            <if test="jcjgmc != null and jcjgmc != ''">
+                jcjgmc = #{jcjgmc},
+            </if>
+            <if test="clrllb != null and clrllb != ''">
+                clrllb = #{clrllb},
+            </if>
+            <if test="sqqzr != null and sqqzr != ''">
+                sqqzr = #{sqqzr},
+            </if>
+            <if test="clzbzl != null and clzbzl != ''">
+                clzbzl = #{clzbzl},
+            </if>
+            <if test="tDetail != null and tDetail != ''">
+                t_detail = #{tDetail},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from wolf-cloud.t_report where id = #{id}
+    </delete>
 
 </mapper>

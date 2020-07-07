@@ -266,6 +266,14 @@
     "ktShortType" : "String",
     "custom" : false,
     "ext" : { }
+  }, {
+    "name" : "rllb",
+    "comment" : null,
+    "type" : null,
+    "shortType" : null,
+    "ktShortType" : "String",
+    "custom" : false,
+    "ext" : { }
   } ],
   "pkColumn" : null,
   "otherColumn" : null,

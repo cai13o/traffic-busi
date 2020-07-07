@@ -9,11 +9,11 @@ import java.io.Serializable;
  * (TReport)实体类
  *
  * @author makejava
- * @since 2020-07-06 10:35:29
+ * @since 2020-07-07 16:11:18
  */
 @Data
 public class TReport implements Serializable {
-    private static final long serialVersionUID = 260636644213317121L;
+    private static final long serialVersionUID = -86701982713684710L;
     
     private String id;
     
@@ -33,7 +33,7 @@ public class TReport implements Serializable {
     
     private String ppxh;
     
-    private String yyzh;
+    private String dlyszh;
     
     private Date zcdjrq;
     
@@ -51,7 +51,7 @@ public class TReport implements Serializable {
     
     private String ywlx;
     
-    private Date jyrq;
+    private Date jcrq;
     
     private String wyxrd;
     
@@ -98,5 +98,8 @@ public class TReport implements Serializable {
     private String sqqzr;
     
     private String clzbzl;
+    
+    private String tDetail;
+
 
 }

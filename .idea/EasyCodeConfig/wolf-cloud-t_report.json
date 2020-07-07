@@ -147,7 +147,7 @@
     "custom" : false,
     "ext" : { }
   }, {
-    "name" : "jyrq",
+    "name" : "jcrq",
     "comment" : null,
     "type" : null,
     "shortType" : null,
@@ -332,6 +332,14 @@
     "ext" : { }
   }, {
     "name" : "clzbzl",
+    "comment" : null,
+    "type" : null,
+    "shortType" : null,
+    "ktShortType" : "String",
+    "custom" : false,
+    "ext" : { }
+  }, {
+    "name" : "tDetail",
     "comment" : null,
     "type" : null,
     "shortType" : null,
