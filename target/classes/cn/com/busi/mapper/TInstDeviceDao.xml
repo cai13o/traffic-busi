@@ -87,6 +87,12 @@
         </where>
     </select>
 
+    <select id="count" resultMap="BaseResultMap">
+        select
+          count(id) remarks
+        from t_inst_device
+    </select>
+
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
         insert into wolf-cloud.t_inst_device(name, institution, model, idNo, trace, checkIns, checkDate, cycle, nextDate, useLife, remarks)

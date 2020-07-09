@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="javafx" name="traffic-busi">
+    <output-path>$PROJECT_DIR$/out/artifacts/traffic_busi</output-path>
+    <root id="root">
+      <element id="archive" name="traffic_busi.jar">
+        <element id="module-output" name="traffic-busi" />
+      </element>
+      <element id="library" level="project" name="Maven: com.alibaba:fastjson:1.2.72" />
+    </root>
+  </artifact>
+</component>

@@ -37,12 +37,18 @@
         <result property="dgjygw" column="dgjygw" jdbcType="VARCHAR"/>
         <result property="dlxjygw" column="dlxjygw" jdbcType="VARCHAR"/>
         <result property="tDetail" column="t_detail" jdbcType="VARCHAR"/>
+        <result property="xzqy" column="xzqy" jdbcType="VARCHAR"/>
+        <result property="zjycs" column="zjycs" jdbcType="VARCHAR"/>
+        <result property="jyjgdz" column="jyjgdz" jdbcType="VARCHAR"/>
+        <result property="cllx" column="cllx" jdbcType="VARCHAR"/>
+
+
     </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="BaseResultMap">
         select
-          id, jylsh, jyjgbh, jyjgmc, jcxdh, wtr, dlyszh, jylb, ywlx, jcxb, jcrq, jcjldbh, cphm, hpzl, gcpzh, gclx, clccrq, wjdly, ycy, wqczy, zcdjrq, vin, clxh, fdjh, csys, xszlc, qdxs, zxzxjxs, gczs, zdjygw, dgjygw, dlxjygw, t_detail
+          id, jylsh, jyjgbh, jyjgmc, jcxdh, wtr, dlyszh, jylb, ywlx, jcxb, jcrq, jcjldbh, cphm, hpzl, gcpzh, gclx, clccrq, wjdly, ycy, wqczy, zcdjrq, vin, clxh, fdjh, csys, xszlc, qdxs, zxzxjxs, gczs, zdjygw, dgjygw, dlxjygw, t_detail ,xzqy
         from t_record
         where id = #{id}
     </select>
@@ -50,7 +56,7 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="BaseResultMap">
         select
-          id, jylsh, jyjgbh, jyjgmc, jcxdh, wtr, dlyszh, jylb, ywlx, jcxb, jcrq, jcjldbh, cphm, hpzl, gcpzh, gclx, clccrq, wjdly, ycy, wqczy, zcdjrq, vin, clxh, fdjh, csys, xszlc, qdxs, zxzxjxs, gczs, zdjygw, dgjygw, dlxjygw, t_detail
+          id, jylsh, jyjgbh, jyjgmc, jcxdh, wtr, dlyszh, jylb, ywlx, jcxb, jcrq, jcjldbh, cphm, hpzl, gcpzh, gclx, clccrq, wjdly, ycy, wqczy, zcdjrq, vin, clxh, fdjh, csys, xszlc, qdxs, zxzxjxs, gczs, zdjygw, dgjygw, dlxjygw, t_detail ,xzqy
         from t_record
         limit #{offset}, #{limit}
     </select>
@@ -58,7 +64,9 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="BaseResultMap">
         select
-          id, jylsh, jyjgbh, jyjgmc, jcxdh, wtr, dlyszh, jylb, ywlx, jcxb, jcrq, jcjldbh, cphm, hpzl, gcpzh, gclx, clccrq, wjdly, ycy, wqczy, zcdjrq, vin, clxh, fdjh, csys, xszlc, qdxs, zxzxjxs, gczs, zdjygw, dgjygw, dlxjygw, t_detail
+        id, jylsh, jyjgbh, jyjgmc, jcxdh, wtr, dlyszh, jylb, ywlx, jcxb, jcrq, jcjldbh, cphm, hpzl, gcpzh, gclx, clccrq,
+        wjdly, ycy, wqczy, zcdjrq, vin, clxh, fdjh, csys, xszlc, qdxs, zxzxjxs, gczs, zdjygw, dgjygw, dlxjygw, t_detail
+        ,xzqy
         from t_record
         <where>
             <if test="id != null and id != ''">
@@ -159,6 +167,135 @@
             </if>
             <if test="tDetail != null and tDetail != ''">
                 and t_detail = #{tDetail}
+            </if>
+            <if test="xzqy != null and xzqy != ''">
+                and xzqy = #{xzqy}
+            </if>
+        </where>
+    </select>
+
+    <select id="count" resultMap="BaseResultMap">
+        select
+          count(id) cllx
+        from t_record
+    </select>
+
+
+    <select id="queryAllCar" resultMap="BaseResultMap">
+        select
+        id, jylsh, jyjgbh, jyjgmc, jcxdh, wtr, dlyszh, jylb, ywlx, jcxb, jcrq, jcjldbh, cphm, hpzl, gcpzh, gclx, clccrq,
+        wjdly, ycy, wqczy, zcdjrq, vin, clxh, fdjh, csys, xszlc, qdxs, zxzxjxs, gczs, zdjygw, dgjygw, dlxjygw, t_detail
+        ,xzqy,jyjgdz,cllx
+        from t_record
+        <where>
+            zjycs = 1
+            <if test="jyjgdz != null and jyjgdz != ''">
+                and jyjgdz = #{jyjgdz}
+            </if>
+            <if test="cllx != null and cllx != ''">
+                and cllx = #{cllx}
+            </if>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="jylsh != null and jylsh != ''">
+                and jylsh = #{jylsh}
+            </if>
+            <if test="jyjgbh != null and jyjgbh != ''">
+                and jyjgbh = #{jyjgbh}
+            </if>
+            <if test="jyjgmc != null and jyjgmc != ''">
+                and jyjgmc = #{jyjgmc}
+            </if>
+            <if test="jcxdh != null and jcxdh != ''">
+                and jcxdh = #{jcxdh}
+            </if>
+            <if test="wtr != null and wtr != ''">
+                and wtr = #{wtr}
+            </if>
+            <if test="dlyszh != null and dlyszh != ''">
+                and dlyszh = #{dlyszh}
+            </if>
+            <if test="jylb != null and jylb != ''">
+                and jylb = #{jylb}
+            </if>
+            <if test="ywlx != null and ywlx != ''">
+                and ywlx = #{ywlx}
+            </if>
+            <if test="jcxb != null and jcxb != ''">
+                and jcxb = #{jcxb}
+            </if>
+            <if test="jcrq != null">
+                and jcrq = #{jcrq}
+            </if>
+            <if test="jcjldbh != null and jcjldbh != ''">
+                and jcjldbh = #{jcjldbh}
+            </if>
+            <if test="cphm != null and cphm != ''">
+                and cphm = #{cphm}
+            </if>
+            <if test="hpzl != null and hpzl != ''">
+                and hpzl = #{hpzl}
+            </if>
+            <if test="gcpzh != null and gcpzh != ''">
+                and gcpzh = #{gcpzh}
+            </if>
+            <if test="gclx != null and gclx != ''">
+                and gclx = #{gclx}
+            </if>
+            <if test="clccrq != null">
+                and clccrq = #{clccrq}
+            </if>
+            <if test="wjdly != null and wjdly != ''">
+                and wjdly = #{wjdly}
+            </if>
+            <if test="ycy != null and ycy != ''">
+                and ycy = #{ycy}
+            </if>
+            <if test="wqczy != null and wqczy != ''">
+                and wqczy = #{wqczy}
+            </if>
+            <if test="zcdjrq != null">
+                and zcdjrq = #{zcdjrq}
+            </if>
+            <if test="vin != null and vin != ''">
+                and vin = #{vin}
+            </if>
+            <if test="clxh != null and clxh != ''">
+                and clxh = #{clxh}
+            </if>
+            <if test="fdjh != null and fdjh != ''">
+                and fdjh = #{fdjh}
+            </if>
+            <if test="csys != null and csys != ''">
+                and csys = #{csys}
+            </if>
+            <if test="xszlc != null and xszlc != ''">
+                and xszlc = #{xszlc}
+            </if>
+            <if test="qdxs != null and qdxs != ''">
+                and qdxs = #{qdxs}
+            </if>
+            <if test="zxzxjxs != null and zxzxjxs != ''">
+                and zxzxjxs = #{zxzxjxs}
+            </if>
+            <if test="gczs != null and gczs != ''">
+                and gczs = #{gczs}
+            </if>
+            <if test="zdjygw != null and zdjygw != ''">
+                and zdjygw = #{zdjygw}
+            </if>
+            <if test="dgjygw != null and dgjygw != ''">
+                and dgjygw = #{dgjygw}
+            </if>
+            <if test="dlxjygw != null and dlxjygw != ''">
+                and dlxjygw = #{dlxjygw}
+            </if>
+            <if test="tDetail != null and tDetail != ''">
+                and t_detail = #{tDetail}
+            </if>
+            <if test="xzqy != null and xzqy != ''">
+                and xzqy = #{xzqy}
             </if>
         </where>
     </select>
