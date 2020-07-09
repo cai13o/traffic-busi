@@ -1,6 +1,9 @@
 package cn.com.busi.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
+import org.springframework.boot.jackson.JsonObjectSerializer;
 
 import java.util.Date;
 import java.io.Serializable;
@@ -34,9 +37,11 @@ public class TReport implements Serializable {
     private String ppxh;
     
     private String dlyszh;
-    
+
+    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
     private Date zcdjrq;
-    
+
+    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
     private Date ccny;
     
     private String csys;
@@ -50,7 +55,7 @@ public class TReport implements Serializable {
     private String jylb;
     
     private String ywlx;
-    
+
     private Date jcrq;
     
     private String wyxrd;
@@ -98,7 +103,7 @@ public class TReport implements Serializable {
     private String sqqzr;
     
     private String clzbzl;
-    
+
     private String tDetail;
 
 

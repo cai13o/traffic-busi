@@ -131,4 +131,10 @@
         delete from wolf-cloud.t_inst_info where id = #{id}
     </delete>
 
+    <select id="count" resultMap="BaseResultMap">
+        select
+          count(id) name
+        from t_inst_info
+    </select>
+
 </mapper>

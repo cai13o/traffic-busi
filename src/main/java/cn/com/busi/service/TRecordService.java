@@ -36,6 +36,8 @@ public interface TRecordService {
      */
     List<TRecord> queryAll(TRecord tRecord);
 
+    List<TRecord> queryAllCar(TRecord tRecord);
+
     /**
      * 新增数据
      *

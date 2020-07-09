@@ -42,4 +42,16 @@ public interface TStatisticsDao {
      */
     List<Map> singleSelect( @Param("tReport") TReport tReport ,@Param("tStatistics") TStatistics tStatistics);
 
+    List<Map>  cllxStatistics();
+
+    Integer[]  firstStatistics();
+
+    Integer[] firstNotStatistics();
+
+    Integer[] singleDLXStatistics();
+
+    Integer[] singleJJXStatistics();
+
+
+
 }

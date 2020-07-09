@@ -64,4 +64,6 @@ public interface TInstPersonDao {
      */
     int deleteById(String id);
 
+    TInstPerson count();
+
 }

@@ -1,5 +1,7 @@
 package cn.com.busi.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 import java.io.Serializable;
 
@@ -27,7 +29,7 @@ public class TCaution implements Serializable {
     private String ssjg;
     
     private String jglxr;
-    
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date lrsj;
     
     private String status;

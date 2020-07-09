@@ -1,7 +1,10 @@
 package cn.com.busi.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.io.Serializable;
 
@@ -35,6 +38,7 @@ public class TRecord implements Serializable {
 
     private String jcxb;
 
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date jcrq;
 
     private String jcjldbh;
@@ -47,6 +51,7 @@ public class TRecord implements Serializable {
 
     private String gclx;
 
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date clccrq;
 
     private String wjdly;
@@ -55,6 +60,7 @@ public class TRecord implements Serializable {
 
     private String wqczy;
 
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date zcdjrq;
 
     private String vin;
@@ -82,4 +88,13 @@ public class TRecord implements Serializable {
     private String tDetail;
 
     private String rllb;
+
+    private String xzqy;
+
+    private String zjycs;
+
+    private String jyjgdz;
+
+    private String cllx;
+
 }

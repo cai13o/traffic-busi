@@ -64,4 +64,6 @@ public interface TInstDeviceDao {
      */
     int deleteById(String id);
 
+    TInstDevice count();
+
 }

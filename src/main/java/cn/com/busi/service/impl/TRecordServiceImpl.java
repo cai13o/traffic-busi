@@ -48,6 +48,11 @@ public class TRecordServiceImpl implements TRecordService {
         return this.tRecordDao.queryAll(tRecord);
     }
 
+    @Override
+    public List<TRecord> queryAllCar(TRecord tRecord) {
+        return this.tRecordDao.queryAllCar(tRecord);
+    }
+
     /**
      * 新增数据
      *

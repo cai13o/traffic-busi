@@ -40,6 +40,8 @@ public interface TRecordDao {
      */
     List<TRecord> queryAll(TRecord tRecord);
 
+    List<TRecord> queryAllCar(TRecord tRecord);
+
     /**
      * 新增数据
      *
@@ -63,5 +65,7 @@ public interface TRecordDao {
      * @return 影响行数
      */
     int deleteById(String id);
+
+    TRecord count();
 
 }

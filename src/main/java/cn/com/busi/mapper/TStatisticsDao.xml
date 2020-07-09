@@ -15,6 +15,7 @@
         <result property="jcrq" column="jcrq" jdbcType="VARCHAR"/>
         <result property="clzs" column="clzs" jdbcType="VARCHAR"/>
         <result property="singlePass" column="singlePass" jdbcType="VARCHAR"/>
+        <result property="num" column="num" jdbcType="VARCHAR"/>
     </resultMap>
 
     <!--车辆总数查询-->
@@ -62,10 +63,10 @@
                 and clrllb like concat(concat('%',#{tReport.clrllb}),'%')
             </if>
             <if test="tStatistics.startDate != null">
-                and jcrq  &gt;= #{tStatistics.startDate}
+                and jcrq &gt;= #{tStatistics.startDate}
             </if>
             <if test="tStatistics.endDate != null">
-                and jcrq  &lt;= #{tStatistics.endDate}
+                and jcrq &lt;= #{tStatistics.endDate}
             </if>
         </where>
         <trim prefix="group by" suffixOverrides=",">
@@ -138,17 +139,17 @@
                 and jcjl like concat(concat('%',#{tReport.jcjl}),'%')
             </if>
             <if test="tStatistics.startDate != null">
-                and jcrq  &gt;= #{tStatistics.startDate
+                and jcrq &gt;= #{tStatistics.startDate
             </if>
             <if test="tStatistics.endDate != null">
-                and jcrq  &lt;= #{tStatistics.endDate}
+                and jcrq &lt;= #{tStatistics.endDate}
             </if>
         </where>
         <trim prefix="group by" suffixOverrides=",">
             <if test="tStatistics.xzqy != null and tStatistics.xzqy != ''">
                 ${tStatistics.xzqy},
             </if>
-            <if test="tStatistics.cllx != null and tStatistics.cllx != ''" >
+            <if test="tStatistics.cllx != null and tStatistics.cllx != ''">
                 ${tStatistics.cllx},
             </if>
             <if test="tStatistics.ppxh != null and tStatistics.ppxh != ''">
@@ -172,7 +173,8 @@
     <!--单项合格率查询查询-->
     <select id="singleSelect" resultMap="GetResultMap">
         select
-        COUNT(case when ${tStatistics.singlePass} !='不合格' AND ${tStatistics.singlePass} !='-' then 1 else null end)/COUNT(*) as hgl
+        COUNT(case when ${tStatistics.singlePass} !='不合格' AND ${tStatistics.singlePass} !='-' then 1 else null
+        end)/COUNT(*) as hgl
         <trim prefix="," suffixOverrides=",">
             <if test="tStatistics.xzqy != null and tStatistics.xzqy != ''">
                 ${tStatistics.xzqy},
@@ -214,10 +216,10 @@
                 and clrllb like concat(concat('%',#{tReport.clrllb}),'%')
             </if>
             <if test="tStatistics.startDate != null ">
-                and jcrq  &gt;= #{tStatistics.startDate}
+                and jcrq &gt;= #{tStatistics.startDate}
             </if>
             <if test="tStatistics.endDate != null ">
-                and jcrq  &lt;= #{tStatistics.endDate}
+                and jcrq &lt;= #{tStatistics.endDate}
             </if>
         </where>
         <trim prefix="group by" suffixOverrides=",">
@@ -245,4 +247,94 @@
         </trim>
     </select>
 
+
+    <select id="cllxStatistics" resultMap="GetResultMap">
+        SELECT count(1) num,cllx FROM t_report GROUP BY cllx
+    </select>
+
+
+    <select id="firstStatistics" resultType="java.lang.Integer">
+        SELECT
+	        count(t_report.jcjl) AS num
+        FROM
+	        (
+		    SELECT
+			    DATE_FORMAT(@date := DATE_ADD(@date, INTERVAL + 1 YEAR),'%Y') as years
+		    FROM
+			    (
+				    SELECT
+					    @date := DATE_ADD(NOW(), INTERVAL - 5 YEAR)
+				    FROM
+					    t_report
+				    LIMIT 5
+			    ) time
+	        ) AS years
+        LEFT JOIN t_report ON YEAR(jcrq) = years.years and  t_report.jcjl ="合格"
+        GROUP BY
+	        years.years
+    </select>
+
+    <select id="firstNotStatistics" resultType="java.lang.Integer">
+        SELECT
+	        count(t_report.jcjl) AS num
+        FROM
+	        (
+		    SELECT
+			    DATE_FORMAT(@date := DATE_ADD(@date, INTERVAL + 1 YEAR),'%Y') as years
+		    FROM
+			    (
+				    SELECT
+					    @date := DATE_ADD(NOW(), INTERVAL - 5 YEAR)
+				    FROM
+					    t_report
+				    LIMIT 5
+			    ) time
+	        ) AS years
+        LEFT JOIN t_report ON YEAR(jcrq) = years.years and  t_report.jcjl !="合格"
+        GROUP BY
+	        years.years
+    </select>
+
+
+    <select id="singleDLXStatistics" resultType="java.lang.Integer">
+        SELECT
+	        count(t_report.dlx) AS num
+        FROM
+	        (
+		    SELECT
+			    DATE_FORMAT(@date := DATE_ADD(@date, INTERVAL + 1 YEAR),'%Y') as years
+		    FROM
+			    (
+				    SELECT
+					    @date := DATE_ADD(NOW(), INTERVAL - 5 YEAR)
+				    FROM
+					    t_report
+				    LIMIT 5
+			    ) time
+	        ) AS years
+        LEFT JOIN t_report ON YEAR(jcrq) = years.years and dlx != "不合格" and dlx != "-"
+        GROUP BY
+	        years.years
+    </select>
+
+    <select id="singleJJXStatistics" resultType="java.lang.Integer">
+        SELECT
+	        count(t_report.jjx) AS num
+        FROM
+	        (
+		    SELECT
+			    DATE_FORMAT(@date := DATE_ADD(@date, INTERVAL + 1 YEAR),'%Y') as years
+		    FROM
+			    (
+				    SELECT
+					    @date := DATE_ADD(NOW(), INTERVAL - 5 YEAR)
+				    FROM
+					    t_report
+				    LIMIT 5
+			    ) time
+	        ) AS years
+        LEFT JOIN t_report ON YEAR(jcrq) = years.years and jjx != "不合格" and jjx != "-"
+        GROUP BY
+	        years.years
+    </select>
 </mapper>

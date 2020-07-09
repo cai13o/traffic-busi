@@ -4,6 +4,8 @@ import cn.com.busi.entity.TInstInfo;
 import cn.com.busi.entity.TRecord;
 import cn.com.busi.entity.TReport;
 import cn.com.busi.service.TRecordService;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.web.bind.annotation.*;
@@ -37,8 +39,16 @@ public class TRecordController {
      * @return 单条数据
      */
     @GetMapping("selectOne")
-    public TRecord selectOne(String id) {
-        return this.tRecordService.queryById(id);
+    public Object selectOne(String id) {
+
+        TRecord tRecord = this.tRecordService.queryById(id);
+        String tDetail = tRecord.getTDetail();
+        JSONObject a = JSON.parseObject(tDetail);
+        System.out.println(tDetail);
+        map = new HashMap<>();
+        map.put("code", "20000");
+        map.put("data", a);
+        return map;
     }
 
     @GetMapping("selectAll")
@@ -49,6 +59,22 @@ public class TRecordController {
         map = new HashMap<>();
         PageHelper.startPage(intPage, intLimit);
         List list = this.tRecordService.queryAll(tRecord);
+        //将查询到的数据封装到PageInfo对象
+        PageInfo<TInstInfo> pageInfo = new PageInfo(list, intLimit);
+        map.put("code", "20000");
+        map.put("data", list);
+        return map;
+
+    }
+
+    @GetMapping("selectCar")
+    public Object selectCar(String page, String limit, TRecord tRecord) {
+        Integer intPage = Integer.parseInt(page);
+        Integer intLimit = Integer.parseInt(limit);
+        int offset = (intPage - 1) * intPage;
+        map = new HashMap<>();
+        PageHelper.startPage(intPage, intLimit);
+        List list = this.tRecordService.queryAllCar(tRecord);
         //将查询到的数据封装到PageInfo对象
         PageInfo<TInstInfo> pageInfo = new PageInfo(list, intLimit);
         map.put("code", "20000");
