@@ -1,7 +1,6 @@
 package cn.com.busi.controller;
 
 import cn.com.busi.entity.TPgroup;
-import cn.com.busi.entity.TUser;
 import cn.com.busi.service.TPgroupService;
 import org.springframework.web.bind.annotation.*;
 
@@ -64,6 +63,36 @@ public class TPgroupController {
         Map map = new HashMap();
         map.put("code","20000");
         map.put("data",this.tPgroupService.queryAllByLimit(offset,intLimit));
+        return map;
+    }
+
+    /**
+     * 修改数据
+     *
+     * @param tPgroup 实例对象
+     * @return 实例对象
+     */
+    @PostMapping("update")
+    public Object update(TPgroup tPgroup) {
+        System.out.println(tPgroup.toString());
+        Map map = new HashMap();
+        map.put("code","20000");
+        map.put("data",this.tPgroupService.update(tPgroup));
+        return map;
+
+    }
+
+    /**
+     * 通过主键删除数据
+     *
+     * @param groupid 主键
+     * @return 是否成功
+     */
+    @PostMapping("deleteById")
+    public Object deleteById(String groupid) {
+        Map map = new HashMap();
+        map.put("code","20000");
+        map.put("data",this.tPgroupService.deleteById(groupid));
         return map;
     }
 

@@ -8,6 +8,7 @@
         <result property="sysid" column="SYSID" jdbcType="VARCHAR"/>
         <result property="groupname" column="GROUPNAME" jdbcType="VARCHAR"/>
         <result property="groupdesc" column="GROUPDESC" jdbcType="VARCHAR"/>
+
     </resultMap>
 
     <!--查询单个-->
