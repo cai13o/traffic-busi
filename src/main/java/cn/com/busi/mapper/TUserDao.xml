@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.busi.mapper.TUserDao">
+
+    <resultMap id="BaseResultMap" type="cn.com.busi.entity.TUser">
+        <!--@Table t_user-->
+        <result property="username" column="USERNAME" jdbcType="VARCHAR"/>
+        <result property="password" column="PASSWORD" jdbcType="VARCHAR"/>
+        <result property="sex" column="SEX" jdbcType="INTEGER"/>
+        <result property="cardtype" column="CARDTYPE" jdbcType="INTEGER"/>
+        <result property="cardno" column="CARDNO" jdbcType="VARCHAR"/>
+        <result property="cnname" column="CNNAME" jdbcType="VARCHAR"/>
+        <result property="dept" column="DEPT" jdbcType="VARCHAR"/>
+        <result property="address" column="ADDRESS" jdbcType="VARCHAR"/>
+        <result property="mobileid" column="MOBILEID" jdbcType="VARCHAR"/>
+        <result property="postcode" column="POSTCODE" jdbcType="VARCHAR"/>
+        <result property="regtime" column="REGTIME" jdbcType="TIMESTAMP"/>
+        <result property="efftime" column="EFFTIME" jdbcType="TIMESTAMP"/>
+        <result property="losetime" column="LOSETIME" jdbcType="TIMESTAMP"/>
+        <result property="state" column="STATE" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="BaseResultMap">
+        select
+          USERNAME, PASSWORD, SEX, CARDTYPE, CARDNO, CNNAME, DEPT, ADDRESS, MOBILEID, POSTCODE, REGTIME, EFFTIME, LOSETIME, STATE
+        from t_user
+        where USERNAME = #{username}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="BaseResultMap">
+        select
+          USERNAME, PASSWORD, SEX, CARDTYPE, CARDNO, CNNAME, DEPT, ADDRESS, MOBILEID, POSTCODE, REGTIME, EFFTIME, LOSETIME, STATE
+        from t_user
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="BaseResultMap">
+        select
+          USERNAME, PASSWORD, SEX, CARDTYPE, CARDNO, CNNAME, DEPT, ADDRESS, MOBILEID, POSTCODE, REGTIME, EFFTIME, LOSETIME, STATE
+        from t_user
+        <where>
+            <if test="username != null and username != ''">
+                and USERNAME = #{username}
+            </if>
+            <if test="password != null and password != ''">
+                and PASSWORD = #{password}
+            </if>
+            <if test="sex != null">
+                and SEX = #{sex}
+            </if>
+            <if test="cardtype != null">
+                and CARDTYPE = #{cardtype}
+            </if>
+            <if test="cardno != null and cardno != ''">
+                and CARDNO = #{cardno}
+            </if>
+            <if test="cnname != null and cnname != ''">
+                and CNNAME = #{cnname}
+            </if>
+            <if test="dept != null and dept != ''">
+                and DEPT = #{dept}
+            </if>
+            <if test="address != null and address != ''">
+                and ADDRESS = #{address}
+            </if>
+            <if test="mobileid != null and mobileid != ''">
+                and MOBILEID = #{mobileid}
+            </if>
+            <if test="postcode != null and postcode != ''">
+                and POSTCODE = #{postcode}
+            </if>
+            <if test="regtime != null">
+                and REGTIME = #{regtime}
+            </if>
+            <if test="efftime != null">
+                and EFFTIME = #{efftime}
+            </if>
+            <if test="losetime != null">
+                and LOSETIME = #{losetime}
+            </if>
+            <if test="state != null">
+                and STATE = #{state}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="username" useGeneratedKeys="false">
+        insert into t_user(USERNAME,PASSWORD, SEX, CARDTYPE, CARDNO, CNNAME, DEPT, ADDRESS, MOBILEID, POSTCODE, REGTIME, EFFTIME, LOSETIME, STATE)
+        values (#{username}, #{password}, #{sex}, #{cardtype}, #{cardno}, #{cnname}, #{dept}, #{address}, #{mobileid}, #{postcode}, #{regtime}, #{efftime}, #{losetime}, #{state})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update t_user
+        <set>
+            <if test="password != null and password != ''">
+                PASSWORD = #{password},
+            </if>
+            <if test="sex != null">
+                SEX = #{sex},
+            </if>
+            <if test="cardtype != null">
+                CARDTYPE = #{cardtype},
+            </if>
+            <if test="cardno != null and cardno != ''">
+                CARDNO = #{cardno},
+            </if>
+            <if test="cnname != null and cnname != ''">
+                CNNAME = #{cnname},
+            </if>
+            <if test="dept != null and dept != ''">
+                DEPT = #{dept},
+            </if>
+            <if test="address != null and address != ''">
+                ADDRESS = #{address},
+            </if>
+            <if test="mobileid != null and mobileid != ''">
+                MOBILEID = #{mobileid},
+            </if>
+            <if test="postcode != null and postcode != ''">
+                POSTCODE = #{postcode},
+            </if>
+            <if test="regtime != null">
+                REGTIME = #{regtime},
+            </if>
+            <if test="efftime != null">
+                EFFTIME = #{efftime},
+            </if>
+            <if test="losetime != null">
+                LOSETIME = #{losetime},
+            </if>
+            <if test="state != null">
+                STATE = #{state},
+            </if>
+        </set>
+        where USERNAME = #{username}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from t_user where USERNAME = #{username}
+    </delete>
+
+    <!--通过主键修改数据-->
+    <update id="status">
+        update t_user
+        set  STATE = #{state}
+        where USERNAME = #{username}
+    </update>
+    <!--通过主键修改数据-->
+    <update id="reset">
+        update t_user
+        set  PASSWORD = #{password}
+        where USERNAME = #{username}
+    </update>
+</mapper>

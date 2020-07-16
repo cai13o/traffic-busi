@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.busi.mapper.TPgroupDao">
+
+    <resultMap id="BaseResultMap" type="cn.com.busi.entity.TPgroup">
+        <!--@Table t_pgroup-->
+        <result property="groupid" column="GROUPID" jdbcType="VARCHAR"/>
+        <result property="sysid" column="SYSID" jdbcType="VARCHAR"/>
+        <result property="groupname" column="GROUPNAME" jdbcType="VARCHAR"/>
+        <result property="groupdesc" column="GROUPDESC" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="BaseResultMap">
+        select
+          GROUPID, SYSID, GROUPNAME, GROUPDESC
+        from t_pgroup
+        where GROUPID = #{groupid}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="BaseResultMap">
+        select
+          GROUPID, SYSID, GROUPNAME, GROUPDESC
+        from t_pgroup
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="BaseResultMap">
+        select
+          GROUPID, SYSID, GROUPNAME, GROUPDESC
+        from t_pgroup
+        <where>
+            <if test="groupid != null and groupid != ''">
+                and GROUPID = #{groupid}
+            </if>
+            <if test="sysid != null and sysid != ''">
+                and SYSID = #{sysid}
+            </if>
+            <if test="groupname != null and groupname != ''">
+                and GROUPNAME = #{groupname}
+            </if>
+            <if test="groupdesc != null and groupdesc != ''">
+                and GROUPDESC = #{groupdesc}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="groupid" useGeneratedKeys="false">
+        insert into t_pgroup(GROUPID, GROUPNAME, GROUPDESC)
+        values (#{groupid},#{groupname}, #{groupdesc})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update t_pgroup
+        <set>
+            <if test="groupname != null and groupname != ''">
+                GROUPNAME = #{groupname},
+            </if>
+            <if test="groupdesc != null and groupdesc != ''">
+                GROUPDESC = #{groupdesc},
+            </if>
+        </set>
+        where GROUPID = #{groupid}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from t_pgroup where GROUPID = #{groupid}
+    </delete>
+
+</mapper>

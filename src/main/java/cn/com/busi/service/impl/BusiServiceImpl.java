@@ -40,6 +40,8 @@ public class BusiServiceImpl implements BusiService {
     private TInstPersonDao tInstPersonDao;
     @Resource
     private TInstDeviceDao  tInstDeviceDao;
+    @Resource
+    private TCautionDao tCautionDao;
 
     /**
      * *********************************************
@@ -330,6 +332,7 @@ public class BusiServiceImpl implements BusiService {
         tInstInfo.setOpflag(String.valueOf(info.get(BusinessConstant.ENDDATE)));
         //操作日期
         tInstInfo.setOpdate(String.valueOf(info.get(BusinessConstant.ENDDATE)));
+
         try {
             tInstInfoDao.insert(tInstInfo);
         } catch (Exception e) {
@@ -394,6 +397,7 @@ public class BusiServiceImpl implements BusiService {
         tInstPerson.setOpflag(String.valueOf(info.get(BusinessConstant.ENDDATE)));
         //操作日期
         tInstPerson.setOpdate(String.valueOf(info.get(BusinessConstant.ENDDATE)));
+
         try {
             tInstPersonDao.insert(tInstPerson);
         } catch (Exception e) {

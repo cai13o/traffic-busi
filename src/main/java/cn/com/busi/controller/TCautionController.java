@@ -8,8 +8,6 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,6 +49,17 @@ public class TCautionController {
         List list = this.tCautionService.queryAll(entryTime);
         //将查询到的数据封装到PageInfo对象
         PageInfo<TInstInfo> pageInfo = new PageInfo(list, intLimit);
+        map.put("code", "20000");
+        map.put("data", list);
+        return map;
+    }
+
+    @GetMapping("selectCaution")
+    public Object selectCaution(String entryTime) {
+
+        map = new HashMap<>();
+
+        List list = this.tCautionService.queryAll(entryTime);
         map.put("code", "20000");
         map.put("data", list);
         return map;
