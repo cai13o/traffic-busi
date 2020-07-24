@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.busi.mapper.TRoleDao">
+
+    <resultMap id="BaseResultMap" type="cn.com.busi.entity.TRole">
+        <!--@Table t_role-->
+        <result property="roleid" column="ROLEID" jdbcType="VARCHAR"/>
+        <result property="groupid" column="GROUPID" jdbcType="VARCHAR"/>
+        <result property="sysid" column="SYSID" jdbcType="VARCHAR"/>
+        <result property="rolename" column="ROLENAME" jdbcType="VARCHAR"/>
+        <result property="roledesc" column="ROLEDESC" jdbcType="VARCHAR"/>
+        <result property="areacode" column="AREACODE" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="BaseResultMap">
+        select
+          ROLEID, GROUPID, SYSID, ROLENAME, ROLEDESC, AREACODE
+        from t_role
+        where GROUPID = #{groupid}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="BaseResultMap">
+        select
+          ROLEID, GROUPID, SYSID, ROLENAME, ROLEDESC, AREACODE
+        from t_role
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="BaseResultMap">
+        select
+          ROLEID, GROUPID, SYSID, ROLENAME, ROLEDESC, AREACODE
+        from t_role
+        <where>
+            <if test="roleid != null and roleid != ''">
+                and ROLEID = #{roleid}
+            </if>
+            <if test="groupid != null and groupid != ''">
+                and GROUPID = #{groupid}
+            </if>
+            <if test="sysid != null and sysid != ''">
+                and SYSID = #{sysid}
+            </if>
+            <if test="rolename != null and rolename != ''">
+                and ROLENAME = #{rolename}
+            </if>
+            <if test="roledesc != null and roledesc != ''">
+                and ROLEDESC = #{roledesc}
+            </if>
+            <if test="areacode != null and areacode != ''">
+                and AREACODE = #{areacode}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="roleid" useGeneratedKeys="false">
+        insert into t_role(ROLEID,GROUPID,ROLENAME, ROLEDESC, AREACODE)
+        values (#{roleid},#{groupid},#{rolename}, #{roledesc}, #{areacode})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update t_role
+        <set>
+            <if test="rolename != null and rolename != ''">
+                ROLENAME = #{rolename},
+            </if>
+            <if test="roledesc != null and roledesc != ''">
+                ROLEDESC = #{roledesc},
+            </if>
+            <if test="areacode != null and areacode != ''">
+                AREACODE = #{areacode},
+            </if>
+        </set>
+        where GROUPID = #{groupid}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from t_role where ROLEID = #{roleid}
+    </delete>
+
+</mapper>

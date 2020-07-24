@@ -72,14 +72,14 @@
     </select>
 
     <!--新增所有列-->
-    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into wolf-cloud.t_caution(jglx, ssqy, rymc, sbxh, jgzzrdzsbh, ssjg, jglxr, lrsj, status)
-        values (#{jglx}, #{ssqy}, #{rymc}, #{sbxh}, #{jgzzrdzsbh}, #{ssjg}, #{jglxr}, #{lrsj}, #{status})
+    <insert id="insert" keyProperty="id" useGeneratedKeys="false">
+        insert into t_caution(id,jglx, ssqy, rymc, sbxh, jgzzrdzsbh, ssjg, jglxr, lrsj, status)
+        values (#{id},#{jglx}, #{ssqy}, #{rymc}, #{sbxh}, #{jgzzrdzsbh}, #{ssjg}, #{jglxr}, #{lrsj}, #{status})
     </insert>
 
     <!--通过主键修改数据-->
     <update id="update">
-        update wolf-cloud.t_caution
+        update t_caution
         <set>
             <if test="jglx != null and jglx != ''">
                 jglx = #{jglx},
@@ -114,7 +114,7 @@
 
     <!--通过主键删除-->
     <delete id="deleteById">
-        delete from wolf-cloud.t_caution where id = #{id}
+        delete from t_caution where id = #{id}
     </delete>
 
 </mapper>

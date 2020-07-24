@@ -170,7 +170,7 @@
         select
           USERNAME, PASSWORD, SEX, CARDTYPE, CARDNO, CNNAME, DEPT, ADDRESS, MOBILEID, POSTCODE, REGTIME, EFFTIME, LOSETIME, STATE
         from t_user
-        where DEPT = ""
+        where DEPT = "" or dept = null
     </select>
 
     <select id="queryByDept" resultMap="BaseResultMap">

@@ -58,6 +58,7 @@ public class TUserController {
      */
     @PostMapping("insert")
     public Object insert(TUser tUser) {
+        tUser.setDept("");
         System.out.println(tUser.toString());
         TUser insert = this.tUserService.insert(tUser);
         Map map = new HashMap();
