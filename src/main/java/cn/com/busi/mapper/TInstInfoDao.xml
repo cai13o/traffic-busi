@@ -22,7 +22,7 @@
     <select id="queryById" resultMap="BaseResultMap">
         select
           id, name, owner, phone, contact, area, address, certificate, startDate, endDate, opFlag, opDate
-        from wolf-cloud.t_inst_info
+        from t_inst_info
         where id = #{id}
     </select>
 
@@ -30,7 +30,7 @@
     <select id="queryAllByLimit" resultMap="BaseResultMap">
         select
           id, name, owner, phone, contact, area, address, certificate, startDate, endDate, opFlag, opDate
-        from wolf-cloud.t_inst_info
+        from t_inst_info
         limit #{offset}, #{limit}
     </select>
 
@@ -80,14 +80,14 @@
     </select>
 
     <!--新增所有列-->
-    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into wolf-cloud.t_inst_info(name, owner, phone, contact, area, address, certificate, startDate, endDate, opFlag, opDate)
-        values (#{name}, #{owner}, #{phone}, #{contact}, #{area}, #{address}, #{certificate}, #{startdate}, #{enddate}, #{opflag}, #{opdate})
+    <insert id="insert" keyProperty="id" useGeneratedKeys="false">
+        insert into t_inst_info(id,name, owner, phone, contact, area, address, certificate, startDate, endDate, opFlag, opDate)
+        values (#{id},#{name}, #{owner}, #{phone}, #{contact}, #{area}, #{address}, #{certificate}, #{startdate}, #{enddate}, #{opflag}, #{opdate})
     </insert>
 
     <!--通过主键修改数据-->
     <update id="update">
-        update wolf-cloud.t_inst_info
+        update t_inst_info
         <set>
             <if test="name != null and name != ''">
                 name = #{name},
@@ -128,7 +128,7 @@
 
     <!--通过主键删除-->
     <delete id="deleteById">
-        delete from wolf-cloud.t_inst_info where id = #{id}
+        delete from t_inst_info where id = #{id}
     </delete>
 
     <select id="count" resultMap="BaseResultMap">

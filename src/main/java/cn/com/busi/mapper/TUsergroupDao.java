@@ -60,6 +60,6 @@ public interface TUsergroupDao {
      * @param username 主键
      * @return 影响行数
      */
-    int deleteById(String username);
+    int deleteById(TUsergroup tUsergroup);
 
 }

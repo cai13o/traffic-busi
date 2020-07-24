@@ -19,6 +19,14 @@
         where GROUPID = #{groupid}
     </select>
 
+    <!--查询单个-->
+    <select id="queryByName" resultMap="BaseResultMap">
+        select
+          GROUPID, SYSID, GROUPNAME, GROUPDESC
+        from t_pgroup
+        where GROUPNAME = #{groupname}
+    </select>
+
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="BaseResultMap">
         select
@@ -40,7 +48,7 @@
                 and SYSID = #{sysid}
             </if>
             <if test="groupname != null and groupname != ''">
-                and GROUPNAME = #{groupname}
+                and GROUPNAME like concat(concat('%',#{groupname}),'%')
             </if>
             <if test="groupdesc != null and groupdesc != ''">
                 and GROUPDESC = #{groupdesc}

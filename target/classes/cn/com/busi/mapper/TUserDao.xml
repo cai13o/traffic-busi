@@ -28,6 +28,13 @@
         where USERNAME = #{username}
     </select>
 
+    <select id="getUserByUsername" resultMap="BaseResultMap">
+        select
+          USERNAME, PASSWORD, SEX, CARDTYPE, CARDNO, CNNAME, DEPT, ADDRESS, MOBILEID, POSTCODE, REGTIME, EFFTIME, LOSETIME, STATE
+        from t_user
+        where USERNAME = #{username} and PASSWORD = #{password}
+    </select>
+
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="BaseResultMap">
         select
@@ -43,7 +50,7 @@
         from t_user
         <where>
             <if test="username != null and username != ''">
-                and USERNAME = #{username}
+                and USERNAME like concat(concat('%',#{username}),'%')
             </if>
             <if test="password != null and password != ''">
                 and PASSWORD = #{password}
@@ -153,6 +160,35 @@
     </update>
     <!--通过主键修改数据-->
     <update id="reset">
+        update t_user
+        set  PASSWORD = #{password}
+        where USERNAME = #{username}
+    </update>
+
+
+    <select id="queryByUsername" resultMap="BaseResultMap">
+        select
+          USERNAME, PASSWORD, SEX, CARDTYPE, CARDNO, CNNAME, DEPT, ADDRESS, MOBILEID, POSTCODE, REGTIME, EFFTIME, LOSETIME, STATE
+        from t_user
+        where DEPT = ""
+    </select>
+
+    <select id="queryByDept" resultMap="BaseResultMap">
+        select
+          USERNAME, PASSWORD, SEX, CARDTYPE, CARDNO, CNNAME, DEPT, ADDRESS, MOBILEID, POSTCODE, REGTIME, EFFTIME, LOSETIME, STATE
+        from t_user
+        where DEPT = #{dept}
+    </select>
+
+    <!--通过主键修改数据-->
+    <update id="upDept">
+        update t_user
+        set  DEPT = #{dept}
+        where USERNAME = #{username}
+    </update>
+
+    <!--修改密码-->
+    <update id="upPassword">
         update t_user
         set  PASSWORD = #{password}
         where USERNAME = #{username}

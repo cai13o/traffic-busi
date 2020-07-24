@@ -20,6 +20,8 @@ public interface TUserDao {
      */
     TUser queryById(String username);
 
+    TUser getUserByUsername(String username,String password);
+
     /**
      * 查询指定行数据
      *
@@ -54,6 +56,14 @@ public interface TUserDao {
      */
     int update(TUser tUser);
 
+    /**
+     * 修改密码
+     *
+     * @param tUser 实例对象
+     * @return 影响行数
+     */
+    int upPassword(TUser tUser);
+
     int status(TUser tUser);
 
     int reset(TUser tUser);
@@ -65,5 +75,11 @@ public interface TUserDao {
      * @return 影响行数
      */
     int deleteById(String username);
+
+    List<TUser> queryByUsername();
+
+    List<TUser> queryByDept(String dept);
+
+    int upDept(TUser tUser);
 
 }

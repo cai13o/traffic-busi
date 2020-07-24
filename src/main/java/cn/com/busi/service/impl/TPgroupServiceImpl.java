@@ -42,6 +42,11 @@ public class TPgroupServiceImpl implements TPgroupService {
         return this.tPgroupDao.queryAllByLimit(offset, limit);
     }
 
+    @Override
+    public List<TPgroup> queryAll(TPgroup tPgroup) {
+        return this.tPgroupDao.queryAll(tPgroup);
+    }
+
     /**
      * 新增数据
      *

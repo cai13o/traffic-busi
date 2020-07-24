@@ -146,6 +146,14 @@
             <artifactId>axis</artifactId>
             <version>1.4</version>
         </dependency>
+
+
+        <dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+            <version>3.10.3</version>
+        </dependency>
+
         <dependency>
             <groupId>avalon-framework</groupId>
             <artifactId>avalon-framework</artifactId>

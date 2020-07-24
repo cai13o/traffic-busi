@@ -50,6 +50,6 @@ public interface TUsergroupService {
      * @param username 主键
      * @return 是否成功
      */
-    boolean deleteById(String username);
+    boolean deleteById(TUsergroup tUsergroup);
 
 }

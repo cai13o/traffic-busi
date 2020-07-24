@@ -19,6 +19,10 @@ public interface TUserService {
      */
     TUser queryById(String username);
 
+    TUser getUserByUsername(String username,String password);
+
+
+
     /**
      * 查询多条数据
      *
@@ -27,6 +31,14 @@ public interface TUserService {
      * @return 对象列表
      */
     List<TUser> queryAllByLimit(int offset, int limit);
+
+    /**
+     * 通过实体作为筛选条件查询
+     *
+     * @param tUser 实例对象
+     * @return 对象列表
+     */
+    List<TUser> queryAll(TUser tUser);
 
     /**
      * 新增数据
@@ -52,8 +64,22 @@ public interface TUserService {
      */
     boolean deleteById(String username);
 
+    /**
+     * 修改密码
+     *
+     * @param tUser 实例对象
+     * @return 影响行数
+     */
+    int upPassword(TUser tUser);
+
     int status(TUser tUser);
 
     int reset(TUser tUser);
+
+    List<TUser> queryByUsername();
+
+    List<TUser> queryByDept(String dept);
+
+    int upDept(TUser tUser);
 
 }

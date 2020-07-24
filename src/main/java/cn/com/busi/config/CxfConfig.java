@@ -28,7 +28,7 @@ public class CxfConfig {
 
         endpoint.publish("/webService");//接口发布在 /NetbarServices 目录下
         //服务终端加拦截器
-        endpoint.getInInterceptors().add(new AuthInterceptor(busiConfig));
+//        endpoint.getInInterceptors().add(new AuthInterceptor(busiConfig));
       //  return Endpoint.publish("http://127.0.0.1:9999/TransportWebService.asmx",trfficWebService);
         return endpoint;
     }

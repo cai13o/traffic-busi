@@ -31,6 +31,11 @@ public class TUserServiceImpl implements TUserService {
         return this.tUserDao.queryById(username);
     }
 
+    @Override
+    public TUser getUserByUsername(String username, String password) {
+        return this.tUserDao.getUserByUsername(username, password);
+    }
+
     /**
      * 查询多条数据
      *
@@ -41,6 +46,11 @@ public class TUserServiceImpl implements TUserService {
     @Override
     public List<TUser> queryAllByLimit(int offset, int limit) {
         return this.tUserDao.queryAllByLimit(offset, limit);
+    }
+
+    @Override
+    public List<TUser> queryAll(TUser tUser) {
+        return this.tUserDao.queryAll(tUser);
     }
 
     /**
@@ -81,12 +91,30 @@ public class TUserServiceImpl implements TUserService {
     }
 
     @Override
+    public int upPassword(TUser tUser) {
+        return this.tUserDao.upPassword(tUser);
+    }
+
+    @Override
     public int status(TUser tUser) {
         return this.tUserDao.status(tUser);
     }
     @Override
     public int reset(TUser tUser) {
         return this.tUserDao.reset(tUser);
+    }
+
+    public List<TUser> queryByUsername(){
+            return this.tUserDao.queryByUsername();
+    }
+
+    @Override
+    public List<TUser> queryByDept(String dept) {
+        return this.tUserDao.queryByDept(dept);
+    }
+
+    public int upDept(TUser tUser){
+        return this.tUserDao.upDept(tUser);
     }
 
 

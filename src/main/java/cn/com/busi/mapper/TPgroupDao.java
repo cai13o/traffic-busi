@@ -21,6 +21,14 @@ public interface TPgroupDao {
     TPgroup queryById(String groupid);
 
     /**
+     * 通过ID查询单条数据
+     *
+     * @param groupid 主键
+     * @return 实例对象
+     */
+    TPgroup queryByName(String groupid);
+
+    /**
      * 查询指定行数据
      *
      * @param offset 查询起始位置

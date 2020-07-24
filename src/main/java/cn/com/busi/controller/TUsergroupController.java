@@ -1,6 +1,8 @@
 package cn.com.busi.controller;
 
+import cn.com.busi.entity.TUser;
 import cn.com.busi.entity.TUsergroup;
+import cn.com.busi.service.TUserService;
 import cn.com.busi.service.TUsergroupService;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +26,9 @@ public class TUsergroupController {
     @Resource
     private TUsergroupService tUsergroupService;
 
+    @Resource
+    private TUserService tUserService;
+
     /**
      * 通过主键查询单条数据
      *
@@ -31,8 +36,11 @@ public class TUsergroupController {
      * @return 单条数据
      */
     @GetMapping("selectOne")
-    public List<TUsergroup> selectOne(String groupid) {
-        return this.tUsergroupService.queryById(groupid);
+    public Object selectOne(String groupid) {
+        Map map = new HashMap();
+        map.put("code","20000");
+        map.put("data",this.tUserService.queryByDept(groupid));
+        return map;
     }
 
     @PostMapping("insert")
@@ -44,7 +52,31 @@ public class TUsergroupController {
             tUsergroup.setGroupid(groupid);
             tUsergroup.setUsername(uname[i]);
             tUsergroup.setAdmin(0);
+            TUser tUser = new TUser();
+            tUser.setUsername(uname[i]);
+            tUser.setDept(groupid);
             this.tUsergroupService.insert(tUsergroup);
+            this.tUserService.upDept(tUser);
+        }
+        Map map = new HashMap();
+        map.put("code","20000");
+        return map;
+    }
+
+    @PostMapping("deleteById")
+    public Object deleteById(String groupid,String username) {
+
+        String[] uname = username.split(",");
+        for (int i = 0; i < uname.length; i++) {
+            TUsergroup tUsergroup = new TUsergroup();
+            tUsergroup.setGroupid(groupid);
+            tUsergroup.setUsername(uname[i]);
+            tUsergroup.setAdmin(0);
+            this.tUsergroupService.deleteById(tUsergroup);
+            TUser tUser = new TUser();
+            tUser.setUsername(uname[i]);
+            tUser.setDept("");
+            this.tUserService.upDept(tUser);
         }
         Map map = new HashMap();
         map.put("code","20000");

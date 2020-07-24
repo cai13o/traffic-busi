@@ -69,11 +69,11 @@ public class TUsergroupServiceImpl implements TUsergroupService {
     /**
      * 通过主键删除数据
      *
-     * @param username 主键
+     * @param tUsergroup 主键
      * @return 是否成功
      */
     @Override
-    public boolean deleteById(String username) {
-        return this.tUsergroupDao.deleteById(username) > 0;
+    public boolean deleteById(TUsergroup tUsergroup) {
+        return this.tUsergroupDao.deleteById(tUsergroup) > 0;
     }
 }

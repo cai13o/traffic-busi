@@ -205,13 +205,13 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into wolf-cloud.t_report(bgbh, zzrdzsbh, jyjgdz, jyjgdh, cphm, wtr, cllx, ppxh, dlyszh, zcdjrq, ccny, csys, vin, fdjhm, xzqy, jylb, ywlx, jcrq, wyxrd, gzxxzd, wgjc, yxjc, dpjc, hcpd, dlx, jjx, yzzdl, yzbphl, ezzdl, ezbphl, tzzdl, tzbphl, dcqyczheczdl, dcqyczhuczdl, mark, jcjl, zjcs, jcjgmc, clrllb, sqqzr, clzbzl, t_detail)
+        insert into t_report(bgbh, zzrdzsbh, jyjgdz, jyjgdh, cphm, wtr, cllx, ppxh, dlyszh, zcdjrq, ccny, csys, vin, fdjhm, xzqy, jylb, ywlx, jcrq, wyxrd, gzxxzd, wgjc, yxjc, dpjc, hcpd, dlx, jjx, yzzdl, yzbphl, ezzdl, ezbphl, tzzdl, tzbphl, dcqyczheczdl, dcqyczhuczdl, mark, jcjl, zjcs, jcjgmc, clrllb, sqqzr, clzbzl, t_detail)
         values (#{bgbh}, #{zzrdzsbh}, #{jyjgdz}, #{jyjgdh}, #{cphm}, #{wtr}, #{cllx}, #{ppxh}, #{dlyszh}, #{zcdjrq}, #{ccny}, #{csys}, #{vin}, #{fdjhm}, #{xzqy}, #{jylb}, #{ywlx}, #{jcrq}, #{wyxrd}, #{gzxxzd}, #{wgjc}, #{yxjc}, #{dpjc}, #{hcpd}, #{dlx}, #{jjx}, #{yzzdl}, #{yzbphl}, #{ezzdl}, #{ezbphl}, #{tzzdl}, #{tzbphl}, #{dcqyczheczdl}, #{dcqyczhuczdl}, #{mark}, #{jcjl}, #{zjcs}, #{jcjgmc}, #{clrllb}, #{sqqzr}, #{clzbzl}, #{tDetail})
     </insert>
 
     <!--通过主键修改数据-->
     <update id="update">
-        update wolf-cloud.t_report
+        update t_report
         <set>
             <if test="bgbh != null and bgbh != ''">
                 bgbh = #{bgbh},
@@ -345,7 +345,7 @@
 
     <!--通过主键删除-->
     <delete id="deleteById">
-        delete from wolf-cloud.t_report where id = #{id}
+        delete from t_report where id = #{id}
     </delete>
 
 </mapper>

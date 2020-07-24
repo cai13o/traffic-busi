@@ -24,7 +24,7 @@
     <select id="queryById" resultMap="BaseResultMap">
         select
           id, name, institution, model, idNo, trace, checkIns, checkDate, cycle, nextDate, useLife, remarks, opFlag, opDate
-        from wolf-cloud.t_inst_device
+        from t_inst_device
         where id = #{id}
     </select>
 
@@ -32,7 +32,7 @@
     <select id="queryAllByLimit" resultMap="BaseResultMap">
         select
           id, name, institution, model, idNo, trace, checkIns, checkDate, cycle, nextDate, useLife, remarks, opFlag, opDate
-        from wolf-cloud.t_inst_device
+        from t_inst_device
         limit #{offset}, #{limit}
     </select>
 
@@ -94,14 +94,14 @@
     </select>
 
     <!--新增所有列-->
-    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into wolf-cloud.t_inst_device(name, institution, model, idNo, trace, checkIns, checkDate, cycle, nextDate, useLife, remarks)
-        values (#{name}, #{institution}, #{model}, #{idno}, #{trace}, #{checkins}, #{checkdate}, #{cycle}, #{nextdate}, #{uselife}, #{remarks})
+    <insert id="insert" keyProperty="id" useGeneratedKeys="false">
+        insert into t_inst_device(id,name, institution, model, idNo, trace, checkIns, checkDate, cycle, nextDate, useLife, remarks)
+        values (#{id},#{name}, #{institution}, #{model}, #{idno}, #{trace}, #{checkins}, #{checkdate}, #{cycle}, #{nextdate}, #{uselife}, #{remarks})
     </insert>
 
     <!--通过主键修改数据-->
     <update id="update">
-        update wolf-cloud.t_inst_device
+        update t_inst_device
         <set>
             <if test="name != null and name != ''">
                 name = #{name},
@@ -142,7 +142,7 @@
 
     <!--通过主键删除-->
     <delete id="deleteById">
-        delete from wolf-cloud.t_inst_device where id = #{id}
+        delete from t_inst_device where id = #{id}
     </delete>
 
 </mapper>

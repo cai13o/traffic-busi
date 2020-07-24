@@ -60,4 +60,13 @@ public class TPgroup implements Serializable {
         this.groupdesc = groupdesc;
     }
 
+    @Override
+    public String toString() {
+        return "TPgroup{" +
+                "groupid='" + groupid + '\'' +
+                ", sysid='" + sysid + '\'' +
+                ", groupname='" + groupname + '\'' +
+                ", groupdesc='" + groupdesc + '\'' +
+                '}';
+    }
 }

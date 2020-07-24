@@ -583,6 +583,10 @@ public interface BusinessConstant {
     String ZJCS = "zjcs";
     String UPTIME = "uptime";
     String DYRQ = "dyrq";
+    String JCJGMC = "jcjgmc";
+    String SQQZR = "sqqzr";
+    String CLZBZL = "clzbzl";
+    String MARK = "mark";
 
 
     String NAME = "name";
