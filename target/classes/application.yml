@@ -1,12 +1,15 @@
 server:
   port: 8889
+  tomcat:
+    uri-encoding: UTF-8
 
+#
 #spring:
 #  datasource:
 #    driver-class-name: com.mysql.jdbc.Driver
-#    url: jdbc:mysql://192.168.30.51:13306/wolf-cloud?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&tinyInt1isBit=false&allowMultiQueries=true&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true
-#    username: pay
-#    password: nv1XPScmm2TG8xIP
+#    url: jdbc:mysql://1.85.14.166:3307/wolf-cloud?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&tinyInt1isBit=false&allowMultiQueries=true&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true
+#    username: root
+#    password: liangkeyiwei
 #    type: com.alibaba.druid.pool.DruidDataSource
 
 spring:
@@ -16,6 +19,11 @@ spring:
     username: root
     password: root
     type: com.alibaba.druid.pool.DruidDataSource
+  http:
+    encoding:
+      charset: utf-8
+      force: true
+      enabled: true
 
 
 webservices:
@@ -24,6 +32,8 @@ webservices:
 
 mybatis:
   mapper-locations: classpath:cn.com.busi.mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 # 配置pagehelper参数
 pagehelper:
@@ -39,4 +49,7 @@ logging:
       com:
         busi:
           mapper: debug
+
+
+
 

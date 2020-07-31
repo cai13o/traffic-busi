@@ -52,6 +52,6 @@ public interface TStatisticsDao {
 
     Integer[] singleJJXStatistics();
 
-
+    Integer count(@Param("table") String table);
 
 }

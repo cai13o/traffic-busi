@@ -42,7 +42,7 @@ public class BusiServiceImpl implements BusiService {
     @Resource
     private TInstPersonDao tInstPersonDao;
     @Resource
-    private TInstDeviceDao  tInstDeviceDao;
+    private TInstDeviceDao tInstDeviceDao;
     @Resource
     private TCautionDao tCautionDao;
 
@@ -58,12 +58,11 @@ public class BusiServiceImpl implements BusiService {
      */
     @Override
     public String insertZongHeXNJYJLD(String json, byte[] zdjygw, byte[] dgjygw, byte[] dlxjygw) {
-
+        System.out.println(zdjygw.length + "111" + dgjygw.length + "222" + dlxjygw);
         Map<String, Object> resMap = new HashMap<>();
         resMap.put(BusinessConstant.RETCODE, BusiEnum.E0000.getCode());
         resMap.put(BusinessConstant.RETMSG, BusiEnum.E0000.getMessage());
 
-        TInfo tInfo = new TInfo();
         TRecord tRecord = new TRecord();
         //一、判断并保存三张图片
         if (null != zdjygw) {
@@ -119,7 +118,7 @@ public class BusiServiceImpl implements BusiService {
         //检测日期
         if (null != info.get(BusinessConstant.JCRQ) && !"".equals(info.get(BusinessConstant.JCRQ))) {
             tRecord.setJcrq(DateTimeUtil.formateDate(String.valueOf(info.get(BusinessConstant.JCRQ)), "yyyyMMdd"));
-         }
+        }
         //检测记录单编号
         tRecord.setJcjldbh(String.valueOf(info.get(BusinessConstant.JCJLDBH)));
         //号牌号码
@@ -160,18 +159,16 @@ public class BusiServiceImpl implements BusiService {
         tRecord.setZxzxjxs(String.valueOf(info.get(BusinessConstant.ZXZXJXS)));
         //挂车轴数
         tRecord.setGczs(String.valueOf(info.get(BusinessConstant.GCZS)));
-        //
-        tRecord.setDgjygw(String.valueOf(info.get(BusinessConstant.DGJYGW)));
-        //
-        tRecord.setDlxjygw(String.valueOf(info.get(BusinessConstant.DLXJYGW)));
-        //
+        //燃料类别
         tRecord.setRllb(String.valueOf(info.get(BusinessConstant.RLLB)));
-        //
+        //行政区域
         tRecord.setXzqy(String.valueOf(info.get(BusinessConstant.XZQY)));
-        //
+        //检验机构地址
         tRecord.setJyjgdz(String.valueOf(info.get(BusinessConstant.JYJGDZ)));
-        //
+        //车辆类型
         tRecord.setCllx(String.valueOf(info.get(BusinessConstant.CLLX)));
+        //总检验次数
+        tRecord.setZjycs(String.valueOf(info.get(BusinessConstant.ZJYCS)));
         //总信息
         tRecord.setTDetail(json);
         try {
@@ -179,6 +176,32 @@ public class BusiServiceImpl implements BusiService {
             String.valueOf(info.get(BusinessConstant.ZWPD));
             String.valueOf(info.get(BusinessConstant.YWPD));
             tRecordDao.insert(tRecord);
+            String dzzdcs1 = String.valueOf(info.get(BusinessConstant.DZZDCS1));
+            String yrpd = String.valueOf(info.get(BusinessConstant.YRPD));
+            String zwpd = String.valueOf(info.get(BusinessConstant.ZWPD));
+            String ywpd = String.valueOf(info.get(BusinessConstant.YWPD));
+            System.out.println(dzzdcs1+yrpd+zwpd+ywpd+"检测项目");
+            if (dzzdcs1.equals("-") || yrpd.equals("-") || zwpd.equals("-") || ywpd.equals("-")){
+                TCaution tCaution = new TCaution();
+                tCaution.setId(UUID.randomUUID().toString().replaceAll("-", ""));
+                tCaution.setJglx("检测项目不全");
+                tCaution.setSsqy(tRecord.getXzqy());
+                tCaution.setSsjg(tRecord.getJyjgmc());
+                tCaution.setCphm(tRecord.getCphm());
+                tCaution.setLrsj(new Date());
+                tCautionDao.insert(tCaution);
+            }
+            String bhgx = String.valueOf(info.get(BusinessConstant.BHGX));
+            if(!bhgx.equals("无")&&!bhgx.equals("")){
+                TCaution tCaution = new TCaution();
+                tCaution.setId(UUID.randomUUID().toString().replaceAll("-", ""));
+                tCaution.setJglx(bhgx+"不合格");
+                tCaution.setSsqy(tRecord.getXzqy());
+                tCaution.setSsjg(tRecord.getJyjgmc());
+                tCaution.setCphm(tRecord.getCphm());
+                tCaution.setLrsj(new Date());
+                tCautionDao.insert(tCaution);
+            }
         } catch (Exception e) {
             log.info("error", e);
             log.info("【操作数据库异常】");
@@ -279,29 +302,32 @@ public class BusiServiceImpl implements BusiService {
         //核查评定
         tReport.setHcpd(String.valueOf(info.get(BusinessConstant.HCPD)));
         //动力性
-        tReport.setDlx(String.valueOf(info.get(BusinessConstant.DLX)));
+        tReport.setDlx(String.valueOf(info.get(BusinessConstant.DLXPD)));
         //经济性
-        tReport.setJjx(String.valueOf(info.get(BusinessConstant.JJX)));
+        tReport.setJjx(String.valueOf(info.get(BusinessConstant.JJXPD)));
         //一轴制动性
-        tReport.setYzzdl(String.valueOf(info.get(BusinessConstant.YZZDL)));
-        tReport.setYzbphl(String.valueOf(info.get(BusinessConstant.YZBPHL)));
-        tReport.setEzzdl(String.valueOf(info.get(BusinessConstant.EZZDL)));
-        tReport.setEzbphl(String.valueOf(info.get(BusinessConstant.EZBPHL)));
-        tReport.setTzzdl(String.valueOf(info.get(BusinessConstant.TZZDL)));
-        tReport.setDcqyczheczdl(String.valueOf(info.get(BusinessConstant.DCQYCZHECZDL)));
-        tReport.setDcqyczhuczdl(String.valueOf(info.get(BusinessConstant.DCQYCZHUCZDL)));
+        tReport.setYzzdl(String.valueOf(info.get(BusinessConstant.YZZDLPD)));
+        tReport.setYzbphl(String.valueOf(info.get(BusinessConstant.YZBPHLPD)));
+        tReport.setEzzdl(String.valueOf(info.get(BusinessConstant.EZZDLPD)));
+        tReport.setEzbphl(String.valueOf(info.get(BusinessConstant.EZBPHLPD)));
+        tReport.setTzzdl(String.valueOf(info.get(BusinessConstant.TZZDLPD)));
+        tReport.setTzbphl(String.valueOf(info.get(BusinessConstant.TZBPHLPD)));
+        tReport.setDcqyczheczdl(String.valueOf(info.get(BusinessConstant.DCQYCZHECZDLPD)));
+        tReport.setDcqyczhuczdl(String.valueOf(info.get(BusinessConstant.DCQYCZHUCZDLPD)));
         tReport.setMark(String.valueOf(info.get(BusinessConstant.MARK)));
         tReport.setJcjl(String.valueOf(info.get(BusinessConstant.JCJL)));
         tReport.setZjcs(String.valueOf(info.get(BusinessConstant.ZJCS)));
         tReport.setJcjgmc(String.valueOf(info.get(BusinessConstant.JCJGMC)));
         tReport.setSqqzr(String.valueOf(info.get(BusinessConstant.SQQZR)));
         tReport.setClzbzl(String.valueOf(info.get(BusinessConstant.CLZBZL)));
+        tReport.setClrllb(String.valueOf(info.get(BusinessConstant.CLRLLB)));
 
 
         //详细信息
         tReport.setTDetail(json);
         try {
             tReportDao.insert(tReport);
+
         } catch (Exception e) {
             log.info("error", e);
             resMap.put(BusinessConstant.RETCODE, BusiEnum.E8999.getCode());
@@ -360,14 +386,18 @@ public class BusiServiceImpl implements BusiService {
         tInstInfo.setOpdate(String.valueOf(info.get(BusinessConstant.OPDATE)));
 
         try {
-
+            if (tInstInfo.getOpflag().equals("1")) {
                 tInstInfoDao.insert(tInstInfo);
-
+            } else {
+                tInstInfoDao.update(tInstInfo);
+            }
             SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
             Date date = sf.parse(tInstInfo.getEnddate());
-            if( date.getTime() < new Date().getTime()){
+//            System.out.println(date);
+            if (date.getTime() < new Date().getTime()) {
+//                System.out.println("=================================================================================");
                 TCaution tCaution = new TCaution();
-                tCaution.setId(UUID.randomUUID().toString().replaceAll("-",""));
+                tCaution.setId(UUID.randomUUID().toString().replaceAll("-", ""));
                 tCaution.setJglx("资质证书超过有效期");
                 tCaution.setSsqy(tInstInfo.getArea());
                 tCaution.setJgzzrdzsbh(tInstInfo.getCertificate());
@@ -440,15 +470,16 @@ public class BusiServiceImpl implements BusiService {
         tInstPerson.setOpdate(String.valueOf(info.get(BusinessConstant.OPDATE)));
 
         try {
-
+            if (tInstPerson.getOpflag().equals("1")) {
                 tInstPersonDao.insert(tInstPerson);
-
-
+            } else {
+                tInstPersonDao.update(tInstPerson);
+            }
             SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
             Date date = sf.parse(tInstPerson.getEnddate());
-            if( date.getTime() < new Date().getTime()){
+            if (date.getTime() < new Date().getTime()) {
                 TCaution tCaution = new TCaution();
-                tCaution.setId(UUID.randomUUID().toString().replaceAll("-",""));
+                tCaution.setId(UUID.randomUUID().toString().replaceAll("-", ""));
                 tCaution.setJglx("人员无证上岗");
                 tCaution.setRymc(tInstPerson.getName());
                 tCaution.setSsjg(tInstPerson.getInstitution());
@@ -516,15 +547,17 @@ public class BusiServiceImpl implements BusiService {
         //操作日期
         tInstDevice.setOpdate(String.valueOf(info.get(BusinessConstant.OPDATE)));
         try {
-
+            System.out.println(tInstDevice.getOpflag().getClass());
+            if (tInstDevice.getOpflag().equals("1")) {
                 tInstDeviceDao.insert(tInstDevice);
-
-
+            } else {
+                tInstDeviceDao.update(tInstDevice);
+            }
             SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
             Date date = sf.parse(tInstDevice.getNextdate());
-            if( date.getTime() < new Date().getTime()){
+            if (date.getTime() < new Date().getTime()) {
                 TCaution tCaution = new TCaution();
-                tCaution.setId(UUID.randomUUID().toString().replaceAll("-",""));
+                tCaution.setId(UUID.randomUUID().toString().replaceAll("-", ""));
                 tCaution.setJglx("设备检定/校准超过有效期");
                 tCaution.setSbxh(tInstDevice.getIdno());
                 tCaution.setSsjg(tInstDevice.getInstitution());

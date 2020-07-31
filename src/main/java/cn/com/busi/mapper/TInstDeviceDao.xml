@@ -95,8 +95,8 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="false">
-        insert into t_inst_device(id,name, institution, model, idNo, trace, checkIns, checkDate, cycle, nextDate, useLife, remarks)
-        values (#{id},#{name}, #{institution}, #{model}, #{idno}, #{trace}, #{checkins}, #{checkdate}, #{cycle}, #{nextdate}, #{uselife}, #{remarks})
+        insert into t_inst_device(id,name, institution, model, idNo, trace, checkIns, checkDate, cycle, nextDate, useLife, remarks,opflag,opdate)
+        values (#{id},#{name}, #{institution}, #{model}, #{idno}, #{trace}, #{checkins}, #{checkdate}, #{cycle}, #{nextdate}, #{uselife}, #{remarks}, #{opflag}, #{opdate})
     </insert>
 
     <!--通过主键修改数据-->
@@ -135,6 +135,12 @@
             </if>
             <if test="remarks != null and remarks != ''">
                 remarks = #{remarks},
+            </if>
+            <if test="opflag != null and opflag != ''">
+                opflag = #{opflag},
+            </if>
+            <if test="opdate != null and opdate != ''">
+                opdate = #{opdate},
             </if>
         </set>
         where id = #{id}

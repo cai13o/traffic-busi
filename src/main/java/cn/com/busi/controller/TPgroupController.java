@@ -65,7 +65,6 @@ public class TPgroupController {
         tPgroup.toString();
         TPgroup tp = this.tPgroupService.queryById(tPgroup.getGroupid());
         if (tp == null){
-
             TPgroup insert = this.tPgroupService.insert(tPgroup);
             TRole tRole = new TRole();
             tRole.setRoleid(UUID.randomUUID().toString().replaceAll("-",""));

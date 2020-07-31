@@ -1,5 +1,6 @@
 package cn.com.busi.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -62,11 +63,13 @@ public class TUser implements Serializable {
     * 生效时间
     */
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
     private Date efftime;
     /**
     * 失效时间
     */
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
     private Date losetime;
     /**
     * 0 冻结 1 正常

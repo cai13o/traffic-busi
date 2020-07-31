@@ -32,7 +32,6 @@ public class TReportController {
     @Resource
     private TReportService tReportService;
 
-    Map map;
 
     /**
      * 通过主键查询单条数据
@@ -48,7 +47,7 @@ public class TReportController {
         String tDetail = tReport.getTDetail();
         JSONObject a = JSON.parseObject(tDetail);
         System.out.println(tDetail);
-        map = new HashMap<>();
+        Map map = new HashMap<>();
         map.put("code", "20000");
         map.put("data", a);
         return map;
@@ -61,11 +60,12 @@ public class TReportController {
      * @return 对象列表
      */
     @GetMapping("selectAll")
-    public Object selectAll(String page, String limit, TReport tReport) {
+    public Object selectAll(String page, String limit, TReport tReport ,String numberPlate) {
+        tReport.setCphm(numberPlate);
         Integer intPage = Integer.parseInt(page);
         Integer intLimit = Integer.parseInt(limit);
         int offset = (intPage - 1) * intPage;
-        map = new HashMap<>();
+        Map map = new HashMap<>();
         PageHelper.startPage(intPage, intLimit);
         List list = this.tReportService.queryAll(tReport);
         //将查询到的数据封装到PageInfo对象

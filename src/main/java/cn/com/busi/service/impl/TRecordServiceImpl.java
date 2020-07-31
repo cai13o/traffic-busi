@@ -5,8 +5,10 @@ import cn.com.busi.entity.TRecord;
 import cn.com.busi.mapper.TRecordDao;
 import cn.com.busi.service.TRecordService;
 import org.springframework.stereotype.Service;
+import sun.misc.BASE64Decoder;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -28,6 +30,7 @@ public class TRecordServiceImpl implements TRecordService {
      */
     @Override
     public TRecord queryById(String id) {
+
         return this.tRecordDao.queryById(id);
     }
 

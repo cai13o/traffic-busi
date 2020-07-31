@@ -2,6 +2,7 @@ package cn.com.busi.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -38,6 +39,7 @@ public class TRecord implements Serializable {
 
     private String jcxb;
 
+
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date jcrq;
 
@@ -50,8 +52,8 @@ public class TRecord implements Serializable {
     private String gcpzh;
 
     private String gclx;
-
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date clccrq;
 
     private String wjdly;
@@ -96,5 +98,7 @@ public class TRecord implements Serializable {
     private String jyjgdz;
 
     private String cllx;
+
+
 
 }

@@ -27,7 +27,6 @@ public class TInstDeviceController {
     @Resource
     private TInstDeviceService tInstDeviceService;
 
-    Map map = new HashMap();
 
     /**
      * 通过主键查询单条数据
@@ -53,6 +52,7 @@ public class TInstDeviceController {
         List<TInstDevice> list=this.tInstDeviceService.queryAll(tInstDevice);
         //将查询到的数据封装到PageInfo对象
         PageInfo<TInstDevice> pageInfo=new PageInfo(list,intLimit);
+        Map map = new HashMap();
         map.put("code","20000");
         map.put("data",list);
         return map;

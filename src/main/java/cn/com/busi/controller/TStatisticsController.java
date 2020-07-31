@@ -33,11 +33,12 @@ public class TStatisticsController {
     @Resource
     private TStatisticsService tStatisticsService;
 
-    Map map;
+
 
     @GetMapping("carAll")
     public Object carAll(String page, String limit, String startDate, String endDate,TReport tReport) {
-        map = new HashMap();
+        System.out.println(tReport.getClrllb());
+        Map map = new HashMap();
         Integer intPage = Integer.parseInt(page);
         Integer intLimit = Integer.parseInt(limit);
         int offset = (intPage - 1) * intPage;
@@ -53,7 +54,7 @@ public class TStatisticsController {
     @GetMapping("firstSelect")
     public Object firstSelect(String page, String limit, String startDate, String endDate, TReport tReport) {
         System.out.println(tReport.toString());
-        map = new HashMap();
+        Map map = new HashMap();
         Integer intPage = Integer.parseInt(page);
         Integer intLimit = Integer.parseInt(limit);
         int offset = (intPage - 1) * intPage;
@@ -68,7 +69,7 @@ public class TStatisticsController {
 
     @GetMapping("singleSelect")
     public Object singleSelect(String page, String limit, String startDate, String endDate, String singlePass, TReport tReport) {
-        map = new HashMap();
+        Map map = new HashMap();
         Integer intPage = Integer.parseInt(page);
         Integer intLimit = Integer.parseInt(limit);
         int offset = (intPage - 1) * intPage;
@@ -78,6 +79,15 @@ public class TStatisticsController {
         PageInfo<TInstInfo> pageInfo = new PageInfo(list, intLimit);
         map.put("code", "20000");
         map.put("data", list);
+        return map;
+    }
+
+    @GetMapping("count")
+    public Object count(String table) {
+        System.out.println(table);
+        Map map = new HashMap();
+        map.put("code", "20000");
+        map.put("data", this.tStatisticsService.count(table));
         return map;
     }
 }

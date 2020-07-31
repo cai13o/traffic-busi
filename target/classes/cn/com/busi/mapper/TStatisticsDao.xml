@@ -16,6 +16,7 @@
         <result property="clzs" column="clzs" jdbcType="VARCHAR"/>
         <result property="singlePass" column="singlePass" jdbcType="VARCHAR"/>
         <result property="num" column="num" jdbcType="VARCHAR"/>
+        <result property="table" column="table" jdbcType="VARCHAR"/>
     </resultMap>
 
     <!--车辆总数查询-->
@@ -80,7 +81,7 @@
                 ${tStatistics.ppxh},
             </if>
             <if test="tStatistics.clrllb != null and tStatistics.clrllb != ''">
-                ${tStatistics.rllb},
+                ${tStatistics.clrllb},
             </if>
             <if test="tStatistics.jcjgmc != null and tStatistics.jcjgmc != ''">
                 ${tStatistics.jcjgmc},
@@ -88,9 +89,7 @@
             <if test="tStatistics.jcjl != null and tStatistics.jcjl != ''">
                 ${tStatistics.jcjl},
             </if>
-            <if test="tStatistics.jcrq != null">
-                ${tStatistics.jcrq},
-            </if>
+
         </trim>
     </select>
 
@@ -112,7 +111,7 @@
                 ${tStatistics.clrllb},
             </if>
             <if test="tStatistics.jcjgmc != null and tStatistics.jcjgmc != ''">
-                ${tStatistics.jyjgmc},
+                ${tStatistics.jcjgmc},
             </if>
             <if test="tStatistics.jcrq != null">
                 ${tStatistics.jcrq},
@@ -120,6 +119,7 @@
         </trim>
         from t_report
         <where>
+            zjcs = "1"
             <if test="tReport.xzqy != null and tReport.xzqy != ''">
                 and xzqy like concat(concat('%',#{tReport.xzqy}),'%')
             </if>
@@ -133,13 +133,13 @@
                 and jcjgmc like concat(concat('%',#{tReport.jcjgmc}),'%')
             </if>
             <if test="tReport.clrllb != null and tReport.clrllb != ''">
-                and rllb like concat(concat('%',#{tReport.rllb}),'%')
+                and clrllb like concat(concat('%',#{tReport.clrllb}),'%')
             </if>
             <if test="tReport.jcjl != null and tReport.jcjl != ''">
                 and jcjl like concat(concat('%',#{tReport.jcjl}),'%')
             </if>
             <if test="tStatistics.startDate != null">
-                and jcrq &gt;= #{tStatistics.startDate
+                and jcrq &gt;= #{tStatistics.startDate}
             </if>
             <if test="tStatistics.endDate != null">
                 and jcrq &lt;= #{tStatistics.endDate}
@@ -156,7 +156,7 @@
                 ${tStatistics.ppxh},
             </if>
             <if test="tStatistics.clrllb != null and tStatistics.clrllb != ''">
-                ${tStatistics.rllb},
+                ${tStatistics.clrllb},
             </if>
             <if test="tStatistics.jcjgmc != null and tStatistics.jcjgmc != ''">
                 ${tStatistics.jcjgmc},
@@ -164,9 +164,7 @@
             <if test="tStatistics.jcjl != null and tStatistics.jcjl != ''">
                 ${tStatistics.jcjl},
             </if>
-            <if test="tStatistics.jcrq != null">
-                ${tStatistics.jcrq},
-            </if>
+
         </trim>
     </select>
 
@@ -238,12 +236,8 @@
             <if test="tStatistics.jcjgmc != null  and tStatistics.jcjgmc != ''">
                 ${tStatistics.jcjgmc},
             </if>
-            <if test="tStatistics.singlePass != null  and tStatistics.singlePass != ''">
-                ${tStatistics.singlePass},
-            </if>
-            <if test="tStatistics.jcrq != null ">
-                ${tStatistics.jcrq},
-            </if>
+
+
         </trim>
     </select>
 
@@ -269,7 +263,7 @@
 				    LIMIT 5
 			    ) time
 	        ) AS years
-        LEFT JOIN t_report ON YEAR(jcrq) = years.years and  t_report.jcjl ="合格"
+        LEFT JOIN t_report ON YEAR(jcrq) = years.years and  t_report.jcjl !="不合格"
         GROUP BY
 	        years.years
     </select>
@@ -290,7 +284,7 @@
 				    LIMIT 5
 			    ) time
 	        ) AS years
-        LEFT JOIN t_report ON YEAR(jcrq) = years.years and  t_report.jcjl !="合格"
+        LEFT JOIN t_report ON YEAR(jcrq) = years.years and  t_report.jcjl ="不合格"
         GROUP BY
 	        years.years
     </select>
@@ -336,5 +330,12 @@
         LEFT JOIN t_report ON YEAR(jcrq) = years.years and jjx != "不合格" and jjx != "-"
         GROUP BY
 	        years.years
+    </select>
+
+    <select id="count" resultType="java.lang.Integer" statementType="PREPARED">
+        SELECT
+	        count(*) AS num
+        FROM
+            ${table}
     </select>
 </mapper>

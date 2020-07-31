@@ -105,9 +105,11 @@ public class TUserController {
      * @return 是否成功
      */
     @PostMapping("deleteByUsername")
-    public boolean deleteById(String username) {
-
-        return this.tUserService.deleteById(username);
+    public Object deleteById(String username) {
+        Map map = new HashMap();
+        map.put("code","20000");
+        map.put("data",this.tUserService.deleteById(username));
+        return map;
     }
 
     /**

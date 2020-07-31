@@ -38,5 +38,5 @@ public interface TStatisticsService {
      */
     List<Map> singleSelect(TReport tReport, String startDate, String endDate, String singlePass);
 
-
+    Integer count(String table);
 }

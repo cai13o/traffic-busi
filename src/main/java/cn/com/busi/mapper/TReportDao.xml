@@ -87,7 +87,7 @@
                 and jyjgdh = #{jyjgdh}
             </if>
             <if test="cphm != null and cphm != ''">
-                and cphm = #{cphm}
+                and cphm like concat(concat('%',#{cphm}),'%')
             </if>
             <if test="wtr != null and wtr != ''">
                 and wtr = #{wtr}
@@ -117,7 +117,7 @@
                 and fdjhm = #{fdjhm}
             </if>
             <if test="xzqy != null and xzqy != ''">
-                and xzqy = #{xzqy}
+                and xzqy like concat(concat('%',#{xzqy}),'%')
             </if>
             <if test="jylb != null and jylb != ''">
                 and jylb = #{jylb}

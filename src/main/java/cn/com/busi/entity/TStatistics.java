@@ -17,4 +17,5 @@ public class TStatistics {
     private Date endDate;
     private String hgl;
     private String singlePass;
+    private String table;
 }

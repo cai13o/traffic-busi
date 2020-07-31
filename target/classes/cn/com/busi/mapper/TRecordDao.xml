@@ -106,7 +106,7 @@
                 and jcjldbh = #{jcjldbh}
             </if>
             <if test="cphm != null and cphm != ''">
-                and cphm = #{cphm}
+                and cphm like concat(concat('%',#{cphm}),'%')
             </if>
             <if test="hpzl != null and hpzl != ''">
                 and hpzl = #{hpzl}
@@ -169,7 +169,7 @@
                 and t_detail = #{tDetail}
             </if>
             <if test="xzqy != null and xzqy != ''">
-                and xzqy = #{xzqy}
+                and xzqy like concat(concat('%',#{xzqy}),'%')
             </if>
         </where>
     </select>
@@ -184,7 +184,7 @@
     <select id="queryAllCar" resultMap="BaseResultMap">
         select
         id, jylsh, jyjgbh, jyjgmc, jcxdh, wtr, dlyszh, jylb, ywlx, jcxb, jcrq, jcjldbh, cphm, hpzl, gcpzh, gclx, clccrq,
-        wjdly, ycy, wqczy, zcdjrq, vin, clxh, fdjh, csys, xszlc, qdxs, zxzxjxs, gczs, zdjygw, dgjygw, dlxjygw, t_detail
+        wjdly, ycy, wqczy, zcdjrq, vin, clxh, fdjh, csys, xszlc, qdxs, zxzxjxs, gczs,  t_detail
         ,xzqy,jyjgdz,cllx
         from t_record
         <where>
@@ -232,7 +232,7 @@
                 and jcjldbh = #{jcjldbh}
             </if>
             <if test="cphm != null and cphm != ''">
-                and cphm = #{cphm}
+                and cphm like concat(concat('%',#{cphm}),'%')
             </if>
             <if test="hpzl != null and hpzl != ''">
                 and hpzl = #{hpzl}
@@ -282,28 +282,20 @@
             <if test="gczs != null and gczs != ''">
                 and gczs = #{gczs}
             </if>
-            <if test="zdjygw != null and zdjygw != ''">
-                and zdjygw = #{zdjygw}
-            </if>
-            <if test="dgjygw != null and dgjygw != ''">
-                and dgjygw = #{dgjygw}
-            </if>
-            <if test="dlxjygw != null and dlxjygw != ''">
-                and dlxjygw = #{dlxjygw}
-            </if>
+
             <if test="tDetail != null and tDetail != ''">
                 and t_detail = #{tDetail}
             </if>
             <if test="xzqy != null and xzqy != ''">
-                and xzqy = #{xzqy}
+                and xzqy like concat(concat('%',#{xzqy}),'%')
             </if>
         </where>
     </select>
 
     <!--新增所有列-->
-    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into t_record(jylsh, jyjgbh, jyjgmc, jcxdh, wtr, dlyszh, jylb, ywlx, jcxb, jcrq, jcjldbh, cphm, hpzl, gcpzh, gclx, clccrq, wjdly, ycy, wqczy, zcdjrq, vin, clxh, fdjh, csys, xszlc, qdxs, zxzxjxs, gczs, zdjygw, dgjygw, dlxjygw, t_detail)
-        values (#{jylsh}, #{jyjgbh}, #{jyjgmc}, #{jcxdh}, #{wtr}, #{dlyszh}, #{jylb}, #{ywlx}, #{jcxb}, #{jcrq}, #{jcjldbh}, #{cphm}, #{hpzl}, #{gcpzh}, #{gclx}, #{clccrq}, #{wjdly}, #{ycy}, #{wqczy}, #{zcdjrq}, #{vin}, #{clxh}, #{fdjh}, #{csys}, #{xszlc}, #{qdxs}, #{zxzxjxs}, #{gczs}, #{zdjygw}, #{dgjygw}, #{dlxjygw}, #{tDetail})
+    <insert id="insert" keyProperty="id" useGeneratedKeys="false">
+        insert into t_record(id,jylsh, jyjgbh, jyjgmc, jcxdh, wtr, dlyszh, jylb, ywlx, jcxb, jcrq, jcjldbh, cphm, hpzl, gcpzh, gclx, clccrq, wjdly, ycy, wqczy, zcdjrq, vin, clxh, fdjh, csys, xszlc, qdxs, zxzxjxs, gczs, zdjygw, dgjygw, dlxjygw, t_detail, xzqy ,rllb , jyjgdz ,zjycs,cllx )
+        values (#{id},#{jylsh}, #{jyjgbh}, #{jyjgmc}, #{jcxdh}, #{wtr}, #{dlyszh}, #{jylb}, #{ywlx}, #{jcxb}, #{jcrq}, #{jcjldbh}, #{cphm}, #{hpzl}, #{gcpzh}, #{gclx}, #{clccrq}, #{wjdly}, #{ycy}, #{wqczy}, #{zcdjrq}, #{vin}, #{clxh}, #{fdjh}, #{csys}, #{xszlc}, #{qdxs}, #{zxzxjxs}, #{gczs}, #{zdjygw}, #{dgjygw}, #{dlxjygw}, #{tDetail}, #{xzqy},#{rllb},#{jyjgdz},#{zjycs},#{cllx})
     </insert>
 
     <!--通过主键修改数据-->

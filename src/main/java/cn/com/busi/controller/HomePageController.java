@@ -30,7 +30,6 @@ public class HomePageController {
     @Resource
     private HomePageService homePageService;
 
-    Map map;
 
     @GetMapping("page")
     public Object selectOne(String id) {
