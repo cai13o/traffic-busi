@@ -56,6 +56,8 @@ public interface TUserDao {
      */
     int update(TUser tUser);
 
+    int updateImg(TUser tUser);
+
     /**
      * 修改密码
      *

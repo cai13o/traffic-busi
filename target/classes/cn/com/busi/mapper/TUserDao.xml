@@ -18,12 +18,13 @@
         <result property="efftime" column="EFFTIME" jdbcType="TIMESTAMP"/>
         <result property="losetime" column="LOSETIME" jdbcType="TIMESTAMP"/>
         <result property="state" column="STATE" jdbcType="INTEGER"/>
+        <result property="img" column="IMG" jdbcType="VARCHAR"/>
     </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="BaseResultMap">
         select
-          USERNAME, PASSWORD, SEX, CARDTYPE, CARDNO, CNNAME, DEPT, ADDRESS, MOBILEID, POSTCODE, REGTIME, EFFTIME, LOSETIME, STATE
+          USERNAME, PASSWORD, SEX, CARDTYPE, CARDNO, CNNAME, DEPT, ADDRESS, MOBILEID, POSTCODE, REGTIME, EFFTIME, LOSETIME, STATE, IMG
         from t_user
         where USERNAME = #{username}
     </select>
@@ -142,6 +143,16 @@
             </if>
             <if test="state != null">
                 STATE = #{state},
+            </if>
+        </set>
+        where USERNAME = #{username}
+    </update>
+
+    <update id="updateImg">
+        update t_user
+        <set>
+            <if test="img != null and img != ''">
+                IMG = #{img},
             </if>
         </set>
         where USERNAME = #{username}

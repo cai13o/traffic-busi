@@ -41,6 +41,7 @@
         <result property="zjycs" column="zjycs" jdbcType="VARCHAR"/>
         <result property="jyjgdz" column="jyjgdz" jdbcType="VARCHAR"/>
         <result property="cllx" column="cllx" jdbcType="VARCHAR"/>
+        <result property="clzbzl" column="clzbzl" jdbcType="VARCHAR"/>
 
 
     </resultMap>
@@ -178,6 +179,7 @@
         select
           count(id) cllx
         from t_record
+        where zjycs = "1"
     </select>
 
 
@@ -294,8 +296,8 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="false">
-        insert into t_record(id,jylsh, jyjgbh, jyjgmc, jcxdh, wtr, dlyszh, jylb, ywlx, jcxb, jcrq, jcjldbh, cphm, hpzl, gcpzh, gclx, clccrq, wjdly, ycy, wqczy, zcdjrq, vin, clxh, fdjh, csys, xszlc, qdxs, zxzxjxs, gczs, zdjygw, dgjygw, dlxjygw, t_detail, xzqy ,rllb , jyjgdz ,zjycs,cllx )
-        values (#{id},#{jylsh}, #{jyjgbh}, #{jyjgmc}, #{jcxdh}, #{wtr}, #{dlyszh}, #{jylb}, #{ywlx}, #{jcxb}, #{jcrq}, #{jcjldbh}, #{cphm}, #{hpzl}, #{gcpzh}, #{gclx}, #{clccrq}, #{wjdly}, #{ycy}, #{wqczy}, #{zcdjrq}, #{vin}, #{clxh}, #{fdjh}, #{csys}, #{xszlc}, #{qdxs}, #{zxzxjxs}, #{gczs}, #{zdjygw}, #{dgjygw}, #{dlxjygw}, #{tDetail}, #{xzqy},#{rllb},#{jyjgdz},#{zjycs},#{cllx})
+        insert into t_record(id,jylsh, jyjgbh, jyjgmc, jcxdh, wtr, dlyszh, jylb, ywlx, jcxb, jcrq, jcjldbh, cphm, hpzl, gcpzh, gclx, clccrq, wjdly, ycy, wqczy, zcdjrq, vin, clxh, fdjh, csys, xszlc, qdxs, zxzxjxs, gczs, zdjygw, dgjygw, dlxjygw, t_detail, xzqy ,rllb , jyjgdz ,zjycs,cllx,clzbzl )
+        values (#{id},#{jylsh}, #{jyjgbh}, #{jyjgmc}, #{jcxdh}, #{wtr}, #{dlyszh}, #{jylb}, #{ywlx}, #{jcxb}, #{jcrq}, #{jcjldbh}, #{cphm}, #{hpzl}, #{gcpzh}, #{gclx}, #{clccrq}, #{wjdly}, #{ycy}, #{wqczy}, #{zcdjrq}, #{vin}, #{clxh}, #{fdjh}, #{csys}, #{xszlc}, #{qdxs}, #{zxzxjxs}, #{gczs}, #{zdjygw}, #{dgjygw}, #{dlxjygw}, #{tDetail}, #{xzqy},#{rllb},#{jyjgdz},#{zjycs},#{cllx},#{clzbzl})
     </insert>
 
     <!--通过主键修改数据-->

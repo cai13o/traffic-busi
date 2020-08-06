@@ -1,7 +1,10 @@
 package cn.com.busi.service.impl;
 
+import cn.com.busi.entity.TCartype;
 import cn.com.busi.entity.TReport;
+import cn.com.busi.entity.TSintype;
 import cn.com.busi.entity.TStatistics;
+import cn.com.busi.mapper.TCartypeDao;
 import cn.com.busi.mapper.TStatisticsDao;
 import cn.com.busi.service.TStatisticsService;
 import org.springframework.stereotype.Service;
@@ -23,6 +26,8 @@ import java.util.Map;
 public class TStatisticsServiceImpl implements TStatisticsService {
     @Resource
     private TStatisticsDao tStatisticsDao;
+    @Resource
+    private TCartypeDao tCartypeDao;
 
     TStatistics tStatistics;
 
@@ -211,4 +216,6 @@ public class TStatisticsServiceImpl implements TStatisticsService {
         System.out.println(table);
         return this.tStatisticsDao.count(table);
     }
+
+
 }

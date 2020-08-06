@@ -99,6 +99,6 @@ public class TRecord implements Serializable {
 
     private String cllx;
 
-
+    private String clzbzl;
 
 }

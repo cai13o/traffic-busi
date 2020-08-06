@@ -36,6 +36,8 @@ public interface TPgroupService {
      */
     List<TPgroup> queryAll(TPgroup tPgroup);
 
+    List<TPgroup> queryAllNoAdmin(TPgroup tPgroup);
+
     /**
      * 新增数据
      *

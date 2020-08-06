@@ -11,13 +11,12 @@ import lombok.extern.slf4j.Slf4j;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.springframework.stereotype.Service;
+import sun.misc.BASE64Encoder;
 
 import javax.annotation.Resource;
+import java.io.*;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * *********************************************
@@ -45,6 +44,8 @@ public class BusiServiceImpl implements BusiService {
     private TInstDeviceDao tInstDeviceDao;
     @Resource
     private TCautionDao tCautionDao;
+    @Resource
+    private TCartypeDao tCartypeDao;
 
     /**
      * *********************************************
@@ -62,20 +63,28 @@ public class BusiServiceImpl implements BusiService {
         Map<String, Object> resMap = new HashMap<>();
         resMap.put(BusinessConstant.RETCODE, BusiEnum.E0000.getCode());
         resMap.put(BusinessConstant.RETMSG, BusiEnum.E0000.getMessage());
-
+        System.out.println("本地图片:" + zdjygw);
+        System.out.println("本地图片:" + dgjygw);
+        System.out.println("本地图片:" + dlxjygw);
         TRecord tRecord = new TRecord();
+        BASE64Encoder encoder = new BASE64Encoder();
+        // 返回Base64编码过的字节数组字符串
+
         //一、判断并保存三张图片
         if (null != zdjygw) {
             //制动检验工位照片
-            tRecord.setZdjygw(new String(zdjygw));
+            tRecord.setZdjygw(encoder.encode(Objects.requireNonNull(zdjygw)));
+            System.out.println("本地图片转换Base64:" + encoder.encode(Objects.requireNonNull(zdjygw)));
         }
         if (null != dgjygw) {
             //灯光检验工位照片
-            tRecord.setDgjygw(new String(dgjygw));
+            tRecord.setDgjygw(encoder.encode(Objects.requireNonNull(dgjygw)));
+            System.out.println("本地图片转换Base64:" + encoder.encode(Objects.requireNonNull(dgjygw)));
         }
         if (null != dlxjygw) {
             //动力性检验工位照片
-            tRecord.setDlxjygw(new String(dlxjygw));
+            tRecord.setDlxjygw(encoder.encode(Objects.requireNonNull(dlxjygw)));
+            System.out.println("本地图片转换Base64:" + encoder.encode(Objects.requireNonNull(dlxjygw)));
         }
 
         //二、解析报文
@@ -169,38 +178,72 @@ public class BusiServiceImpl implements BusiService {
         tRecord.setCllx(String.valueOf(info.get(BusinessConstant.CLLX)));
         //总检验次数
         tRecord.setZjycs(String.valueOf(info.get(BusinessConstant.ZJYCS)));
+        //
+        tRecord.setClzbzl(String.valueOf(info.get(BusinessConstant.CLZBZL)));
+        System.out.println(tRecord.getClzbzl());
         //总信息
         tRecord.setTDetail(json);
         try {
             String.valueOf(info.get(BusinessConstant.YRPD));
             String.valueOf(info.get(BusinessConstant.ZWPD));
             String.valueOf(info.get(BusinessConstant.YWPD));
+            System.out.println(tRecord + "111111111`````````````````````````");
             tRecordDao.insert(tRecord);
             String dzzdcs1 = String.valueOf(info.get(BusinessConstant.DZZDCS1));
             String yrpd = String.valueOf(info.get(BusinessConstant.YRPD));
             String zwpd = String.valueOf(info.get(BusinessConstant.ZWPD));
             String ywpd = String.valueOf(info.get(BusinessConstant.YWPD));
-            System.out.println(dzzdcs1+yrpd+zwpd+ywpd+"检测项目");
-            if (dzzdcs1.equals("-") || yrpd.equals("-") || zwpd.equals("-") || ywpd.equals("-")){
-                TCaution tCaution = new TCaution();
-                tCaution.setId(UUID.randomUUID().toString().replaceAll("-", ""));
-                tCaution.setJglx("检测项目不全");
-                tCaution.setSsqy(tRecord.getXzqy());
-                tCaution.setSsjg(tRecord.getJyjgmc());
-                tCaution.setCphm(tRecord.getCphm());
-                tCaution.setLrsj(new Date());
-                tCautionDao.insert(tCaution);
+
+
+//            StringBuffer strBuf = new StringBuffer();
+//            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(new File("D:\\liangkeyiwei\\cllx.txt")), "gbk"));
+//            int tempchar;
+//            while ((tempchar = bufferedReader.read()) != -1) {
+//                strBuf.append((char) tempchar);
+//            }
+//            bufferedReader.close();
+            List<TCartype> tCartypes = this.tCartypeDao.queryAll();
+
+
+            for(TCartype tCartype:tCartypes) {
+                if (tRecord.getCllx().equals(tCartype.getName())) {
+                    if ((Integer.parseInt(tRecord.getClzbzl()) - Integer.parseInt(String.valueOf(info.get(BusinessConstant.DCSPCZ)))) >= 500 || (Integer.parseInt(tRecord.getClzbzl()) - Integer.parseInt(String.valueOf(info.get(BusinessConstant.DCSPCZ)))) <= -500) {
+                        System.out.println(tRecord.getClzbzl());
+                        TCaution tCaution = new TCaution();
+                        tCaution.setId(UUID.randomUUID().toString().replaceAll("-", ""));
+                        tCaution.setJglx("整备质量不合格");
+                        tCaution.setSsqy(tRecord.getXzqy());
+                        tCaution.setSsjg(tRecord.getJyjgmc());
+                        tCaution.setCphm(tRecord.getCphm());
+                        tCaution.setLrsj(new Date());
+                        tCautionDao.insert(tCaution);
+                    }
+                }
             }
-            String bhgx = String.valueOf(info.get(BusinessConstant.BHGX));
-            if(!bhgx.equals("无")&&!bhgx.equals("")){
-                TCaution tCaution = new TCaution();
-                tCaution.setId(UUID.randomUUID().toString().replaceAll("-", ""));
-                tCaution.setJglx(bhgx+"不合格");
-                tCaution.setSsqy(tRecord.getXzqy());
-                tCaution.setSsjg(tRecord.getJyjgmc());
-                tCaution.setCphm(tRecord.getCphm());
-                tCaution.setLrsj(new Date());
-                tCautionDao.insert(tCaution);
+
+            if (tRecord.getCllx().contains("客车")) {
+                if (dzzdcs1.equals("-") || yrpd.equals("-") || zwpd.equals("-") || ywpd.equals("-") || dzzdcs1.equals("") || yrpd.equals("") || zwpd.equals("") || ywpd.equals("")) {
+                    TCaution tCaution = new TCaution();
+                    tCaution.setId(UUID.randomUUID().toString().replaceAll("-", ""));
+                    tCaution.setJglx("检测项目不全");
+                    tCaution.setSsqy(tRecord.getXzqy());
+                    tCaution.setSsjg(tRecord.getJyjgmc());
+                    tCaution.setCphm(tRecord.getCphm());
+                    tCaution.setLrsj(new Date());
+                    tCautionDao.insert(tCaution);
+                }
+
+                String bhgx = String.valueOf(info.get(BusinessConstant.BHGX));
+                if (!bhgx.equals("无") && !bhgx.equals("")) {
+                    TCaution tCaution = new TCaution();
+                    tCaution.setId(UUID.randomUUID().toString().replaceAll("-", ""));
+                    tCaution.setJglx(bhgx + "不合格");
+                    tCaution.setSsqy(tRecord.getXzqy());
+                    tCaution.setSsjg(tRecord.getJyjgmc());
+                    tCaution.setCphm(tRecord.getCphm());
+                    tCaution.setLrsj(new Date());
+                    tCautionDao.insert(tCaution);
+                }
             }
         } catch (Exception e) {
             log.info("error", e);

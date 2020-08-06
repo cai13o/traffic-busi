@@ -79,6 +79,11 @@ public class TUserServiceImpl implements TUserService {
         return this.queryById(tUser.getUsername());
     }
 
+    @Override
+    public int updateImg(TUser tUser) {
+        return this.tUserDao.updateImg(tUser);
+    }
+
     /**
      * 通过主键删除数据
      *

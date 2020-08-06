@@ -11,9 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import sun.misc.BASE64Decoder;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * (TRecord)表控制层
@@ -58,17 +56,17 @@ public class TRecordController {
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
-//        String zdj = new String(tRecord.getZdjygw());
-//        String dgj = new String(tRecord.getDgjygw());
-//        String dlx = new String(tRecord.getDlxjygw());
+        String zdj = new String(tRecord.getZdjygw());
+        String dgj = new String(tRecord.getDgjygw());
+        String dlx = new String(tRecord.getDlxjygw());
         JSONObject a = JSON.parseObject(tDetail);
         System.out.println(tDetail);
         Map map = new HashMap<>();
         map.put("code", "20000");
         map.put("data", a);
-//        map.put("Zdjygw", zdj.getBytes());
-//        map.put("dgjygw", dgj.getBytes());
-//        map.put("dlxjygw", dlx.getBytes());
+        map.put("zdjygw", zdj);
+        map.put("dgjygw", dgj);
+        map.put("dlxjygw", dlx);
         return map;
     }
 
@@ -91,17 +89,25 @@ public class TRecordController {
 
     @GetMapping("selectCar")
     public Object selectCar(String page, String limit, TRecord tRecord) {
-        System.out.println(tRecord.toString());
         Integer intPage = Integer.parseInt(page);
         Integer intLimit = Integer.parseInt(limit);
         int offset = (intPage - 1) * intPage;
         Map map = new HashMap<>();
         PageHelper.startPage(intPage, intLimit);
-        List list = this.tRecordService.queryAllCar(tRecord);
+        List<TRecord> list = this.tRecordService.queryAllCar(tRecord);
+        Set set = new HashSet();
+        Set set2 = new HashSet();
+        for (TRecord t:list) {
+            set.add(t.getHpzl());
+            set2.add(t.getCllx());
+        }
         //将查询到的数据封装到PageInfo对象
         PageInfo<TInstInfo> pageInfo = new PageInfo(list, intLimit);
         map.put("code", "20000");
         map.put("data", list);
+        map.put("hpzl",set);
+        map.put("cllx",set2);
+        map.put("total",pageInfo.getTotal());
         return map;
 
     }

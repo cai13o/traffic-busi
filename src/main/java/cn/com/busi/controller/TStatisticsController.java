@@ -13,9 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @BelongsProject: traffic-busi
@@ -44,10 +42,16 @@ public class TStatisticsController {
         int offset = (intPage - 1) * intPage;
         PageHelper.startPage(intPage, intLimit);
         List<Map> list = this.tStatisticsService.carAll(tReport,startDate,endDate);
+        Set set = new HashSet();
+        for (Map m:list) {
+            set.add(m.get("cllx"));
+        }
         //将查询到的数据封装到PageInfo对象
         PageInfo<TInstInfo> pageInfo = new PageInfo(list, intLimit);
         map.put("code", "20000");
         map.put("data", list);
+        map.put("cllx", set);
+        map.put("total",pageInfo.getTotal());
         return map;
     }
 
@@ -64,6 +68,7 @@ public class TStatisticsController {
         PageInfo<TInstInfo> pageInfo = new PageInfo(list, intLimit);
         map.put("code", "20000");
         map.put("data", list);
+        map.put("total",pageInfo.getTotal());
         return map;
     }
 
@@ -79,6 +84,7 @@ public class TStatisticsController {
         PageInfo<TInstInfo> pageInfo = new PageInfo(list, intLimit);
         map.put("code", "20000");
         map.put("data", list);
+        map.put("total",pageInfo.getTotal());
         return map;
     }
 
@@ -90,4 +96,6 @@ public class TStatisticsController {
         map.put("data", this.tStatisticsService.count(table));
         return map;
     }
+
+
 }

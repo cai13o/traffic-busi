@@ -56,6 +56,7 @@ public interface TUserService {
      */
     TUser update(TUser tUser);
 
+    int updateImg(TUser tUser);
     /**
      * 通过主键删除数据
      *

@@ -43,8 +43,8 @@ public class HomePageServiceImpl implements HomePageService {
         List<Map> cllxStatistics = this.tStatisticsDao.cllxStatistics();
         Integer[] firstStatistics = this.tStatisticsDao.firstStatistics();
         Integer[] firstNotStatistics = this.tStatisticsDao.firstNotStatistics();
-        Integer[] singleDLXStatistics = this.tStatisticsDao.firstStatistics();
-        Integer[] singleJJXStatistics = this.tStatisticsDao.firstNotStatistics();
+        Integer[] singleDLXStatistics = this.tStatisticsDao.singleDLXStatistics();
+        Integer[] singleJJXStatistics = this.tStatisticsDao.singleJJXStatistics();
         Map map = new HashMap();
         map.put("code","20000");
         //检测机构数量

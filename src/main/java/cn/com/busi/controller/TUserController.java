@@ -2,7 +2,9 @@ package cn.com.busi.controller;
 
 import cn.com.busi.annotation.UserLoginToken;
 import cn.com.busi.entity.TInstInfo;
+import cn.com.busi.entity.TPgroup;
 import cn.com.busi.entity.TUser;
+import cn.com.busi.service.TPgroupService;
 import cn.com.busi.service.TUserService;
 import cn.com.busi.service.TokenService;
 import cn.com.busi.utils.TokenUtil;
@@ -35,6 +37,9 @@ public class TUserController {
     private TUserService tUserService;
 
     @Resource
+    private TPgroupService tPgroupService;
+
+    @Resource
     TokenService tokenService;
 
     /**
@@ -47,7 +52,10 @@ public class TUserController {
     public Object selectOne(String username) {
         Map map = new HashMap();
         map.put("code","20000");
-        map.put("data",this.tUserService.queryById(username));
+        TUser tUser = this.tUserService.queryById(username);
+        TPgroup tPgroup = tPgroupService.queryById(tUser.getDept());
+        map.put("data",tUser);
+        map.put("groupname",tPgroup.getGroupname());
         return map;
     }
 
@@ -89,13 +97,21 @@ public class TUserController {
      * @return 实例对象
      */
     @PostMapping("upPassword")
-    public Object upPassword(TUser tUser) {
+    public Object upPassword(TUser tUser,String newpassword) {
         System.out.println(tUser.toString());
-        Map map = new HashMap();
-        map.put("code","20000");
-        map.put("data",this.tUserService.upPassword(tUser));
-        return map;
-
+        TUser user = this.tUserService.getUserByUsername(tUser.getUsername(), tUser.getPassword());
+        if (user != null){
+            tUser.setPassword(newpassword);
+            Map map = new HashMap();
+            map.put("code","20000");
+            map.put("data",this.tUserService.upPassword(tUser));
+            return map;
+        }else {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("code", "50000");
+            jsonObject.put("message", "原密码错误");
+            return jsonObject;
+        }
     }
 
     /**
@@ -193,15 +209,22 @@ public class TUserController {
             jsonObject.put("message", "登录失败,密码错误");
             return jsonObject;
         } else {
-            String token = tokenService.getToken(userForBase);
-            jsonObject.put("code", "20000");
-            jsonObject.put("token", user.getUsername()+"-token");
+            System.out.println(userForBase.toString());
+            if(userForBase.getState() == 0){
+                jsonObject.put("message","账号未激活");
+                return jsonObject;
+            }else{
+                String token = tokenService.getToken(userForBase);
+                jsonObject.put("code", "20000");
+                jsonObject.put("token", user.getUsername()+"-token");
 
-            Cookie cookie = new Cookie("token", token);
-            cookie.setPath("/");
-            response.addCookie(cookie);
+                Cookie cookie = new Cookie("token", token);
+                cookie.setPath("/");
+                response.addCookie(cookie);
 
-            return jsonObject;
+                return jsonObject;
+            }
+
 
         }
     }
@@ -231,5 +254,12 @@ public class TUserController {
         return jsonObject;
     }
 
-
-}//
+    @PostMapping("updateImg")
+    public Object updateImg(@RequestBody TUser tUser) {
+        System.out.println(tUser.toString());
+        Map map = new HashMap();
+        map.put("code","20000");
+        map.put("data",this.tUserService.updateImg(tUser));
+        return map;
+    }
+}

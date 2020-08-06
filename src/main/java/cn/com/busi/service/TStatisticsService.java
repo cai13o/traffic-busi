@@ -1,6 +1,8 @@
 package cn.com.busi.service;
 
+import cn.com.busi.entity.TCartype;
 import cn.com.busi.entity.TReport;
+import cn.com.busi.entity.TSintype;
 import cn.com.busi.entity.TStatistics;
 
 import java.util.List;
@@ -39,4 +41,5 @@ public interface TStatisticsService {
     List<Map> singleSelect(TReport tReport, String startDate, String endDate, String singlePass);
 
     Integer count(String table);
+
 }

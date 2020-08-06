@@ -188,7 +188,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>2.0.3.RELEASE</version>
                 <configuration>
-                    <mainClass>com.dubbo.provider.service.bootstrap.Consumer</mainClass>
+                    <mainClass>cn.com.busi.TrafficBusiApplication</mainClass>
                 </configuration>
                 <executions>
                     <execution>

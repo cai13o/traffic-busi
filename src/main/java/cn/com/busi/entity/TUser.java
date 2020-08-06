@@ -75,6 +75,10 @@ public class TUser implements Serializable {
     * 0 冻结 1 正常
     */
     private Integer state;
+    /**
+     * 头像
+     */
+    private String img;
 
 
     public String getUsername() {
@@ -189,6 +193,14 @@ public class TUser implements Serializable {
         this.state = state;
     }
 
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
     @Override
     public String toString() {
         return "TUser{" +
@@ -206,6 +218,7 @@ public class TUser implements Serializable {
                 ", efftime=" + efftime +
                 ", losetime=" + losetime +
                 ", state=" + state +
+                ", img=" + img +
                 '}';
     }
 }

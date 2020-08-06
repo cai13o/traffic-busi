@@ -104,6 +104,23 @@ public class TPgroupController {
         return map;
     }
 
+
+    @GetMapping("selectNotAdmin")
+    public Object selectNotAdmin(String page, String limit,TPgroup tPgroup) {
+        System.out.println("12321321312312312321");
+        Integer intPage = Integer.parseInt(page);
+        Integer intLimit = Integer.parseInt(limit);
+        int offset = (intPage - 1) * intPage;
+        PageHelper.startPage(intPage,intLimit);
+        List<TPgroup> list=this.tPgroupService.queryAllNoAdmin(tPgroup);
+        //将查询到的数据封装到PageInfo对象
+        PageInfo<TInstInfo> pageInfo=new PageInfo(list,intLimit);
+        Map map = new HashMap();
+        map.put("code","20000");
+        map.put("data",list);
+        return map;
+    }
+
     /**
      * 修改数据
      *

@@ -205,8 +205,8 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into t_report(bgbh, zzrdzsbh, jyjgdz, jyjgdh, cphm, wtr, cllx, ppxh, dlyszh, zcdjrq, ccny, csys, vin, fdjhm, xzqy, jylb, ywlx, jcrq, wyxrd, gzxxzd, wgjc, yxjc, dpjc, hcpd, dlx, jjx, yzzdl, yzbphl, ezzdl, ezbphl, tzzdl, tzbphl, dcqyczheczdl, dcqyczhuczdl, mark, jcjl, zjcs, jcjgmc, clrllb, sqqzr, clzbzl, t_detail)
-        values (#{bgbh}, #{zzrdzsbh}, #{jyjgdz}, #{jyjgdh}, #{cphm}, #{wtr}, #{cllx}, #{ppxh}, #{dlyszh}, #{zcdjrq}, #{ccny}, #{csys}, #{vin}, #{fdjhm}, #{xzqy}, #{jylb}, #{ywlx}, #{jcrq}, #{wyxrd}, #{gzxxzd}, #{wgjc}, #{yxjc}, #{dpjc}, #{hcpd}, #{dlx}, #{jjx}, #{yzzdl}, #{yzbphl}, #{ezzdl}, #{ezbphl}, #{tzzdl}, #{tzbphl}, #{dcqyczheczdl}, #{dcqyczhuczdl}, #{mark}, #{jcjl}, #{zjcs}, #{jcjgmc}, #{clrllb}, #{sqqzr}, #{clzbzl}, #{tDetail})
+        insert into t_report(id,bgbh, zzrdzsbh, jyjgdz, jyjgdh, cphm, wtr, cllx, ppxh, dlyszh, zcdjrq, ccny, csys, vin, fdjhm, xzqy, jylb, ywlx, jcrq, wyxrd, gzxxzd, wgjc, yxjc, dpjc, hcpd, dlx, jjx, yzzdl, yzbphl, ezzdl, ezbphl, tzzdl, tzbphl, dcqyczheczdl, dcqyczhuczdl, mark, jcjl, zjcs, jcjgmc, clrllb, sqqzr, clzbzl, t_detail)
+        values (#{id},#{bgbh}, #{zzrdzsbh}, #{jyjgdz}, #{jyjgdh}, #{cphm}, #{wtr}, #{cllx}, #{ppxh}, #{dlyszh}, #{zcdjrq}, #{ccny}, #{csys}, #{vin}, #{fdjhm}, #{xzqy}, #{jylb}, #{ywlx}, #{jcrq}, #{wyxrd}, #{gzxxzd}, #{wgjc}, #{yxjc}, #{dpjc}, #{hcpd}, #{dlx}, #{jjx}, #{yzzdl}, #{yzbphl}, #{ezzdl}, #{ezbphl}, #{tzzdl}, #{tzbphl}, #{dcqyczheczdl}, #{dcqyczhuczdl}, #{mark}, #{jcjl}, #{zjcs}, #{jcjgmc}, #{clrllb}, #{sqqzr}, #{clzbzl}, #{tDetail})
     </insert>
 
     <!--通过主键修改数据-->

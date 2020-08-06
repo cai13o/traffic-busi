@@ -47,6 +47,11 @@ public class TPgroupServiceImpl implements TPgroupService {
         return this.tPgroupDao.queryAll(tPgroup);
     }
 
+    @Override
+    public List<TPgroup> queryAllNoAdmin(TPgroup tPgroup) {
+        return this.tPgroupDao.queryAllNoAdmin(tPgroup);
+    }
+
     /**
      * 新增数据
      *

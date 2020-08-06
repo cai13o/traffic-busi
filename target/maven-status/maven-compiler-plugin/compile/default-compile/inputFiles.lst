@@ -14,7 +14,6 @@ D:\traffic-busi\src\main\java\cn\com\busi\client\CxfClient.java
 D:\traffic-busi\src\main\java\cn\com\busi\service\impl\TrfficWebServiceImpl.java
 D:\traffic-busi\src\main\java\cn\com\busi\service\impl\TInstDeviceServiceImpl.java
 D:\traffic-busi\src\main\java\cn\com\busi\controller\HomePageController.java
-D:\traffic-busi\src\main\java\cn\com\busi\controller\TUsergroupController.java
 D:\traffic-busi\src\main\java\cn\com\busi\service\impl\TRecordServiceImpl.java
 D:\traffic-busi\src\main\java\cn\com\busi\controller\TInstDeviceController.java
 D:\traffic-busi\src\main\java\cn\com\busi\service\HomePageService.java
@@ -33,7 +32,6 @@ D:\traffic-busi\src\main\java\cn\com\busi\entity\TInfo.java
 D:\traffic-busi\src\main\java\cn\com\busi\mapper\TInfoMapper.java
 D:\traffic-busi\src\main\java\cn\com\busi\service\impl\HomePageServiceImpl.java
 D:\traffic-busi\src\main\java\cn\com\busi\mapper\TPgroupDao.java
-D:\traffic-busi\src\main\java\cn\com\busi\mapper\TUsergroupDao.java
 D:\traffic-busi\src\main\java\cn\com\busi\service\impl\TCautionServiceImpl.java
 D:\traffic-busi\src\main\java\cn\com\busi\mapper\TUserDao.java
 D:\traffic-busi\src\main\java\cn\com\busi\mapper\TCautionDao.java
@@ -41,7 +39,6 @@ D:\traffic-busi\src\main\java\cn\com\busi\Interceptor\AuthenticationInterceptor.
 D:\traffic-busi\src\main\java\cn\com\busi\entity\TReport.java
 D:\traffic-busi\src\main\java\cn\com\busi\mapper\TRecordDao.java
 D:\traffic-busi\src\main\java\cn\com\busi\utils\DateTimeUtil.java
-D:\traffic-busi\src\main\java\cn\com\busi\entity\TUsergroup.java
 D:\traffic-busi\src\main\java\cn\com\busi\mapper\TDetailMapper.java
 D:\traffic-busi\src\main\java\cn\com\busi\config\InterceptorConfig.java
 D:\traffic-busi\src\main\java\cn\com\busi\entity\PageInfo.java
@@ -53,7 +50,6 @@ D:\traffic-busi\src\main\java\cn\com\busi\service\TInstInfoService.java
 D:\traffic-busi\src\main\java\cn\com\busi\common\LoginInterceptor.java
 D:\traffic-busi\src\main\java\cn\com\busi\entity\TCaution.java
 D:\traffic-busi\src\main\java\cn\com\busi\mapper\TInstInfoDao.java
-D:\traffic-busi\src\main\java\cn\com\busi\service\impl\TUsergroupServiceImpl.java
 D:\traffic-busi\src\main\java\cn\com\busi\controller\TStatisticsController.java
 D:\traffic-busi\src\main\java\cn\com\busi\service\TPgroupService.java
 D:\traffic-busi\src\main\java\cn\com\busi\controller\TUserController.java
@@ -78,7 +74,6 @@ D:\traffic-busi\src\main\java\cn\com\busi\service\impl\TUserServiceImpl.java
 D:\traffic-busi\src\main\java\cn\com\busi\service\TRoleService.java
 D:\traffic-busi\src\main\java\cn\com\busi\entity\TPgroup.java
 D:\traffic-busi\src\main\java\cn\com\busi\mapper\TInstDeviceDao.java
-D:\traffic-busi\src\main\java\cn\com\busi\service\TUsergroupService.java
 D:\traffic-busi\src\main\java\cn\com\busi\service\impl\TRoleServiceImpl.java
 D:\traffic-busi\src\main\java\cn\com\busi\service\TokenService.java
 D:\traffic-busi\src\main\java\cn\com\busi\entity\TRecord.java
