@@ -177,11 +177,11 @@
     </update>
 
 
-    <select id="queryByUsername" resultMap="BaseResultMap">
+    <select id="queryByUsername" resultType="string">
         select
-          USERNAME, PASSWORD, SEX, CARDTYPE, CARDNO, CNNAME, DEPT, ADDRESS, MOBILEID, POSTCODE, REGTIME, EFFTIME, LOSETIME, STATE
+          USERNAME
         from t_user
-        where DEPT = "" or dept = null
+        where DEPT = "" or DEPT = null
     </select>
 
     <select id="queryByDept" resultMap="BaseResultMap">

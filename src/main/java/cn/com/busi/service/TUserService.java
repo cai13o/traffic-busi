@@ -77,7 +77,7 @@ public interface TUserService {
 
     int reset(TUser tUser);
 
-    List<TUser> queryByUsername();
+    List queryByUsername();
 
     List<TUser> queryByDept(String dept);
 

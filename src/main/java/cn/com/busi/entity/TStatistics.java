@@ -6,6 +6,8 @@ import java.util.Date;
 
 @Data
 public class TStatistics {
+
+    private String id;
     private String xzqy;
     private String cllx;
     private String ppxh;
@@ -18,4 +20,6 @@ public class TStatistics {
     private String hgl;
     private String singlePass;
     private String table;
+    private String num;
+    private String clzs;
 }

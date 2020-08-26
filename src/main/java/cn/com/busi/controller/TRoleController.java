@@ -1,5 +1,6 @@
 package cn.com.busi.controller;
 
+import cn.com.busi.annotation.Log;
 import cn.com.busi.entity.TPgroup;
 import cn.com.busi.entity.TRole;
 import cn.com.busi.service.TRoleService;
@@ -54,6 +55,7 @@ public class TRoleController {
      * @param
      * @return 实例对象
      */
+    @Log("权限修改")
     @PostMapping("update")
     public Object update(String groupid,String sysid,String rolename ,String releid,String rout) {
 

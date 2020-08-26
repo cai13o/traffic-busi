@@ -42,6 +42,8 @@
         <result property="jyjgdz" column="jyjgdz" jdbcType="VARCHAR"/>
         <result property="cllx" column="cllx" jdbcType="VARCHAR"/>
         <result property="clzbzl" column="clzbzl" jdbcType="VARCHAR"/>
+        <result property="syxz" column="syxz" jdbcType="VARCHAR"/>
+        <result property="clyt" column="clyt" jdbcType="VARCHAR"/>
 
 
     </resultMap>
@@ -49,7 +51,7 @@
     <!--查询单个-->
     <select id="queryById" resultMap="BaseResultMap">
         select
-          id, jylsh, jyjgbh, jyjgmc, jcxdh, wtr, dlyszh, jylb, ywlx, jcxb, jcrq, jcjldbh, cphm, hpzl, gcpzh, gclx, clccrq, wjdly, ycy, wqczy, zcdjrq, vin, clxh, fdjh, csys, xszlc, qdxs, zxzxjxs, gczs, zdjygw, dgjygw, dlxjygw, t_detail ,xzqy
+          id, jylsh, jyjgbh, jyjgmc, jcxdh, wtr, dlyszh, jylb, ywlx, jcxb, jcrq, jcjldbh, cphm, hpzl, gcpzh, gclx, clccrq, wjdly, ycy, wqczy, zcdjrq, vin, clxh, fdjh, csys, xszlc, qdxs, zxzxjxs, gczs, zdjygw, dgjygw, dlxjygw, t_detail ,xzqy,syxz,clyt
         from t_record
         where id = #{id}
     </select>
@@ -57,7 +59,7 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="BaseResultMap">
         select
-          id, jylsh, jyjgbh, jyjgmc, jcxdh, wtr, dlyszh, jylb, ywlx, jcxb, jcrq, jcjldbh, cphm, hpzl, gcpzh, gclx, clccrq, wjdly, ycy, wqczy, zcdjrq, vin, clxh, fdjh, csys, xszlc, qdxs, zxzxjxs, gczs, zdjygw, dgjygw, dlxjygw, t_detail ,xzqy
+          id, jylsh, jyjgbh, jyjgmc, jcxdh, wtr, dlyszh, jylb, ywlx, jcxb, jcrq, jcjldbh, cphm, hpzl, gcpzh, gclx, clccrq, wjdly, ycy, wqczy, zcdjrq, vin, clxh, fdjh, csys, xszlc, qdxs, zxzxjxs, gczs, zdjygw, dgjygw, dlxjygw, t_detail ,xzqy,syxz,clyt
         from t_record
         limit #{offset}, #{limit}
     </select>
@@ -66,8 +68,8 @@
     <select id="queryAll" resultMap="BaseResultMap">
         select
         id, jylsh, jyjgbh, jyjgmc, jcxdh, wtr, dlyszh, jylb, ywlx, jcxb, jcrq, jcjldbh, cphm, hpzl, gcpzh, gclx, clccrq,
-        wjdly, ycy, wqczy, zcdjrq, vin, clxh, fdjh, csys, xszlc, qdxs, zxzxjxs, gczs, zdjygw, dgjygw, dlxjygw, t_detail
-        ,xzqy
+        wjdly, ycy, wqczy, zcdjrq, vin, clxh, fdjh, csys, xszlc, qdxs, zxzxjxs, gczs
+        ,xzqy,syxz,clyt
         from t_record
         <where>
             <if test="id != null and id != ''">
@@ -80,16 +82,16 @@
                 and jyjgbh = #{jyjgbh}
             </if>
             <if test="jyjgmc != null and jyjgmc != ''">
-                and jyjgmc = #{jyjgmc}
+                and jyjgmc like concat(concat('%',#{jyjgmc}),'%')
             </if>
             <if test="jcxdh != null and jcxdh != ''">
                 and jcxdh = #{jcxdh}
             </if>
             <if test="wtr != null and wtr != ''">
-                and wtr = #{wtr}
+                and wtr like concat(concat('%',#{wtr}),'%')
             </if>
             <if test="dlyszh != null and dlyszh != ''">
-                and dlyszh = #{dlyszh}
+                and dlyszh like concat(concat('%',#{dlyszh}),'%')
             </if>
             <if test="jylb != null and jylb != ''">
                 and jylb = #{jylb}
@@ -101,10 +103,10 @@
                 and jcxb = #{jcxb}
             </if>
             <if test="jcrq != null">
-                and jcrq = #{jcrq}
+                and TO_DAYS(jcrq) = TO_DAYS(#{jcrq})
             </if>
             <if test="jcjldbh != null and jcjldbh != ''">
-                and jcjldbh = #{jcjldbh}
+                and jcjldbh like concat(concat('%',#{jcjldbh}),'%')
             </if>
             <if test="cphm != null and cphm != ''">
                 and cphm like concat(concat('%',#{cphm}),'%')
@@ -157,40 +159,35 @@
             <if test="gczs != null and gczs != ''">
                 and gczs = #{gczs}
             </if>
-            <if test="zdjygw != null and zdjygw != ''">
-                and zdjygw = #{zdjygw}
-            </if>
-            <if test="dgjygw != null and dgjygw != ''">
-                and dgjygw = #{dgjygw}
-            </if>
-            <if test="dlxjygw != null and dlxjygw != ''">
-                and dlxjygw = #{dlxjygw}
-            </if>
-            <if test="tDetail != null and tDetail != ''">
-                and t_detail = #{tDetail}
-            </if>
+
             <if test="xzqy != null and xzqy != ''">
                 and xzqy like concat(concat('%',#{xzqy}),'%')
             </if>
+            <if test="syxz != null and syxz != ''">
+                and syxz like concat(concat('%',#{syxz}),'%')
+            </if>
+            <if test="clyt != null and clyt != ''">
+                and clyt like concat(concat('%',#{clyt}),'%')
+            </if>
         </where>
+        ORDER BY jcrq DESC
     </select>
 
     <select id="count" resultMap="BaseResultMap">
         select
           count(id) cllx
         from t_record
-        where zjycs = "1"
     </select>
 
 
     <select id="queryAllCar" resultMap="BaseResultMap">
         select
         id, jylsh, jyjgbh, jyjgmc, jcxdh, wtr, dlyszh, jylb, ywlx, jcxb, jcrq, jcjldbh, cphm, hpzl, gcpzh, gclx, clccrq,
-        wjdly, ycy, wqczy, zcdjrq, vin, clxh, fdjh, csys, xszlc, qdxs, zxzxjxs, gczs,  t_detail
+        wjdly, ycy, wqczy, zcdjrq, vin, clxh, fdjh, csys, xszlc, qdxs, zxzxjxs, gczs,  t_detail,syxz,clyt
         ,xzqy,jyjgdz,cllx
         from t_record
         <where>
-            zjycs = 1
+            zjycs = "1"
             <if test="jyjgdz != null and jyjgdz != ''">
                 and jyjgdz = #{jyjgdz}
             </if>
@@ -285,19 +282,23 @@
                 and gczs = #{gczs}
             </if>
 
-            <if test="tDetail != null and tDetail != ''">
-                and t_detail = #{tDetail}
-            </if>
             <if test="xzqy != null and xzqy != ''">
                 and xzqy like concat(concat('%',#{xzqy}),'%')
             </if>
+            <if test="syxz != null and syxz != ''">
+                and syxz like concat(concat('%',#{syxz}),'%')
+            </if>
+            <if test="clyt != null and clyt != ''">
+                and clyt like concat(concat('%',#{clyt}),'%')
+            </if>
         </where>
+        ORDER BY jcrq DESC
     </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="false">
-        insert into t_record(id,jylsh, jyjgbh, jyjgmc, jcxdh, wtr, dlyszh, jylb, ywlx, jcxb, jcrq, jcjldbh, cphm, hpzl, gcpzh, gclx, clccrq, wjdly, ycy, wqczy, zcdjrq, vin, clxh, fdjh, csys, xszlc, qdxs, zxzxjxs, gczs, zdjygw, dgjygw, dlxjygw, t_detail, xzqy ,rllb , jyjgdz ,zjycs,cllx,clzbzl )
-        values (#{id},#{jylsh}, #{jyjgbh}, #{jyjgmc}, #{jcxdh}, #{wtr}, #{dlyszh}, #{jylb}, #{ywlx}, #{jcxb}, #{jcrq}, #{jcjldbh}, #{cphm}, #{hpzl}, #{gcpzh}, #{gclx}, #{clccrq}, #{wjdly}, #{ycy}, #{wqczy}, #{zcdjrq}, #{vin}, #{clxh}, #{fdjh}, #{csys}, #{xszlc}, #{qdxs}, #{zxzxjxs}, #{gczs}, #{zdjygw}, #{dgjygw}, #{dlxjygw}, #{tDetail}, #{xzqy},#{rllb},#{jyjgdz},#{zjycs},#{cllx},#{clzbzl})
+        insert into t_record(id,jylsh, jyjgbh, jyjgmc, jcxdh, wtr, dlyszh, jylb, ywlx, jcxb, jcrq, jcjldbh, cphm, hpzl, gcpzh, gclx, clccrq, wjdly, ycy, wqczy, zcdjrq, vin, clxh, fdjh, csys, xszlc, qdxs, zxzxjxs, gczs, zdjygw, dgjygw, dlxjygw, t_detail, xzqy ,rllb , jyjgdz ,zjycs,cllx,clzbzl,syxz,clyt )
+        values (#{id},#{jylsh}, #{jyjgbh}, #{jyjgmc}, #{jcxdh}, #{wtr}, #{dlyszh}, #{jylb}, #{ywlx}, #{jcxb}, #{jcrq}, #{jcjldbh}, #{cphm}, #{hpzl}, #{gcpzh}, #{gclx}, #{clccrq}, #{wjdly}, #{ycy}, #{wqczy}, #{zcdjrq}, #{vin}, #{clxh}, #{fdjh}, #{csys}, #{xszlc}, #{qdxs}, #{zxzxjxs}, #{gczs}, #{zdjygw}, #{dgjygw}, #{dlxjygw}, #{tDetail}, #{xzqy},#{rllb},#{jyjgdz},#{zjycs},#{cllx},#{clzbzl},#{syxz},#{clyt})
     </insert>
 
     <!--通过主键修改数据-->

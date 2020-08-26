@@ -78,7 +78,7 @@ public interface TUserDao {
      */
     int deleteById(String username);
 
-    List<TUser> queryByUsername();
+    List queryByUsername();
 
     List<TUser> queryByDept(String dept);
 

@@ -42,7 +42,7 @@
         from t_pgroup
         <where>
             <if test="groupid != null and groupid != ''">
-                and GROUPID = #{groupid}
+                and groupid like concat(concat('%',#{groupid}),'%')
             </if>
             <if test="sysid != null and sysid != ''">
                 and SYSID = #{sysid}

@@ -39,7 +39,7 @@ public class TRecord implements Serializable {
 
     private String jcxb;
 
-
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date jcrq;
 
@@ -101,4 +101,7 @@ public class TRecord implements Serializable {
 
     private String clzbzl;
 
+    private String syxz;
+
+    private String clyt;
 }

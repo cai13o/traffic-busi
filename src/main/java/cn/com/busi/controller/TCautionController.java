@@ -51,6 +51,7 @@ public class TCautionController {
         PageInfo<TInstInfo> pageInfo = new PageInfo(list, intLimit);
         map.put("code", "20000");
         map.put("data", list);
+        map.put("total",pageInfo.getTotal());
         return map;
     }
 

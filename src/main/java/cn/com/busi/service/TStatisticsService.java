@@ -22,7 +22,7 @@ public interface TStatisticsService {
      * @param tReport 实例对象
      * @return 对象列表
      */
-    List<Map> carAll(TReport tReport, String startDate, String endDate);
+    List<TStatistics> carAll(TReport tReport, String startDate, String endDate);
 
     /**
      * 通过实体作为筛选条件对初检合格率统计查询
@@ -30,7 +30,7 @@ public interface TStatisticsService {
      * @param tReport 实例对象
      * @return 对象列表
      */
-    List<Map> firstSelect(TReport tReport, String startDate, String endDate);
+    List<TStatistics> firstSelect(TReport tReport, String startDate, String endDate);
 
     /**
      * 通过实体作为筛选条件单项合格率统计查询
@@ -38,7 +38,7 @@ public interface TStatisticsService {
      * @param tReport 实例对象
      * @return 对象列表
      */
-    List<Map> singleSelect(TReport tReport, String startDate, String endDate, String singlePass);
+    List<TStatistics> singleSelect(TReport tReport, String startDate, String endDate, String singlePass);
 
     Integer count(String table);
 

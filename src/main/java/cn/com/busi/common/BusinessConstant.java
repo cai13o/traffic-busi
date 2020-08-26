@@ -195,6 +195,8 @@ public interface BusinessConstant {
     String ZLGCZDD2 = "zlgczdd2";
     String YLGCZDD2 = "ylgczdd2";
     String ZLCLZZL2 = "zlclzzl2";
+    String SYXZ = "syxz";
+
 
     String YLCLZZL2 = "ylclzzl2";
     String DZZDPD2 = "dzzdpd2";

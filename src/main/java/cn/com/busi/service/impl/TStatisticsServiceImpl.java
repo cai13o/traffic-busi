@@ -13,6 +13,7 @@ import javax.annotation.Resource;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -29,11 +30,10 @@ public class TStatisticsServiceImpl implements TStatisticsService {
     @Resource
     private TCartypeDao tCartypeDao;
 
-    TStatistics tStatistics;
 
     @Override
-    public List<Map> carAll(TReport tReport, String startDate, String endDate) {
-        tStatistics = new TStatistics();
+    public List<TStatistics> carAll(TReport tReport, String startDate, String endDate) {
+        TStatistics tStatistics = new TStatistics();
 //       System.out.println("".equals(xzqy.trim()));
         if (null != tReport.getXzqy()) {
             if (!tReport.getXzqy().trim().isEmpty()) {
@@ -80,20 +80,29 @@ public class TStatisticsServiceImpl implements TStatisticsService {
                     tStatistics.setEndDate(new SimpleDateFormat("yyyy-MM-dd").parse(endDate));
                     tStatistics.setJcrq("jcrq");
                 } catch (ParseException e) {
-                    throw new RuntimeException();
+                    e.printStackTrace();
                 }
             }
         }
 
-        if ((tReport.getXzqy() == null || "".equals(tReport.getXzqy().trim())) && (tReport.getCllx() == null || "".equals(tReport.getCllx().trim())) && (tReport.getPpxh() == null || "".equals(tReport.getPpxh().trim())) && (tReport.getJcjgmc() == null || "".equals(tReport.getJcjgmc().trim())) && (tReport.getClrllb() == null || "".equals(tReport.getClrllb().trim())) && (startDate == null || "".equals(startDate.trim())) && (endDate == null || "".equals(endDate.trim()))) {
+        if ((tReport.getJcjl() == null || "".equals(tReport.getJcjl().trim())) && (tReport.getXzqy() == null || "".equals(tReport.getXzqy().trim())) && (tReport.getCllx() == null || "".equals(tReport.getCllx().trim())) && (tReport.getPpxh() == null || "".equals(tReport.getPpxh().trim())) && (tReport.getJcjgmc() == null || "".equals(tReport.getJcjgmc().trim())) && (tReport.getClrllb() == null || "".equals(tReport.getClrllb().trim())) && (startDate == null || "".equals(startDate.trim())) && (endDate == null || "".equals(endDate.trim()))) {
+            System.out.println("返回空");
             return null;
         }
-        return this.tStatisticsDao.carAll(tReport, tStatistics);
+        List<TStatistics> tStatisticses = this.tStatisticsDao.carAll(tReport, tStatistics);
+        if(null != tReport.getPpxh()) {
+            if (!tReport.getPpxh().trim().isEmpty()) {
+                for (int i = 0; i < tStatisticses.size(); i++) {
+                    tStatisticses.get(i).setPpxh(tReport.getPpxh());
+                }
+            }
+        }
+        return tStatisticses;
     }
 
     @Override
-    public List<Map> firstSelect(TReport tReport, String startDate, String endDate) {
-        tStatistics = new TStatistics();
+    public List<TStatistics> firstSelect(TReport tReport, String startDate, String endDate) {
+        TStatistics tStatistics = new TStatistics();
 //       System.out.println("".equals(xzqy.trim()));
         if (null != tReport.getXzqy()) {
             if (!tReport.getXzqy().trim().isEmpty()) {
@@ -149,12 +158,20 @@ public class TStatisticsServiceImpl implements TStatisticsService {
             System.out.println("返回空");
             return null;
         }
-        return this.tStatisticsDao.firstSelect(tReport, tStatistics);
+        List<TStatistics> tStatisticses = this.tStatisticsDao.firstSelect(tReport, tStatistics);
+        if(null != tReport.getPpxh()) {
+            if (!tReport.getPpxh().trim().isEmpty()) {
+                for (int i = 0; i < tStatisticses.size(); i++) {
+                    tStatisticses.get(i).setPpxh(tReport.getPpxh());
+                }
+            }
+        }
+        return tStatisticses;
     }
 
     @Override
-    public List<Map> singleSelect(TReport tReport, String startDate, String endDate, String singlePass) {
-        tStatistics = new TStatistics();
+    public List<TStatistics> singleSelect(TReport tReport, String startDate, String endDate, String singlePass) {
+        TStatistics tStatistics = new TStatistics();
 //       System.out.println("".equals(xzqy.trim()));
         tStatistics.setSinglePass(singlePass);
         if (null != tReport.getXzqy()) {
@@ -208,7 +225,15 @@ public class TStatisticsServiceImpl implements TStatisticsService {
         if ((tReport.getXzqy() == null || "".equals(tReport.getXzqy().trim())) && (tReport.getCllx() == null || "".equals(tReport.getCllx().trim())) && (tReport.getPpxh() == null || "".equals(tReport.getPpxh().trim())) && (tReport.getJcjgmc() == null || "".equals(tReport.getJcjgmc().trim())) && (tReport.getClrllb() == null || "".equals(tReport.getClrllb().trim())) && (startDate == null || "".equals(startDate.trim())) && (endDate == null || "".equals(endDate.trim()))) {
             return null;
         }
-        return this.tStatisticsDao.singleSelect(tReport, tStatistics);
+        List<TStatistics> tStatisticses = this.tStatisticsDao.singleSelect(tReport, tStatistics);
+        if(null != tReport.getPpxh()) {
+            if (!tReport.getPpxh().trim().isEmpty()) {
+                for (int i = 0; i < tStatisticses.size(); i++) {
+                    tStatisticses.get(i).setPpxh(tReport.getPpxh());
+                }
+            }
+        }
+        return tStatisticses;
     }
 
     @Override

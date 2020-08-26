@@ -81,7 +81,7 @@
 
     <!--通过主键删除-->
     <delete id="deleteById">
-        delete from t_role where ROLEID = #{roleid}
+        delete from t_role where GROUPID = #{roleid}
     </delete>
 
 </mapper>

@@ -37,6 +37,7 @@
                 and name = #{name}
             </if>
         </where>
+        ORDER BY num
     </select>
 
     <!--新增所有列-->
@@ -60,5 +61,6 @@
     <delete id="deleteById">
         delete from wolf-cloud.t_sintype where id = #{id}
     </delete>
+
 
 </mapper>

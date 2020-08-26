@@ -35,40 +35,42 @@ public class TStatisticsController {
 
     @GetMapping("carAll")
     public Object carAll(String page, String limit, String startDate, String endDate,TReport tReport) {
-        System.out.println(tReport.getClrllb());
         Map map = new HashMap();
         Integer intPage = Integer.parseInt(page);
         Integer intLimit = Integer.parseInt(limit);
         int offset = (intPage - 1) * intPage;
         PageHelper.startPage(intPage, intLimit);
-        List<Map> list = this.tStatisticsService.carAll(tReport,startDate,endDate);
-        Set set = new HashSet();
-        for (Map m:list) {
-            set.add(m.get("cllx"));
-        }
+        List<TStatistics> list = this.tStatisticsService.carAll(tReport,startDate,endDate);
+//        Set set = new HashSet();
+//        if(list == null){
+//            for (Map m:list) {
+//                set.add(m.get("cllx"));
+//            }
+//            map.put("cllx", set);
+//        }
         //将查询到的数据封装到PageInfo对象
         PageInfo<TInstInfo> pageInfo = new PageInfo(list, intLimit);
         map.put("code", "20000");
         map.put("data", list);
-        map.put("cllx", set);
         map.put("total",pageInfo.getTotal());
         return map;
     }
 
     @GetMapping("firstSelect")
     public Object firstSelect(String page, String limit, String startDate, String endDate, TReport tReport) {
-        System.out.println(tReport.toString());
         Map map = new HashMap();
         Integer intPage = Integer.parseInt(page);
         Integer intLimit = Integer.parseInt(limit);
         int offset = (intPage - 1) * intPage;
         PageHelper.startPage(intPage, intLimit);
-        List<Map> list = this.tStatisticsService.firstSelect(tReport,startDate,endDate);
+        List<TStatistics> list = this.tStatisticsService.firstSelect(tReport,startDate,endDate);
+        List<TStatistics> total = this.tStatisticsService.carAll(tReport,startDate,endDate);
         //将查询到的数据封装到PageInfo对象
-        PageInfo<TInstInfo> pageInfo = new PageInfo(list, intLimit);
+//        PageInfo<TInstInfo> pageInfo = new PageInfo(list, intLimit);
+        PageInfo<TInstInfo> pageInfo0 = new PageInfo(total, intLimit);
         map.put("code", "20000");
         map.put("data", list);
-        map.put("total",pageInfo.getTotal());
+        map.put("total",pageInfo0.getTotal());
         return map;
     }
 
@@ -79,12 +81,14 @@ public class TStatisticsController {
         Integer intLimit = Integer.parseInt(limit);
         int offset = (intPage - 1) * intPage;
         PageHelper.startPage(intPage, intLimit);
-        List<Map> list = this.tStatisticsService.singleSelect(tReport,startDate,endDate,singlePass);
+        List<TStatistics> list = this.tStatisticsService.singleSelect(tReport,startDate,endDate,singlePass);
+        List<TStatistics> total = this.tStatisticsService.carAll(tReport,startDate,endDate);
         //将查询到的数据封装到PageInfo对象
-        PageInfo<TInstInfo> pageInfo = new PageInfo(list, intLimit);
+//        PageInfo<TInstInfo> pageInfo = new PageInfo(list, intLimit);
+        PageInfo<TInstInfo> pageInfo0 = new PageInfo(total, intLimit);
         map.put("code", "20000");
         map.put("data", list);
-        map.put("total",pageInfo.getTotal());
+        map.put("total",pageInfo0.getTotal());
         return map;
     }
 

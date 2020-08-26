@@ -109,7 +109,7 @@ public class TUserServiceImpl implements TUserService {
         return this.tUserDao.reset(tUser);
     }
 
-    public List<TUser> queryByUsername(){
+    public List queryByUsername(){
             return this.tUserDao.queryByUsername();
     }
 

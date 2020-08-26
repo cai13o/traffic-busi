@@ -77,6 +77,7 @@ public class TReportController {
         System.out.println(list);
         map.put("code", "20000");
         map.put("data", list);
+        map.put("total",pageInfo.getTotal());
         return map;
     }
 

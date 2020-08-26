@@ -126,7 +126,7 @@ public class BusiServiceImpl implements BusiService {
         tRecord.setJcxb(String.valueOf(info.get(BusinessConstant.JCXB)));
         //检测日期
         if (null != info.get(BusinessConstant.JCRQ) && !"".equals(info.get(BusinessConstant.JCRQ))) {
-            tRecord.setJcrq(DateTimeUtil.formateDate(String.valueOf(info.get(BusinessConstant.JCRQ)), "yyyyMMdd"));
+            tRecord.setJcrq(DateTimeUtil.formateDate(String.valueOf(info.get(BusinessConstant.JCRQ)), "yyyy-MM-dd hh:mm:ss"));
         }
         //检测记录单编号
         tRecord.setJcjldbh(String.valueOf(info.get(BusinessConstant.JCJLDBH)));
@@ -180,6 +180,10 @@ public class BusiServiceImpl implements BusiService {
         tRecord.setZjycs(String.valueOf(info.get(BusinessConstant.ZJYCS)));
         //
         tRecord.setClzbzl(String.valueOf(info.get(BusinessConstant.CLZBZL)));
+        //使用性质
+        tRecord.setSyxz(String.valueOf(info.get(BusinessConstant.SYXZ)));
+        //车辆用途
+        tRecord.setClyt(String.valueOf(info.get(BusinessConstant.CLYT)));
         System.out.println(tRecord.getClzbzl());
         //总信息
         tRecord.setTDetail(json);
@@ -202,24 +206,24 @@ public class BusiServiceImpl implements BusiService {
 //                strBuf.append((char) tempchar);
 //            }
 //            bufferedReader.close();
-            List<TCartype> tCartypes = this.tCartypeDao.queryAll();
+//            List<TCartype> tCartypes = this.tCartypeDao.queryAll();
 
 
-            for(TCartype tCartype:tCartypes) {
-                if (tRecord.getCllx().equals(tCartype.getName())) {
-                    if ((Integer.parseInt(tRecord.getClzbzl()) - Integer.parseInt(String.valueOf(info.get(BusinessConstant.DCSPCZ)))) >= 500 || (Integer.parseInt(tRecord.getClzbzl()) - Integer.parseInt(String.valueOf(info.get(BusinessConstant.DCSPCZ)))) <= -500) {
-                        System.out.println(tRecord.getClzbzl());
-                        TCaution tCaution = new TCaution();
-                        tCaution.setId(UUID.randomUUID().toString().replaceAll("-", ""));
-                        tCaution.setJglx("整备质量不合格");
-                        tCaution.setSsqy(tRecord.getXzqy());
-                        tCaution.setSsjg(tRecord.getJyjgmc());
-                        tCaution.setCphm(tRecord.getCphm());
-                        tCaution.setLrsj(new Date());
-                        tCautionDao.insert(tCaution);
-                    }
+//            for(TCartype tCartype:tCartypes) {
+            if (tRecord.getCllx().contains("货车")) {
+                if ((Integer.parseInt(tRecord.getClzbzl()) - Integer.parseInt(String.valueOf(info.get(BusinessConstant.DCSPCZ)))) >= 500 || (Integer.parseInt(tRecord.getClzbzl()) - Integer.parseInt(String.valueOf(info.get(BusinessConstant.DCSPCZ)))) <= -500) {
+                    System.out.println(tRecord.getClzbzl());
+                    TCaution tCaution = new TCaution();
+                    tCaution.setId(UUID.randomUUID().toString().replaceAll("-", ""));
+                    tCaution.setJglx("整备质量不合格");
+                    tCaution.setSsqy(tRecord.getXzqy());
+                    tCaution.setSsjg(tRecord.getJyjgmc());
+                    tCaution.setCphm(tRecord.getCphm());
+                    tCaution.setLrsj(new Date());
+                    tCautionDao.insert(tCaution);
                 }
             }
+//            }
 
             if (tRecord.getCllx().contains("客车")) {
                 if (dzzdcs1.equals("-") || yrpd.equals("-") || zwpd.equals("-") || ywpd.equals("-") || dzzdcs1.equals("") || yrpd.equals("") || zwpd.equals("") || ywpd.equals("")) {
@@ -330,7 +334,7 @@ public class BusiServiceImpl implements BusiService {
         tReport.setYwlx(String.valueOf(info.get(BusinessConstant.YWLX)));
         //检验日期
         if (null != info.get(BusinessConstant.JYRQ) && !"".equals(info.get(BusinessConstant.JYRQ))) {
-            tReport.setJcrq(DateTimeUtil.formateDate(String.valueOf(info.get(BusinessConstant.JYRQ)), "yyyyMMdd"));
+            tReport.setJcrq(DateTimeUtil.formateDate(String.valueOf(info.get(BusinessConstant.JYRQ)), "yyyy-MM-dd hh:mm:ss"));
         }
         //唯一性
         tReport.setWyxrd(String.valueOf(info.get(BusinessConstant.WYXRD)));
@@ -363,9 +367,70 @@ public class BusiServiceImpl implements BusiService {
         tReport.setJcjgmc(String.valueOf(info.get(BusinessConstant.JCJGMC)));
         tReport.setSqqzr(String.valueOf(info.get(BusinessConstant.SQQZR)));
         tReport.setClzbzl(String.valueOf(info.get(BusinessConstant.CLZBZL)));
-        tReport.setClrllb(String.valueOf(info.get(BusinessConstant.CLRLLB)));
 
+        //四轴制动率判定
+        tReport.setFzzdlpd(String.valueOf(info.get(BusinessConstant.FZZDLPD)));
+        //四轴不平衡率判定
+        tReport.setFzbphlpd(String.valueOf(info.get(BusinessConstant.FZBPHLPD)));
+        //使用性质
+        tReport.setSyxz(String.valueOf(info.get(BusinessConstant.SYXZ)));
+        //车辆用途
+        tReport.setClyt(String.valueOf(info.get(BusinessConstant.CLYT)));
+        //喇叭声级判定
+        tReport.setLbsyjpd(String.valueOf(info.get(BusinessConstant.LBSYJPD)));
+        //灯光 ZWDYGGQPD,YWDYGGQPD
+        String ZWDYGGQPD = String.valueOf(info.get(BusinessConstant.ZWDYGGQPD));
+        String YWDYGGQPD = String.valueOf(info.get(BusinessConstant.YWDYGGQPD));
+        boolean ZWDYGGQ = (ZWDYGGQPD.equals("合格") || ZWDYGGQPD.equals("一级") || ZWDYGGQPD.equals("二级"));
+        boolean YWDYGGQ = (YWDYGGQPD.equals("合格") || YWDYGGQPD.equals("一级") || YWDYGGQPD.equals("二级"));
+        System.out.println(ZWDYGGQ + " " + YWDYGGQ);
+        if (ZWDYGGQ && YWDYGGQ) {
+            System.out.println(1111111);
+            tReport.setDg("合格");
+        } else {
+            System.out.println(22222);
+            tReport.setDg("不合格");
+        }
+        //侧滑 DYZLCHLPD,DEZLCHLPD
+        String DYZLCHLPD = String.valueOf(info.get(BusinessConstant.DYZLCHLPD));
+        String DEZLCHLPD = String.valueOf(info.get(BusinessConstant.DEZLCHLPD));
+        boolean DYZLCHL = (DYZLCHLPD.equals("合格") || DYZLCHLPD.equals("一级") || DYZLCHLPD.equals("二级"));
+        boolean DEZLCHL = (DEZLCHLPD.equals("合格") || DEZLCHLPD.equals("一级") || DEZLCHLPD.equals("二级"));
 
+        if (DYZLCHL && DEZLCHL) {
+            tReport.setCh("合格");
+        } else {
+            tReport.setCh("不合格");
+        }
+        //排放
+        List<String> list = new ArrayList<String>();
+        list.add(String.valueOf(info.get(BusinessConstant.GDSHCPD)));
+        list.add(String.valueOf(info.get(BusinessConstant.GDSCOPD)));
+        list.add(String.valueOf(info.get(BusinessConstant.GDSLMNPD)));
+        list.add(String.valueOf(info.get(BusinessConstant.DSHCPD)));
+        list.add(String.valueOf(info.get(BusinessConstant.DSCOPD)));
+        list.add(String.valueOf(info.get(BusinessConstant.WT5025GKCOPD)));
+        list.add(String.valueOf(info.get(BusinessConstant.WT5025GKHCPD)));
+        list.add(String.valueOf(info.get(BusinessConstant.WT5025GKNOPD)));
+        list.add(String.valueOf(info.get(BusinessConstant.WT2540GKCOPD)));
+        list.add(String.valueOf(info.get(BusinessConstant.WT2540GKHCPD)));
+        list.add(String.valueOf(info.get(BusinessConstant.WT2540GKNOPD)));
+        list.add(String.valueOf(info.get(BusinessConstant.GXSXSPD)));
+        list.add(String.valueOf(info.get(BusinessConstant.LZYDPD)));
+        list.add(String.valueOf(info.get(BusinessConstant.JZJSGK100PD)));
+        list.add(String.valueOf(info.get(BusinessConstant.JZJSGK90PD)));
+        list.add(String.valueOf(info.get(BusinessConstant.JZJSGK80PD)));
+        list.add(String.valueOf(info.get(BusinessConstant.SCZDGLPD)));
+        boolean flag = true;
+        for (String s : list) {
+            if (!(s.equals("合格") || s.equals("一级") || s.equals("二级")))
+                flag = false;
+        }
+        if (flag) {
+            tReport.setPf("合格");
+        } else {
+            tReport.setPf("不合格");
+        }
         //详细信息
         tReport.setTDetail(json);
         try {
@@ -602,7 +667,7 @@ public class BusiServiceImpl implements BusiService {
                 TCaution tCaution = new TCaution();
                 tCaution.setId(UUID.randomUUID().toString().replaceAll("-", ""));
                 tCaution.setJglx("设备检定/校准超过有效期");
-                tCaution.setSbxh(tInstDevice.getIdno());
+                tCaution.setSbxh(tInstDevice.getModel());
                 tCaution.setSsjg(tInstDevice.getInstitution());
                 tCaution.setLrsj(new Date());
                 tCautionDao.insert(tCaution);

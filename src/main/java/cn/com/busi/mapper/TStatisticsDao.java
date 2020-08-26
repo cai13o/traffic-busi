@@ -1,6 +1,7 @@
 package cn.com.busi.mapper;
 
 import cn.com.busi.entity.TReport;
+import cn.com.busi.entity.TSintype;
 import cn.com.busi.entity.TStatistics;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -24,7 +25,7 @@ public interface TStatisticsDao {
      * @param tReport 实例对象
      * @return 对象列表
      */
-    List<Map> carAll( @Param("tReport") TReport tReport ,@Param("tStatistics") TStatistics tStatistics);
+    List<TStatistics> carAll( @Param("tReport") TReport tReport ,@Param("tStatistics") TStatistics tStatistics);
 
     /**
      * 通过实体作为筛选条件对初检合格率统计查询
@@ -32,7 +33,7 @@ public interface TStatisticsDao {
      * @param tReport 实例对象
      * @return 对象列表
      */
-    List<Map> firstSelect( @Param("tReport") TReport tReport ,@Param("tStatistics") TStatistics tStatistics);
+    List<TStatistics> firstSelect( @Param("tReport") TReport tReport ,@Param("tStatistics") TStatistics tStatistics);
 
     /**
      * 通过实体作为筛选条件单项合格率统计查询
@@ -40,7 +41,7 @@ public interface TStatisticsDao {
      * @param tReport 实例对象
      * @return 对象列表
      */
-    List<Map> singleSelect( @Param("tReport") TReport tReport ,@Param("tStatistics") TStatistics tStatistics);
+    List<TStatistics> singleSelect( @Param("tReport") TReport tReport ,@Param("tStatistics") TStatistics tStatistics);
 
     List<Map>  cllxStatistics();
 
@@ -48,9 +49,7 @@ public interface TStatisticsDao {
 
     Integer[] firstNotStatistics();
 
-    Integer[] singleDLXStatistics();
-
-    Integer[] singleJJXStatistics();
+    Integer[] singleStatistics(@Param("tSintype") TSintype tSintype);
 
     Integer count(@Param("table") String table);
 

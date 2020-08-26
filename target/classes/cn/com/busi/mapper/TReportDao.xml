@@ -47,12 +47,20 @@
         <result property="sqqzr" column="sqqzr" jdbcType="VARCHAR"/>
         <result property="clzbzl" column="clzbzl" jdbcType="VARCHAR"/>
         <result property="tDetail" column="t_detail" jdbcType="VARCHAR"/>
+        <result property="syxz" column="syxz" jdbcType="VARCHAR"/>
+        <result property="clyt" column="clyt" jdbcType="VARCHAR"/>
+        <result property="lbsyjpd" column="lbsyjpd" jdbcType="VARCHAR"/>
+        <result property="dg" column="dg" jdbcType="VARCHAR"/>
+        <result property="ch" column="ch" jdbcType="VARCHAR"/>
+        <result property="pf" column="pf" jdbcType="VARCHAR"/>
+        <result property="fzzdlpd" column="fzzdlpd" jdbcType="VARCHAR"/>
+        <result property="fzbphlpd" column="fzbphlpd" jdbcType="VARCHAR"/>
     </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="BaseResultMap">
         select
-          id, bgbh, zzrdzsbh, jyjgdz, jyjgdh, cphm, wtr, cllx, ppxh, dlyszh, zcdjrq, ccny, csys, vin, fdjhm, xzqy, jylb, ywlx, jcrq, wyxrd, gzxxzd, wgjc, yxjc, dpjc, hcpd, dlx, jjx, yzzdl, yzbphl, ezzdl, ezbphl, tzzdl, tzbphl, dcqyczheczdl, dcqyczhuczdl, mark, jcjl, zjcs, jcjgmc, clrllb, sqqzr, clzbzl, t_detail
+          id, bgbh, zzrdzsbh, jyjgdz, jyjgdh, cphm, wtr, cllx, ppxh, dlyszh, zcdjrq, ccny, csys, vin, fdjhm, xzqy, jylb, ywlx, jcrq, wyxrd, gzxxzd, wgjc, yxjc, dpjc, hcpd, dlx, jjx, yzzdl, yzbphl, ezzdl, ezbphl, tzzdl, tzbphl, dcqyczheczdl, dcqyczhuczdl, mark, jcjl, zjcs, jcjgmc, clrllb, sqqzr, clzbzl, t_detail,syxz,clyt
         from t_report
         where id = #{id}
     </select>
@@ -60,7 +68,7 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="BaseResultMap">
         select
-          id, bgbh, zzrdzsbh, jyjgdz, jyjgdh, cphm, wtr, cllx, ppxh, dlyszh, zcdjrq, ccny, csys, vin, fdjhm, xzqy, jylb, ywlx, jcrq, wyxrd, gzxxzd, wgjc, yxjc, dpjc, hcpd, dlx, jjx, yzzdl, yzbphl, ezzdl, ezbphl, tzzdl, tzbphl, dcqyczheczdl, dcqyczhuczdl, mark, jcjl, zjcs, jcjgmc, clrllb, sqqzr, clzbzl, t_detail
+          id, bgbh, zzrdzsbh, jyjgdz, jyjgdh, cphm, wtr, cllx, ppxh, dlyszh, zcdjrq, ccny, csys, vin, fdjhm, xzqy, jylb, ywlx, jcrq, wyxrd, gzxxzd, wgjc, yxjc, dpjc, hcpd, dlx, jjx, yzzdl, yzbphl, ezzdl, ezbphl, tzzdl, tzbphl, dcqyczheczdl, dcqyczhuczdl, mark, jcjl, zjcs, jcjgmc, clrllb, sqqzr, clzbzl, t_detail,syxz,clyt
         from t_report
         limit #{offset}, #{limit}
     </select>
@@ -68,7 +76,7 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="BaseResultMap">
         select
-        id, bgbh, zzrdzsbh, jyjgdz, jyjgdh, cphm, wtr, cllx, ppxh, dlyszh, zcdjrq, ccny, csys, vin, fdjhm, xzqy, jylb, ywlx, jcrq, wyxrd, gzxxzd, wgjc, yxjc, dpjc, hcpd, dlx, jjx, yzzdl, yzbphl, ezzdl, ezbphl, tzzdl, tzbphl, dcqyczheczdl, dcqyczhuczdl, mark, jcjl, zjcs, jcjgmc, clrllb, sqqzr, clzbzl, t_detail
+        id, bgbh, zzrdzsbh, jyjgdz, jyjgdh, cphm, wtr, cllx, ppxh, dlyszh, zcdjrq, ccny, csys, vin, fdjhm, xzqy, jylb, ywlx, jcrq, wyxrd, gzxxzd, wgjc, yxjc, dpjc, hcpd, dlx, jjx, yzzdl, yzbphl, ezzdl, ezbphl, tzzdl, tzbphl, dcqyczheczdl, dcqyczhuczdl, mark, jcjl, zjcs, jcjgmc, clrllb, sqqzr, clzbzl,syxz,clyt
         from t_report
         <where>
             <if test="id != null and id != ''">
@@ -81,7 +89,7 @@
                 and zzrdzsbh = #{zzrdzsbh}
             </if>
             <if test="jyjgdz != null and jyjgdz != ''">
-                and jyjgdz = #{jyjgdz}
+                and jyjgdz like concat(concat('%',#{jyjgdz}),'%')
             </if>
             <if test="jyjgdh != null and jyjgdh != ''">
                 and jyjgdh = #{jyjgdh}
@@ -90,22 +98,22 @@
                 and cphm like concat(concat('%',#{cphm}),'%')
             </if>
             <if test="wtr != null and wtr != ''">
-                and wtr = #{wtr}
+                and wtr like concat(concat('%',#{wtr}),'%')
             </if>
             <if test="cllx != null and cllx != ''">
-                and cllx = #{cllx}
+                and cllx like concat(concat('%',#{cllx}),'%')
             </if>
             <if test="ppxh != null and ppxh != ''">
-                and ppxh = #{ppxh}
+                and ppxh like concat(concat('%',#{ppxh}),'%')
             </if>
             <if test="dlyszh != null and dlyszh != ''">
                 and dlyszh = #{dlyszh}
             </if>
             <if test="zcdjrq != null">
-                and zcdjrq = #{zcdjrq}
+                and TO_days(zcdjrq) = TO_days(#{zcdjrq})
             </if>
             <if test="ccny != null">
-                and ccny = #{ccny}
+                and TO_days(ccny) = TO_days(#{ccny})
             </if>
             <if test="csys != null and csys != ''">
                 and csys = #{csys}
@@ -186,7 +194,7 @@
                 and zjcs = #{zjcs}
             </if>
             <if test="jcjgmc != null and jcjgmc != ''">
-                and jcjgmc = #{jcjgmc}
+                and jcjgmc like concat(concat('%',#{jcjgmc}),'%')
             </if>
             <if test="clrllb != null and clrllb != ''">
                 and clrllb = #{clrllb}
@@ -197,16 +205,20 @@
             <if test="clzbzl != null and clzbzl != ''">
                 and clzbzl = #{clzbzl}
             </if>
-            <if test="tDetail != null and tDetail != ''">
-                and t_detail = #{tDetail}
+            <if test="syxz != null and syxz != ''">
+                and syxz like concat(concat('%',#{syxz}),'%')
+            </if>
+            <if test="clyt != null and clyt != ''">
+                and clyt like concat(concat('%',#{clyt}),'%')
             </if>
         </where>
+        ORDER BY jcrq DESC
     </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into t_report(id,bgbh, zzrdzsbh, jyjgdz, jyjgdh, cphm, wtr, cllx, ppxh, dlyszh, zcdjrq, ccny, csys, vin, fdjhm, xzqy, jylb, ywlx, jcrq, wyxrd, gzxxzd, wgjc, yxjc, dpjc, hcpd, dlx, jjx, yzzdl, yzbphl, ezzdl, ezbphl, tzzdl, tzbphl, dcqyczheczdl, dcqyczhuczdl, mark, jcjl, zjcs, jcjgmc, clrllb, sqqzr, clzbzl, t_detail)
-        values (#{id},#{bgbh}, #{zzrdzsbh}, #{jyjgdz}, #{jyjgdh}, #{cphm}, #{wtr}, #{cllx}, #{ppxh}, #{dlyszh}, #{zcdjrq}, #{ccny}, #{csys}, #{vin}, #{fdjhm}, #{xzqy}, #{jylb}, #{ywlx}, #{jcrq}, #{wyxrd}, #{gzxxzd}, #{wgjc}, #{yxjc}, #{dpjc}, #{hcpd}, #{dlx}, #{jjx}, #{yzzdl}, #{yzbphl}, #{ezzdl}, #{ezbphl}, #{tzzdl}, #{tzbphl}, #{dcqyczheczdl}, #{dcqyczhuczdl}, #{mark}, #{jcjl}, #{zjcs}, #{jcjgmc}, #{clrllb}, #{sqqzr}, #{clzbzl}, #{tDetail})
+        insert into t_report(id,bgbh, zzrdzsbh, jyjgdz, jyjgdh, cphm, wtr, cllx, ppxh, dlyszh, zcdjrq, ccny, csys, vin, fdjhm, xzqy, jylb, ywlx, jcrq, wyxrd, gzxxzd, wgjc, yxjc, dpjc, hcpd, dlx, jjx, yzzdl, yzbphl, ezzdl, ezbphl, tzzdl, tzbphl, dcqyczheczdl, dcqyczhuczdl, mark, jcjl, zjcs, jcjgmc, clrllb, sqqzr, clzbzl, t_detail,syxz,clyt,lbsyjpd,dg,ch,pf,fzzdlpd,fzbphlpd)
+        values (#{id},#{bgbh}, #{zzrdzsbh}, #{jyjgdz}, #{jyjgdh}, #{cphm}, #{wtr}, #{cllx}, #{ppxh}, #{dlyszh}, #{zcdjrq}, #{ccny}, #{csys}, #{vin}, #{fdjhm}, #{xzqy}, #{jylb}, #{ywlx}, #{jcrq}, #{wyxrd}, #{gzxxzd}, #{wgjc}, #{yxjc}, #{dpjc}, #{hcpd}, #{dlx}, #{jjx}, #{yzzdl}, #{yzbphl}, #{ezzdl}, #{ezbphl}, #{tzzdl}, #{tzbphl}, #{dcqyczheczdl}, #{dcqyczhuczdl}, #{mark}, #{jcjl}, #{zjcs}, #{jcjgmc}, #{clrllb}, #{sqqzr}, #{clzbzl}, #{tDetail},#{syxz},#{clyt},#{lbsyjpd},#{dg},#{ch},#{pf},#{fzzdlpd},#{fzbphlpd})
     </insert>
 
     <!--通过主键修改数据-->

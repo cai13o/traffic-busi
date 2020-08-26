@@ -56,6 +56,7 @@ public class TInstPersonController {
         Map map = new HashMap();
         map.put("code","20000");
         map.put("data",list);
+        map.put("total",pageInfo.getTotal());
         return map;
     }
 

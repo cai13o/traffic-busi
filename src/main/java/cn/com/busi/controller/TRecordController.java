@@ -83,6 +83,7 @@ public class TRecordController {
         PageInfo<TInstInfo> pageInfo = new PageInfo(list, intLimit);
         map.put("code", "20000");
         map.put("data", list);
+        map.put("total",pageInfo.getTotal());
         return map;
 
     }
@@ -95,9 +96,11 @@ public class TRecordController {
         Map map = new HashMap<>();
         PageHelper.startPage(intPage, intLimit);
         List<TRecord> list = this.tRecordService.queryAllCar(tRecord);
+        TRecord tRecord1 = new TRecord();
+        List<TRecord> list1 = this.tRecordService.queryAllCar(tRecord1);
         Set set = new HashSet();
         Set set2 = new HashSet();
-        for (TRecord t:list) {
+        for (TRecord t:list1) {
             set.add(t.getHpzl());
             set2.add(t.getCllx());
         }

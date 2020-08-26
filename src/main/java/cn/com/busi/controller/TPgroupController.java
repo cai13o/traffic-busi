@@ -1,5 +1,6 @@
 package cn.com.busi.controller;
 
+import cn.com.busi.annotation.Log;
 import cn.com.busi.entity.TInstInfo;
 import cn.com.busi.entity.TPgroup;
 import cn.com.busi.entity.TRole;
@@ -59,6 +60,7 @@ public class TPgroupController {
      *
      * @param tPgroup 实例对象
      */
+    @Log("添加用户组")
     @Transactional
     @PostMapping("insert")
     public Object insert(TPgroup tPgroup) {
@@ -101,13 +103,13 @@ public class TPgroupController {
         Map map = new HashMap();
         map.put("code","20000");
         map.put("data",list);
+        map.put("total",pageInfo.getTotal());
         return map;
     }
 
 
     @GetMapping("selectNotAdmin")
     public Object selectNotAdmin(String page, String limit,TPgroup tPgroup) {
-        System.out.println("12321321312312312321");
         Integer intPage = Integer.parseInt(page);
         Integer intLimit = Integer.parseInt(limit);
         int offset = (intPage - 1) * intPage;
@@ -118,6 +120,7 @@ public class TPgroupController {
         Map map = new HashMap();
         map.put("code","20000");
         map.put("data",list);
+        map.put("total",pageInfo.getTotal());
         return map;
     }
 
@@ -127,6 +130,7 @@ public class TPgroupController {
      * @param tPgroup 实例对象
      * @return 实例对象
      */
+    @Log("用户组信息修改")
     @PostMapping("update")
     public Object update(TPgroup tPgroup) {
         System.out.println(tPgroup.toString());
@@ -143,11 +147,13 @@ public class TPgroupController {
      * @param groupid 主键
      * @return 是否成功
      */
+    @Log("删除用户组")
     @PostMapping("deleteById")
     public Object deleteById(String groupid) {
         Map map = new HashMap();
         map.put("code","20000");
-        map.put("data",this.tPgroupService.deleteById(groupid));
+        this.tPgroupService.deleteById(groupid);
+        this.tRoleService.deleteById(groupid);
         return map;
     }
 
@@ -164,7 +170,7 @@ public class TPgroupController {
         map.put("data",this.tUserService.queryByUsername());
         return map;
     }
-
+    @Log("添加成员")
     @PostMapping("insUser")
     public Object insUser(String groupid,String username) {
         String[] uname = username.split(",");
@@ -192,7 +198,7 @@ public class TPgroupController {
         map.put("data",this.tUserService.queryByDept(groupid));
         return map;
     }
-
+    @Log("删除成员")
     @PostMapping("delUser")
     public Object delUser(String groupid,String username) {
         String[] uname = username.split(",");

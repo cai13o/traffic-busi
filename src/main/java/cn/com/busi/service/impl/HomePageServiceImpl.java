@@ -1,10 +1,7 @@
 package cn.com.busi.service.impl;
 
 
-import cn.com.busi.entity.TInstDevice;
-import cn.com.busi.entity.TInstInfo;
-import cn.com.busi.entity.TInstPerson;
-import cn.com.busi.entity.TRecord;
+import cn.com.busi.entity.*;
 import cn.com.busi.mapper.*;
 import cn.com.busi.service.HomePageService;
 import org.springframework.stereotype.Service;
@@ -29,6 +26,9 @@ public class HomePageServiceImpl implements HomePageService {
     @Resource
     private TStatisticsDao tStatisticsDao;
 
+    @Resource
+    private TSintypeDao tSintypeDao;
+
     /**
      * 首页数据
      * @return
@@ -36,16 +36,23 @@ public class HomePageServiceImpl implements HomePageService {
     @Override
     public Map queryAll() {
         TInstInfo tInstInfo = this.tInstInfoDao.count();
-
         TInstPerson tInstPerson = this.tInstPersonDao.count();
         TInstDevice tInstDevice = this.tInstDeviceDao.count();
         TRecord tRecord = this.tRecordDao.count();
         List<Map> cllxStatistics = this.tStatisticsDao.cllxStatistics();
         Integer[] firstStatistics = this.tStatisticsDao.firstStatistics();
         Integer[] firstNotStatistics = this.tStatisticsDao.firstNotStatistics();
-        Integer[] singleDLXStatistics = this.tStatisticsDao.singleDLXStatistics();
-        Integer[] singleJJXStatistics = this.tStatisticsDao.singleJJXStatistics();
+
         Map map = new HashMap();
+
+        //单项合格数量统计
+        TSintype sintype = new TSintype();
+        List<TSintype> tSintypes = this.tSintypeDao.queryAll(sintype);
+        for(TSintype ts:tSintypes){
+            Integer[] arr = this.tStatisticsDao.singleStatistics(ts);
+            map.put(ts.getId(),arr);
+        }
+
         map.put("code","20000");
         //检测机构数量
         map.put("infoCount" , tInstInfo.getName());
@@ -61,10 +68,7 @@ public class HomePageServiceImpl implements HomePageService {
         map.put("firstStatistics", firstStatistics);
         //初检不合格数量
         map.put("firstNotStatistics", firstNotStatistics);
-        //动力性合格数量
-        map.put("singleDLXStatistics", singleDLXStatistics);
-        //经济性合格数量
-        map.put("singleJJXStatistics", singleJJXStatistics);
+
         return map;
     }
 }
