@@ -74,6 +74,7 @@
                 and cphm = #{cphm}
             </if>
         </where>
+        order by lrsj DESC
     </select>
 
     <!--新增所有列-->

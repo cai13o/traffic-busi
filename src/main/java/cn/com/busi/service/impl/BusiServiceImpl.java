@@ -211,16 +211,20 @@ public class BusiServiceImpl implements BusiService {
 
 //            for(TCartype tCartype:tCartypes) {
             if (tRecord.getCllx().contains("货车")) {
-                if ((Integer.parseInt(tRecord.getClzbzl()) - Integer.parseInt(String.valueOf(info.get(BusinessConstant.DCSPCZ)))) >= 500 || (Integer.parseInt(tRecord.getClzbzl()) - Integer.parseInt(String.valueOf(info.get(BusinessConstant.DCSPCZ)))) <= -500) {
-                    System.out.println(tRecord.getClzbzl());
-                    TCaution tCaution = new TCaution();
-                    tCaution.setId(UUID.randomUUID().toString().replaceAll("-", ""));
-                    tCaution.setJglx("整备质量不合格");
-                    tCaution.setSsqy(tRecord.getXzqy());
-                    tCaution.setSsjg(tRecord.getJyjgmc());
-                    tCaution.setCphm(tRecord.getCphm());
-                    tCaution.setLrsj(new Date());
-                    tCautionDao.insert(tCaution);
+                if(info.get(BusinessConstant.DCSPCZ) != null && !tRecord.getClzbzl().equals("")) {
+                    if(!info.get(BusinessConstant.DCSPCZ).equals("")) {
+                        if ((Integer.parseInt(tRecord.getClzbzl()) - Integer.parseInt(String.valueOf(info.get(BusinessConstant.DCSPCZ)))) >= 500 || (Integer.parseInt(tRecord.getClzbzl()) - Integer.parseInt(String.valueOf(info.get(BusinessConstant.DCSPCZ)))) <= -500) {
+                            System.out.println(tRecord.getClzbzl());
+                            TCaution tCaution = new TCaution();
+                            tCaution.setId(UUID.randomUUID().toString().replaceAll("-", ""));
+                            tCaution.setJglx("整备质量不合格");
+                            tCaution.setSsqy(tRecord.getXzqy());
+                            tCaution.setSsjg(tRecord.getJyjgmc());
+                            tCaution.setCphm(tRecord.getCphm());
+                            tCaution.setLrsj(new Date());
+                            tCautionDao.insert(tCaution);
+                        }
+                    }
                 }
             }
 //            }
@@ -367,6 +371,7 @@ public class BusiServiceImpl implements BusiService {
         tReport.setJcjgmc(String.valueOf(info.get(BusinessConstant.JCJGMC)));
         tReport.setSqqzr(String.valueOf(info.get(BusinessConstant.SQQZR)));
         tReport.setClzbzl(String.valueOf(info.get(BusinessConstant.CLZBZL)));
+        tReport.setClrllb(String.valueOf(info.get(BusinessConstant.CLRLLB)));
 
         //四轴制动率判定
         tReport.setFzzdlpd(String.valueOf(info.get(BusinessConstant.FZZDLPD)));
@@ -385,10 +390,8 @@ public class BusiServiceImpl implements BusiService {
         boolean YWDYGGQ = (YWDYGGQPD.equals("合格") || YWDYGGQPD.equals("一级") || YWDYGGQPD.equals("二级"));
         System.out.println(ZWDYGGQ + " " + YWDYGGQ);
         if (ZWDYGGQ && YWDYGGQ) {
-            System.out.println(1111111);
             tReport.setDg("合格");
         } else {
-            System.out.println(22222);
             tReport.setDg("不合格");
         }
         //侧滑 DYZLCHLPD,DEZLCHLPD
