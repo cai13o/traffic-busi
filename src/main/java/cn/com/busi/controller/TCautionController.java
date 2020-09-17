@@ -40,13 +40,13 @@ public class TCautionController {
     }
 
     @GetMapping("selectAll")
-    public Object selectAll(String page, String limit,String entryTime) {
+    public Object selectAll(String page, String limit,TCaution tCaution) {
         Integer intPage = Integer.parseInt(page);
         Integer intLimit = Integer.parseInt(limit);
         int offset = (intPage - 1) * intPage;
         map = new HashMap<>();
         PageHelper.startPage(intPage, intLimit);
-        List list = this.tCautionService.queryAll(entryTime);
+        List list = this.tCautionService.queryAll(tCaution);
         //将查询到的数据封装到PageInfo对象
         PageInfo<TInstInfo> pageInfo = new PageInfo(list, intLimit);
         map.put("code", "20000");
@@ -56,11 +56,11 @@ public class TCautionController {
     }
 
     @GetMapping("selectCaution")
-    public Object selectCaution(String entryTime) {
+    public Object selectCaution(TCaution tCaution) {
 
         map = new HashMap<>();
 
-        List list = this.tCautionService.queryAll(entryTime);
+        List list = this.tCautionService.queryAll(tCaution);
         map.put("code", "20000");
         map.put("data", list);
         return map;

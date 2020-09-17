@@ -61,6 +61,7 @@ public class TUserServiceImpl implements TUserService {
      */
     @Override
     public TUser insert(TUser tUser) {
+
         tUser.setRegtime(new Date());
 
         this.tUserDao.insert(tUser);

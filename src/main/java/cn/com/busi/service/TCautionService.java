@@ -34,7 +34,7 @@ public interface TCautionService {
      * @param tCaution 实例对象
      * @return 对象列表
      */
-    List<TCaution> queryAll(String entryTime);
+    List<TCaution> queryAll(TCaution tCaution);
 
     /**
      * 新增数据

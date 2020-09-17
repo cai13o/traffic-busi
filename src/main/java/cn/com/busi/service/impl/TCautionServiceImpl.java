@@ -47,20 +47,19 @@ public class TCautionServiceImpl implements TCautionService {
     /**
      * 通过实体作为筛选条件查询
      *
-     * @param entryTime 实例对象
+     * @param tCaution 实例对象
      * @return 对象列表
      */
     @Override
-    public List<TCaution> queryAll(String entryTime) {
-        TCaution tCaution = new TCaution();
-        if (entryTime != null) {
-            try {
-                tCaution.setLrsj(new SimpleDateFormat("yyyy-MM-dd").parse(entryTime));
-                return this.tCautionDao.queryAll(tCaution);
-            } catch (ParseException e) {
-                throw new RuntimeException();
-            }
-        }
+    public List<TCaution> queryAll(TCaution tCaution) {
+//        if (tCaution.getJglx() != null) {
+//            try {
+//                tCaution.setLrsj(new SimpleDateFormat("yyyy-MM-dd").parse(tCaution.getJglx()));
+//                return this.tCautionDao.queryAll(tCaution);
+//            } catch (ParseException e) {
+//                throw new RuntimeException();
+//            }
+//        }
         return this.tCautionDao.queryAll(tCaution);
 
     }

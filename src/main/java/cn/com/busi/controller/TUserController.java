@@ -77,6 +77,10 @@ public class TUserController {
     @Log("添加用户")
     @PostMapping("insert")
     public Object insert(TUser tUser) {
+        String trim = tUser.getUsername().trim();
+        String pass = tUser.getPassword().trim();
+        tUser.setUsername(trim);
+        tUser.setPassword(pass);
         tUser.setDept("");
         System.out.println(tUser.toString());
         String md5Password = DigestUtils.md5DigestAsHex(tUser.getPassword().getBytes());
@@ -106,16 +110,7 @@ public class TUserController {
     @Log("修改个人信息")
     @PostMapping("update")
     public Object update(TUser tUser) {
-        System.out.println(tUser.getAddress()=="");
-        if(tUser.getAddress()==""){
-            tUser.setAddress(" ");
-        }
-        if(tUser.getPostcode()==""){
-            tUser.setPostcode(" ");
-        }
-        if(tUser.getCardno()==""){
-            tUser.setCardno(" ");
-        }
+
         Map map = new HashMap();
         map.put("code", "20000");
         map.put("data", this.tUserService.update(tUser));
@@ -136,7 +131,7 @@ public class TUserController {
         String Password = DigestUtils.md5DigestAsHex(tUser.getPassword().getBytes());
         TUser user = this.tUserService.getUserByUsername(tUser.getUsername(), Password);
         if (user != null) {
-            String md5Password = DigestUtils.md5DigestAsHex(newpassword.getBytes());
+            String md5Password = DigestUtils.md5DigestAsHex(newpassword.trim().getBytes());
             tUser.setPassword(md5Password);
             Map map = new HashMap();
             map.put("code", "20000");
@@ -262,6 +257,9 @@ public class TUserController {
                     return jsonObject;
                 } else if (userForBase.getLosetime().getTime() < new Date().getTime()) {
                     jsonObject.put("message", "账号已失效");
+                    return jsonObject;
+                } else if (userForBase.getDept().equals("")) {
+                    jsonObject.put("message", "账号未分配权限");
                     return jsonObject;
                 }
             }

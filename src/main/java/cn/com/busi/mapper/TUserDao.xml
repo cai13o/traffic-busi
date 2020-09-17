@@ -111,27 +111,19 @@
             <if test="sex != null">
                 SEX = #{sex},
             </if>
-            <if test="cardtype != null">
                 CARDTYPE = #{cardtype},
-            </if>
-            <if test="cardno != null and cardno != ''">
                 CARDNO = #{cardno},
-            </if>
             <if test="cnname != null and cnname != ''">
                 CNNAME = #{cnname},
             </if>
             <if test="dept != null and dept != ''">
                 DEPT = #{dept},
             </if>
-            <if test="address != null and address != ''">
                 ADDRESS = #{address},
-            </if>
             <if test="mobileid != null and mobileid != ''">
                 MOBILEID = #{mobileid},
             </if>
-            <if test="postcode != null and postcode != ''">
                 POSTCODE = #{postcode},
-            </if>
             <if test="regtime != null">
                 REGTIME = #{regtime},
             </if>

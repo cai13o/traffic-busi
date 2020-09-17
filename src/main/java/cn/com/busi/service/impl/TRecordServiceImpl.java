@@ -56,6 +56,16 @@ public class TRecordServiceImpl implements TRecordService {
         return this.tRecordDao.queryAllCar(tRecord);
     }
 
+    @Override
+    public List<TRecord> queryImg() {
+        return this.tRecordDao.queryImg();
+    }
+
+    @Override
+    public List<TRecord> queryQX(String id) {
+        return this.tRecordDao.queryQX(id);
+    }
+
     /**
      * 新增数据
      *

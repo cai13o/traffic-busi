@@ -44,6 +44,10 @@
         <result property="clzbzl" column="clzbzl" jdbcType="VARCHAR"/>
         <result property="syxz" column="syxz" jdbcType="VARCHAR"/>
         <result property="clyt" column="clyt" jdbcType="VARCHAR"/>
+        <result property="yzzdlqx" column="yzzdlqx" jdbcType="VARCHAR"/>
+        <result property="ezzdlqx" column="ezzdlqx" jdbcType="VARCHAR"/>
+        <result property="tzzdlqx" column="tzzdlqx" jdbcType="VARCHAR"/>
+        <result property="fzzdlqx" column="fzzdlqx" jdbcType="VARCHAR"/>
 
 
     </resultMap>
@@ -69,7 +73,7 @@
         select
         id, jylsh, jyjgbh, jyjgmc, jcxdh, wtr, dlyszh, jylb, ywlx, jcxb, jcrq, jcjldbh, cphm, hpzl, gcpzh, gclx, clccrq,
         wjdly, ycy, wqczy, zcdjrq, vin, clxh, fdjh, csys, xszlc, qdxs, zxzxjxs, gczs
-        ,xzqy,syxz,clyt
+        ,xzqy,syxz,clyt,cllx
         from t_record
         <where>
             <if test="id != null and id != ''">
@@ -183,8 +187,8 @@
     <select id="queryAllCar" resultMap="BaseResultMap">
         select
         id, jylsh, jyjgbh, jyjgmc, jcxdh, wtr, dlyszh, jylb, ywlx, jcxb, jcrq, jcjldbh, cphm, hpzl, gcpzh, gclx, clccrq,
-        wjdly, ycy, wqczy, zcdjrq, vin, clxh, fdjh, csys, xszlc, qdxs, zxzxjxs, gczs,  t_detail,syxz,clyt
-        ,xzqy,jyjgdz,cllx
+        zcdjrq, clxh, fdjh, csys, xszlc, qdxs, zxzxjxs, gczs, syxz, clyt,vin,
+        xzqy ,jyjgdz ,cllx
         from t_record
         <where>
             zjycs = "1"
@@ -297,8 +301,8 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="false">
-        insert into t_record(id,jylsh, jyjgbh, jyjgmc, jcxdh, wtr, dlyszh, jylb, ywlx, jcxb, jcrq, jcjldbh, cphm, hpzl, gcpzh, gclx, clccrq, wjdly, ycy, wqczy, zcdjrq, vin, clxh, fdjh, csys, xszlc, qdxs, zxzxjxs, gczs, zdjygw, dgjygw, dlxjygw, t_detail, xzqy ,rllb , jyjgdz ,zjycs,cllx,clzbzl,syxz,clyt )
-        values (#{id},#{jylsh}, #{jyjgbh}, #{jyjgmc}, #{jcxdh}, #{wtr}, #{dlyszh}, #{jylb}, #{ywlx}, #{jcxb}, #{jcrq}, #{jcjldbh}, #{cphm}, #{hpzl}, #{gcpzh}, #{gclx}, #{clccrq}, #{wjdly}, #{ycy}, #{wqczy}, #{zcdjrq}, #{vin}, #{clxh}, #{fdjh}, #{csys}, #{xszlc}, #{qdxs}, #{zxzxjxs}, #{gczs}, #{zdjygw}, #{dgjygw}, #{dlxjygw}, #{tDetail}, #{xzqy},#{rllb},#{jyjgdz},#{zjycs},#{cllx},#{clzbzl},#{syxz},#{clyt})
+        insert into t_record(id,jylsh, jyjgbh, jyjgmc, jcxdh, wtr, dlyszh, jylb, ywlx, jcxb, jcrq, jcjldbh, cphm, hpzl, gcpzh, gclx, clccrq, wjdly, ycy, wqczy, zcdjrq, vin, clxh, fdjh, csys, xszlc, qdxs, zxzxjxs, gczs, zdjygw, dgjygw, dlxjygw, t_detail, xzqy ,rllb , jyjgdz ,zjycs,cllx,clzbzl,syxz,clyt,yzzdlqx,ezzdlqx,tzzdlqx,fzzdlqx )
+        values (#{id},#{jylsh}, #{jyjgbh}, #{jyjgmc}, #{jcxdh}, #{wtr}, #{dlyszh}, #{jylb}, #{ywlx}, #{jcxb}, #{jcrq}, #{jcjldbh}, #{cphm}, #{hpzl}, #{gcpzh}, #{gclx}, #{clccrq}, #{wjdly}, #{ycy}, #{wqczy}, #{zcdjrq}, #{vin}, #{clxh}, #{fdjh}, #{csys}, #{xszlc}, #{qdxs}, #{zxzxjxs}, #{gczs}, #{zdjygw}, #{dgjygw}, #{dlxjygw}, #{tDetail}, #{xzqy},#{rllb},#{jyjgdz},#{zjycs},#{cllx},#{clzbzl},#{syxz},#{clyt},#{yzzdlqx},#{ezzdlqx},#{tzzdlqx},#{fzzdlqx})
     </insert>
 
     <!--通过主键修改数据-->
@@ -410,4 +414,14 @@
         delete from t_record where id = #{id}
     </delete>
 
+    <select id="queryImg" resultMap="BaseResultMap">
+    select
+    id, zdjygw ,dgjygw ,dlxjygw
+    from t_record
+    </select>
+
+    <select id="queryQX" resultMap="BaseResultMap">
+        select id ,yzzdlqx,ezzdlqx,tzzdlqx,fzzdlqx
+        from t_record where id = #{id}
+    </select>
 </mapper>

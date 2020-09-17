@@ -591,6 +591,11 @@ public interface BusinessConstant {
     String CLZBZL = "clzbzl";
     String MARK = "mark";
     String CLRLLB = "clrllb";
+    String YZZDLQX = "yzzdlqx";
+    String EZZDLQX = "ezzdlqx";
+    String TZZDLQX = "tzzdlqx";
+    String FZZDLQX = "fzzdlqx";
+
 
 
     String NAME = "name";

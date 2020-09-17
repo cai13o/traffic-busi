@@ -38,6 +38,10 @@ public interface TRecordService {
 
     List<TRecord> queryAllCar(TRecord tRecord);
 
+    List<TRecord> queryImg();
+
+    List<TRecord> queryQX(String id);
+
     /**
      * 新增数据
      *

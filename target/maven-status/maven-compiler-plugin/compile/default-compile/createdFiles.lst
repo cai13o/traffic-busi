@@ -21,6 +21,7 @@ cn\com\busi\annotation\UserLoginToken.class
 cn\com\busi\service\TUserService.class
 cn\com\busi\service\TInstPersonService.class
 cn\com\busi\service\TPgroupService.class
+cn\com\busi\mapper\TLicensePlateDao.class
 cn\com\busi\utils\TokenUtil.class
 cn\com\busi\service\impl\TInstInfoServiceImpl.class
 cn\com\busi\controller\TSysLogController.class
@@ -28,6 +29,7 @@ cn\com\busi\controller\HomePageController.class
 cn\com\busi\service\TCautionService.class
 cn\com\busi\common\LoginInterceptor.class
 cn\com\busi\entity\TInstDevice.class
+cn\com\busi\entity\TLicensePlate.class
 cn\com\busi\entity\PageInfo.class
 cn\com\busi\controller\TInstInfoController.class
 cn\com\busi\entity\TDetail.class

@@ -44,13 +44,13 @@
                 and id = #{id}
             </if>
             <if test="jglx != null and jglx != ''">
-                and jglx = #{jglx}
+                and jglx like concat(concat('%',#{jglx}),'%')
             </if>
             <if test="ssqy != null and ssqy != ''">
-                and ssqy = #{ssqy}
+                and ssqy like concat(concat('%',#{ssqy}),'%')
             </if>
             <if test="rymc != null and rymc != ''">
-                and rymc = #{rymc}
+                and rymc like concat(concat('%',#{rymc}),'%')
             </if>
             <if test="sbxh != null and sbxh != ''">
                 and sbxh = #{sbxh}
@@ -59,7 +59,7 @@
                 and jgzzrdzsbh = #{jgzzrdzsbh}
             </if>
             <if test="ssjg != null and ssjg != ''">
-                and ssjg = #{ssjg}
+                and ssjg like concat(concat('%',#{ssjg}),'%')
             </if>
             <if test="jglxr != null and jglxr != ''">
                 and jglxr = #{jglxr}
@@ -71,7 +71,7 @@
                 and status = #{status}
             </if>
             <if test="cphm != null and status != ''">
-                and cphm = #{cphm}
+                and cphm like concat(concat('%',#{cphm}),'%')
             </if>
         </where>
         order by lrsj DESC
