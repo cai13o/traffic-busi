@@ -52,8 +52,8 @@ public class TReportServiceImpl implements TReportService {
      * @return 对象列表
      */
     @Override
-    public List<TReport> queryAll(TReport tReport) {
-        return this.tReportDao.queryAll(tReport);
+    public List<TReport> queryAll(TReport tReport,String startDate, String endDate,String ssqy,String singlePass) {
+        return this.tReportDao.queryAll(tReport,startDate,endDate,ssqy,singlePass);
     }
 
     /**

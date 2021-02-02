@@ -2,38 +2,39 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.com.busi.mapper.TStatisticsDao">
 
-    <resultMap id="GetResultMap" type="java.util.Map">
-        <!--@Table t_report-->
-        <result property="id" column="id" jdbcType="VARCHAR"/>
-        <result property="cllx" column="cllx" jdbcType="VARCHAR"/>
-        <result property="ppxh" column="ppxh" jdbcType="VARCHAR"/>
-        <result property="xzqy" column="xzqy" jdbcType="VARCHAR"/>
-        <result property="hgl" column="hgl" jdbcType="VARCHAR"/>
-        <result property="clrllb" column="clrllb" jdbcType="VARCHAR"/>
-        <result property="jcjgmc" column="jcjgmc" jdbcType="VARCHAR"/>
-        <result property="jcjl" column="jcjl" jdbcType="VARCHAR"/>
-        <result property="jcrq" column="jcrq" jdbcType="VARCHAR"/>
-        <result property="clzs" column="clzs" jdbcType="VARCHAR"/>
-        <result property="singlePass" column="singlePass" jdbcType="VARCHAR"/>
-        <result property="num" column="num" jdbcType="VARCHAR"/>
-        <result property="table" column="table" jdbcType="VARCHAR"/>
-    </resultMap>
+<!--    <resultMap id="GetResultMap" type="java.util.Map">-->
+<!--        &lt;!&ndash;@Table t_report&ndash;&gt;-->
+<!--        <result property="id" column="id" jdbcType="VARCHAR"/>-->
+<!--        <result property="cllx" column="cllx" jdbcType="VARCHAR"/>-->
+<!--        <result property="ppxh" column="ppxh" jdbcType="VARCHAR"/>-->
+<!--        <result property="xzqy" column="xzqy" jdbcType="VARCHAR"/>-->
+<!--        <result property="hgl" column="hgl" jdbcType="VARCHAR"/>-->
+<!--        <result property="clrllb" column="clrllb" jdbcType="VARCHAR"/>-->
+<!--        <result property="jcjgmc" column="jcjgmc" jdbcType="VARCHAR"/>-->
+<!--        <result property="jcjl" column="jcjl" jdbcType="VARCHAR"/>-->
+<!--        <result property="jcrq" column="jcrq" jdbcType="VARCHAR"/>-->
+<!--        <result property="clzs" column="clzs" jdbcType="VARCHAR"/>   w-->
+<!--        <result property="singlePass" column="singlePass" jdbcType="VARCHAR"/>-->
+<!--        <result property="num" column="num" jdbcType="VARCHAR"/>-->
+<!--        <result property="table" column="table" jdbcType="VARCHAR"/>-->
+<!--        <result property="syxz" column="syxz" jdbcType="VARCHAR"/>-->
+<!--    </resultMap>-->
 
     <resultMap id="BaseResultMap" type="cn.com.busi.entity.TStatistics">
-        <!--@Table t_report-->
-        <result property="id" column="id" jdbcType="VARCHAR"/>
+<!--        <result property="id" column="id" jdbcType="VARCHAR"/>-->
         <result property="cllx" column="cllx" jdbcType="VARCHAR"/>
-        <result property="ppxh" column="ppxh" jdbcType="VARCHAR"/>
-        <result property="xzqy" column="xzqy" jdbcType="VARCHAR"/>
+<!--        <result property="ppxh" column="ppxh" jdbcType="VARCHAR"/>-->
+<!--        <result property="xzqy" column="xzqy" jdbcType="VARCHAR"/>-->
         <result property="hgl" column="hgl" jdbcType="VARCHAR"/>
-        <result property="clrllb" column="clrllb" jdbcType="VARCHAR"/>
-        <result property="jcjgmc" column="jcjgmc" jdbcType="VARCHAR"/>
+<!--        <result property="clrllb" column="clrllb" jdbcType="VARCHAR"/>-->
+<!--        <result property="jcjgmc" column="jcjgmc" jdbcType="VARCHAR"/>-->
         <result property="jcjl" column="jcjl" jdbcType="VARCHAR"/>
-        <result property="jcrq" column="jcrq" jdbcType="VARCHAR"/>
+<!--        <result property="jcrq" column="jcrq" jdbcType="VARCHAR"/>-->
         <result property="clzs" column="clzs" jdbcType="VARCHAR"/>
-        <result property="singlePass" column="singlePass" jdbcType="VARCHAR"/>
-        <result property="num" column="num" jdbcType="VARCHAR"/>
-        <result property="table" column="table" jdbcType="VARCHAR"/>
+<!--        <result property="singlePass" column="singlePass" jdbcType="VARCHAR"/>-->
+<!--        <result property="num" column="num" jdbcType="VARCHAR"/>-->
+<!--        <result property="table" column="table" jdbcType="VARCHAR"/>-->
+        <result property="syxz" column="syxz" jdbcType="VARCHAR"/>
     </resultMap>
 
     <!--车辆总数查询-->
@@ -59,12 +60,16 @@
             <if test="tStatistics.jcjl != null and tStatistics.jcjl != ''">
                 ${tStatistics.jcjl},
             </if>
+            <if test="tStatistics.syxz != null and tStatistics.syxz != ''">
+                ${tStatistics.syxz},
+            </if>
             <if test="tStatistics.jcrq != null">
                 ${tStatistics.jcrq},
             </if>
         </trim>
         from t_report
         <where>
+            1 = 1 and zjcs = "1 "
             <if test="tReport.xzqy != null and tReport.xzqy != ''">
                 and xzqy like concat(concat('%',#{tReport.xzqy}),'%')
             </if>
@@ -83,12 +88,16 @@
             <if test="tReport.jcjl != null and tReport.jcjl != ''">
                 and jcjl = #{tReport.jcjl}
             </if>
+            <if test="tReport.syxz != null and tReport.syxz != ''">
+                and syxz like concat(concat('%',#{tReport.syxz}),'%')
+            </if>
             <if test="tStatistics.startDate != null">
                 and TO_DAYS(jcrq) &gt;= TO_DAYS(#{tStatistics.startDate})
             </if>
             <if test="tStatistics.endDate != null">
                 and TO_DAYS(jcrq) &lt;= TO_DAYS(#{tStatistics.endDate})
             </if>
+
         </where>
         <trim prefix="group by" suffixOverrides=",">
             <if test="tStatistics.xzqy != null and tStatistics.xzqy != ''">
@@ -106,7 +115,9 @@
             <if test="tStatistics.jcjl != null and tStatistics.jcjl != ''">
                 ${tStatistics.jcjl},
             </if>
-
+            <if test="tStatistics.syxz != null and tStatistics.syxz != ''">
+                ${tStatistics.syxz},
+            </if>
         </trim>
     </select>
 
@@ -129,6 +140,9 @@
             </if>
             <if test="tStatistics.jcjgmc != null and tStatistics.jcjgmc != ''">
                 ${tStatistics.jcjgmc},
+            </if>
+            <if test="tStatistics.syxz != null and tStatistics.syxz != ''">
+                ${tStatistics.syxz},
             </if>
             <if test="tStatistics.jcrq != null">
                 ${tStatistics.jcrq},
@@ -155,6 +169,9 @@
             <if test="tReport.jcjl != null and tReport.jcjl != ''">
                 and jcjl like concat(concat('%',#{tReport.jcjl}),'%')
             </if>
+            <if test="tReport.syxz != null and tReport.syxz != ''">
+                and syxz like concat(concat('%',#{tReport.syxz}),'%')
+            </if>
             <if test="tStatistics.startDate != null">
                 and TO_DAYS(jcrq) &gt;= TO_DAYS(#{tStatistics.startDate})
             </if>
@@ -178,6 +195,9 @@
             <if test="tStatistics.jcjl != null and tStatistics.jcjl != ''">
                 ${tStatistics.jcjl},
             </if>
+            <if test="tStatistics.syxz != null and tStatistics.syxz != ''">
+                ${tStatistics.syxz},
+            </if>
 
         </trim>
     </select>
@@ -185,7 +205,7 @@
     <!--单项合格率查询查询-->
     <select id="singleSelect" resultMap="BaseResultMap">
         select
-        COUNT(case when ${tStatistics.singlePass} !='不合格' AND ${tStatistics.singlePass} !='-' AND ${tStatistics.singlePass} !='' then 1 else null
+        COUNT(case when ${tStatistics.singlePass} !='不合格' then 1 else null
         end)/COUNT(*) as hgl
         <trim prefix="," suffixOverrides=",">
             <if test="tStatistics.xzqy != null and tStatistics.xzqy != ''">
@@ -206,12 +226,16 @@
             <if test="tStatistics.jcjl != null and tStatistics.jcjl != ''">
                 ${tStatistics.jcjl},
             </if>
+            <if test="tStatistics.syxz != null and tStatistics.syxz != ''">
+                ${tStatistics.syxz},
+            </if>
             <if test="tStatistics.jcrq != null ">
                 ${tStatistics.jcrq},
             </if>
         </trim>
         from t_report
         <where>
+            zcdjrq >= DATE_SUB(NOW(),INTERVAL 3 MONTH) or (${tStatistics.singlePass} !='-' AND ${tStatistics.singlePass} !='')
             <if test="tReport.xzqy != null and tReport.xzqy != ''">
                 and xzqy like concat(concat('%',#{tReport.xzqy}),'%')
             </if>
@@ -227,12 +251,16 @@
             <if test="tReport.clrllb != null and tReport.clrllb != ''">
                 and clrllb like concat(concat('%',#{tReport.clrllb}),'%')
             </if>
+            <if test="tReport.syxz != null and tReport.syxz != ''">
+                and syxz like concat(concat('%',#{tReport.syxz}),'%')
+            </if>
             <if test="tStatistics.startDate != null ">
                 and TO_DAYS(jcrq) &gt;= TO_DAYS(#{tStatistics.startDate})
             </if>
             <if test="tStatistics.endDate != null ">
                 and TO_DAYS(jcrq) &lt;= TO_DAYS(#{tStatistics.endDate})
             </if>
+
         </where>
         <trim prefix="group by" suffixOverrides=",">
             <if test="tStatistics.xzqy != null  and tStatistics.xzqy != ''">
@@ -247,13 +275,14 @@
             <if test="tStatistics.jcjgmc != null  and tStatistics.jcjgmc != ''">
                 ${tStatistics.jcjgmc},
             </if>
-
-
+             <if test="tStatistics.syxz != null  and tStatistics.syxz != ''">
+                ${tStatistics.syxz},
+            </if>
         </trim>
     </select>
 
 
-    <select id="cllxStatistics" resultMap="GetResultMap">
+    <select id="cllxStatistics" resultMap="BaseResultMap">
         SELECT count(1) num,cllx FROM t_report  GROUP BY cllx
     </select>
 
@@ -312,5 +341,175 @@
         LEFT JOIN t_report ON YEAR(jcrq) = years.years and ${tSintype.id} != "不合格" and ${tSintype.id} != "-"  and ${tSintype.id} !=""
         GROUP BY
 	        years.years
+    </select>
+
+    <!-- 合格不合格统计 -->
+    <select id="first" resultType="java.lang.Integer">
+        SELECT
+	        count(t_report.jcjl) AS num
+        FROM
+	        t_report
+        <where>
+            t_report.jcjl !="不合格" and t_report.zjcs = "1"
+            <if test="tReport.xzqy != null and tReport.xzqy != ''">
+                and xzqy = #{tReport.xzqy}
+            </if>
+            <if test="tReport.cllx != null and tReport.cllx != ''">
+                and cllx = #{tReport.cllx}
+            </if>
+            <if test="tReport.ppxh != null and tReport.ppxh != ''">
+                and ppxh like concat(concat(#{tReport.ppxh}),'%')
+            </if>
+            <if test="tReport.jcjgmc != null and tReport.jcjgmc != ''">
+                and jcjgmc = #{tReport.jcjgmc}
+            </if>
+            <if test="tReport.clrllb != null and tReport.clrllb != ''">
+                and clrllb = #{tReport.clrllb}
+            </if>
+            <if test="tReport.jcjl != null and tReport.jcjl != ''">
+                and jcjl = #{tReport.jcjl}
+            </if>
+            <if test="tReport.syxz != null and tReport.syxz != ''">
+                and syxz = #{tReport.syxz}
+            </if>
+            <if test="tStatistics.startDate != null">
+                and TO_DAYS(jcrq) &gt;= TO_DAYS(#{tStatistics.startDate})
+            </if>
+            <if test="tStatistics.endDate != null">
+                and TO_DAYS(jcrq) &lt;= TO_DAYS(#{tStatistics.endDate})
+            </if>
+        </where>
+    </select>
+
+    <select id="firstNo" resultType="java.lang.Integer">
+        SELECT
+	        count(t_report.jcjl) AS num
+        FROM
+	        t_report
+        <where>
+            t_report.jcjl ="不合格" and t_report.zjcs = "1"
+            <if test="tReport.xzqy != null and tReport.xzqy != ''">
+                and xzqy = #{tReport.xzqy}
+            </if>
+            <if test="tReport.cllx != null and tReport.cllx != ''">
+                and cllx = #{tReport.cllx}
+            </if>
+            <if test="tReport.ppxh != null and tReport.ppxh != ''">
+                and ppxh like concat(concat(#{tReport.ppxh}),'%')
+            </if>
+            <if test="tReport.jcjgmc != null and tReport.jcjgmc != ''">
+                and jcjgmc = #{tReport.jcjgmc}
+            </if>
+            <if test="tReport.clrllb != null and tReport.clrllb != ''">
+                and clrllb = #{tReport.clrllb}
+            </if>
+            <if test="tReport.jcjl != null and tReport.jcjl != ''">
+                and jcjl = #{tReport.jcjl}
+            </if>
+            <if test="tReport.syxz != null and tReport.syxz != ''">
+                and syxz = #{tReport.syxz}
+            </if>
+            <if test="tStatistics.startDate != null">
+                and TO_DAYS(jcrq) &gt;= TO_DAYS(#{tStatistics.startDate})
+            </if>
+            <if test="tStatistics.endDate != null">
+                and TO_DAYS(jcrq) &lt;= TO_DAYS(#{tStatistics.endDate})
+            </if>
+        </where>
+    </select>
+
+
+    <!-- 单项合格不合格统计 -->
+    <select id="single" resultType="java.lang.Integer">
+        SELECT
+        count(t_report.jcjl) AS num
+        FROM
+        t_report
+        <where>
+            ${tStatistics.singlePass} !='不合格' and ${tStatistics.singlePass} !='-' and ${tStatistics.singlePass} !=''
+            <if test="tReport.xzqy != null and tReport.xzqy != ''">
+                and xzqy = #{tReport.xzqy}
+            </if>
+            <if test="tReport.cllx != null and tReport.cllx != ''">
+                and cllx = #{tReport.cllx}
+            </if>
+            <if test="tReport.ppxh != null and tReport.ppxh != ''">
+                and ppxh like concat(concat(#{tReport.ppxh}),'%')
+            </if>
+            <if test="tReport.jcjgmc != null and tReport.jcjgmc != ''">
+                and jcjgmc = #{tReport.jcjgmc}
+            </if>
+            <if test="tReport.clrllb != null and tReport.clrllb != ''">
+                and clrllb = #{tReport.clrllb}
+            </if>
+            <if test="tReport.jcjl != null and tReport.jcjl != ''">
+                and jcjl = #{tReport.jcjl}
+            </if>
+            <if test="tReport.syxz != null and tReport.syxz != ''">
+                and syxz = #{tReport.syxz}
+            </if>
+            <if test="tStatistics.startDate != null">
+                and TO_DAYS(jcrq) &gt;= TO_DAYS(#{tStatistics.startDate})
+            </if>
+            <if test="tStatistics.endDate != null">
+                and TO_DAYS(jcrq) &lt;= TO_DAYS(#{tStatistics.endDate})
+            </if>
+        </where>
+    </select>
+
+    <select id="singleNo" resultType="java.lang.Integer">
+        SELECT
+        count(t_report.jcjl) AS num
+        FROM
+        t_report
+        <where>
+            ${tStatistics.singlePass} ='不合格'
+            <if test="tReport.xzqy != null and tReport.xzqy != ''">
+                and xzqy = #{tReport.xzqy}
+            </if>
+            <if test="tReport.cllx != null and tReport.cllx != ''">
+                and cllx = #{tReport.cllx}
+            </if>
+            <if test="tReport.ppxh != null and tReport.ppxh != ''">
+                and ppxh like concat(concat(#{tReport.ppxh}),'%')
+            </if>
+            <if test="tReport.jcjgmc != null and tReport.jcjgmc != ''">
+                and jcjgmc = #{tReport.jcjgmc}
+            </if>
+            <if test="tReport.clrllb != null and tReport.clrllb != ''">
+                and clrllb = #{tReport.clrllb}
+            </if>
+            <if test="tReport.jcjl != null and tReport.jcjl != ''">
+                and jcjl = #{tReport.jcjl}
+            </if>
+            <if test="tReport.syxz != null and tReport.syxz != ''">
+                and syxz = #{tReport.syxz}
+            </if>
+            <if test="tStatistics.startDate != null">
+                and TO_DAYS(jcrq) &gt;= TO_DAYS(#{tStatistics.startDate})
+            </if>
+            <if test="tStatistics.endDate != null">
+                and TO_DAYS(jcrq) &lt;= TO_DAYS(#{tStatistics.endDate})
+            </if>
+        </where>
+    </select>
+    <!-- 按等级划分车辆数-->
+    <select id="jcjlByAll" resultMap="BaseResultMap">
+        select
+            COUNT(*) as clzs,jcjl
+        from t_report
+        where zjcs = "1 "
+		group by jcjl
+    </select>
+
+    <!-- 按使用性质划分合格率-->
+    <select id="syxzByAll" resultMap="BaseResultMap">
+        select
+            COUNT(case when jcjl !='不合格' then 1 else null end)/COUNT(*) as hgl,syxz
+        from t_report
+        where
+            zjcs = "1"
+		GROUP BY syxz
+		ORDER BY hgl
     </select>
 </mapper>

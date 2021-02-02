@@ -312,4 +312,15 @@ public class TUserController {
         map.put("data", this.tUserService.updateImg(tUser));
         return map;
     }
+
+
+//    @Log("更新头像")
+//    @PostMapping("updateImg")
+//    public Object updateImg(@RequestBody TUser tUser) {
+//        System.out.println(tUser.toString());
+//        Map map = new HashMap();
+//        map.put("code", "20000");
+//        map.put("data", this.tUserService.updateImg(tUser));
+//        return map;
+//    }
 }

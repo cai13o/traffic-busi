@@ -38,5 +38,19 @@ public class HomePageController {
 
     }
 
+    @GetMapping("syxzByAll")
+    public Object syxzByAll() {
+
+        return this.homePageService.syxzByAll();
+
+    }
+
+    @GetMapping("jcjlByAll")
+    public Object jcjlByAll() {
+
+        return this.homePageService.jcjlByAll();
+
+    }
+
 
 }

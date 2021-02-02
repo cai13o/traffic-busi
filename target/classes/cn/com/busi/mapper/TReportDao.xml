@@ -79,137 +79,149 @@
         id, bgbh, zzrdzsbh, jyjgdz, jyjgdh, cphm, wtr, cllx, ppxh, dlyszh, zcdjrq, ccny, csys, vin, fdjhm, xzqy, jylb, ywlx, jcrq, wyxrd, gzxxzd, wgjc, yxjc, dpjc, hcpd, dlx, jjx, yzzdl, yzbphl, ezzdl, ezbphl, tzzdl, tzbphl, dcqyczheczdl, dcqyczhuczdl, mark, jcjl, zjcs, jcjgmc, clrllb, sqqzr, clzbzl,syxz,clyt
         from t_report
         <where>
-            <if test="id != null and id != ''">
-                and id = #{id}
+            <if test="tReport.id != null and tReport.id != ''">
+                and id = #{tReport.id}
             </if>
-            <if test="bgbh != null and bgbh != ''">
-                and bgbh = #{bgbh}
+            <if test="tReport.bgbh != null and tReport.bgbh != ''">
+                and bgbh = #{tReport.bgbh}
             </if>
-            <if test="zzrdzsbh != null and zzrdzsbh != ''">
-                and zzrdzsbh = #{zzrdzsbh}
+            <if test="tReport.zzrdzsbh != null and tReport.zzrdzsbh != ''">
+                and zzrdzsbh = #{tReport.zzrdzsbh}
             </if>
-            <if test="jyjgdz != null and jyjgdz != ''">
-                and jyjgdz like concat(concat('%',#{jyjgdz}),'%')
+            <if test="tReport.jyjgdz != null and tReport.jyjgdz != ''">
+                and jyjgdz like concat(concat('%',#{tReport.jyjgdz}),'%')
             </if>
-            <if test="jyjgdh != null and jyjgdh != ''">
-                and jyjgdh = #{jyjgdh}
+            <if test="tReport.jyjgdh != null and tReport.jyjgdh != ''">
+                and jyjgdh = #{tReport.jyjgdh}
             </if>
-            <if test="cphm != null and cphm != ''">
-                and cphm like concat(concat('%',#{cphm}),'%')
+            <if test="tReport.cphm != null and tReport.cphm != ''">
+                and cphm like concat(concat('%',#{tReport.cphm}),'%')
             </if>
-            <if test="wtr != null and wtr != ''">
-                and wtr like concat(concat('%',#{wtr}),'%')
+            <if test="tReport.wtr != null and tReport.wtr != ''">
+                and wtr like concat(concat('%',#{tReport.wtr}),'%')
             </if>
-            <if test="cllx != null and cllx != ''">
-                and cllx like concat(concat('%',#{cllx}),'%')
+            <if test="tReport.cllx != null and tReport.cllx != ''">
+                and cllx like concat(concat('%',#{tReport.cllx}),'%')
             </if>
-            <if test="ppxh != null and ppxh != ''">
-                and ppxh like concat(concat('%',#{ppxh}),'%')
+            <if test="tReport.ppxh != null and tReport.ppxh != ''">
+                and ppxh like concat(concat('%',#{tReport.ppxh}),'%')
             </if>
-            <if test="dlyszh != null and dlyszh != ''">
-                and dlyszh = #{dlyszh}
+            <if test="tReport.dlyszh != null and tReport.dlyszh != ''">
+                and dlyszh = #{tReport.dlyszh}
             </if>
-            <if test="zcdjrq != null">
-                and TO_days(zcdjrq) = TO_days(#{zcdjrq})
+            <if test="tReport.zcdjrq != null">
+                and TO_days(zcdjrq) = TO_days(#{tReport.zcdjrq})
             </if>
-            <if test="ccny != null">
-                and TO_days(ccny) = TO_days(#{ccny})
+            <if test="tReport.tDetail != null">
+                and YEAR(ccny) = #{tReport.tDetail}
             </if>
-            <if test="csys != null and csys != ''">
-                and csys = #{csys}
+            <if test="tReport.csys != null and tReport.csys != ''">
+                and csys = #{tReport.csys}
             </if>
-            <if test="vin != null and vin != ''">
-                and vin = #{vin}
+            <if test="tReport.vin != null and tReport.vin != ''">
+                and vin = #{tReport.vin}
             </if>
-            <if test="fdjhm != null and fdjhm != ''">
-                and fdjhm = #{fdjhm}
+            <if test="tReport.fdjhm != null and tReport.fdjhm != ''">
+                and fdjhm = #{tReport.fdjhm}
             </if>
-            <if test="xzqy != null and xzqy != ''">
-                and xzqy like concat(concat('%',#{xzqy}),'%')
+            <if test="tReport.xzqy != null and tReport.xzqy != ''">
+                and xzqy like concat(concat('%',#{tReport.xzqy}),'%')
             </if>
-            <if test="jylb != null and jylb != ''">
-                and jylb = #{jylb}
+            <if test="tReport.jylb != null and tReport.jylb != ''">
+                and jylb = #{tReport.jylb}
             </if>
-            <if test="ywlx != null and ywlx != ''">
-                and ywlx = #{ywlx}
+            <if test="tReport.ywlx != null and tReport.ywlx != ''">
+                and ywlx = #{tReport.ywlx}
             </if>
-            <if test="jcrq != null">
-                and jcrq = #{jcrq}
+            <if test="tReport.jcrq != null">
+                and TO_DAYS(jcrq) = TO_DAYS(#{tReport.jcrq})
             </if>
-            <if test="wyxrd != null and wyxrd != ''">
-                and wyxrd = #{wyxrd}
+            <if test="startDate != null">
+                and TO_DAYS(jcrq) &gt;= TO_DAYS(#{startDate})
             </if>
-            <if test="gzxxzd != null and gzxxzd != ''">
-                and gzxxzd = #{gzxxzd}
+            <if test="endDate != null">
+                and TO_DAYS(jcrq) &lt;= TO_DAYS(#{endDate})
             </if>
-            <if test="wgjc != null and wgjc != ''">
-                and wgjc = #{wgjc}
+            <if test="tReport.wyxrd != null and tReport.wyxrd != ''">
+                and wyxrd = #{tReport.wyxrd}
             </if>
-            <if test="yxjc != null and yxjc != ''">
-                and yxjc = #{yxjc}
+            <if test="tReport.gzxxzd != null and tReport.gzxxzd != ''">
+                and gzxxzd = #{tReport.gzxxzd}
             </if>
-            <if test="dpjc != null and dpjc != ''">
-                and dpjc = #{dpjc}
+            <if test="tReport.wgjc != null and tReport.wgjc != ''">
+                and wgjc = #{tReport.wgjc}
             </if>
-            <if test="hcpd != null and hcpd != ''">
-                and hcpd = #{hcpd}
+            <if test="tReport.yxjc != null and tReport.yxjc != ''">
+                and yxjc = #{tReport.yxjc}
             </if>
-            <if test="dlx != null and dlx != ''">
-                and dlx = #{dlx}
+            <if test="tReport.dpjc != null and tReport.dpjc != ''">
+                and dpjc = #{tReport.dpjc}
             </if>
-            <if test="jjx != null and jjx != ''">
-                and jjx = #{jjx}
+            <if test="tReport.hcpd != null and tReport.hcpd != ''">
+                and hcpd = #{tReport.hcpd}
             </if>
-            <if test="yzzdl != null and yzzdl != ''">
-                and yzzdl = #{yzzdl}
+            <if test="tReport.dlx != null and tReport.dlx != ''">
+                and dlx = #{tReport.dlx}
             </if>
-            <if test="yzbphl != null and yzbphl != ''">
-                and yzbphl = #{yzbphl}
+            <if test="tReport.jjx != null and tReport.jjx != ''">
+                and jjx = #{tReport.jjx}
             </if>
-            <if test="ezzdl != null and ezzdl != ''">
-                and ezzdl = #{ezzdl}
+            <if test="tReport.yzzdl != null and tReport.yzzdl != ''">
+                and yzzdl = #{tReport.yzzdl}
             </if>
-            <if test="ezbphl != null and ezbphl != ''">
-                and ezbphl = #{ezbphl}
+            <if test="tReport.yzbphl != null and tReport.yzbphl != ''">
+                and yzbphl = #{tReport.yzbphl}
             </if>
-            <if test="tzzdl != null and tzzdl != ''">
-                and tzzdl = #{tzzdl}
+            <if test="tReport.ezzdl != null and tReport.ezzdl != ''">
+                and ezzdl = #{tReport.ezzdl}
             </if>
-            <if test="tzbphl != null and tzbphl != ''">
-                and tzbphl = #{tzbphl}
+            <if test="tReport.ezbphl != null and tReport.ezbphl != ''">
+                and ezbphl = #{tReport.ezbphl}
             </if>
-            <if test="dcqyczheczdl != null and dcqyczheczdl != ''">
-                and dcqyczheczdl = #{dcqyczheczdl}
+            <if test="tReport.tzzdl != null and tReport.tzzdl != ''">
+                and tzzdl = #{tReport.tzzdl}
             </if>
-            <if test="dcqyczhuczdl != null and dcqyczhuczdl != ''">
-                and dcqyczhuczdl = #{dcqyczhuczdl}
+            <if test="tReport.tzbphl != null and tReport.tzbphl != ''">
+                and tzbphl = #{tReport.tzbphl}
             </if>
-            <if test="mark != null and mark != ''">
-                and mark = #{mark}
+            <if test="tReport.dcqyczheczdl != null and tReport.dcqyczheczdl != ''">
+                and dcqyczheczdl = #{tReport.dcqyczheczdl}
             </if>
-            <if test="jcjl != null and jcjl != ''">
-                and jcjl = #{jcjl}
+            <if test="tReport.dcqyczhuczdl != null and tReport.dcqyczhuczdl != ''">
+                and tReport.dcqyczhuczdl = #{tReport.dcqyczhuczdl}
             </if>
-            <if test="zjcs != null and zjcs != ''">
-                and zjcs = #{zjcs}
+            <if test="tReport.mark != null and tReport.mark != ''">
+                and mark = #{tReport.mark}
             </if>
-            <if test="jcjgmc != null and jcjgmc != ''">
-                and jcjgmc like concat(concat('%',#{jcjgmc}),'%')
+            <if test="tReport.jcjl != null and tReport.jcjl != ''">
+                and jcjl = #{tReport.jcjl}
             </if>
-            <if test="clrllb != null and clrllb != ''">
-                and clrllb = #{clrllb}
+            <if test="tReport.zjcs != null and tReport.zjcs != ''">
+                and zjcs = #{tReport.zjcs}
             </if>
-            <if test="sqqzr != null and sqqzr != ''">
+            <if test="tReport.jcjgmc != null and tReport.jcjgmc != ''">
+                and jcjgmc like concat(concat('%',#{tReport.jcjgmc}),'%')
+            </if>
+            <if test="tReport.clrllb != null and tReport.clrllb != ''">
+                and clrllb = #{tReport.clrllb}
+            </if>
+            <if test="tReport.sqqzr != null and tReport.sqqzr != ''">
                 and sqqzr = #{sqqzr}
             </if>
-            <if test="clzbzl != null and clzbzl != ''">
-                and clzbzl = #{clzbzl}
+            <if test="tReport.clzbzl != null and tReport.clzbzl != ''">
+                and clzbzl = #{tReport.clzbzl}
             </if>
-            <if test="syxz != null and syxz != ''">
-                and syxz like concat(concat('%',#{syxz}),'%')
+            <if test="tReport.syxz != null and tReport.syxz != ''">
+                and syxz like concat(concat('%',#{tReport.syxz}),'%')
             </if>
-            <if test="clyt != null and clyt != ''">
-                and clyt like concat(concat('%',#{clyt}),'%')
+            <if test="tReport.clyt != null and tReport.clyt != ''">
+                and clyt like concat(concat('%',#{tReport.clyt}),'%')
+            </if>
+            <if test="ssqy != null and ssqy != ''">
+                and xzqy = #{ssqy}
+            </if>
+            <if test="singlePass != null and singlePass != ''">
+                and ${singlePass} != '-'and ${singlePass} !=''
             </if>
         </where>
         ORDER BY jcrq DESC
@@ -359,5 +371,24 @@
     <delete id="deleteById">
         delete from t_report where id = #{id}
     </delete>
+
+    <select id="count" resultMap="BaseResultMap">
+        select
+          count(id) cllx
+        from t_report
+        where zjcs = "1"
+    </select>
+
+    <select id="countByName" resultMap="BaseResultMap">
+        select
+        count(id) cllx
+        from t_report
+        <where>
+            zjcs = "1"
+            <if test="jcjgmc != null and jcjgmc != ''">
+                and jcjgmc like concat(concat('%',#{jcjgmc}),'%')
+            </if>
+        </where>
+    </select>
 
 </mapper>

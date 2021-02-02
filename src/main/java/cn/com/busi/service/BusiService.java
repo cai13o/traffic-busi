@@ -1,5 +1,7 @@
 package cn.com.busi.service;
 
+import java.io.IOException;
+
 public interface BusiService {
 
     /**
@@ -36,7 +38,7 @@ public interface BusiService {
      * @version :  1.0
      * *********************************************
      */
-    String insertInstitutionInfo(String json);
+    String insertInstitutionInfo(String json) throws IOException;
 
     /**
      * *********************************************
@@ -61,4 +63,40 @@ public interface BusiService {
      * *********************************************
      */
     String insertInstitutionDevice(String json);
+
+    /**
+     * *********************************************
+     *
+     * @method :  insertApparatusJDCAQJSJYB
+     * @description :  TODO
+     * @date :  2021/1/29
+     * @author :  caibo
+     * @version :  2.0
+     * *********************************************
+     */
+    String insertApparatusJDCAQJSJYB(String json);
+
+    /**
+     * *********************************************
+     *
+     * @method :  insertArtificialJDCAQJSJYB
+     * @description :  TODO
+     * @date :  2021/1/29
+     * @author :  caibo
+     * @version :  2.0
+     * *********************************************
+     */
+    String insertArtificialJDCAQJSJYB(String json,byte[] bhgx);
+
+    /**
+     * *********************************************
+     *
+     * @method :  insertApparatusJDCAQJSJYB
+     * @description :  TODO
+     * @date :  2021/1/29
+     * @author :  caibo
+     * @version :  2.0
+     * *********************************************
+     */
+    String insertJDCAQJSJYBG(String json,byte[] seal,byte[] ewtm);
 }

@@ -39,7 +39,7 @@ public interface TReportService {
      * @param tReport 实例对象
      * @return 对象列表
      */
-    List<TReport> queryAll(TReport tReport);
+    List<TReport> queryAll(TReport tReport,String startDate, String endDate,String ssqy,String singlePass);
 
     /**
      * 新增数据

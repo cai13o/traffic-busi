@@ -52,7 +52,9 @@ D:\traffic-busi\src\main\java\cn\com\busi\config\PageHelperConfig.java
 D:\traffic-busi\src\main\java\cn\com\busi\enums\BusiEnum.java
 D:\traffic-busi\src\main\java\cn\com\busi\controller\TSysLogController.java
 D:\traffic-busi\src\main\java\cn\com\busi\service\TSintypeService.java
+D:\traffic-busi\src\main\java\cn\com\busi\Interceptor\LoginInterceptor.java
 D:\traffic-busi\src\main\java\cn\com\busi\service\TInstPersonService.java
+D:\traffic-busi\src\main\java\cn\com\busi\client\GetLatAndLngByBaidu.java
 D:\traffic-busi\src\main\java\cn\com\busi\config\TomcatConfig.java
 D:\traffic-busi\src\main\java\cn\com\busi\service\impl\TPgroupServiceImpl.java
 D:\traffic-busi\src\main\java\cn\com\busi\utils\HttpContextUtils.java
@@ -61,6 +63,7 @@ D:\traffic-busi\src\main\java\cn\com\busi\client\CxfClient.java
 D:\traffic-busi\src\main\java\cn\com\busi\service\impl\TInstDeviceServiceImpl.java
 D:\traffic-busi\src\main\java\cn\com\busi\controller\HomePageController.java
 D:\traffic-busi\src\main\java\cn\com\busi\controller\TInstDeviceController.java
+D:\traffic-busi\src\main\java\cn\com\busi\config\MyWebConfigurer.java
 D:\traffic-busi\src\main\java\cn\com\busi\service\TSysLogService.java
 D:\traffic-busi\src\main\java\cn\com\busi\entity\TDetail.java
 D:\traffic-busi\src\main\java\cn\com\busi\controller\TInstPersonController.java
@@ -71,6 +74,7 @@ D:\traffic-busi\src\main\java\cn\com\busi\Interceptor\AuthenticationInterceptor.
 D:\traffic-busi\src\main\java\cn\com\busi\utils\DateTimeUtil.java
 D:\traffic-busi\src\main\java\cn\com\busi\mapper\TDetailMapper.java
 D:\traffic-busi\src\main\java\cn\com\busi\annotation\Log.java
+D:\traffic-busi\src\main\java\cn\com\busi\utils\GetLatAndLngByBaidu.java
 D:\traffic-busi\src\main\java\cn\com\busi\entity\PageInfo.java
 D:\traffic-busi\src\main\java\cn\com\busi\mapper\TStatisticsDao.java
 D:\traffic-busi\src\main\java\cn\com\busi\service\impl\TInstPersonServiceImpl.java
@@ -95,3 +99,4 @@ D:\traffic-busi\src\main\java\cn\com\busi\service\TRoleService.java
 D:\traffic-busi\src\main\java\cn\com\busi\entity\TPgroup.java
 D:\traffic-busi\src\main\java\cn\com\busi\service\TokenService.java
 D:\traffic-busi\src\main\java\cn\com\busi\entity\TRecord.java
+D:\traffic-busi\src\main\java\cn\com\busi\tack\SchedulerTask.java

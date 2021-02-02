@@ -1,5 +1,6 @@
 package cn.com.busi.mapper;
 
+import cn.com.busi.entity.TInstPerson;
 import cn.com.busi.entity.TLicensePlate;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
@@ -61,5 +62,7 @@ public interface TLicensePlateDao {
      * @return 影响行数
      */
     int deleteById(Integer id);
+
+    List<TLicensePlate> selectByLicense(String[] lincenses);
 
 }

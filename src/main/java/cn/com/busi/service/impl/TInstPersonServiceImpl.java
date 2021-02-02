@@ -1,12 +1,16 @@
 package cn.com.busi.service.impl;
 
 import cn.com.busi.entity.TInstPerson;
+import cn.com.busi.entity.TLicensePlate;
 import cn.com.busi.mapper.TInstPersonDao;
+import cn.com.busi.mapper.TLicensePlateDao;
 import cn.com.busi.service.TInstPersonService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * (TInstPerson)表服务实现类
@@ -18,6 +22,9 @@ import java.util.List;
 public class TInstPersonServiceImpl implements TInstPersonService {
     @Resource
     private TInstPersonDao tInstPersonDao;
+
+    @Resource
+    private TLicensePlateDao tLicensePlateDao;
 
     /**
      * 通过ID查询单条数据
@@ -86,5 +93,26 @@ public class TInstPersonServiceImpl implements TInstPersonService {
     @Override
     public List<TInstPerson> queryAll(TInstPerson tInstPerson) {
         return this.tInstPersonDao.queryAll(tInstPerson);
+    }
+
+    /**
+     * 通过所在部门作为筛选条件查询准驾类型
+     *
+     * @param position
+     * @return 对象列表
+     */
+    @Override
+    public String[] selectByLicense(String position) {
+        String substring = position.substring(position.indexOf("/")+1);
+        System.out.println(substring);
+        String[] licenses = new String[5];
+        licenses = substring.split("/");
+
+        List<TLicensePlate> tLicensePlates = this.tLicensePlateDao.selectByLicense(licenses);
+        String[] strs = new String[tLicensePlates.size()];
+        for(int i = 0;i<tLicensePlates.size();i++){
+           strs[i] =  tLicensePlates.get(i).getName();
+        }
+        return strs;
     }
 }

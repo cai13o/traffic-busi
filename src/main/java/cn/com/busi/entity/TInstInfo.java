@@ -38,6 +38,7 @@ public class TInstInfo implements Serializable {
 
     private String opdate;
 
+    private String lng;
 
-
+    private String lat;
 }

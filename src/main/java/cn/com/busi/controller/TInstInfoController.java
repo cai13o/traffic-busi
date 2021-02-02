@@ -29,6 +29,7 @@ public class TInstInfoController {
     @Resource
     private TInstInfoService tInstInfoService;
 
+
     /**
      * 通过主键查询单条数据
      *
@@ -69,7 +70,17 @@ public class TInstInfoController {
         return map;
     }
 
+    @GetMapping("selectJW")
+    public Object selectJW() {
+        List<TInstInfo> tInstInfos = this.tInstInfoService.queryAll(new TInstInfo());
+        Map map = new HashMap();
+        map.put("code","20000");
+        map.put("data",tInstInfos);
+        return map;
+    }
 
-
-
+    @GetMapping("selectByName")
+    public Object selectByName(String name) {
+        return this.tInstInfoService.nameByAll(name);
+    }
 }

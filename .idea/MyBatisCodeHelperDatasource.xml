@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="MyBatisCodeHelperDatasource">
+    <option name="projectProfile">
+      <ProjectProfile>
+        <option name="addSerializeUid" value="true" />
+        <option name="generateService" value="true" />
+        <option name="generateServiceInterface" value="true" />
+        <option name="javaMapperPackage" value="cn.com.busi.mapper" />
+        <option name="javaMapperPath" value="$PROJECT_DIR$/src/main/java" />
+        <option name="javaModelPackage" value="cn.com.busi.entity" />
+        <option name="javaModelPath" value="$PROJECT_DIR$/src/main/java" />
+        <option name="lastDatabaseCrudChooseModuleName" value="traffic-busi" />
+        <option name="lombokDataAnnotation" value="true" />
+        <option name="mapperAnnotaion" value="true" />
+        <option name="moduleNameToPackageAndPathMap">
+          <map>
+            <entry key="traffic-busi">
+              <value>
+                <UserPackageAndPathInfoByModule>
+                  <option name="javaMapperPackage" value="cn.com.busi.mapper" />
+                  <option name="javaMapperPath" value="$PROJECT_DIR$/src/main/java" />
+                  <option name="javaModelPacakge" value="cn.com.busi.entity" />
+                  <option name="javaModelPath" value="$PROJECT_DIR$/src/main/java" />
+                  <option name="javaServiceInterfacePackage" value="cn.com.busi.service" />
+                  <option name="javaServiceInterfacePath" value="$PROJECT_DIR$/src/main/java" />
+                  <option name="javaServicePackage" value="cn.com.busi.service.impl" />
+                  <option name="javaServicePath" value="$PROJECT_DIR$/src/main/java" />
+                  <option name="xmlPackage" value="cn.com.busi.mapper" />
+                  <option name="xmlPath" value="$PROJECT_DIR$/src/main/resources" />
+                </UserPackageAndPathInfoByModule>
+              </value>
+            </entry>
+          </map>
+        </option>
+        <option name="p3CComment" value="true" />
+        <option name="tableGenerateConfigs">
+          <map>
+            <entry key="wolf-cloud:t_artificial_result">
+              <value>
+                <TableGenerateConfig>
+                  <option name="generatedKey" value="" />
+                  <option name="javaModelName" value="TArtificialResult" />
+                  <option name="moduleName" value="traffic-busi" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="wolf-cloud:t_inspection_artificial">
+              <value>
+                <TableGenerateConfig>
+                  <option name="generatedKey" value="" />
+                  <option name="javaModelName" value="TInspectionArtificial" />
+                  <option name="moduleName" value="traffic-busi" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="wolf-cloud:t_inspection_instrument">
+              <value>
+                <TableGenerateConfig>
+                  <option name="generatedKey" value="" />
+                  <option name="javaModelName" value="TInspectionInstrument" />
+                  <option name="moduleName" value="traffic-busi" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="wolf-cloud:t_inspection_report">
+              <value>
+                <TableGenerateConfig>
+                  <option name="generatedKey" value="" />
+                  <option name="javaModelName" value="TInspectionReport" />
+                  <option name="moduleName" value="traffic-busi" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="wolf-cloud:t_instrument_result">
+              <value>
+                <TableGenerateConfig>
+                  <option name="generatedKey" value="" />
+                  <option name="javaModelName" value="TInstrumentResult" />
+                  <option name="moduleName" value="traffic-busi" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="wolf-cloud:t_unqualified_items">
+              <value>
+                <TableGenerateConfig>
+                  <option name="generatedKey" value="" />
+                  <option name="javaModelName" value="TUnqualifiedItems" />
+                  <option name="moduleName" value="traffic-busi" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+          </map>
+        </option>
+        <option name="useExample" value="true" />
+        <option name="useSwagger" value="true" />
+        <option name="xmlMapperPackage" value="cn.com.busi.mapper" />
+        <option name="xmlMapperPath" value="$PROJECT_DIR$/src/main/resources" />
+      </ProjectProfile>
+    </option>
+  </component>
+</project>

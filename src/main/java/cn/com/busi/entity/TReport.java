@@ -57,6 +57,7 @@ public class TReport implements Serializable {
     private String jylb;
     
     private String ywlx;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date jcrq;
     

@@ -3,9 +3,20 @@ server:
   tomcat:
     max-swallow-size: -1
     max-http-post-size: 2MB
-  servlet:
-    session:
-      timeout: 100s
+
+
+
+#spring:
+#  datasource:
+#    driver-class-name: com.mysql.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/wolf-cloud?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&tinyInt1isBit=false&allowMultiQueries=true&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true
+#    username: root
+#    password: Jtjsfwzx123456
+#    type: com.alibaba.druid.pool.DruidDataSource
+#  mvc:
+#    static-path-pattern: /**
+#  resources:
+#    static-locations: file:D:/liangkeyiwei/IMGS
 
 
 spring:
@@ -15,15 +26,18 @@ spring:
     username: root
     password: root
     type: com.alibaba.druid.pool.DruidDataSource
+  mvc:
+    static-path-pattern: /**
+  resources:
+    static-locations: file:D:/liangkeyiwei/IMGS
 
 #spring:
 #  datasource:
 #    driver-class-name: com.mysql.jdbc.Driver
-#    url: jdbc:mysql://1.85.14.166:3307/wolf-cloud?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&tinyInt1isBit=false&allowMultiQueries=true&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true
+#    url: jdbc:mysql://localhost:3306/wolf-cloud?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&tinyInt1isBit=false&allowMultiQueries=true&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true
 #    username: root
-#    password: liangkeyiwei
+#    password: root
 #    type: com.alibaba.druid.pool.DruidDataSource
-
 
 webservices:
   userName: admin
@@ -46,6 +60,8 @@ logging:
   config: classpath:logback-spring.xml
   path: d:/liangkeyiwei/logs
 #  level: cn.com.busi.mapper = debug
+
+
 
 
 

@@ -21,7 +21,7 @@ public class HomePageServiceImpl implements HomePageService {
     private TInstDeviceDao tInstDeviceDao;
 
     @Resource
-    private TRecordDao tRecordDao;
+    private TReportDao tReportDao;
 
     @Resource
     private TStatisticsDao tStatisticsDao;
@@ -38,11 +38,12 @@ public class HomePageServiceImpl implements HomePageService {
         TInstInfo tInstInfo = this.tInstInfoDao.count();
         TInstPerson tInstPerson = this.tInstPersonDao.count();
         TInstDevice tInstDevice = this.tInstDeviceDao.count();
-        TRecord tRecord = this.tRecordDao.count();
+        TReport tReport = this.tReportDao.count();
         List<Map> cllxStatistics = this.tStatisticsDao.cllxStatistics();
         Integer[] firstStatistics = this.tStatisticsDao.firstStatistics();
         Integer[] firstNotStatistics = this.tStatisticsDao.firstNotStatistics();
-
+        List<TStatistics> jcjlByAll = this.tStatisticsDao.jcjlByAll();
+        List<TStatistics> syxzByAll = this.tStatisticsDao.syxzByAll();
         Map map = new HashMap();
 
         //单项合格数量统计
@@ -61,13 +62,43 @@ public class HomePageServiceImpl implements HomePageService {
         //机构设备数量
         map.put("deviceCount" , tInstDevice.getRemarks());
         //检测车辆数量
-        map.put("carCount", tRecord.getCllx());
+        map.put("carCount", tReport.getCllx());
         //车辆类别分布统计
         map.put("cllxStatistics", cllxStatistics);
         //初检合格数量
         map.put("firstStatistics", firstStatistics);
         //初检不合格数量
         map.put("firstNotStatistics", firstNotStatistics);
+
+        map.put("jcjlByAll", jcjlByAll);
+
+        map.put("syxzByAll", syxzByAll);
+
+        return map;
+    }
+
+    @Override
+    public Map syxzByAll() {
+
+        List<TStatistics> syxzByAll = this.tStatisticsDao.syxzByAll();
+        Map map = new HashMap();
+
+        map.put("code","20000");
+        map.put("syxzByAll", syxzByAll);
+
+        return map;
+    }
+
+    @Override
+    public Map jcjlByAll() {
+
+        List<TStatistics> jcjlByAll = this.tStatisticsDao.jcjlByAll();
+
+        Map map = new HashMap();
+
+        map.put("code","20000");
+
+        map.put("jcjlByAll", jcjlByAll);
 
         return map;
     }

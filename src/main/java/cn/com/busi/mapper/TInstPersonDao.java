@@ -66,4 +66,5 @@ public interface TInstPersonDao {
 
     TInstPerson count();
 
+    TInstPerson countByName(@Param("institution") String institution);
 }

@@ -4,6 +4,7 @@ import cn.com.busi.entity.TCartype;
 import cn.com.busi.entity.TReport;
 import cn.com.busi.entity.TSintype;
 import cn.com.busi.entity.TStatistics;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -41,5 +42,8 @@ public interface TStatisticsService {
     List<TStatistics> singleSelect(TReport tReport, String startDate, String endDate, String singlePass);
 
     Integer count(String table);
+
+    Map firstorNo(TReport tReport ,String startDate, String endDate);
+    Map singleorNo(TReport tReport ,String startDate, String endDate,String singlePass);
 
 }

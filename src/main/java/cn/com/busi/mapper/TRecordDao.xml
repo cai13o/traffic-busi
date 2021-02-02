@@ -48,6 +48,8 @@
         <result property="ezzdlqx" column="ezzdlqx" jdbcType="VARCHAR"/>
         <result property="tzzdlqx" column="tzzdlqx" jdbcType="VARCHAR"/>
         <result property="fzzdlqx" column="fzzdlqx" jdbcType="VARCHAR"/>
+        <result property="kclxdj" column="kclxdj" jdbcType="VARCHAR"/>
+
 
 
     </resultMap>
@@ -73,7 +75,7 @@
         select
         id, jylsh, jyjgbh, jyjgmc, jcxdh, wtr, dlyszh, jylb, ywlx, jcxb, jcrq, jcjldbh, cphm, hpzl, gcpzh, gclx, clccrq,
         wjdly, ycy, wqczy, zcdjrq, vin, clxh, fdjh, csys, xszlc, qdxs, zxzxjxs, gczs
-        ,xzqy,syxz,clyt,cllx
+        ,xzqy,syxz,clyt,cllx,kclxdj
         from t_record
         <where>
             <if test="id != null and id != ''">
@@ -124,8 +126,8 @@
             <if test="gclx != null and gclx != ''">
                 and gclx = #{gclx}
             </if>
-            <if test="clccrq != null">
-                and clccrq = #{clccrq}
+            <if test="tDetail != null and tDetail != ''">
+                and YEAR(clccrq) = #{tDetail}
             </if>
             <if test="wjdly != null and wjdly != ''">
                 and wjdly = #{wjdly}
@@ -173,15 +175,14 @@
             <if test="clyt != null and clyt != ''">
                 and clyt like concat(concat('%',#{clyt}),'%')
             </if>
+            <if test="kclxdj != null and kclxdj != ''">
+                and kclxdj like concat(concat('%',#{kclxdj}),'%')
+            </if>
         </where>
         ORDER BY jcrq DESC
     </select>
 
-    <select id="count" resultMap="BaseResultMap">
-        select
-          count(id) cllx
-        from t_record
-    </select>
+
 
 
     <select id="queryAllCar" resultMap="BaseResultMap">
@@ -301,8 +302,8 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="false">
-        insert into t_record(id,jylsh, jyjgbh, jyjgmc, jcxdh, wtr, dlyszh, jylb, ywlx, jcxb, jcrq, jcjldbh, cphm, hpzl, gcpzh, gclx, clccrq, wjdly, ycy, wqczy, zcdjrq, vin, clxh, fdjh, csys, xszlc, qdxs, zxzxjxs, gczs, zdjygw, dgjygw, dlxjygw, t_detail, xzqy ,rllb , jyjgdz ,zjycs,cllx,clzbzl,syxz,clyt,yzzdlqx,ezzdlqx,tzzdlqx,fzzdlqx )
-        values (#{id},#{jylsh}, #{jyjgbh}, #{jyjgmc}, #{jcxdh}, #{wtr}, #{dlyszh}, #{jylb}, #{ywlx}, #{jcxb}, #{jcrq}, #{jcjldbh}, #{cphm}, #{hpzl}, #{gcpzh}, #{gclx}, #{clccrq}, #{wjdly}, #{ycy}, #{wqczy}, #{zcdjrq}, #{vin}, #{clxh}, #{fdjh}, #{csys}, #{xszlc}, #{qdxs}, #{zxzxjxs}, #{gczs}, #{zdjygw}, #{dgjygw}, #{dlxjygw}, #{tDetail}, #{xzqy},#{rllb},#{jyjgdz},#{zjycs},#{cllx},#{clzbzl},#{syxz},#{clyt},#{yzzdlqx},#{ezzdlqx},#{tzzdlqx},#{fzzdlqx})
+        insert into t_record(id,jylsh, jyjgbh, jyjgmc, jcxdh, wtr, dlyszh, jylb, ywlx, jcxb, jcrq, jcjldbh, cphm, hpzl, gcpzh, gclx, clccrq, wjdly, ycy, wqczy, zcdjrq, vin, clxh, fdjh, csys, xszlc, qdxs, zxzxjxs, gczs, zdjygw, dgjygw, dlxjygw, t_detail, xzqy ,rllb , jyjgdz ,zjycs,cllx,clzbzl,syxz,clyt,yzzdlqx,ezzdlqx,tzzdlqx,fzzdlqx,kclxdj )
+        values (#{id},#{jylsh}, #{jyjgbh}, #{jyjgmc}, #{jcxdh}, #{wtr}, #{dlyszh}, #{jylb}, #{ywlx}, #{jcxb}, #{jcrq}, #{jcjldbh}, #{cphm}, #{hpzl}, #{gcpzh}, #{gclx}, #{clccrq}, #{wjdly}, #{ycy}, #{wqczy}, #{zcdjrq}, #{vin}, #{clxh}, #{fdjh}, #{csys}, #{xszlc}, #{qdxs}, #{zxzxjxs}, #{gczs}, #{zdjygw}, #{dgjygw}, #{dlxjygw}, #{tDetail}, #{xzqy},#{rllb},#{jyjgdz},#{zjycs},#{cllx},#{clzbzl},#{syxz},#{clyt},#{yzzdlqx},#{ezzdlqx},#{tzzdlqx},#{fzzdlqx},#{kclxdj})
     </insert>
 
     <!--通过主键修改数据-->

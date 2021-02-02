@@ -60,6 +60,7 @@
             <if test="createTime != null">
                 and TO_DAYS(create_time) = TO_DAYS(#{createTime})
             </if>
+            and username != ""
         </where>
         ORDER BY create_time DESC
     </select>

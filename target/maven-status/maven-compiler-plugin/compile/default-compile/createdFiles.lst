@@ -12,6 +12,7 @@ cn\com\busi\common\BusinessConstant.class
 cn\com\busi\mapper\TPgroupDao.class
 cn\com\busi\client\CxfClient.class
 cn\com\busi\mapper\TStatisticsDao.class
+cn\com\busi\Interceptor\LoginInterceptor.class
 cn\com\busi\mapper\TInfoMapper.class
 cn\com\busi\entity\TSintype.class
 cn\com\busi\service\TSysLogService.class
@@ -41,6 +42,7 @@ cn\com\busi\entity\TStatistics.class
 cn\com\busi\config\PageHelperConfig.class
 cn\com\busi\config\BusiConfig.class
 cn\com\busi\config\CxfConfig.class
+cn\com\busi\client\GetLatAndLngByBaidu.class
 cn\com\busi\mapper\TUserDao.class
 cn\com\busi\entity\TReport.class
 cn\com\busi\service\impl\BusiServiceImpl.class
@@ -67,6 +69,7 @@ cn\com\busi\service\impl\TUserServiceImpl.class
 cn\com\busi\controller\TRoleController.class
 cn\com\busi\mapper\TInstPersonDao.class
 cn\com\busi\entity\SysLog.class
+cn\com\busi\tack\SchedulerTask.class
 cn\com\busi\mapper\TCartypeDao.class
 cn\com\busi\aspect\LogAspect.class
 cn\com\busi\mapper\TSintypeDao.class
@@ -79,8 +82,10 @@ cn\com\busi\service\impl\TInstPersonServiceImpl.class
 cn\com\busi\controller\TInstDeviceController.class
 cn\com\busi\service\TStatisticsService.class
 cn\com\busi\config\InterceptorConfig.class
+cn\com\busi\utils\GetLatAndLngByBaidu.class
 cn\com\busi\service\impl\TCautionServiceImpl.class
 cn\com\busi\service\TokenService.class
+cn\com\busi\config\MyWebConfigurer.class
 cn\com\busi\service\TRoleService.class
 cn\com\busi\service\TSintypeService.class
 cn\com\busi\service\TInstInfoService.class

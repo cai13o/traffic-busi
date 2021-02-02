@@ -5,8 +5,10 @@ import cn.com.busi.common.BusinessConstant;
 import cn.com.busi.entity.*;
 import cn.com.busi.enums.BusiEnum;
 import cn.com.busi.mapper.*;
-import cn.com.busi.service.BusiService;
+import cn.com.busi.service.*;
 import cn.com.busi.utils.DateTimeUtil;
+import cn.com.busi.utils.GetLatAndLngByBaidu;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -48,6 +50,18 @@ public class BusiServiceImpl implements BusiService {
     private TCautionDao tCautionDao;
     @Resource
     private TLicensePlateDao tLicensePlateDao;
+    @Resource
+    private TArtificialResultService artificialResultService;
+    @Resource
+    private TInstrumentResultService instrumentResultService;
+    @Resource
+    private TInspectionReportService inspectionReportService;
+    @Resource
+    private TInspectionArtificialService inspectionArtificialService;
+    @Resource
+    private TUnqualifiedItemsService unqualifiedItemsService;
+    @Resource
+    private TInspectionInstrumentService inspectionInstrumentService;
 
     /**
      * *********************************************
@@ -95,11 +109,11 @@ public class BusiServiceImpl implements BusiService {
                 bais = new ByteArrayInputStream(zdjygw);
                 BufferedImage bi = ImageIO.read(bais);
                 String filename = id + "zdjygw.jpg";
-                File f = new File("d://liangkeyiwei//dist//IMGS", filename);
-                if(bi != null) {
+                File f = new File("d://liangkeyiwei//IMGS", filename);
+                if (bi != null) {
                     ImageIO.write(bi, "jpg", f);
                     tRecord.setZdjygw(filename);
-                }else {
+                } else {
                     tRecord.setZdjygw("");
                 }
 
@@ -115,11 +129,11 @@ public class BusiServiceImpl implements BusiService {
                 bais = new ByteArrayInputStream(dgjygw);
                 BufferedImage bi = ImageIO.read(bais);
                 String filename = id + "dgjygw.jpg";
-                File f = new File("d://liangkeyiwei//dist//IMGS", filename);
-                if(bi != null) {
+                File f = new File("d://liangkeyiwei//IMGS", filename);
+                if (bi != null) {
                     ImageIO.write(bi, "jpg", f);
                     tRecord.setDgjygw(filename);
-                }else {
+                } else {
                     tRecord.setDgjygw("");
                 }
 
@@ -135,11 +149,11 @@ public class BusiServiceImpl implements BusiService {
                 bais = new ByteArrayInputStream(dlxjygw);
                 BufferedImage bi = ImageIO.read(bais);
                 String filename = id + "dlxjygw.jpg";
-                File f = new File("d://liangkeyiwei//dist//IMGS", filename);
-                if(bi != null) {
+                File f = new File("d://liangkeyiwei//IMGS", filename);
+                if (bi != null) {
                     ImageIO.write(bi, "jpg", f);
                     tRecord.setDlxjygw(filename);
-                }else {
+                } else {
                     tRecord.setDlxjygw("");
                 }
 
@@ -238,6 +252,8 @@ public class BusiServiceImpl implements BusiService {
         tRecord.setTzzdlqx(String.valueOf(info.get(BusinessConstant.TZZDLQX)));
         //四轴制动力曲线
         tRecord.setFzzdlqx(String.valueOf(info.get(BusinessConstant.FZZDLQX)));
+        //客车类型等级
+        tRecord.setKclxdj(String.valueOf(info.get(BusinessConstant.KCLXDJ)));
 
         System.out.println(tRecord.getClzbzl());
         //总信息
@@ -251,6 +267,8 @@ public class BusiServiceImpl implements BusiService {
             String yrpd = String.valueOf(info.get(BusinessConstant.YRPD));
             String zwpd = String.valueOf(info.get(BusinessConstant.ZWPD));
             String ywpd = String.valueOf(info.get(BusinessConstant.YWPD));
+            String drspd = String.valueOf(info.get(BusinessConstant.DRSPD));
+
             TLicensePlate tLicense = new TLicensePlate();
             tLicense.setName(tRecord.getCllx());
             boolean lp = false;
@@ -262,26 +280,26 @@ public class BusiServiceImpl implements BusiService {
             boolean wqzc = false;
             boolean wqgw = false;
             List<TInstPerson> tInstPeople = tInstPersonDao.queryAll(new TInstPerson());
-            for(TInstPerson tInstPerson:tInstPeople){
-                if(tInstPerson.getInstitution().equals(String.valueOf(info.get(BusinessConstant.JYJGMC))) && tInstPerson.getName().equals(String.valueOf(info.get(BusinessConstant.WJDLY)))){
-                    if(tInstPerson.getPosition().contains("微机")){
+            for (TInstPerson tInstPerson : tInstPeople) {
+                if (tInstPerson.getInstitution().equals(String.valueOf(info.get(BusinessConstant.JYJGMC))) && tInstPerson.getName().equals(String.valueOf(info.get(BusinessConstant.WJDLY)))) {
+                    if (tInstPerson.getPosition().contains("微机")) {
                         wjgw = true;
                     }
                     wjzc = true;
                 }
-                if(tInstPerson.getInstitution().equals(String.valueOf(info.get(BusinessConstant.JYJGMC))) && tInstPerson.getName().equals(String.valueOf(info.get(BusinessConstant.YCY)))){
-                    if(tInstPerson.getPosition().contains("引车")){
+                if (tInstPerson.getInstitution().equals(String.valueOf(info.get(BusinessConstant.JYJGMC))) && tInstPerson.getName().equals(String.valueOf(info.get(BusinessConstant.YCY)))) {
+                    if (tInstPerson.getPosition().contains("引车")) {
                         ycgw = true;
-                        for (TLicensePlate tLicensePlate:tLicensePlates){
-                            if(tInstPerson.getPosition().contains(tLicensePlate.getLicense())){
-                                lp =true;
+                        for (TLicensePlate tLicensePlate : tLicensePlates) {
+                            if (tInstPerson.getPosition().contains(tLicensePlate.getLicense())) {
+                                lp = true;
                             }
                         }
                     }
                     yczc = true;
                 }
-                if(tInstPerson.getInstitution().equals(String.valueOf(info.get(BusinessConstant.JYJGMC))) && tInstPerson.getName().equals(String.valueOf(info.get(BusinessConstant.WQCZY)))){
-                    if(tInstPerson.getPosition().contains("尾气")){
+                if (tInstPerson.getInstitution().equals(String.valueOf(info.get(BusinessConstant.JYJGMC))) && tInstPerson.getName().equals(String.valueOf(info.get(BusinessConstant.WQCZY)))) {
+                    if (tInstPerson.getPosition().contains("尾气")) {
                         wqgw = true;
                     }
                     wqzc = true;
@@ -289,7 +307,7 @@ public class BusiServiceImpl implements BusiService {
             }
 
 
-            if(wjzc == false){
+            if (wjzc == false) {
                 TCaution tCaution = new TCaution();
                 tCaution.setId(UUID.randomUUID().toString().replaceAll("-", ""));
                 tCaution.setJglx("微机操作员机构不符");
@@ -298,8 +316,14 @@ public class BusiServiceImpl implements BusiService {
                 tCaution.setSsjg(tRecord.getJyjgmc());
                 tCaution.setCphm(tRecord.getCphm());
                 tCaution.setLrsj(new Date());
+                TInstInfo tInstInfo = new TInstInfo();
+                tInstInfo.setName(tRecord.getJyjgmc());
+                List<TInstInfo> tInstInfos = this.tInstInfoDao.queryAll(tInstInfo);
+                if (tInstInfos == null) {
+                    tCaution.setJglxr(tInstInfos.get(0).getContact());
+                }
                 tCautionDao.insert(tCaution);
-            }else if(wjgw == false){
+            } else if (wjgw == false) {
                 TCaution tCaution = new TCaution();
                 tCaution.setId(UUID.randomUUID().toString().replaceAll("-", ""));
                 tCaution.setJglx("微机操作员岗位不符");
@@ -308,10 +332,16 @@ public class BusiServiceImpl implements BusiService {
                 tCaution.setSsjg(tRecord.getJyjgmc());
                 tCaution.setCphm(tRecord.getCphm());
                 tCaution.setLrsj(new Date());
+                TInstInfo tInstInfo = new TInstInfo();
+                tInstInfo.setName(tRecord.getJyjgmc());
+                List<TInstInfo> tInstInfos = this.tInstInfoDao.queryAll(tInstInfo);
+                if (tInstInfos == null) {
+                    tCaution.setJglxr(tInstInfos.get(0).getContact());
+                }
                 tCautionDao.insert(tCaution);
             }
 
-            if(yczc == false){
+            if (yczc == false) {
                 TCaution tCaution = new TCaution();
                 tCaution.setId(UUID.randomUUID().toString().replaceAll("-", ""));
                 tCaution.setJglx("引车员机构不符");
@@ -320,8 +350,14 @@ public class BusiServiceImpl implements BusiService {
                 tCaution.setSsjg(tRecord.getJyjgmc());
                 tCaution.setCphm(tRecord.getCphm());
                 tCaution.setLrsj(new Date());
+                TInstInfo tInstInfo = new TInstInfo();
+                tInstInfo.setName(tRecord.getJyjgmc());
+                List<TInstInfo> tInstInfos = this.tInstInfoDao.queryAll(tInstInfo);
+                if (tInstInfos == null) {
+                    tCaution.setJglxr(tInstInfos.get(0).getContact());
+                }
                 tCautionDao.insert(tCaution);
-            }else if(ycgw == false){
+            } else if (ycgw == false) {
                 TCaution tCaution = new TCaution();
                 tCaution.setId(UUID.randomUUID().toString().replaceAll("-", ""));
                 tCaution.setJglx("引车员岗位不符");
@@ -330,8 +366,14 @@ public class BusiServiceImpl implements BusiService {
                 tCaution.setSsjg(tRecord.getJyjgmc());
                 tCaution.setCphm(tRecord.getCphm());
                 tCaution.setLrsj(new Date());
+                TInstInfo tInstInfo = new TInstInfo();
+                tInstInfo.setName(tRecord.getJyjgmc());
+                List<TInstInfo> tInstInfos = this.tInstInfoDao.queryAll(tInstInfo);
+                if (tInstInfos == null) {
+                    tCaution.setJglxr(tInstInfos.get(0).getContact());
+                }
                 tCautionDao.insert(tCaution);
-            }else if(lp == false){
+            } else if (lp == false) {
                 TCaution tCaution = new TCaution();
                 tCaution.setId(UUID.randomUUID().toString().replaceAll("-", ""));
                 tCaution.setJglx("引车员准驾车型不符");
@@ -340,10 +382,16 @@ public class BusiServiceImpl implements BusiService {
                 tCaution.setSsjg(tRecord.getJyjgmc());
                 tCaution.setCphm(tRecord.getCphm());
                 tCaution.setLrsj(new Date());
+                TInstInfo tInstInfo = new TInstInfo();
+                tInstInfo.setName(tRecord.getJyjgmc());
+                List<TInstInfo> tInstInfos = this.tInstInfoDao.queryAll(tInstInfo);
+                if (tInstInfos == null) {
+                    tCaution.setJglxr(tInstInfos.get(0).getContact());
+                }
                 tCautionDao.insert(tCaution);
             }
 
-            if(wqzc == false){
+            if (wqzc == false) {
                 TCaution tCaution = new TCaution();
                 tCaution.setId(UUID.randomUUID().toString().replaceAll("-", ""));
                 tCaution.setJglx("尾气操作员机构不符");
@@ -352,8 +400,14 @@ public class BusiServiceImpl implements BusiService {
                 tCaution.setSsjg(tRecord.getJyjgmc());
                 tCaution.setCphm(tRecord.getCphm());
                 tCaution.setLrsj(new Date());
+                TInstInfo tInstInfo = new TInstInfo();
+                tInstInfo.setName(tRecord.getJyjgmc());
+                List<TInstInfo> tInstInfos = this.tInstInfoDao.queryAll(tInstInfo);
+                if (tInstInfos == null) {
+                    tCaution.setJglxr(tInstInfos.get(0).getContact());
+                }
                 tCautionDao.insert(tCaution);
-            } else if(wqgw == false){
+            } else if (wqgw == false) {
                 TCaution tCaution = new TCaution();
                 tCaution.setId(UUID.randomUUID().toString().replaceAll("-", ""));
                 tCaution.setJglx("尾气操作员岗位不符");
@@ -362,6 +416,12 @@ public class BusiServiceImpl implements BusiService {
                 tCaution.setSsjg(tRecord.getJyjgmc());
                 tCaution.setCphm(tRecord.getCphm());
                 tCaution.setLrsj(new Date());
+                TInstInfo tInstInfo = new TInstInfo();
+                tInstInfo.setName(tRecord.getJyjgmc());
+                List<TInstInfo> tInstInfos = this.tInstInfoDao.queryAll(tInstInfo);
+                if (tInstInfos == null) {
+                    tCaution.setJglxr(tInstInfos.get(0).getContact());
+                }
                 tCautionDao.insert(tCaution);
             }
 
@@ -379,6 +439,12 @@ public class BusiServiceImpl implements BusiService {
                             tCaution.setSsjg(tRecord.getJyjgmc());
                             tCaution.setCphm(tRecord.getCphm());
                             tCaution.setLrsj(new Date());
+                            TInstInfo tInstInfo = new TInstInfo();
+                            tInstInfo.setName(tRecord.getJyjgmc());
+                            List<TInstInfo> tInstInfos = this.tInstInfoDao.queryAll(tInstInfo);
+                            if (tInstInfos == null) {
+                                tCaution.setJglxr(tInstInfos.get(0).getContact());
+                            }
                             tCautionDao.insert(tCaution);
                         }
                     }
@@ -387,15 +453,40 @@ public class BusiServiceImpl implements BusiService {
 //            }
 
             if (tRecord.getCllx().contains("客车")) {
-                if (dzzdcs1.equals("-") || yrpd.equals("-") || zwpd.equals("-") || ywpd.equals("-") || dzzdcs1.equals("") || yrpd.equals("") || zwpd.equals("") || ywpd.equals("")) {
-                    TCaution tCaution = new TCaution();
-                    tCaution.setId(UUID.randomUUID().toString().replaceAll("-", ""));
-                    tCaution.setJglx("检测项目不全");
-                    tCaution.setSsqy(tRecord.getXzqy());
-                    tCaution.setSsjg(tRecord.getJyjgmc());
-                    tCaution.setCphm(tRecord.getCphm());
-                    tCaution.setLrsj(new Date());
-                    tCautionDao.insert(tCaution);
+                if (tRecord.getRllb().contains("柴油")) {
+                    if (dzzdcs1.equals("-") || yrpd.equals("-") || zwpd.equals("-") || ywpd.equals("-") || dzzdcs1.equals("") || yrpd.equals("") || zwpd.equals("") || ywpd.equals("")) {
+                        TCaution tCaution = new TCaution();
+                        tCaution.setId(UUID.randomUUID().toString().replaceAll("-", ""));
+                        tCaution.setJglx("检测项目不全");
+                        tCaution.setSsqy(tRecord.getXzqy());
+                        tCaution.setSsjg(tRecord.getJyjgmc());
+                        tCaution.setCphm(tRecord.getCphm());
+                        tCaution.setLrsj(new Date());
+                        TInstInfo tInstInfo = new TInstInfo();
+                        tInstInfo.setName(tRecord.getJyjgmc());
+                        List<TInstInfo> tInstInfos = this.tInstInfoDao.queryAll(tInstInfo);
+                        if (tInstInfos == null) {
+                            tCaution.setJglxr(tInstInfos.get(0).getContact());
+                        }
+                        tCautionDao.insert(tCaution);
+                    }
+                } else {
+                    if (dzzdcs1.equals("-") || drspd.equals("-") || zwpd.equals("-") || ywpd.equals("-") || dzzdcs1.equals("") || drspd.equals("") || zwpd.equals("") || ywpd.equals("")) {
+                        TCaution tCaution = new TCaution();
+                        tCaution.setId(UUID.randomUUID().toString().replaceAll("-", ""));
+                        tCaution.setJglx("检测项目不全");
+                        tCaution.setSsqy(tRecord.getXzqy());
+                        tCaution.setSsjg(tRecord.getJyjgmc());
+                        tCaution.setCphm(tRecord.getCphm());
+                        tCaution.setLrsj(new Date());
+                        TInstInfo tInstInfo = new TInstInfo();
+                        tInstInfo.setName(tRecord.getJyjgmc());
+                        List<TInstInfo> tInstInfos = this.tInstInfoDao.queryAll(tInstInfo);
+                        if (tInstInfos == null) {
+                            tCaution.setJglxr(tInstInfos.get(0).getContact());
+                        }
+                        tCautionDao.insert(tCaution);
+                    }
                 }
 
 //                String bhgx = String.valueOf(info.get(BusinessConstant.BHGX));
@@ -415,7 +506,7 @@ public class BusiServiceImpl implements BusiService {
             log.info("【操作数据库异常】");
             String[] split = e.toString().split("###");
             resMap.put(BusinessConstant.RETCODE, BusiEnum.E8999.getCode());
-            resMap.put(BusinessConstant.RETMSG, BusiEnum.E8999.getMessage()+":"+split[1]);
+            resMap.put(BusinessConstant.RETMSG, BusiEnum.E8999.getMessage() + ":" + split[1]);
             return resMap.toString();
 
         }
@@ -545,24 +636,32 @@ public class BusiServiceImpl implements BusiService {
         //灯光 ZWDYGGQPD,YWDYGGQPD
         String ZWDYGGQPD = String.valueOf(info.get(BusinessConstant.ZWDYGGQPD));
         String YWDYGGQPD = String.valueOf(info.get(BusinessConstant.YWDYGGQPD));
-        boolean ZWDYGGQ = (ZWDYGGQPD.equals("合格") || ZWDYGGQPD.equals("一级") || ZWDYGGQPD.equals("二级"));
-        boolean YWDYGGQ = (YWDYGGQPD.equals("合格") || YWDYGGQPD.equals("一级") || YWDYGGQPD.equals("二级"));
-        System.out.println(ZWDYGGQ + " " + YWDYGGQ);
-        if (ZWDYGGQ && YWDYGGQ) {
+//        boolean ZWDYGGQ = (ZWDYGGQPD.equals("合格") || ZWDYGGQPD.equals("一级") || ZWDYGGQPD.equals("二级"));
+//        String ZWDYGGQ;
+//        String YWDYGGQ;
+//        boolean YWDYGGQ = (YWDYGGQPD.equals("合格") || YWDYGGQPD.equals("一级") || YWDYGGQPD.equals("二级"));
+        if ((YWDYGGQPD.equals("合格") || YWDYGGQPD.equals("一级") || YWDYGGQPD.equals("二级")) && (ZWDYGGQPD.equals("合格") || ZWDYGGQPD.equals("一级") || ZWDYGGQPD.equals("二级"))) {
             tReport.setDg("合格");
-        } else {
+        } else if (YWDYGGQPD.equals("不合格") && ZWDYGGQPD.equals("不合格")) {
             tReport.setDg("不合格");
+        } else {
+            tReport.setDg("");
         }
         //侧滑 DYZLCHLPD,DEZLCHLPD
         String DYZLCHLPD = String.valueOf(info.get(BusinessConstant.DYZLCHLPD));
         String DEZLCHLPD = String.valueOf(info.get(BusinessConstant.DEZLCHLPD));
-        boolean DYZLCHL = (DYZLCHLPD.equals("合格") || DYZLCHLPD.equals("一级") || DYZLCHLPD.equals("二级"));
-        boolean DEZLCHL = (DEZLCHLPD.equals("合格") || DEZLCHLPD.equals("一级") || DEZLCHLPD.equals("二级"));
+//        boolean DYZLCHL = (DYZLCHLPD.equals("合格") || DYZLCHLPD.equals("一级") || DYZLCHLPD.equals("二级"));
+//        boolean DEZLCHL = (DEZLCHLPD.equals("合格") || DEZLCHLPD.equals("一级") || DEZLCHLPD.equals("二级"));
 
-        if (DYZLCHL && DEZLCHL) {
+        if ((DYZLCHLPD.equals("合格") || DYZLCHLPD.equals("一级") || DYZLCHLPD.equals("二级")) || (DEZLCHLPD.equals("合格") || DEZLCHLPD.equals("一级") || DEZLCHLPD.equals("二级"))) {
             tReport.setCh("合格");
-        } else {
+            if (DYZLCHLPD.equals("不合格") || DEZLCHLPD.equals("不合格")) {
+                tReport.setCh("合格");
+            }
+        } else if (DYZLCHLPD.equals("不合格") && DEZLCHLPD.equals("不合格")) {
             tReport.setCh("不合格");
+        } else {
+            tReport.setCh("");
         }
         //排放
         List<String> list = new ArrayList<String>();
@@ -583,15 +682,27 @@ public class BusiServiceImpl implements BusiService {
         list.add(String.valueOf(info.get(BusinessConstant.JZJSGK90PD)));
         list.add(String.valueOf(info.get(BusinessConstant.JZJSGK80PD)));
         list.add(String.valueOf(info.get(BusinessConstant.SCZDGLPD)));
-        boolean flag = true;
+        String flag = "";
         for (String s : list) {
-            if (!(s.equals("合格") || s.equals("一级") || s.equals("二级")))
-                flag = false;
+            if (!(s.equals("") || s.equals("不适用") || s.equals("未检查"))) {
+                flag = "合格";
+                if (s.equals("不合格")) {
+                    flag = "不合格";
+                }
+            }
         }
-        if (flag) {
+
+        if (flag == "合格") {
             tReport.setPf("合格");
-        } else {
+        } else if (flag == "不合格") {
             tReport.setPf("不合格");
+        } else {
+            tReport.setPf("");
+        }
+        long l = new Date().getTime() - tReport.getZcdjrq().getTime();
+        long f = 90 * 24 * 60 * 60 * 1000;
+        if (l <= f) {
+            tReport.setPf("合格");
         }
         //详细信息
         tReport.setTDetail(json);
@@ -602,14 +713,14 @@ public class BusiServiceImpl implements BusiService {
             log.info("error", e);
             String[] split = e.toString().split("###");
             resMap.put(BusinessConstant.RETCODE, BusiEnum.E8999.getCode());
-            resMap.put(BusinessConstant.RETMSG, BusiEnum.E8999.getMessage()+":"+split[1]);
+            resMap.put(BusinessConstant.RETMSG, BusiEnum.E8999.getMessage() + ":" + split[1]);
             return resMap.toString();
         }
         return resMap.toString();
     }
 
 
-    public String insertInstitutionInfo(String json) {
+    public String insertInstitutionInfo(String json) throws IOException {
         Map<String, Object> resMap = new HashMap<>();
         resMap.put(BusinessConstant.RETCODE, BusiEnum.E0000.getCode());
         resMap.put(BusinessConstant.RETMSG, BusiEnum.E0000.getMessage());
@@ -655,7 +766,9 @@ public class BusiServiceImpl implements BusiService {
         tInstInfo.setOpflag(String.valueOf(info.get(BusinessConstant.OPFLAG)));
         //操作日期
         tInstInfo.setOpdate(String.valueOf(info.get(BusinessConstant.OPDATE)));
-
+        Object[] o = GetLatAndLngByBaidu.getCoordinate(tInstInfo.getName());
+        tInstInfo.setLng((String) o[0]);
+        tInstInfo.setLat((String) o[1]);
         try {
             if (tInstInfo.getOpflag().equals("1")) {
                 tInstInfoDao.insert(tInstInfo);
@@ -681,7 +794,7 @@ public class BusiServiceImpl implements BusiService {
             log.info("error", e);
             String[] split = e.toString().split("###");
             resMap.put(BusinessConstant.RETCODE, BusiEnum.E8999.getCode());
-            resMap.put(BusinessConstant.RETMSG, BusiEnum.E8999.getMessage()+":"+split[1]);
+            resMap.put(BusinessConstant.RETMSG, BusiEnum.E8999.getMessage() + ":" + split[1]);
             return resMap.toString();
         }
         return resMap.toString();
@@ -756,13 +869,19 @@ public class BusiServiceImpl implements BusiService {
                 tCaution.setRymc(tInstPerson.getName());
                 tCaution.setSsjg(tInstPerson.getInstitution());
                 tCaution.setLrsj(new Date());
+                TInstInfo tInstInfo = new TInstInfo();
+                tInstInfo.setName(tInstPerson.getInstitution());
+                List<TInstInfo> tInstInfos = this.tInstInfoDao.queryAll(tInstInfo);
+                if (tInstInfos == null) {
+                    tCaution.setJglxr(tInstInfos.get(0).getContact());
+                }
                 tCautionDao.insert(tCaution);
             }
         } catch (Exception e) {
             log.info("error", e);
             String[] split = e.toString().split("###");
             resMap.put(BusinessConstant.RETCODE, BusiEnum.E8999.getCode());
-            resMap.put(BusinessConstant.RETMSG, BusiEnum.E8999.getMessage()+":"+split[1]);
+            resMap.put(BusinessConstant.RETMSG, BusiEnum.E8999.getMessage() + ":" + split[1]);
             return resMap.toString();
         }
         return resMap.toString();
@@ -829,21 +948,234 @@ public class BusiServiceImpl implements BusiService {
             SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
             Date date = sf.parse(tInstDevice.getNextdate());
             if (date.getTime() < new Date().getTime()) {
+
                 TCaution tCaution = new TCaution();
                 tCaution.setId(UUID.randomUUID().toString().replaceAll("-", ""));
                 tCaution.setJglx("设备检定/校准超过有效期");
                 tCaution.setSbxh(tInstDevice.getModel());
                 tCaution.setSsjg(tInstDevice.getInstitution());
                 tCaution.setLrsj(new Date());
+                TInstInfo tInstInfo = new TInstInfo();
+                tInstInfo.setName(tInstDevice.getInstitution());
+                List<TInstInfo> tInstInfos = this.tInstInfoDao.queryAll(tInstInfo);
+                if (tInstInfos == null) {
+                    tCaution.setJglxr(tInstInfos.get(0).getContact());
+                }
                 tCautionDao.insert(tCaution);
             }
         } catch (Exception e) {
             log.info("error", e);
             String[] split = e.toString().split("###");
             resMap.put(BusinessConstant.RETCODE, BusiEnum.E8999.getCode());
-            resMap.put(BusinessConstant.RETMSG, BusiEnum.E8999.getMessage()+":"+split[1]);
+            resMap.put(BusinessConstant.RETMSG, BusiEnum.E8999.getMessage() + ":" + split[1]);
             return resMap.toString();
         }
+        return resMap.toString();
+    }
+
+    /**
+     * 新增仪器设备检验表
+     *
+     * @param json
+     * @return 是否成功
+     */
+    @Override
+    public String insertApparatusJDCAQJSJYB(String json) {
+        Map<String, Object> resMap = new HashMap<>();
+        resMap.put(BusinessConstant.RETCODE, BusiEnum.E0000.getCode());
+        resMap.put(BusinessConstant.RETMSG, BusiEnum.E0000.getMessage());
+        TInspectionInstrument ii = new TInspectionInstrument();
+        //一、解析报文
+        JSONObject info = getInfo(json);
+        log.info("解析后的报文为" + info.toString());
+        if (null == info) {
+            //返回null，说明报文格式不对
+            resMap.put(BusinessConstant.RETCODE, BusiEnum.E1001.getCode());
+            resMap.put(BusinessConstant.RETMSG, BusiEnum.E1001.getMessage());
+            return resMap.toString();
+        }
+        String id = String.valueOf(info.get(BusinessConstant.ID));
+        if (null == id) {
+            resMap.put(BusinessConstant.RETCODE, BusiEnum.E1002.getCode());
+            resMap.put(BusinessConstant.RETMSG, BusiEnum.E1002.getMessage());
+            return resMap.toString();
+        }
+        //二、获取数据并入库
+        //主键
+        ii.setId(String.valueOf(info.get(BusinessConstant.ID)));
+        //详细信息
+        ii.setTDetail(json);
+        this.inspectionInstrumentService.insertSelective(ii);
+        return resMap.toString();
+    }
+
+    /**
+     * 新增人工检验表
+     *
+     * @param json
+     * @return 是否成功
+     */
+    @Override
+    public String insertArtificialJDCAQJSJYB(String json, byte[] bhgx) {
+        Map<String, Object> resMap = new HashMap<>();
+        resMap.put(BusinessConstant.RETCODE, BusiEnum.E0000.getCode());
+        resMap.put(BusinessConstant.RETMSG, BusiEnum.E0000.getMessage());
+        TInspectionArtificial ia = new TInspectionArtificial();
+        //一、解析报文
+        JSONObject info = getInfo(json);
+        log.info("解析后的报文为" + info.toString());
+        if (null == info) {
+            //返回null，说明报文格式不对
+            resMap.put(BusinessConstant.RETCODE, BusiEnum.E1001.getCode());
+            resMap.put(BusinessConstant.RETMSG, BusiEnum.E1001.getMessage());
+            return resMap.toString();
+        }
+        String id = String.valueOf(info.get(BusinessConstant.ID));
+        if (null == id) {
+            resMap.put(BusinessConstant.RETCODE, BusiEnum.E1002.getCode());
+            resMap.put(BusinessConstant.RETMSG, BusiEnum.E1002.getMessage());
+            return resMap.toString();
+        }
+        //二、判断并保存三张图片
+        ByteArrayInputStream bais = null;
+        if (null != bhgx) {
+            // 盖章照片
+            try {
+                bais = new ByteArrayInputStream(bhgx);
+                BufferedImage bi = ImageIO.read(bais);
+                String filename = id + "seal.jpg";
+                File f = new File("d://liangkeyiwei//IMGS", filename);
+                if (bi != null) {
+                    ImageIO.write(bi, "jpg", f);
+                    ia.setBhgx(filename);
+                } else {
+                    ia.setBhgx("");
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        //三、获取数据并入库
+        //主键
+        ia.setId(String.valueOf(info.get(BusinessConstant.ID)));
+        ia.setCphm(String.valueOf(info.get(BusinessConstant.CPHM)));
+        ia.setCllb(String.valueOf(info.get(BusinessConstant.CLLB)));
+        ia.setSyxz(String.valueOf(info.get(BusinessConstant.SYXZ)));
+        //不合格项
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            List<TUnqualifiedItems> tUnqualifiedItemsList = mapper.readValue(String.valueOf(info.get(BusinessConstant.RGJYJG)), mapper.getTypeFactory().constructParametricType(List.class, TUnqualifiedItems.class));
+            for (TUnqualifiedItems tUnqualifiedItems : tUnqualifiedItemsList) {
+                tUnqualifiedItems.setAid(ia.getId());
+                this.unqualifiedItemsService.insertSelective(tUnqualifiedItems);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //一轴制动力曲线
+        ia.setYzzdlqx(String.valueOf(info.get(BusinessConstant.YZZDLQX)));
+        //二轴制动力曲线
+        ia.setEzzdlqx(String.valueOf(info.get(BusinessConstant.EZZDLQX)));
+        //三轴制动力曲线
+        ia.setTzzdlqx(String.valueOf(info.get(BusinessConstant.TZZDLQX)));
+        //四轴制动力曲线
+        ia.setFzzdlqx(String.valueOf(info.get(BusinessConstant.FZZDLQX)));
+        //详细信息
+        ia.setTDetail(json);
+        this.inspectionArtificialService.insertSelective(ia);
+        return resMap.toString();
+    }
+
+    /**
+     * 新增检验报告
+     *
+     * @param json
+     * @return 是否成功
+     */
+    @Override
+    public String insertJDCAQJSJYBG(String json, byte[] seal, byte[] ewtm) {
+        Map<String, Object> resMap = new HashMap<>();
+        resMap.put(BusinessConstant.RETCODE, BusiEnum.E0000.getCode());
+        resMap.put(BusinessConstant.RETMSG, BusiEnum.E0000.getMessage());
+        TInspectionReport ir = new TInspectionReport();
+        //一、解析报文
+        JSONObject info = getInfo(json);
+        log.info("解析后的报文为" + info.toString());
+        if (null == info) {
+            //返回null，说明报文格式不对
+            resMap.put(BusinessConstant.RETCODE, BusiEnum.E1001.getCode());
+            resMap.put(BusinessConstant.RETMSG, BusiEnum.E1001.getMessage());
+            return resMap.toString();
+        }
+        String id = String.valueOf(info.get(BusinessConstant.ID));
+        if (null == id) {
+            resMap.put(BusinessConstant.RETCODE, BusiEnum.E1002.getCode());
+            resMap.put(BusinessConstant.RETMSG, BusiEnum.E1002.getMessage());
+            return resMap.toString();
+        }
+        //二、判断并保存三张图片
+        ByteArrayInputStream bais = null;
+        if (null != seal) {
+            // 盖章照片
+            try {
+                bais = new ByteArrayInputStream(seal);
+                BufferedImage bi = ImageIO.read(bais);
+                String filename = id + "seal.jpg";
+                File f = new File("d://liangkeyiwei//IMGS", filename);
+                if (bi != null) {
+                    ImageIO.write(bi, "jpg", f);
+                    ir.setSeal(filename);
+                } else {
+                    ir.setSeal("");
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        if (null != seal) {
+            // 二维码图片
+            try {
+                bais = new ByteArrayInputStream(ewtm);
+                BufferedImage bi = ImageIO.read(bais);
+                String filename = id + "ewtm.jpg";
+                File f = new File("d://liangkeyiwei//IMGS", filename);
+                if (bi != null) {
+                    ImageIO.write(bi, "jpg", f);
+                    ir.setEwtm(filename);
+                } else {
+                    ir.setEwtm("");
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        //三、获取数据并入库
+        //主键
+        ir.setId(String.valueOf(info.get(BusinessConstant.ID)));
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            List<TArtificialResult> tArtificialResults = mapper.readValue(String.valueOf(info.get(BusinessConstant.RGJYJG)), mapper.getTypeFactory().constructParametricType(List.class, TArtificialResult.class));
+            List<TInstrumentResult> tInstrumentResults = mapper.readValue(String.valueOf(info.get(BusinessConstant.YQSBJYJG)), mapper.getTypeFactory().constructParametricType(List.class, TInstrumentResult.class));
+            for (TArtificialResult tArtificialResult : tArtificialResults) {
+                tArtificialResult.setId(UUID.randomUUID().toString().replaceAll("-", ""));
+                tArtificialResult.setRid(ir.getId());
+                this.artificialResultService.insertSelective(tArtificialResult);
+            }
+            for (TInstrumentResult tInstrumentResult : tInstrumentResults) {
+                tInstrumentResult.setId(UUID.randomUUID().toString().replaceAll("-", ""));
+                tInstrumentResult.setRid(ir.getId());
+                this.instrumentResultService.insertSelective(tInstrumentResult);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //详细信息
+        ir.setTDetail(json);
+        this.inspectionReportService.insertSelective(ir);
         return resMap.toString();
     }
 
@@ -871,5 +1203,6 @@ public class BusiServiceImpl implements BusiService {
         }
         return jsonObject;
     }
+
 
 }

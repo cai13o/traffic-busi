@@ -2,6 +2,7 @@ package cn.com.busi.controller;
 
 import cn.com.busi.entity.TInstDevice;
 import cn.com.busi.entity.TInstPerson;
+import cn.com.busi.entity.TLicensePlate;
 import cn.com.busi.service.TInstPersonService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -57,6 +58,14 @@ public class TInstPersonController {
         map.put("code","20000");
         map.put("data",list);
         map.put("total",pageInfo.getTotal());
+        return map;
+    }
+
+    @GetMapping("selectByLicense")
+    public Object selectByLicense(String position) {
+        Map map = new HashMap();
+        map.put("code","20000");
+        map.put("data",this.tInstPersonService.selectByLicense(position));
         return map;
     }
 

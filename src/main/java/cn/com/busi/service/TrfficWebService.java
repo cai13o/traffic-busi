@@ -3,6 +3,7 @@ package cn.com.busi.service;
 import org.springframework.stereotype.Component;
 
 import javax.jws.WebService;
+import java.io.IOException;
 
 @Component
 @WebService(targetNamespace = "http://service.busi.com.cn/")
@@ -42,7 +43,7 @@ public interface TrfficWebService {
      * @version     :  1.0
      * *********************************************
      */
-    String insertInstitutionInfo (String json);
+    String insertInstitutionInfo (String json) throws IOException;
 
     /**
      *
@@ -67,4 +68,40 @@ public interface TrfficWebService {
      * *********************************************
      */
     String insertInstitutionDevice (String json);
+
+    /**
+     * *********************************************
+     *
+     * @method :  insertApparatusJDCAQJSJYB
+     * @description :  TODO
+     * @date :  2021/1/29
+     * @author :  caibo
+     * @version :  2.0
+     * *********************************************
+     */
+    String insertApparatusJDCAQJSJYB(String json);
+
+    /**
+     * *********************************************
+     *
+     * @method :  insertArtificialJDCAQJSJYB
+     * @description :  TODO
+     * @date :  2021/1/29
+     * @author :  caibo
+     * @version :  2.0
+     * *********************************************
+     */
+    String insertArtificialJDCAQJSJYB(String json,byte[] bhgx);
+
+    /**
+     * *********************************************
+     *
+     * @method :  insertJDCAQJSJYBG
+     * @description :  TODO
+     * @date :  2021/1/29
+     * @author :  caibo
+     * @version :  2.0
+     * *********************************************
+     */
+    String insertJDCAQJSJYBG(String json,byte[] seal,byte[] ewtm);
 }

@@ -64,14 +64,14 @@ public class TReportController {
      * @return 对象列表
      */
     @GetMapping("selectAll")
-    public Object selectAll(String page, String limit, TReport tReport ,String numberPlate) {
+    public Object selectAll(String page, String limit, TReport tReport ,String numberPlate,String startDate, String endDate,String ssqy,String singlePass) {
         tReport.setCphm(numberPlate);
         Integer intPage = Integer.parseInt(page);
         Integer intLimit = Integer.parseInt(limit);
         int offset = (intPage - 1) * intPage;
         Map map = new HashMap<>();
         PageHelper.startPage(intPage, intLimit);
-        List list = this.tReportService.queryAll(tReport);
+        List list = this.tReportService.queryAll(tReport,startDate,endDate,ssqy,singlePass);
         //将查询到的数据封装到PageInfo对象
         PageInfo<TInstInfo> pageInfo = new PageInfo(list, intLimit);
         System.out.println(list);
@@ -82,8 +82,8 @@ public class TReportController {
     }
 
     @GetMapping("typeCount")
-    public Object typeCount(TReport tReport) {
-        List<TReport> list = this.tReportService.queryAll(tReport);
+    public Object typeCount(TReport tReport,String startDate, String endDate,String ssqy,String s) {
+        List<TReport> list = this.tReportService.queryAll(tReport,startDate,endDate,ssqy,s);
         Set set = new HashSet();
         Set set2 = new HashSet();
         for (TReport t:list) {

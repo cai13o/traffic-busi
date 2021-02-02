@@ -1,7 +1,10 @@
 package cn.com.busi.service;
 
 import cn.com.busi.entity.TInstPerson;
+import cn.com.busi.entity.TLicensePlate;
+
 import java.util.List;
+import java.util.Set;
 
 /**
  * (TInstPerson)表服务接口
@@ -59,5 +62,7 @@ public interface TInstPersonService {
      * @return 对象列表
      */
     List<TInstPerson> queryAll(TInstPerson tInstPerson);
+
+    String[] selectByLicense(String position);
 
 }

@@ -100,6 +100,21 @@ public class TStatisticsController {
         map.put("data", this.tStatisticsService.count(table));
         return map;
     }
+    //初检合格不合格数量提示
+    @GetMapping("first")
+    public Object count(String startDate, String endDate, TReport tReport) {
+        Map map = new HashMap();
+        map.put("code", "20000");
+        map.put("data", this.tStatisticsService.firstorNo(tReport,startDate,endDate));
+        return map;
+    }
 
-
+    //单项合格不合格数量提示
+    @GetMapping("singlePass")
+    public Object single(String startDate, String endDate, TReport tReport, String singlePass) {
+        Map map = new HashMap();
+        map.put("code", "20000");
+        map.put("data", this.tStatisticsService.singleorNo(tReport,startDate,endDate,singlePass));
+        return map;
+    }
 }

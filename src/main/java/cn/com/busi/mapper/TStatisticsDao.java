@@ -53,4 +53,12 @@ public interface TStatisticsDao {
 
     Integer count(@Param("table") String table);
 
+    Integer first( @Param("tReport") TReport tReport ,@Param("tStatistics") TStatistics tStatistics);
+    Integer firstNo( @Param("tReport") TReport tReport ,@Param("tStatistics") TStatistics tStatistics);
+
+    Integer single( @Param("tReport") TReport tReport ,@Param("tStatistics") TStatistics tStatistics);
+    Integer singleNo( @Param("tReport") TReport tReport ,@Param("tStatistics") TStatistics tStatistics);
+
+    List<TStatistics> jcjlByAll();
+    List<TStatistics> syxzByAll();
 }

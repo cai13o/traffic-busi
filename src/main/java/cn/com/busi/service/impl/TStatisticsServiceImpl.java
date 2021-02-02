@@ -14,6 +14,7 @@ import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -71,6 +72,12 @@ public class TStatisticsServiceImpl implements TStatisticsService {
                 tReport.setPpxh(tReport.getPpxh().trim());
             }
         }
+        if (null != tReport.getSyxz()) {
+            if (!tReport.getSyxz().trim().isEmpty()) {
+                tStatistics.setSyxz("syxz");
+                tReport.setSyxz(tReport.getSyxz().trim());
+            }
+        }
 
 
         if (null != startDate && null != endDate) {
@@ -84,10 +91,10 @@ public class TStatisticsServiceImpl implements TStatisticsService {
                 }
             }
         }
-
-        if ((tReport.getJcjl() == null || "".equals(tReport.getJcjl().trim())) && (tReport.getXzqy() == null || "".equals(tReport.getXzqy().trim())) && (tReport.getCllx() == null || "".equals(tReport.getCllx().trim())) && (tReport.getPpxh() == null || "".equals(tReport.getPpxh().trim())) && (tReport.getJcjgmc() == null || "".equals(tReport.getJcjgmc().trim())) && (tReport.getClrllb() == null || "".equals(tReport.getClrllb().trim())) && (startDate == null || "".equals(startDate.trim())) && (endDate == null || "".equals(endDate.trim()))) {
+        List list = new ArrayList();
+        if ((tReport.getSyxz() == null || "".equals(tReport.getSyxz().trim())) &&(tReport.getJcjl() == null || "".equals(tReport.getJcjl().trim())) && (tReport.getXzqy() == null || "".equals(tReport.getXzqy().trim())) && (tReport.getCllx() == null || "".equals(tReport.getCllx().trim())) && (tReport.getPpxh() == null || "".equals(tReport.getPpxh().trim())) && (tReport.getJcjgmc() == null || "".equals(tReport.getJcjgmc().trim())) && (tReport.getClrllb() == null || "".equals(tReport.getClrllb().trim())) && (startDate == null || "".equals(startDate.trim())) && (endDate == null || "".equals(endDate.trim()))) {
             System.out.println("返回空");
-            return null;
+            return list;
         }
         List<TStatistics> tStatisticses = this.tStatisticsDao.carAll(tReport, tStatistics);
         if(null != tReport.getPpxh()) {
@@ -97,6 +104,11 @@ public class TStatisticsServiceImpl implements TStatisticsService {
                 }
             }
         }
+//        for (TStatistics statistics : tStatisticses){
+//            if (statistics.getClzs().equals("0")){
+//                ts
+//            }
+//        }
         return tStatisticses;
     }
 
@@ -140,6 +152,12 @@ public class TStatisticsServiceImpl implements TStatisticsService {
                 tReport.setPpxh(tReport.getPpxh().trim());
             }
         }
+        if (null != tReport.getSyxz()) {
+            if (!tReport.getSyxz().trim().isEmpty()) {
+                tStatistics.setSyxz("syxz");
+                tReport.setSyxz(tReport.getSyxz().trim());
+            }
+        }
 
 
         if (null != startDate && null != endDate) {
@@ -153,10 +171,10 @@ public class TStatisticsServiceImpl implements TStatisticsService {
                 }
             }
         }
-
-        if ((tReport.getXzqy() == null || "".equals(tReport.getXzqy().trim())) && (tReport.getCllx() == null || "".equals(tReport.getCllx().trim())) && (tReport.getPpxh() == null || "".equals(tReport.getPpxh().trim())) && (tReport.getJcjgmc() == null || "".equals(tReport.getJcjgmc().trim())) && (tReport.getClrllb() == null || "".equals(tReport.getClrllb().trim())) && (startDate == null || "".equals(startDate.trim())) && (endDate == null || "".equals(endDate.trim()))) {
+        List list = new ArrayList();
+        if ((tReport.getSyxz() == null || "".equals(tReport.getSyxz().trim())) &&(tReport.getXzqy() == null || "".equals(tReport.getXzqy().trim())) && (tReport.getCllx() == null || "".equals(tReport.getCllx().trim())) && (tReport.getPpxh() == null || "".equals(tReport.getPpxh().trim())) && (tReport.getJcjgmc() == null || "".equals(tReport.getJcjgmc().trim())) && (tReport.getClrllb() == null || "".equals(tReport.getClrllb().trim())) && (startDate == null || "".equals(startDate.trim())) && (endDate == null || "".equals(endDate.trim()))) {
             System.out.println("返回空");
-            return null;
+            return list;
         }
         List<TStatistics> tStatisticses = this.tStatisticsDao.firstSelect(tReport, tStatistics);
         if(null != tReport.getPpxh()) {
@@ -210,6 +228,13 @@ public class TStatisticsServiceImpl implements TStatisticsService {
                 tReport.setPpxh(tReport.getPpxh().trim());
             }
         }
+
+        if (null != tReport.getSyxz()) {
+            if (!tReport.getSyxz().trim().isEmpty()) {
+                tStatistics.setSyxz("syxz");
+                tReport.setSyxz(tReport.getSyxz().trim());
+            }
+        }
         if (null != startDate && null != endDate) {
             if (!startDate.trim().isEmpty() && !endDate.trim().isEmpty()) {
                 try {
@@ -221,9 +246,9 @@ public class TStatisticsServiceImpl implements TStatisticsService {
                 }
             }
         }
-
-        if ((tReport.getXzqy() == null || "".equals(tReport.getXzqy().trim())) && (tReport.getCllx() == null || "".equals(tReport.getCllx().trim())) && (tReport.getPpxh() == null || "".equals(tReport.getPpxh().trim())) && (tReport.getJcjgmc() == null || "".equals(tReport.getJcjgmc().trim())) && (tReport.getClrllb() == null || "".equals(tReport.getClrllb().trim())) && (startDate == null || "".equals(startDate.trim())) && (endDate == null || "".equals(endDate.trim()))) {
-            return null;
+        List list = new ArrayList();
+        if ((tReport.getSyxz() == null || "".equals(tReport.getSyxz().trim())) &&(tReport.getXzqy() == null || "".equals(tReport.getXzqy().trim())) && (tReport.getCllx() == null || "".equals(tReport.getCllx().trim())) && (tReport.getPpxh() == null || "".equals(tReport.getPpxh().trim())) && (tReport.getJcjgmc() == null || "".equals(tReport.getJcjgmc().trim())) && (tReport.getClrllb() == null || "".equals(tReport.getClrllb().trim())) && (startDate == null || "".equals(startDate.trim())) && (endDate == null || "".equals(endDate.trim()))) {
+            return list;
         }
         List<TStatistics> tStatisticses = this.tStatisticsDao.singleSelect(tReport, tStatistics);
         if(null != tReport.getPpxh()) {
@@ -240,6 +265,49 @@ public class TStatisticsServiceImpl implements TStatisticsService {
     public Integer count(String table) {
         System.out.println(table);
         return this.tStatisticsDao.count(table);
+    }
+
+    @Override
+    public Map firstorNo(TReport tReport, String startDate, String endDate) {
+        TStatistics statistics = new TStatistics();
+        HashMap map = new HashMap();
+        try {
+            if (null != startDate && null != endDate) {
+                if (!startDate.trim().isEmpty() && !endDate.trim().isEmpty()) {
+                    statistics.setStartDate(new SimpleDateFormat("yyyy-MM-dd").parse(startDate));
+                    statistics.setEndDate(new SimpleDateFormat("yyyy-MM-dd").parse(endDate));
+                }
+            }
+            Integer first = this.tStatisticsDao.first(tReport, statistics);
+            Integer firstNo = this.tStatisticsDao.firstNo(tReport, statistics);
+            map.put("first",first);
+            map.put("firstNo",firstNo);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
+
+    @Override
+    public Map singleorNo(TReport tReport, String startDate, String endDate,String singlePass) {
+        TStatistics statistics = new TStatistics();
+        statistics.setSinglePass(singlePass);
+        HashMap map = new HashMap();
+        try {
+            if (null != startDate && null != endDate) {
+                if (!startDate.trim().isEmpty() && !endDate.trim().isEmpty()) {
+                    statistics.setStartDate(new SimpleDateFormat("yyyy-MM-dd").parse(startDate));
+                    statistics.setEndDate(new SimpleDateFormat("yyyy-MM-dd").parse(endDate));
+                }
+            }
+            Integer first = this.tStatisticsDao.single(tReport, statistics);
+            Integer firstNo = this.tStatisticsDao.singleNo(tReport, statistics);
+            map.put("first",first);
+            map.put("firstNo",firstNo);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return map;
     }
 
 

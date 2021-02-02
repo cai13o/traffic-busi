@@ -8,6 +8,8 @@ public interface HomePageService {
 
 
     Map queryAll();
+    Map syxzByAll();
+    Map jcjlByAll();
 
 
 }

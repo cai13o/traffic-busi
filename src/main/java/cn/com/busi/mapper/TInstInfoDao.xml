@@ -16,6 +16,8 @@
         <result property="enddate" column="endDate" jdbcType="VARCHAR"/>
         <result property="opflag" column="opFlag" jdbcType="VARCHAR"/>
         <result property="opdate" column="opDate" jdbcType="VARCHAR"/>
+        <result property="lng" column="lng" jdbcType="VARCHAR"/>
+        <result property="lat" column="lat" jdbcType="VARCHAR"/>
     </resultMap>
 
     <!--查询单个-->
@@ -37,7 +39,7 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="BaseResultMap">
         select
-          id, name, owner, phone, contact, area, address, certificate, startDate, endDate, opFlag, opDate
+          id, name, owner, phone, contact, area, address, certificate, startDate, endDate, opFlag, opDate,lng,lat
         from t_inst_info
         <where>
             <if test="id != null and id != ''">
@@ -77,12 +79,13 @@
                 and opDate = #{opdate}
             </if>
         </where>
+        order by opDate DESC
     </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="false">
-        insert into t_inst_info(id,name, owner, phone, contact, area, address, certificate, startDate, endDate, opFlag, opDate)
-        values (#{id},#{name}, #{owner}, #{phone}, #{contact}, #{area}, #{address}, #{certificate}, #{startdate}, #{enddate}, #{opflag}, #{opdate})
+        insert into t_inst_info(id,name, owner, phone, contact, area, address, certificate, startDate, endDate, opFlag, opDate,lng,lat)
+        values (#{id},#{name}, #{owner}, #{phone}, #{contact}, #{area}, #{address}, #{certificate}, #{startdate}, #{enddate}, #{opflag}, #{opdate},#{lng},#{lat})
     </insert>
 
     <!--通过主键修改数据-->

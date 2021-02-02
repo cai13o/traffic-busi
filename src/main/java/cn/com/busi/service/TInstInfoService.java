@@ -2,6 +2,7 @@ package cn.com.busi.service;
 
 import cn.com.busi.entity.TInstInfo;
 import java.util.List;
+import java.util.Map;
 
 /**
  * (TInstInfo)表服务接口
@@ -59,5 +60,7 @@ public interface TInstInfoService {
      * @return 对象列表
      */
     List<TInstInfo> queryAll(TInstInfo tInstInfo);
+
+    Map nameByAll(String name);
 
 }

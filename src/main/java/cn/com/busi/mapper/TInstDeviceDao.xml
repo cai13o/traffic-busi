@@ -85,12 +85,24 @@
                 and opDate = #{opdate}
             </if>
         </where>
+        order by opDate DESC
     </select>
 
     <select id="count" resultMap="BaseResultMap">
         select
           count(id) remarks
         from t_inst_device
+    </select>
+
+    <select id="countByName" resultMap="BaseResultMap">
+        select
+        count(id) remarks
+        from t_inst_device
+        <where>
+            <if test="institution != null and institution != ''">
+                and institution like concat(concat('%',#{institution}),'%')
+            </if>
+        </where>
     </select>
 
     <!--新增所有列-->

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.jws.WebService;
+import java.io.IOException;
 import java.util.Map;
 
 @Component
@@ -43,7 +44,7 @@ public class TrfficWebServiceImpl implements TrfficWebService {
     }
 
     @Override
-    public String insertInstitutionInfo(String json) {
+    public String insertInstitutionInfo(String json) throws IOException {
         log.info(String.format("【收到的请求报文data=%s】",json));
         String parsingMessage = parsingMessage(json);
         String s = busiService.insertInstitutionInfo(parsingMessage);
@@ -65,6 +66,33 @@ public class TrfficWebServiceImpl implements TrfficWebService {
         log.info(String.format("【收到的请求报文data=%s】",json));
         String parsingMessage = parsingMessage(json);
         String s = busiService.insertInstitutionDevice(parsingMessage);
+        log.info(String.format("【响应报文data=%s】",s));
+        return s;
+    }
+
+    @Override
+    public String insertApparatusJDCAQJSJYB(String json) {
+        log.info(String.format("【收到的请求报文data=%s】",json));
+        String parsingMessage = parsingMessage(json);
+        String s = busiService.insertApparatusJDCAQJSJYB(parsingMessage);
+        log.info(String.format("【响应报文data=%s】",s));
+        return s;
+    }
+
+    @Override
+    public String insertArtificialJDCAQJSJYB(String json,byte[] bhgx) {
+        log.info(String.format("【收到的请求报文data=%s】",json));
+        String parsingMessage = parsingMessage(json);
+        String s = busiService.insertArtificialJDCAQJSJYB(parsingMessage,bhgx);
+        log.info(String.format("【响应报文data=%s】",s));
+        return s;
+    }
+
+    @Override
+    public String insertJDCAQJSJYBG(String json,byte[] seal,byte[] ewtm) {
+        log.info(String.format("【收到的请求报文data=%s】",json));
+        String parsingMessage = parsingMessage(json);
+        String s = busiService.insertJDCAQJSJYBG(parsingMessage,seal,ewtm);
         log.info(String.format("【响应报文data=%s】",s));
         return s;
     }

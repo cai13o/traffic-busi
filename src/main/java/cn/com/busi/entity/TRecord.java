@@ -109,4 +109,5 @@ public class TRecord implements Serializable {
     private String ezzdlqx;
     private String tzzdlqx;
     private String fzzdlqx;
+    private String kclxdj;
 }

@@ -41,7 +41,7 @@ public interface TReportDao {
      * @param tReport 实例对象
      * @return 对象列表
      */
-    List<TReport> queryAll(TReport tReport);
+    List<TReport> queryAll(@Param("tReport") TReport tReport,@Param("startDate") String startDate, @Param("endDate") String endDate,@Param("ssqy") String ssqy,@Param("singlePass")String singlePass);
 
     /**
      * 新增数据
@@ -66,5 +66,9 @@ public interface TReportDao {
      * @return 影响行数
      */
     int deleteById(String id);
+
+    TReport count();
+
+    TReport countByName(@Param("jcjgmc") String jcjgmc);
 
 }
