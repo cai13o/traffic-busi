@@ -79,7 +79,6 @@ public class TStatisticsController {
         Map map = new HashMap();
         Integer intPage = Integer.parseInt(page);
         Integer intLimit = Integer.parseInt(limit);
-        int offset = (intPage - 1) * intPage;
         PageHelper.startPage(intPage, intLimit);
         List<TStatistics> list = this.tStatisticsService.singleSelect(tReport,startDate,endDate,singlePass);
         List<TStatistics> total = this.tStatisticsService.carAll(tReport,startDate,endDate);

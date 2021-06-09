@@ -1,10 +1,12 @@
 package cn.com.busi.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.util.Date;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @ApiModel(value = "cn-com-busi-entity-TInspectionReport")
 @Data
@@ -97,18 +99,24 @@ public class TInspectionReport implements Serializable {
      * 注册登记日期
      */
     @ApiModelProperty(value = "	注册登记日期	 ")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date zcdjrq;
 
     /**
      * 出厂日期
      */
     @ApiModelProperty(value = "	出厂日期	 ")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date ccrq;
 
     /**
      * 检验日期
      */
     @ApiModelProperty(value = "	检验日期	 ")
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss", timezone = "GMT+8")
     private Date jyrq;
 
     /**

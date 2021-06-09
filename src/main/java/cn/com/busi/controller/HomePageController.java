@@ -51,6 +51,25 @@ public class HomePageController {
         return this.homePageService.jcjlByAll();
 
     }
+//------------------------------------------------------------------------------
+    @GetMapping("pageNow")
+    public Object selectOneNow(String id) {
 
+        return this.homePageService.queryAllNow();
 
+    }
+
+    @GetMapping("syxzByAllNow")
+    public Object syxzByAllNow() {
+
+        return this.homePageService.syxzByAllNow();
+
+    }
+
+    @GetMapping("jcjlByAllNow")
+    public Object jcjlByAllNow() {
+
+        return this.homePageService.jcjlByAllNow();
+
+    }
 }

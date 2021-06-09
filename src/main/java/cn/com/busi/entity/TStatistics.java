@@ -14,7 +14,7 @@ public class TStatistics {
     private String clrllb;
     private String jcjgmc;
     private String jcjl;
-    private String jcrq;
+    private String jyrq;
     private Date startDate;
     private Date endDate;
     private String hgl;

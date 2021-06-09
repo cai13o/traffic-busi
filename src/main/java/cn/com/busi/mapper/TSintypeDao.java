@@ -62,4 +62,6 @@ public interface TSintypeDao {
      */
     int deleteById(String id);
 
+    List<TSintype> queryAllNow(TSintype tSintype);
+
 }

@@ -62,5 +62,20 @@
         delete from wolf-cloud.t_sintype where id = #{id}
     </delete>
 
+<select id="queryAllNow" resultMap="BaseResultMap">
+        select
+          id, name
+        from t_sintype
+        <where>
+        num !in(1,2)
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+        </where>
+        ORDER BY num
+    </select>
 
 </mapper>

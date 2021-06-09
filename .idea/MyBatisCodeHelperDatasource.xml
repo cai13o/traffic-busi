@@ -27,7 +27,7 @@
                   <option name="javaServicePackage" value="cn.com.busi.service.impl" />
                   <option name="javaServicePath" value="$PROJECT_DIR$/src/main/java" />
                   <option name="xmlPackage" value="cn.com.busi.mapper" />
-                  <option name="xmlPath" value="$PROJECT_DIR$/src/main/resources" />
+                  <option name="xmlPath" value="$PROJECT_DIR$/src/main/java" />
                 </UserPackageAndPathInfoByModule>
               </value>
             </entry>
@@ -41,6 +41,18 @@
                 <TableGenerateConfig>
                   <option name="generatedKey" value="" />
                   <option name="javaModelName" value="TArtificialResult" />
+                  <option name="moduleName" value="traffic-busi" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="wolf-cloud:t_consult">
+              <value>
+                <TableGenerateConfig>
+                  <option name="generatedKey" value="" />
+                  <option name="javaModelName" value="TConsult" />
                   <option name="moduleName" value="traffic-busi" />
                   <option name="sequenceColumn" value="" />
                   <option name="sequenceId" value="" />
@@ -96,6 +108,54 @@
                 </TableGenerateConfig>
               </value>
             </entry>
+            <entry key="wolf-cloud:t_new">
+              <value>
+                <TableGenerateConfig>
+                  <option name="generatedKey" value="" />
+                  <option name="javaModelName" value="TNew" />
+                  <option name="moduleName" value="traffic-busi" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="wolf-cloud:t_picture">
+              <value>
+                <TableGenerateConfig>
+                  <option name="generatedKey" value="" />
+                  <option name="javaModelName" value="TPicture" />
+                  <option name="moduleName" value="traffic-busi" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="wolf-cloud:t_resource_center">
+              <value>
+                <TableGenerateConfig>
+                  <option name="generatedKey" value="" />
+                  <option name="javaModelName" value="TResourceCenter" />
+                  <option name="moduleName" value="traffic-busi" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="wolf-cloud:t_sintype_now">
+              <value>
+                <TableGenerateConfig>
+                  <option name="generatedKey" value="" />
+                  <option name="javaModelName" value="TSintypeNow" />
+                  <option name="moduleName" value="traffic-busi" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
             <entry key="wolf-cloud:t_unqualified_items">
               <value>
                 <TableGenerateConfig>
@@ -110,10 +170,9 @@
             </entry>
           </map>
         </option>
-        <option name="useExample" value="true" />
         <option name="useSwagger" value="true" />
         <option name="xmlMapperPackage" value="cn.com.busi.mapper" />
-        <option name="xmlMapperPath" value="$PROJECT_DIR$/src/main/resources" />
+        <option name="xmlMapperPath" value="$PROJECT_DIR$/src/main/java" />
       </ProjectProfile>
     </option>
   </component>

@@ -1,0 +1,152 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (malloc) failed to allocate 1048576 bytes for AllocateHeap
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   In 32 bit mode, the process size limit was hit
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Use 64 bit Java on a 64 bit OS
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (memory/allocation.inline.hpp:61), pid=6004, tid=0x00000000000012fc
+#
+# JRE version:  (8.0_131-b11) (build )
+# Java VM: Java HotSpot(TM) 64-Bit Server VM (25.131-b11 mixed mode windows-amd64 compressed oops)
+# Failed to write core dump. Minidumps are not enabled by default on client versions of Windows
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x000000000276e800):  JavaThread "Unknown thread" [_thread_in_vm, id=4860, stack(0x0000000002580000,0x0000000002680000)]
+
+Stack: [0x0000000002580000,0x0000000002680000]
+[error occurred during error reporting (printing stack bounds), id 0xc0000005]
+
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+
+Other Threads:
+
+=>0x000000000276e800 (exited) JavaThread "Unknown thread" [_thread_in_vm, id=4860, stack(0x0000000002580000,0x0000000002680000)]
+
+VM state:not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+Heap:
+ PSYoungGen      total 18944K, used 327K [0x00000000ead80000, 0x00000000ec280000, 0x0000000100000000)
+  eden space 16384K, 2% used [0x00000000ead80000,0x00000000eadd1ec8,0x00000000ebd80000)
+  from space 2560K, 0% used [0x00000000ec000000,0x00000000ec000000,0x00000000ec280000)
+  to   space 2560K, 0% used [0x00000000ebd80000,0x00000000ebd80000,0x00000000ec000000)
+ ParOldGen       total 44032K, used 0K [0x00000000c0800000, 0x00000000c3300000, 0x00000000ead80000)
+  object space 44032K, 0% used [0x00000000c0800000,0x00000000c0800000,0x00000000c3300000)
+ Metaspace       used 770K, capacity 4480K, committed 4480K, reserved 1056768K
+  class space    used 75K, capacity 384K, committed 384K, reserved 1048576K
+
+Card table byte_map: [0x0000000011e20000,0x0000000012020000] byte_map_base: 0x000000001181c000
+
+Marking Bits: (ParMarkBitMap*) 0x000000006578c720
+ Begin Bits: [0x0000000012580000, 0x0000000013560000)
+ End Bits:   [0x0000000013560000, 0x0000000014540000)
+
+Polling page: 0x0000000000b30000
+
+CodeCache: size=245760Kb used=327Kb max_used=327Kb free=245432Kb
+ bounds [0x0000000002a60000, 0x0000000002cd0000, 0x0000000011a60000]
+ total_blobs=57 nmethods=0 adapters=38
+ compilation: enabled
+
+Compilation events (0 events):
+No events
+
+GC Heap History (0 events):
+No events
+
+Deoptimization events (0 events):
+No events
+
+Internal exceptions (0 events):
+No events
+
+Events (10 events):
+Event: 0.315 loading class java/lang/Short
+Event: 0.315 loading class java/lang/Short done
+Event: 0.315 loading class java/lang/Integer
+Event: 0.316 loading class java/lang/Integer done
+Event: 0.316 loading class java/lang/Long
+Event: 0.317 loading class java/lang/Long done
+Event: 0.319 loading class java/lang/NullPointerException
+Event: 0.319 loading class java/lang/NullPointerException done
+Event: 0.319 loading class java/lang/ArithmeticException
+Event: 0.319 loading class java/lang/ArithmeticException done
+
+
+Dynamic libraries:
+0x00007ff767770000 - 0x00007ff7677a7000 	C:\Program Files\Java\jdk1.8.0_131\bin\java.exe
+0x00007ffdaf650000 - 0x00007ffdaf845000 	C:\WINDOWS\SYSTEM32\ntdll.dll
+0x00007ffdad930000 - 0x00007ffdad9ed000 	C:\WINDOWS\System32\KERNEL32.DLL
+0x00007ffdacf50000 - 0x00007ffdad218000 	C:\WINDOWS\System32\KERNELBASE.dll
+0x00007ffdae190000 - 0x00007ffdae23c000 	C:\WINDOWS\System32\ADVAPI32.dll
+0x00007ffdaf570000 - 0x00007ffdaf60e000 	C:\WINDOWS\System32\msvcrt.dll
+0x00007ffdaee70000 - 0x00007ffdaef0b000 	C:\WINDOWS\System32\sechost.dll
+0x00007ffdade90000 - 0x00007ffdadfbb000 	C:\WINDOWS\System32\RPCRT4.dll
+0x00007ffdaf2d0000 - 0x00007ffdaf470000 	C:\WINDOWS\System32\USER32.dll
+0x00007ffdacf20000 - 0x00007ffdacf42000 	C:\WINDOWS\System32\win32u.dll
+0x00007ffdade60000 - 0x00007ffdade8a000 	C:\WINDOWS\System32\GDI32.dll
+0x00007ffdacd90000 - 0x00007ffdace9b000 	C:\WINDOWS\System32\gdi32full.dll
+0x00007ffdad2d0000 - 0x00007ffdad36d000 	C:\WINDOWS\System32\msvcp_win.dll
+0x00007ffdad5b0000 - 0x00007ffdad6b0000 	C:\WINDOWS\System32\ucrtbase.dll
+0x00007ffd9dc20000 - 0x00007ffd9deba000 	C:\WINDOWS\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.19041.844_none_ca00b6081b84eb1d\COMCTL32.dll
+0x00007ffdad6b0000 - 0x00007ffdad6e0000 	C:\WINDOWS\System32\IMM32.DLL
+0x0000000065810000 - 0x00000000658e2000 	C:\Program Files\Java\jdk1.8.0_131\jre\bin\msvcr100.dll
+0x0000000064f70000 - 0x000000006580c000 	C:\Program Files\Java\jdk1.8.0_131\jre\bin\server\jvm.dll
+0x00007ffdae240000 - 0x00007ffdae248000 	C:\WINDOWS\System32\PSAPI.DLL
+0x00007ffd9a550000 - 0x00007ffd9a559000 	C:\WINDOWS\SYSTEM32\WSOCK32.dll
+0x00007ffdaf470000 - 0x00007ffdaf4db000 	C:\WINDOWS\System32\WS2_32.dll
+0x00007ffda2cc0000 - 0x00007ffda2ce7000 	C:\WINDOWS\SYSTEM32\WINMM.dll
+0x00007ffdac8b0000 - 0x00007ffdac8ba000 	C:\WINDOWS\SYSTEM32\VERSION.dll
+0x0000000064f60000 - 0x0000000064f6f000 	C:\Program Files\Java\jdk1.8.0_131\jre\bin\verify.dll
+0x0000000064f30000 - 0x0000000064f59000 	C:\Program Files\Java\jdk1.8.0_131\jre\bin\java.dll
+0x0000000064e90000 - 0x0000000064eb3000 	C:\Program Files\Java\jdk1.8.0_131\jre\bin\instrument.dll
+0x0000000064f10000 - 0x0000000064f26000 	C:\Program Files\Java\jdk1.8.0_131\jre\bin\zip.dll
+
+VM Arguments:
+jvm_args: -Dmaven.multiModuleProjectDirectory=D:\traffic-busi -Dmaven.home=D:\Program Files\JetBrains\IntelliJ IDEA 2020.1\plugins\maven\lib\maven3 -Dclassworlds.conf=D:\Program Files\JetBrains\IntelliJ IDEA 2020.1\plugins\maven\lib\maven3\bin\m2.conf -Dmaven.ext.class.path=D:\Program Files\JetBrains\IntelliJ IDEA 2020.1\plugins\maven\lib\maven-event-listener.jar -javaagent:D:\Program Files\JetBrains\IntelliJ IDEA 2020.1\lib\idea_rt.jar=56052:D:\Program Files\JetBrains\IntelliJ IDEA 2020.1\bin -Dfile.encoding=UTF-8 
+java_command: org.codehaus.classworlds.Launcher -Didea.version2020.1 clean install -Dmaven.test.skip
+java_class_path (initial): D:\Program Files\JetBrains\IntelliJ IDEA 2020.1\plugins\maven\lib\maven3\boot\plexus-classworlds-2.6.0.jar;D:\Program Files\JetBrains\IntelliJ IDEA 2020.1\lib\idea_rt.jar
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+JAVA_HOME=C:\Program Files\Java\jdk1.8.0_131
+CLASSPATH=.;C:\Program Files\Java\jdk1.8.0_131\bin;C:\Program Files\Java\jdk1.8.0_131\lib\dt.jar;C:\Program Files\Java\jdk1.8.0_131\lib\tools.jar
+PATH=D:\Program Files (x86)\NetSarang\Xftp 6\;C:\Program Files\Java\jdk1.8.0_131\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;D:\nodejs;d:\Program Files\Git\cmd;D:\Program Files\TortoiseSVN\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Users\Administrator\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Administrator\AppData\Local\Microsoft\WindowsApps;d:\Program Files\JetBrains\IntelliJ IDEA 2020.1\bin;
+USERNAME=Administrator
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=AMD64 Family 21 Model 48 Stepping 1, AuthenticAMD
+
+
+
+---------------  S Y S T E M  ---------------
+
+OS: Windows 10.0 , 64 bit Build 19041 (10.0.19041.928)
+
+CPU:total 4 (initial active 4) (4 cores per cpu, 1 threads per core) family 21 model 48 stepping 1, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, avx, aes, clmul, mmxext, 3dnowpref, lzcnt, sse4a, tsc, tscinvbit, tscinv, bmi1
+
+Memory: 4k page, physical 4157004k(260320k free), swap 10636836k(5924k free)
+
+vm_info: Java HotSpot(TM) 64-Bit Server VM (25.131-b11) for windows-amd64 JRE (1.8.0_131-b11), built on Mar 15 2017 01:23:53 by "java_re" with MS VC++ 10.0 (VS2010)
+
+time: Mon May 31 14:45:56 2021
+elapsed time: 0 seconds (0d 0h 0m 0s)
+

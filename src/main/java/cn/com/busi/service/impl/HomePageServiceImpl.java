@@ -24,10 +24,16 @@ public class HomePageServiceImpl implements HomePageService {
     private TReportDao tReportDao;
 
     @Resource
+    private TInspectionInstrumentMapper tInspectionInstrumentMapper;
+
+    @Resource
     private TStatisticsDao tStatisticsDao;
 
     @Resource
     private TSintypeDao tSintypeDao;
+
+    @Resource
+    private TSintypeNowMapper tSintypeNowMapper;
 
     /**
      * 首页数据
@@ -93,6 +99,74 @@ public class HomePageServiceImpl implements HomePageService {
     public Map jcjlByAll() {
 
         List<TStatistics> jcjlByAll = this.tStatisticsDao.jcjlByAll();
+
+        Map map = new HashMap();
+
+        map.put("code","20000");
+
+        map.put("jcjlByAll", jcjlByAll);
+
+        return map;
+    }
+
+    @Override
+    public Map queryAllNow() {
+        TInstInfo tInstInfo = this.tInstInfoDao.count();
+        TInstPerson tInstPerson = this.tInstPersonDao.count();
+        TInstDevice tInstDevice = this.tInstDeviceDao.count();
+        TInspectionInstrument tInspectionInstrument = this.tInspectionInstrumentMapper.count();
+        List<Map> cllxStatistics = this.tStatisticsDao.cllxStatisticsNow();
+        Integer[] firstStatistics = this.tStatisticsDao.firstStatisticsNow();
+        Integer[] firstNotStatistics = this.tStatisticsDao.firstNotStatisticsNow();
+        List<TStatistics> jcjlByAll = this.tStatisticsDao.jcjlByAllNow();
+        List<TStatistics> syxzByAll = this.tStatisticsDao.syxzByAllNow();
+        Map map = new HashMap();
+
+        //单项合格数量统计
+        TSintypeNow sintype = new TSintypeNow();
+        List<TSintypeNow> tSintypeNows = this.tSintypeNowMapper.findByAll(sintype);
+        for(TSintypeNow ts:tSintypeNows){
+            Integer[] arr = this.tStatisticsDao.singleStatisticsNow(ts);
+            map.put(ts.getId(),arr);
+        }
+
+        map.put("code","20000");
+        //检测机构数量
+        map.put("infoCount" , tInstInfo.getName());
+        //机构人员数量
+        map.put("personCount" , tInstPerson.getRemarks());
+        //机构设备数量
+        map.put("deviceCount" , tInstDevice.getRemarks());
+        //检测车辆数量
+        map.put("carCount", tInspectionInstrument.getCllb());
+        //车辆类别分布统计
+        map.put("cllxStatistics", cllxStatistics);
+        //初检合格数量
+        map.put("firstStatistics", firstStatistics);
+        //初检不合格数量
+        map.put("firstNotStatistics", firstNotStatistics);
+
+        map.put("jcjlByAll", jcjlByAll);
+
+        map.put("syxzByAll", syxzByAll);
+
+        return map;
+    }
+
+    @Override
+    public Map syxzByAllNow() {
+        List<TStatistics> syxzByAll = this.tStatisticsDao.syxzByAllNow();
+        Map map = new HashMap();
+
+        map.put("code","20000");
+        map.put("syxzByAll", syxzByAll);
+
+        return map;
+    }
+
+    @Override
+    public Map jcjlByAllNow() {
+        List<TStatistics> jcjlByAll = this.tStatisticsDao.jcjlByAllNow();
 
         Map map = new HashMap();
 

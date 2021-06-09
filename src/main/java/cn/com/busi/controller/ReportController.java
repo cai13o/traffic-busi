@@ -35,7 +35,7 @@ public class ReportController {
         TInspectionReport tInspectionReport = this.tInspectionReportService.selectByPrimaryKey(id);
         map.put("code", "20000");
         map.put("data", tInspectionReport);
-        return null;
+        return map;
     }
 
     @ApiOperation("根据条件筛选查询数据")
@@ -47,7 +47,7 @@ public class ReportController {
         List<TInspectionReport> inspectionReports = this.tInspectionReportService.findByAll(tInspectionReport);
         map = new HashMap<>();
         map.put("code", "20000");
-        map.put("tNews", inspectionReports);
+        map.put("inspectionReports", inspectionReports);
         map.put("total", new PageInfo(inspectionReports, intLimit).getTotal());
         return map;
     }

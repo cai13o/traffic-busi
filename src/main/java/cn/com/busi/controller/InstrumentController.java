@@ -2,6 +2,8 @@ package cn.com.busi.controller;
 
 import cn.com.busi.entity.TInspectionInstrument;
 import cn.com.busi.service.TInspectionInstrumentService;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
@@ -34,9 +36,10 @@ public class InstrumentController {
     public Map selectOne(String id) {
         map = new HashMap();
         TInspectionInstrument tInspectionInstrument = this.tInspectionInstrumentService.selectByPrimaryKey(id);
+        JSONObject jsonObject = JSON.parseObject(tInspectionInstrument.getTDetail());
         map.put("code", "20000");
-        map.put("data", tInspectionInstrument);
-        return null;
+        map.put("data", jsonObject);
+        return map;
     }
 
     @ApiOperation("根据条件筛选查询数据")
@@ -48,7 +51,7 @@ public class InstrumentController {
         List<TInspectionInstrument> inspectionInstruments = this.tInspectionInstrumentService.findByAll(tInspectionInstrument);
         map = new HashMap<>();
         map.put("code", "20000");
-        map.put("tNews", inspectionInstruments);
+        map.put("inspectionInstruments", inspectionInstruments);
         map.put("total", new PageInfo(inspectionInstruments, intLimit).getTotal());
         return map;
     }

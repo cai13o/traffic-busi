@@ -36,7 +36,7 @@ public class ArtificialController {
         TInspectionArtificial tInspectionArtificial = this.tInspectionArtificialService.selectByPrimaryKey(id);
         map.put("code", "20000");
         map.put("data", tInspectionArtificial);
-        return null;
+        return map;
     }
 
     @ApiOperation("根据条件筛选查询数据")
@@ -48,7 +48,7 @@ public class ArtificialController {
         List<TInspectionArtificial> inspectionArtificials = this.tInspectionArtificialService.findByAll(tInspectionArtificial);
         map = new HashMap<>();
         map.put("code", "20000");
-        map.put("tNews", inspectionArtificials);
+        map.put("inspectionArtificials", inspectionArtificials);
         map.put("total", new PageInfo(inspectionArtificials, intLimit).getTotal());
         return map;
     }

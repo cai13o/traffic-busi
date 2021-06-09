@@ -11,5 +11,7 @@ public interface HomePageService {
     Map syxzByAll();
     Map jcjlByAll();
 
-
+    Map queryAllNow();
+    Map syxzByAllNow();
+    Map jcjlByAllNow();
 }

@@ -1,10 +1,12 @@
 package cn.com.busi.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.util.Date;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @ApiModel(value = "cn-com-busi-entity-TInspectionInstrument")
 @Data
@@ -73,12 +75,16 @@ public class TInspectionInstrument implements Serializable {
      * 出厂日期
      */
     @ApiModelProperty(value = "	出厂日期	 ")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date ccrq;
 
     /**
      * 初次登记日期
      */
     @ApiModelProperty(value = "	初次登记日期	 ")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date ccdjrq;
 
     /**
@@ -157,6 +163,8 @@ public class TInspectionInstrument implements Serializable {
      * 检验日期/时间
      */
     @ApiModelProperty(value = "	检验日期/时间	 ")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date jyrq;
 
     /**
@@ -1175,6 +1183,30 @@ public class TInspectionInstrument implements Serializable {
 
     @ApiModelProperty(value = "")
     private String tDetail;
+
+    /**
+     * 一轴制动力曲线
+     */
+    @ApiModelProperty(value = "一轴制动力曲线")
+    private String yzzdlqx;
+
+    /**
+     * 二轴制动力曲线
+     */
+    @ApiModelProperty(value = "二轴制动力曲线")
+    private String ezzdlqx;
+
+    /**
+     * 三轴制动力曲线
+     */
+    @ApiModelProperty(value = "三轴制动力曲线")
+    private String tzzdlqx;
+
+    /**
+     * 四轴制动力曲线
+     */
+    @ApiModelProperty(value = "四轴制动力曲线")
+    private String fzzdlqx;
 
     private static final long serialVersionUID = 1L;
 }

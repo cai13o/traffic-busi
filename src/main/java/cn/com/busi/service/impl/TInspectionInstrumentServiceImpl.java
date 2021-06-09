@@ -14,15 +14,6 @@ public class TInspectionInstrumentServiceImpl implements TInspectionInstrumentSe
     @Resource
     private TInspectionInstrumentMapper tInspectionInstrumentMapper;
 
-    @Override
-    public long countByExample(TInspectionInstrumentExample example) {
-        return tInspectionInstrumentMapper.countByExample(example);
-    }
-
-    @Override
-    public int deleteByExample(TInspectionInstrumentExample example) {
-        return tInspectionInstrumentMapper.deleteByExample(example);
-    }
 
     @Override
     public int deleteByPrimaryKey(String id) {
@@ -39,25 +30,12 @@ public class TInspectionInstrumentServiceImpl implements TInspectionInstrumentSe
         return tInspectionInstrumentMapper.insertSelective(record);
     }
 
-    @Override
-    public List<TInspectionInstrument> selectByExample(TInspectionInstrumentExample example) {
-        return tInspectionInstrumentMapper.selectByExample(example);
-    }
 
     @Override
     public TInspectionInstrument selectByPrimaryKey(String id) {
         return tInspectionInstrumentMapper.selectByPrimaryKey(id);
     }
 
-    @Override
-    public int updateByExampleSelective(TInspectionInstrument record, TInspectionInstrumentExample example) {
-        return tInspectionInstrumentMapper.updateByExampleSelective(record, example);
-    }
-
-    @Override
-    public int updateByExample(TInspectionInstrument record, TInspectionInstrumentExample example) {
-        return tInspectionInstrumentMapper.updateByExample(record, example);
-    }
 
     @Override
     public int updateByPrimaryKeySelective(TInspectionInstrument record) {
@@ -75,4 +53,5 @@ public class TInspectionInstrumentServiceImpl implements TInspectionInstrumentSe
     }
 
 }
+
 

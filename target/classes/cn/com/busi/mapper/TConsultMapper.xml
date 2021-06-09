@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.busi.mapper.TConsultMapper">
+  <resultMap id="BaseResultMap" type="cn.com.busi.entity.TConsult">
+    <!--@mbg.generated-->
+    <!--@Table t_consult-->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="answer" jdbcType="LONGVARCHAR" property="answer" />
+    <result column="createdate" jdbcType="TIMESTAMP" property="createdate" />
+    <result column="answerdate" jdbcType="TIMESTAMP" property="answerdate" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="context" jdbcType="LONGVARCHAR" property="context" />
+    <result column="unit" jdbcType="VARCHAR" property="unit" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="stutas" jdbcType="VARCHAR" property="stutas" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, answer, createdate, answerdate, title, context, unit, `name`, phone, email, stutas
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from t_consult
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from t_consult
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.com.busi.entity.TConsult">
+    <!--@mbg.generated-->
+    insert into t_consult (id, answer, createdate, 
+      answerdate, title, context, 
+      unit, `name`, phone, 
+      email, stutas)
+    values (#{id,jdbcType=VARCHAR}, #{answer,jdbcType=LONGVARCHAR}, #{createdate,jdbcType=TIMESTAMP}, 
+      #{answerdate,jdbcType=TIMESTAMP}, #{title,jdbcType=VARCHAR}, #{context,jdbcType=LONGVARCHAR}, 
+      #{unit,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{stutas,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.busi.entity.TConsult">
+    <!--@mbg.generated-->
+    insert into t_consult
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="answer != null">
+        answer,
+      </if>
+      <if test="createdate != null">
+        createdate,
+      </if>
+      <if test="answerdate != null">
+        answerdate,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="context != null">
+        context,
+      </if>
+      <if test="unit != null">
+        unit,
+      </if>
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="stutas != null">
+        stutas,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="answer != null">
+        #{answer,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="createdate != null">
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="answerdate != null">
+        #{answerdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="context != null">
+        #{context,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="unit != null">
+        #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="stutas != null">
+        #{stutas,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.busi.entity.TConsult">
+    <!--@mbg.generated-->
+    update t_consult
+    <set>
+      <if test="answer != null">
+        answer = #{answer,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="createdate != null">
+        createdate = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="answerdate != null">
+        answerdate = #{answerdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="context != null">
+        context = #{context,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="unit != null">
+        unit = #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="stutas != null">
+        stutas = #{stutas,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.busi.entity.TConsult">
+    <!--@mbg.generated-->
+    update t_consult
+    set answer = #{answer,jdbcType=LONGVARCHAR},
+      createdate = #{createdate,jdbcType=TIMESTAMP},
+      answerdate = #{answerdate,jdbcType=TIMESTAMP},
+      title = #{title,jdbcType=VARCHAR},
+      context = #{context,jdbcType=LONGVARCHAR},
+      unit = #{unit,jdbcType=VARCHAR},
+      `name` = #{name,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      stutas = #{stutas,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+<!--auto generated by MybatisCodeHelper on 2021-03-09-->
+  <select id="findByAll" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from t_consult
+    <where>
+<if test="id != null">
+ and id=#{id,jdbcType=VARCHAR}</if>
+<if test="answer != null">
+ and answer=#{answer,jdbcType=LONGVARCHAR}</if>
+<if test="createdate != null">
+ and createdate=#{createdate,jdbcType=TIMESTAMP}</if>
+<if test="answerdate != null">
+ and answerdate=#{answerdate,jdbcType=TIMESTAMP}</if>
+<if test="title != null">
+ and title=#{title,jdbcType=VARCHAR}</if>
+<if test="context != null">
+ and context=#{context,jdbcType=LONGVARCHAR}</if>
+<if test="unit != null">
+ and unit=#{unit,jdbcType=VARCHAR}</if>
+<if test="name != null">
+ and `name`=#{name,jdbcType=VARCHAR}</if>
+<if test="phone != null">
+ and phone=#{phone,jdbcType=VARCHAR}</if>
+<if test="email != null">
+ and email=#{email,jdbcType=VARCHAR}</if>
+ <if test="stutas != null">
+ and stutas=#{stutas,jdbcType=VARCHAR}</if>
+    </where>
+  </select>
+</mapper>

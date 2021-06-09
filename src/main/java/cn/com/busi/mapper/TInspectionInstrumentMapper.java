@@ -1,18 +1,10 @@
 package cn.com.busi.mapper;
-import java.util.Date;
 
 import cn.com.busi.entity.TInspectionInstrument;
-import cn.com.busi.entity.TInspectionInstrumentExample;
-import java.util.List;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
+import cn.com.busi.entity.TInspectionInstrumentExample;import org.apache.ibatis.annotations.Mapper;import org.apache.ibatis.annotations.Param;import java.util.List;
 
 @Mapper
 public interface TInspectionInstrumentMapper {
-    long countByExample(TInspectionInstrumentExample example);
-
-    int deleteByExample(TInspectionInstrumentExample example);
-
     /**
      * delete by primary key
      *
@@ -37,8 +29,6 @@ public interface TInspectionInstrumentMapper {
      */
     int insertSelective(TInspectionInstrument record);
 
-    List<TInspectionInstrument> selectByExample(TInspectionInstrumentExample example);
-
     /**
      * select by primary key
      *
@@ -46,10 +36,6 @@ public interface TInspectionInstrumentMapper {
      * @return object by primary key
      */
     TInspectionInstrument selectByPrimaryKey(String id);
-
-    int updateByExampleSelective(@Param("record") TInspectionInstrument record, @Param("example") TInspectionInstrumentExample example);
-
-    int updateByExample(@Param("record") TInspectionInstrument record, @Param("example") TInspectionInstrumentExample example);
 
     /**
      * update record selective
@@ -69,5 +55,5 @@ public interface TInspectionInstrumentMapper {
 
     List<TInspectionInstrument> findByAll(TInspectionInstrument tInspectionInstrument);
 
-
+    TInspectionInstrument count();
 }

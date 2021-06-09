@@ -1003,6 +1003,72 @@ public class BusiServiceImpl implements BusiService {
         //二、获取数据并入库
         //主键
         ii.setId(String.valueOf(info.get(BusinessConstant.ID)));
+        //机构代号
+        ii.setJgdh(String.valueOf(info.get(BusinessConstant.JGDH)));
+        //线号
+        ii.setXh(String.valueOf(info.get(BusinessConstant.XH)));
+        //机构名称
+        ii.setJgmc(String.valueOf(info.get(BusinessConstant.JGMC)));
+        //机构地址
+        ii.setJgdz(String.valueOf(info.get(BusinessConstant.JGDZ)));
+        //联系电话
+        ii.setLxdh(String.valueOf(info.get(BusinessConstant.LXDH)));
+        //检验流水号
+        ii.setJylsh(String.valueOf(info.get(BusinessConstant.JYLSH)));
+        //检验类别
+        ii.setJylb(String.valueOf(info.get(BusinessConstant.JYLB)));
+        //检验项目
+        ii.setJyxm(String.valueOf(info.get(BusinessConstant.JYXM)));
+        //机动车所有人
+        ii.setJdcsyr(String.valueOf(info.get(BusinessConstant.JDCSYR)));
+        //出厂日期
+        if (null != info.get(BusinessConstant.CCRQ) && !"".equals(info.get(BusinessConstant.CCRQ))) {
+            ii.setCcrq(DateTimeUtil.formateDate(String.valueOf(info.get(BusinessConstant.CCRQ)), "yyyyMMdd"));
+
+        }
+        //初次登记日期
+        if (null != info.get(BusinessConstant.CCDJRQ) && !"".equals(info.get(BusinessConstant.CCDJRQ))) {
+            ii.setCcdjrq(DateTimeUtil.formateDate(String.valueOf(info.get(BusinessConstant.CCDJRQ)), "yyyyMMdd"));
+        }
+        //号牌号
+        ii.setCphm(String.valueOf(info.get(BusinessConstant.CPHM)));
+        //号牌种类
+        ii.setHpzl(String.valueOf(info.get(BusinessConstant.HPZL)));
+        //车辆类型
+        ii.setCllb(String.valueOf(info.get(BusinessConstant.CLLB)));
+        //道路运输证号
+        ii.setDlyszh(String.valueOf(info.get(BusinessConstant.DLYSZH)));
+        //品牌型号
+        ii.setPpxh(String.valueOf(info.get(BusinessConstant.PPXH)));
+        //整备质量
+        ii.setZbzl(String.valueOf(info.get(BusinessConstant.ZBZL)));
+        //总质量
+        ii.setZzl(String.valueOf(info.get(BusinessConstant.ZZL)));
+        //引车员
+        ii.setYcy(String.valueOf(info.get(BusinessConstant.YCY)));
+        //登录员
+        ii.setDly(String.valueOf(info.get(BusinessConstant.DLY)));
+        //检验日期
+        if (null != info.get(BusinessConstant.JYRQ) && !"".equals(info.get(BusinessConstant.JYRQ))) {
+            String replace = String.valueOf(info.get(BusinessConstant.JYRQ)).replace("/", " ");
+            ii.setJyrq(DateTimeUtil.formateDate(replace, "yyyy-MM-dd hh:mm:ss"));
+        }
+        //车辆识别代码
+        ii.setVin(String.valueOf(info.get(BusinessConstant.VIN)));
+        //燃料类别
+        ii.setRllb(String.valueOf(info.get(BusinessConstant.RLLB)));
+        //空气悬架轴
+        ii.setKqxjz(String.valueOf(info.get(BusinessConstant.KQXJZ)));
+        //总检次数
+        ii.setZjcs(String.valueOf(info.get(BusinessConstant.ZJCS)));
+        //一轴制动力曲线
+        ii.setYzzdlqx(String.valueOf(info.get(BusinessConstant.YZZDLQX)));
+        //二轴制动力曲线
+        ii.setEzzdlqx(String.valueOf(info.get(BusinessConstant.EZZDLQX)));
+        //三轴制动力曲线
+        ii.setTzzdlqx(String.valueOf(info.get(BusinessConstant.TZZDLQX)));
+        //四轴制动力曲线
+        ii.setFzzdlqx(String.valueOf(info.get(BusinessConstant.FZZDLQX)));
         //详细信息
         ii.setTDetail(json);
         this.inspectionInstrumentService.insertSelective(ii);
@@ -1156,19 +1222,77 @@ public class BusiServiceImpl implements BusiService {
         //三、获取数据并入库
         //主键
         ir.setId(String.valueOf(info.get(BusinessConstant.ID)));
+        //机构代号
+        ir.setJgdh(String.valueOf(info.get(BusinessConstant.JGDH)));
+        //线号
+        ir.setXh(String.valueOf(info.get(BusinessConstant.XH)));
+        //地址
+        ir.setDz(String.valueOf(info.get(BusinessConstant.DZ)));
+        //联系电话
+        ir.setLxdh(String.valueOf(info.get(BusinessConstant.LXDH)));
+        //资质认定证书编号
+        ir.setZzrdzsbh(String.valueOf(info.get(BusinessConstant.ZZRDZSBH)));
+        //检验报告编号
+        ir.setJybgbh(String.valueOf(info.get(BusinessConstant.JYBGBH)));
+        //检验机构名称
+        ir.setJyjgmc(String.valueOf(info.get(BusinessConstant.JYJGMC)));
+        //号牌号码
+        ir.setCphm(String.valueOf(info.get(BusinessConstant.CPHM)));
+        //所有人
+        ir.setSyr(String.valueOf(info.get(BusinessConstant.SYR)));
+        //车辆类型
+        ir.setCllx(String.valueOf(info.get(BusinessConstant.CLLX)));
+        //品牌型号
+        ir.setPpxh(String.valueOf(info.get(BusinessConstant.PPXH)));
+        //使用性质
+        ir.setSyxz(String.valueOf(info.get(BusinessConstant.SYXZ)));
+        //道路运输证号
+        ir.setDlyszh(String.valueOf(info.get(BusinessConstant.DLYSZH)));
+        //注册登记日期
+        if (null != info.get(BusinessConstant.ZCDJRQ) && !"".equals(info.get(BusinessConstant.ZCDJRQ))) {
+            ir.setZcdjrq(DateTimeUtil.formateDate(String.valueOf(info.get(BusinessConstant.ZCDJRQ)), "yyyy-MM-dd"));
+        }
+        //出厂日期
+        if (null != info.get(BusinessConstant.CCRQ) && !"".equals(info.get(BusinessConstant.CCRQ))) {
+            ir.setCcrq(DateTimeUtil.formateDate(String.valueOf(info.get(BusinessConstant.CCRQ)), "yyyy-MM-dd"));
+        }
+        //检验日期
+        if (null != info.get(BusinessConstant.JYRQ) && !"".equals(info.get(BusinessConstant.JYRQ))) {
+
+            ir.setJyrq(DateTimeUtil.formateDate(String.valueOf(info.get(BusinessConstant.JYRQ)), "yyyy-MM-dd hh:mm:ss"));
+        }
+        //vin
+        ir.setVin(String.valueOf(info.get(BusinessConstant.VIN)));
+        //发动机号码
+        ir.setFdjhm(String.valueOf(info.get(BusinessConstant.FDJHM)));
+        //电机号码
+        ir.setQddjhm(String.valueOf(info.get(BusinessConstant.QDDJHM)));
+        //检验类别
+        ir.setJylb(String.valueOf(info.get(BusinessConstant.JYLB)));
+        //检验结论
+        ir.setJyjl(String.valueOf(info.get(BusinessConstant.JYJL)));
         ObjectMapper mapper = new ObjectMapper();
         try {
+            //人工检验结果
             List<TArtificialResult> tArtificialResults = mapper.readValue(String.valueOf(info.get(BusinessConstant.RGJYJG)), mapper.getTypeFactory().constructParametricType(List.class, TArtificialResult.class));
+            System.out.println(tArtificialResults);
+            //仪器社保检验结果
+            System.out.println(String.valueOf(info.get(BusinessConstant.YQSBJYJG)));
             List<TInstrumentResult> tInstrumentResults = mapper.readValue(String.valueOf(info.get(BusinessConstant.YQSBJYJG)), mapper.getTypeFactory().constructParametricType(List.class, TInstrumentResult.class));
-            for (TArtificialResult tArtificialResult : tArtificialResults) {
-                tArtificialResult.setId(UUID.randomUUID().toString().replaceAll("-", ""));
-                tArtificialResult.setRid(ir.getId());
-                this.artificialResultService.insertSelective(tArtificialResult);
+            System.out.println(tInstrumentResults);
+            if(null != tArtificialResults) {
+                for (TArtificialResult tArtificialResult : tArtificialResults) {
+                    tArtificialResult.setId(UUID.randomUUID().toString().replaceAll("-", ""));
+                    tArtificialResult.setRid(ir.getId());
+                    this.artificialResultService.insertSelective(tArtificialResult);
+                }
             }
-            for (TInstrumentResult tInstrumentResult : tInstrumentResults) {
-                tInstrumentResult.setId(UUID.randomUUID().toString().replaceAll("-", ""));
-                tInstrumentResult.setRid(ir.getId());
-                this.instrumentResultService.insertSelective(tInstrumentResult);
+            if(null != tInstrumentResults) {
+                for (TInstrumentResult tInstrumentResult : tInstrumentResults) {
+                    tInstrumentResult.setId(UUID.randomUUID().toString().replaceAll("-", ""));
+                    tInstrumentResult.setRid(ir.getId());
+                    this.instrumentResultService.insertSelective(tInstrumentResult);
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();

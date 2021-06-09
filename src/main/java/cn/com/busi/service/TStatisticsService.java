@@ -1,9 +1,6 @@
 package cn.com.busi.service;
 
-import cn.com.busi.entity.TCartype;
-import cn.com.busi.entity.TReport;
-import cn.com.busi.entity.TSintype;
-import cn.com.busi.entity.TStatistics;
+import cn.com.busi.entity.*;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -45,5 +42,29 @@ public interface TStatisticsService {
 
     Map firstorNo(TReport tReport ,String startDate, String endDate);
     Map singleorNo(TReport tReport ,String startDate, String endDate,String singlePass);
+
+    /**
+     * 通过实体作为筛选条件对车辆总数统计查询
+     *
+     * @param tInspectionReport 实例对象
+     * @return 对象列表
+     */
+    List<TStatistics> carAllNow(TInspectionReport tInspectionReport, String startDate, String endDate);
+
+    /**
+     * 通过实体作为筛选条件对初检合格率统计查询
+     *
+     * @param tInspectionReport 实例对象
+     * @return 对象列表
+     */
+    List<TStatistics> firstSelectNow(TInspectionReport tInspectionReport, String startDate, String endDate);
+
+    /**
+     * 通过实体作为筛选条件单项合格率统计查询
+     *
+     * @param tInspectionReport 实例对象
+     * @return 对象列表
+     */
+    List<TStatistics> singleSelectNow(TInspectionReport tInspectionReport, String startDate, String endDate, String singlePass);
 
 }
