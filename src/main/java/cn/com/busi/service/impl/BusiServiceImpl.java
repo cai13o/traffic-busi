@@ -1250,15 +1250,16 @@ public class BusiServiceImpl implements BusiService {
         ir.setDlyszh(String.valueOf(info.get(BusinessConstant.DLYSZH)));
         //注册登记日期
         if (null != info.get(BusinessConstant.ZCDJRQ) && !"".equals(info.get(BusinessConstant.ZCDJRQ))) {
-            ir.setZcdjrq(DateTimeUtil.formateDate(String.valueOf(info.get(BusinessConstant.ZCDJRQ)), "yyyy-MM-dd"));
+            String replaceAll = String.valueOf(info.get(BusinessConstant.ZCDJRQ)).replaceAll("-", "");
+            ir.setZcdjrq(DateTimeUtil.formateDate(replaceAll, "yyyyMMdd"));
         }
         //出厂日期
         if (null != info.get(BusinessConstant.CCRQ) && !"".equals(info.get(BusinessConstant.CCRQ))) {
-            ir.setCcrq(DateTimeUtil.formateDate(String.valueOf(info.get(BusinessConstant.CCRQ)), "yyyy-MM-dd"));
+            String replaceAll = String.valueOf(info.get(BusinessConstant.CCRQ)).replaceAll("-", "");
+            ir.setCcrq(DateTimeUtil.formateDate(replaceAll, "yyyyMMdd"));
         }
         //检验日期
         if (null != info.get(BusinessConstant.JYRQ) && !"".equals(info.get(BusinessConstant.JYRQ))) {
-
             ir.setJyrq(DateTimeUtil.formateDate(String.valueOf(info.get(BusinessConstant.JYRQ)), "yyyy-MM-dd hh:mm:ss"));
         }
         //vin

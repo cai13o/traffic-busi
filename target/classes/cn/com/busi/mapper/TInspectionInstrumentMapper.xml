@@ -1051,7 +1051,7 @@
         #{dly,jdbcType=VARCHAR},
       </if>
       <if test="jyrq != null">
-        #{jyrq,jdbcType=DATE},
+        #{jyrq,jdbcType=TIMESTAMP},
       </if>
       <if test="vin != null">
         #{vin,jdbcType=VARCHAR},
@@ -2435,7 +2435,7 @@
 <if test="dly != null">
  and dly=#{dly,jdbcType=VARCHAR}</if>
 <if test="jyrq != null">
- and jyrq=#{jyrq,jdbcType=DATE}</if>
+ and jyrq=#{jyrq,jdbcType=TIMESTAMP}</if>
 <if test="vin != null">
  and vin=#{vin,jdbcType=VARCHAR}</if>
 <if test="fdjhm != null">

@@ -33,43 +33,31 @@ public class HomePageController {
 
     @GetMapping("page")
     public Object selectOne(String id) {
-
         return this.homePageService.queryAll();
-
     }
 
     @GetMapping("syxzByAll")
     public Object syxzByAll() {
-
         return this.homePageService.syxzByAll();
-
     }
 
     @GetMapping("jcjlByAll")
     public Object jcjlByAll() {
-
         return this.homePageService.jcjlByAll();
-
     }
 //------------------------------------------------------------------------------
     @GetMapping("pageNow")
     public Object selectOneNow(String id) {
-
         return this.homePageService.queryAllNow();
-
     }
 
     @GetMapping("syxzByAllNow")
     public Object syxzByAllNow() {
-
         return this.homePageService.syxzByAllNow();
-
     }
 
     @GetMapping("jcjlByAllNow")
     public Object jcjlByAllNow() {
-
         return this.homePageService.jcjlByAllNow();
-
     }
 }

@@ -1,7 +1,11 @@
 package cn.com.busi.controller;
 
 import cn.com.busi.entity.TInspectionReport;
+import cn.com.busi.entity.TSintype;
+import cn.com.busi.entity.TSintypeNow;
 import cn.com.busi.service.TInspectionReportService;
+import cn.com.busi.service.TSintypeNowService;
+import cn.com.busi.service.impl.TSintypeNowServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
@@ -26,6 +30,9 @@ public class ReportController {
     @Resource
     private TInspectionReportService tInspectionReportService;
 
+    @Resource
+    private TSintypeNowService tSintypeNowService;
+
     Map map;
 
     @ApiOperation("根据id获取数据")
@@ -49,6 +56,16 @@ public class ReportController {
         map.put("code", "20000");
         map.put("inspectionReports", inspectionReports);
         map.put("total", new PageInfo(inspectionReports, intLimit).getTotal());
+        return map;
+    }
+
+    @GetMapping("sinType")
+    public Object sinType(TSintypeNow tSintypeNow) {
+        System.out.println(123321);
+        List<TSintypeNow> datalist = this.tSintypeNowService.findByAll(tSintypeNow);
+        Map<String,Object> map = new HashMap<>(2);
+        map.put("code", "20000");
+        map.put("data", datalist);
         return map;
     }
 }

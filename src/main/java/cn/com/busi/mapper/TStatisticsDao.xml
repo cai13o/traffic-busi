@@ -2,38 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.com.busi.mapper.TStatisticsDao">
 
-<!--    <resultMap id="GetResultMap" type="java.util.Map">-->
-<!--        &lt;!&ndash;@Table t_report&ndash;&gt;-->
-<!--        <result property="id" column="id" jdbcType="VARCHAR"/>-->
-<!--        <result property="cllx" column="cllx" jdbcType="VARCHAR"/>-->
-<!--        <result property="ppxh" column="ppxh" jdbcType="VARCHAR"/>-->
-<!--        <result property="xzqy" column="xzqy" jdbcType="VARCHAR"/>-->
-<!--        <result property="hgl" column="hgl" jdbcType="VARCHAR"/>-->
-<!--        <result property="clrllb" column="clrllb" jdbcType="VARCHAR"/>-->
-<!--        <result property="jcjgmc" column="jcjgmc" jdbcType="VARCHAR"/>-->
-<!--        <result property="jcjl" column="jcjl" jdbcType="VARCHAR"/>-->
-<!--        <result property="jyrq" column="jyrq" jdbcType="VARCHAR"/>-->
-<!--        <result property="clzs" column="clzs" jdbcType="VARCHAR"/>   w-->
-<!--        <result property="singlePass" column="singlePass" jdbcType="VARCHAR"/>-->
-<!--        <result property="num" column="num" jdbcType="VARCHAR"/>-->
-<!--        <result property="table" column="table" jdbcType="VARCHAR"/>-->
-<!--        <result property="syxz" column="syxz" jdbcType="VARCHAR"/>-->
-<!--    </resultMap>-->
-
     <resultMap id="BaseResultMap" type="cn.com.busi.entity.TStatistics">
-<!--        <result property="id" column="id" jdbcType="VARCHAR"/>-->
-<!--        <result property="cllx" column="cllx" jdbcType="VARCHAR"/>-->
-<!--        <result property="ppxh" column="ppxh" jdbcType="VARCHAR"/>-->
-<!--        <result property="xzqy" column="xzqy" jdbcType="VARCHAR"/>-->
         <result property="hgl" column="hgl" jdbcType="VARCHAR"/>
-<!--        <result property="clrllb" column="clrllb" jdbcType="VARCHAR"/>-->
-<!--        <result property="jcjgmc" column="jcjgmc" jdbcType="VARCHAR"/>-->
         <result property="jcjl" column="jcjl" jdbcType="VARCHAR"/>
-<!--        <result property="jyrq" column="jyrq" jdbcType="VARCHAR"/>-->
+        <result property="jcjl" column="jyjl" jdbcType="VARCHAR"/>
         <result property="clzs" column="clzs" jdbcType="VARCHAR"/>
-<!--        <result property="singlePass" column="singlePass" jdbcType="VARCHAR"/>-->
-<!--        <result property="num" column="num" jdbcType="VARCHAR"/>-->
-<!--        <result property="table" column="table" jdbcType="VARCHAR"/>-->
         <result property="syxz" column="syxz" jdbcType="VARCHAR"/>
     </resultMap>
 
@@ -522,71 +495,71 @@
         COUNT(*) as clzs
         <trim prefix="," suffixOverrides=",">
             <if test="tStatistics.cllx != null and tStatistics.cllx != ''">
-                ${tStatistics.cllx},
+                t_inspection_report.${tStatistics.cllx},
             </if>
             <if test="tStatistics.ppxh != null and tStatistics.ppxh != ''">
-                ${tStatistics.ppxh},
+                t_inspection_report.${tStatistics.ppxh},
             </if>
             <if test="tStatistics.clrllb != null and tStatistics.clrllb != ''">
-                ${tStatistics.clrllb},
+                t_inspection_report.${tStatistics.clrllb},
             </if>
             <if test="tStatistics.jcjgmc != null and tStatistics.jcjgmc != ''">
-                ${tStatistics.jcjgmc},
+                t_inspection_report.${tStatistics.jcjgmc},
             </if>
             <if test="tStatistics.jcjl != null and tStatistics.jcjl != ''">
-                ${tStatistics.jcjl},
+                t_inspection_report.${tStatistics.jcjl},
             </if>
             <if test="tStatistics.syxz != null and tStatistics.syxz != ''">
-                ${tStatistics.syxz},
+                t_inspection_report.${tStatistics.syxz},
             </if>
             <if test="tStatistics.jyrq != null">
-                ${tStatistics.jyrq},
+                t_inspection_report.${tStatistics.jyrq},
             </if>
         </trim>
         from t_inspection_report
+        left join t_inspection_instrument on t_inspection_report.id = t_inspection_instrument.id
         <where>
-            1 = 1 and zjcs = "1 "
+            1 = 1 and t_inspection_instrument.zjcs = "1 "
             <if test="tInspectionReport.cllx != null and tInspectionReport.cllx != ''">
-                and cllx like concat(concat('%',#{tInspectionReport.cllx}),'%')
+                and t_inspection_report.cllx like concat(concat('%',#{tInspectionReport.cllx}),'%')
             </if>
             <if test="tInspectionReport.ppxh != null and tInspectionReport.ppxh != ''">
-                and ppxh like concat(concat(#{tInspectionReport.ppxh}),'%')
+                and t_inspection_report.ppxh like concat(concat(#{tInspectionReport.ppxh}),'%')
             </if>
             <if test="tInspectionReport.jyjgmc != null and tInspectionReport.jyjgmc != ''">
-                and jcjgmc like concat(concat('%',#{tInspectionReport.jyjgmc}),'%')
+                and t_inspection_report.jcjgmc like concat(concat('%',#{tInspectionReport.jyjgmc}),'%')
             </if>
             <if test="tInspectionReport.rllb != null and tInspectionReport.rllb != ''">
-                and clrllb like concat(concat('%',#{tInspectionReport.rllb}),'%')
+                and t_inspection_report.clrllb like concat(concat('%',#{tInspectionReport.rllb}),'%')
             </if>
             <if test="tInspectionReport.jyjl != null and tInspectionReport.jyjl != ''">
-                and jcjl = #{tInspectionReport.jyjl}
+                and t_inspection_report.jcjl = #{tInspectionReport.jyjl}
             </if>
             <if test="tInspectionReport.syxz != null and tInspectionReport.syxz != ''">
-                and syxz like concat(concat('%',#{tInspectionReport.syxz}),'%')
+                and t_inspection_report.syxz like concat(concat('%',#{tInspectionReport.syxz}),'%')
             </if>
             <if test="tStatistics.startDate != null">
-                and TO_DAYS(jyrq) &gt;= TO_DAYS(#{tStatistics.startDate})
+                and TO_DAYS(t_inspection_report.jyrq) &gt;= TO_DAYS(#{tStatistics.startDate})
             </if>
             <if test="tStatistics.endDate != null">
-                and TO_DAYS(jyrq) &lt;= TO_DAYS(#{tStatistics.endDate})
+                and TO_DAYS(t_inspection_report.jyrq) &lt;= TO_DAYS(#{tStatistics.endDate})
             </if>
-
         </where>
         <trim prefix="group by" suffixOverrides=",">
             <if test="tStatistics.cllx != null and tStatistics.cllx != ''">
-                ${tStatistics.cllx},
+                t_inspection_report.${tStatistics.cllx},
             </if>
             <if test="tStatistics.clrllb != null and tStatistics.clrllb != ''">
-                ${tStatistics.clrllb},
+                t_inspection_report.${tStatistics.clrllb},
             </if>
             <if test="tStatistics.jcjgmc != null and tStatistics.jcjgmc != ''">
-                ${tStatistics.jcjgmc},
+                t_inspection_report.${tStatistics.jcjgmc},
             </if>
             <if test="tStatistics.jcjl != null and tStatistics.jcjl != ''">
-                ${tStatistics.jcjl},
+                t_inspection_report.${tStatistics.jcjl},
             </if>
             <if test="tStatistics.syxz != null and tStatistics.syxz != ''">
-                ${tStatistics.syxz},
+                t_inspection_report.${tStatistics.syxz},
             </if>
         </trim>
     </select>
@@ -594,70 +567,71 @@
     <!--初审合格率查询-->
     <select id="firstSelectNow" resultMap="BaseResultMap">
         select
-        COUNT(case when jcjl !='不合格' then 1 else null end)/COUNT(*) as hgl
+        COUNT(case when t_inspection_report.jyjl !='不合格' then 1 else null end)/COUNT(*) as hgl
         <trim prefix="," suffixOverrides=",">
             <if test="tStatistics.cllx != null and tStatistics.cllx != ''">
-                ${tStatistics.cllx},
+                t_inspection_report.${tStatistics.cllx},
             </if>
             <if test="tStatistics.ppxh != null and tStatistics.ppxh != ''">
-                ${tStatistics.ppxh},
+                t_inspection_report.${tStatistics.ppxh},
             </if>
             <if test="tStatistics.clrllb != null and tStatistics.clrllb != ''">
-                ${tStatistics.clrllb},
+                t_inspection_report.${tStatistics.clrllb},
             </if>
             <if test="tStatistics.jcjgmc != null and tStatistics.jcjgmc != ''">
-                ${tStatistics.jcjgmc},
+                t_inspection_report.${tStatistics.jcjgmc},
             </if>
             <if test="tStatistics.syxz != null and tStatistics.syxz != ''">
-                ${tStatistics.syxz},
+                t_inspection_report.${tStatistics.syxz},
             </if>
             <if test="tStatistics.jyrq != null">
-                ${tStatistics.jyrq},
+                t_inspection_report.${tStatistics.jyrq},
             </if>
         </trim>
         from t_inspection_report
+        left join t_inspection_instrument on t_inspection_report.id = t_inspection_instrument.id
         <where>
-            zjcs = "1"
+            t_inspection_instrument.zjcs = "1"
             <if test="tInspectionReport.cllx != null and tInspectionReport.cllx != ''">
-                and cllx like concat(concat('%',#{tInspectionReport.cllx}),'%')
+                and t_inspection_report.cllx like concat(concat('%',#{tInspectionReport.cllx}),'%')
             </if>
             <if test="tInspectionReport.ppxh != null and tInspectionReport.ppxh != ''">
-                and ppxh like concat(concat(#{tInspectionReport.ppxh}),'%')
+                and t_inspection_report.ppxh like concat(concat(#{tInspectionReport.ppxh}),'%')
             </if>
             <if test="tInspectionReport.jyjgmc != null and tInspectionReport.jyjgmc != ''">
-                and jcjgmc like concat(concat('%',#{tInspectionReport.jyjgmc}),'%')
+                and t_inspection_report.jcjgmc like concat(concat('%',#{tInspectionReport.jyjgmc}),'%')
             </if>
             <if test="tInspectionReport.rllb != null and tInspectionReport.rllb != ''">
-                and clrllb like concat(concat('%',#{tInspectionReport.rllb}),'%')
+                and t_inspection_report.clrllb like concat(concat('%',#{tInspectionReport.rllb}),'%')
             </if>
             <if test="tInspectionReport.jyjl != null and tInspectionReport.jyjl != ''">
-                and jcjl = #{tInspectionReport.jyjl}
+                and t_inspection_report.jcjl = #{tInspectionReport.jyjl}
             </if>
             <if test="tInspectionReport.syxz != null and tInspectionReport.syxz != ''">
-                and syxz like concat(concat('%',#{tInspectionReport.syxz}),'%')
+                and t_inspection_report.syxz like concat(concat('%',#{tInspectionReport.syxz}),'%')
             </if>
             <if test="tStatistics.startDate != null">
-                and TO_DAYS(jyrq) &gt;= TO_DAYS(#{tStatistics.startDate})
+                and TO_DAYS(t_inspection_report.jyrq) &gt;= TO_DAYS(#{tStatistics.startDate})
             </if>
             <if test="tStatistics.endDate != null">
-                and TO_DAYS(jyrq) &lt;= TO_DAYS(#{tStatistics.endDate})
+                and TO_DAYS(t_inspection_report.jyrq) &lt;= TO_DAYS(#{tStatistics.endDate})
             </if>
         </where>
         <trim prefix="group by" suffixOverrides=",">
             <if test="tStatistics.cllx != null and tStatistics.cllx != ''">
-                ${tStatistics.cllx},
+                t_inspection_report.${tStatistics.cllx},
             </if>
             <if test="tStatistics.clrllb != null and tStatistics.clrllb != ''">
-                ${tStatistics.clrllb},
+                t_inspection_report.${tStatistics.clrllb},
             </if>
             <if test="tStatistics.jcjgmc != null and tStatistics.jcjgmc != ''">
-                ${tStatistics.jcjgmc},
+                t_inspection_report.${tStatistics.jcjgmc},
             </if>
             <if test="tStatistics.jcjl != null and tStatistics.jcjl != ''">
-                ${tStatistics.jcjl},
+                t_inspection_report.${tStatistics.jcjl},
             </if>
             <if test="tStatistics.syxz != null and tStatistics.syxz != ''">
-                ${tStatistics.syxz},
+                t_inspection_report.${tStatistics.syxz},
             </if>
         </trim>
     </select>
@@ -665,72 +639,77 @@
     <!--单项合格率查询查询-->
     <select id="singleSelectNow" resultMap="BaseResultMap">
         select
-        COUNT(case when ${tStatistics.singlePass} !='不合格' then 1 else null
+        COUNT(case when substring_index(t_instrument_result.jgpd,${tStatistics.singlePass}) !='不合格' then 1 else null
         end)/COUNT(*) as hgl
         <trim prefix="," suffixOverrides=",">
             <if test="tStatistics.cllx != null and tStatistics.cllx != ''">
-                ${tStatistics.cllx},
+                t_inspection_report.${tStatistics.cllx},
             </if>
             <if test="tStatistics.ppxh != null and tStatistics.ppxh != ''">
-                ${tStatistics.ppxh},
+                t_inspection_report.${tStatistics.ppxh},
             </if>
             <if test="tStatistics.clrllb != null and tStatistics.clrllb != ''">
-                ${tStatistics.clrllb},
+                t_inspection_report.${tStatistics.clrllb},
             </if>
             <if test="tStatistics.jcjgmc != null and tStatistics.jcjgmc != ''">
-                ${tStatistics.jcjgmc},
+                t_inspection_report.${tStatistics.jcjgmc},
             </if>
             <if test="tStatistics.jcjl != null and tStatistics.jcjl != ''">
-                ${tStatistics.jcjl},
+                t_inspection_instrument.${tStatistics.jcjl},
             </if>
             <if test="tStatistics.syxz != null and tStatistics.syxz != ''">
-                ${tStatistics.syxz},
+                t_inspection_report.${tStatistics.syxz},
             </if>
             <if test="tStatistics.jyrq != null ">
-                ${tStatistics.jyrq},
+                t_inspection_report.${tStatistics.jyrq},
             </if>
         </trim>
         from t_inspection_report
         left join t_inspection_instrument on t_inspection_report.id = t_inspection_instrument.id
+		left join t_instrument_result on t_inspection_instrument.id = t_instrument_result.rid
         <where>
-            ccdjrq >= DATE_SUB(NOW(),INTERVAL 3 MONTH) or (t_inspection_instrument.${tStatistics.singlePass} !='-' AND t_inspection_instrument.${tStatistics.singlePass} !='')
+            t_inspection_instrument.ccdjrq >= DATE_SUB(NOW(),INTERVAL 3 MONTH) or (t_instrument_result.jgpd !='-' AND t_instrument_result.jgpd !='')
+			and t_instrument_result.jyxm like concat(concat('%',#{concat1}),'%')
+			<if test="concat2 != null and concat2 != ''">
+			or t_instrument_result.jyxm like concat(concat('%',#{concat2}),'%')
+			</if>
             <if test="tInspectionReport.cllx != null and tInspectionReport.cllx != ''">
-                and cllx like concat(concat('%',#{tInspectionReport.cllx}),'%')
+                and t_inspection_report.cllx like concat(concat('%',#{tInspectionReport.cllx}),'%')
             </if>
             <if test="tInspectionReport.ppxh != null and tInspectionReport.ppxh != ''">
-                and ppxh like concat(concat(#{tInspectionReport.ppxh}),'%')
+                and t_inspection_report.ppxh like concat(concat(#{tInspectionReport.ppxh}),'%')
             </if>
             <if test="tInspectionReport.jyjgmc != null and tInspectionReport.jyjgmc != ''">
-                and jcjgmc like concat(concat('%',#{tInspectionReport.jyjgmc}),'%')
+                and t_inspection_report.jcjgmc like concat(concat('%',#{tInspectionReport.jyjgmc}),'%')
             </if>
             <if test="tInspectionReport.rllb != null and tInspectionReport.rllb != ''">
-                and clrllb like concat(concat('%',#{tInspectionReport.rllb}),'%')
+                and t_inspection_report.clrllb like concat(concat('%',#{tInspectionReport.rllb}),'%')
             </if>
             <if test="tInspectionReport.jyjl != null and tInspectionReport.jyjl != ''">
-                and jcjl = #{tInspectionReport.jyjl}
+                and t_inspection_report.jyjl = #{tInspectionReport.jyjl}
             </if>
             <if test="tInspectionReport.syxz != null and tInspectionReport.syxz != ''">
-                and syxz like concat(concat('%',#{tInspectionReport.syxz}),'%')
+                and t_inspection_report.syxz like concat(concat('%',#{tInspectionReport.syxz}),'%')
             </if>
             <if test="tStatistics.startDate != null ">
-                and TO_DAYS(jyrq) &gt;= TO_DAYS(#{tStatistics.startDate})
+                and TO_DAYS(t_inspection_report.jyrq) &gt;= TO_DAYS(#{tStatistics.startDate})
             </if>
             <if test="tStatistics.endDate != null ">
-                and TO_DAYS(jyrq) &lt;= TO_DAYS(#{tStatistics.endDate})
+                and TO_DAYS(t_inspection_report.jyrq) &lt;= TO_DAYS(#{tStatistics.endDate})
             </if>
         </where>
         <trim prefix="group by" suffixOverrides=",">
             <if test="tStatistics.cllx != null and tStatistics.cllx != ''">
-                ${tStatistics.cllx},
+                t_inspection_report.${tStatistics.cllx},
             </if>
             <if test="tStatistics.clrllb != null and tStatistics.clrllb != ''">
-                ${tStatistics.clrllb},
+                t_inspection_report.${tStatistics.clrllb},
             </if>
             <if test="tStatistics.jcjgmc != null and tStatistics.jcjgmc != ''">
-                ${tStatistics.jcjgmc},
+                t_inspection_report.${tStatistics.jcjgmc},
             </if>
              <if test="tStatistics.syxz != null and tStatistics.syxz != ''">
-                ${tStatistics.syxz},
+                t_inspection_report.${tStatistics.syxz},
             </if>
         </trim>
     </select>
@@ -805,70 +784,70 @@
     <!-- 合格不合格统计 -->
     <select id="firstNow" resultType="java.lang.Integer">
         SELECT
-	        count(t_inspection_report.jcjl) AS num
+	        count(t_inspection_report.jyjl) AS num
         FROM
 	        t_inspection_report
 	    left join t_inspection_instrument on t_inspection_report.id = t_inspection_instrument.id
         <where>
-            t_inspection_report.jcjl !="不合格" and t_inspection_instrument.zjcs = "1"
+            t_inspection_report.jyjl !="不合格" and t_inspection_instrument.zjcs = "1"
             <if test="tInspectionReport.cllx != null and tInspectionReport.cllx != ''">
-                and cllx = #{tInspectionReport.cllx}
+                and t_inspection_report.cllx = #{tInspectionReport.cllx}
             </if>
             <if test="tInspectionReport.ppxh != null and tInspectionReport.ppxh != ''">
-                and ppxh like concat(concat(#{tInspectionReport.ppxh}),'%')
+                and t_inspection_report.ppxh like concat(concat(#{tInspectionReport.ppxh}),'%')
             </if>
             <if test="tInspectionReport.jyjgmc != null and tInspectionReport.jyjgmc != ''">
-                and jyjgmc = #{tInspectionReport.jyjgmc}
+                and t_inspection_report.jyjgmc = #{tInspectionReport.jyjgmc}
             </if>
             <if test="tInspectionReport.rllb != null and tInspectionReport.rllb != ''">
-                and rllb = #{tInspectionReport.rllb}
+                and t_inspection_report.rllb = #{tInspectionReport.rllb}
             </if>
             <if test="tInspectionReport.jyjl != null and tInspectionReport.jyjl != ''">
-                and jyjl = #{tInspectionReport.jyjl}
+                and t_inspection_report.jyjl = #{tInspectionReport.jyjl}
             </if>
             <if test="tInspectionReport.syxz != null and tInspectionReport.syxz != ''">
-                and syxz = #{tInspectionReport.syxz}
+                and t_inspection_report.syxz = #{tInspectionReport.syxz}
             </if>
             <if test="tStatistics.startDate != null">
-                and TO_DAYS(jyrq) &gt;= TO_DAYS(#{tStatistics.startDate})
+                and TO_DAYS(t_inspection_report.jyrq) &gt;= TO_DAYS(#{tStatistics.startDate})
             </if>
             <if test="tStatistics.endDate != null">
-                and TO_DAYS(jyrq) &lt;= TO_DAYS(#{tStatistics.endDate})
+                and TO_DAYS(t_inspection_report.jyrq) &lt;= TO_DAYS(#{tStatistics.endDate})
             </if>
         </where>
     </select>
 
     <select id="firstNoNow" resultType="java.lang.Integer">
         SELECT
-	        count(t_inspection_report.jcjl) AS num
+	        count(t_inspection_report.jyjl) AS num
         FROM
 	        t_inspection_report
 	    left join t_inspection_instrument on t_inspection_report.id = t_inspection_instrument.id
         <where>
             t_inspection_report.jyjl ="不合格" and t_inspection_instrument.zjcs = "1"
                    <if test="tInspectionReport.cllx != null and tInspectionReport.cllx != ''">
-                and cllx = #{tInspectionReport.cllx}
+                and t_inspection_report.cllx = #{tInspectionReport.cllx}
             </if>
             <if test="tInspectionReport.ppxh != null and tInspectionReport.ppxh != ''">
-                and ppxh like concat(concat(#{tInspectionReport.ppxh}),'%')
+                and t_inspection_report.ppxh like concat(concat(#{tInspectionReport.ppxh}),'%')
             </if>
             <if test="tInspectionReport.jyjgmc != null and tInspectionReport.jyjgmc != ''">
-                and jyjgmc = #{tInspectionReport.jyjgmc}
+                and t_inspection_report.jyjgmc = #{tInspectionReport.jyjgmc}
             </if>
             <if test="tInspectionReport.rllb != null and tInspectionReport.rllb != ''">
-                and rllb = #{tInspectionReport.rllb}
+                and t_inspection_report.rllb = #{tInspectionReport.rllb}
             </if>
             <if test="tInspectionReport.jyjl != null and tInspectionReport.jyjl != ''">
-                and jyjl = #{tInspectionReport.jyjl}
+                and t_inspection_report.jyjl = #{tInspectionReport.jyjl}
             </if>
             <if test="tInspectionReport.syxz != null and tInspectionReport.syxz != ''">
-                and syxz = #{tInspectionReport.syxz}
+                and t_inspection_report.syxz = #{tInspectionReport.syxz}
             </if>
             <if test="tStatistics.startDate != null">
-                and TO_DAYS(jyrq) &gt;= TO_DAYS(#{tStatistics.startDate})
+                and TO_DAYS(t_inspection_report.jyrq) &gt;= TO_DAYS(#{tStatistics.startDate})
             </if>
             <if test="tStatistics.endDate != null">
-                and TO_DAYS(jyrq) &lt;= TO_DAYS(#{tStatistics.endDate})
+                and TO_DAYS(t_inspection_report.jyrq) &lt;= TO_DAYS(#{tStatistics.endDate})
             </if>
         </where>
     </select>
@@ -878,34 +857,40 @@
     <select id="singleNow" resultType="java.lang.Integer">
         SELECT
         count(t_inspection_report.jyjl) AS num
-        FROM
-        t_inspection_report
+        from t_inspection_report
         left join t_inspection_instrument on t_inspection_report.id = t_inspection_instrument.id
+		left join t_instrument_result on t_inspection_instrument.id = t_instrument_result.rid
         <where>
-            t_inspection_instrument.${tStatistics.singlePass} !='不合格' and t_inspection_instrument.${tStatistics.singlePass} !='-' and t_inspection_instrument.${tStatistics.singlePass} !=''
-                   <if test="tInspectionReport.cllx != null and tInspectionReport.cllx != ''">
-                and cllx = #{tInspectionReport.cllx}
+            t_instrument_result.jgpd !='不合格'
+            and t_instrument_result.jgpd !='-'
+            and t_instrument_result.jgpd !=''
+            and t_instrument_result.jyxm like concat(concat('%',#{concat1}),'%')
+			<if test="concat2 != null and concat2 != ''">
+			or t_instrument_result.jyxm like concat(concat('%',#{concat2}),'%')
+			</if>
+            <if test="tInspectionReport.cllx != null and tInspectionReport.cllx != ''">
+                and t_inspection_report.cllx = #{tInspectionReport.cllx}
             </if>
             <if test="tInspectionReport.ppxh != null and tInspectionReport.ppxh != ''">
-                and ppxh like concat(concat(#{tInspectionReport.ppxh}),'%')
+                and t_inspection_report.ppxh like concat(concat(#{tInspectionReport.ppxh}),'%')
             </if>
             <if test="tInspectionReport.jyjgmc != null and tInspectionReport.jyjgmc != ''">
-                and jyjgmc = #{tInspectionReport.jyjgmc}
+                and t_inspection_report.jyjgmc = #{tInspectionReport.jyjgmc}
             </if>
             <if test="tInspectionReport.rllb != null and tInspectionReport.rllb != ''">
-                and rllb = #{tInspectionReport.rllb}
+                and t_inspection_report.rllb = #{tInspectionReport.rllb}
             </if>
             <if test="tInspectionReport.jyjl != null and tInspectionReport.jyjl != ''">
-                and jyjl = #{tInspectionReport.jyjl}
+                and t_inspection_report.jyjl = #{tInspectionReport.jyjl}
             </if>
             <if test="tInspectionReport.syxz != null and tInspectionReport.syxz != ''">
-                and syxz = #{tInspectionReport.syxz}
+                and t_inspection_report.syxz = #{tInspectionReport.syxz}
             </if>
             <if test="tStatistics.startDate != null">
-                and TO_DAYS(jyrq) &gt;= TO_DAYS(#{tStatistics.startDate})
+                and TO_DAYS(t_inspection_report.jyrq) &gt;= TO_DAYS(#{tStatistics.startDate})
             </if>
             <if test="tStatistics.endDate != null">
-                and TO_DAYS(jyrq) &lt;= TO_DAYS(#{tStatistics.endDate})
+                and TO_DAYS(t_inspection_report.jyrq) &lt;= TO_DAYS(#{tStatistics.endDate})
             </if>
         </where>
     </select>
@@ -913,45 +898,49 @@
     <select id="singleNoNow" resultType="java.lang.Integer">
         SELECT
         count(t_inspection_report.jyjl) AS num
-        FROM
-        t_inspection_report
+        from t_inspection_report
         left join t_inspection_instrument on t_inspection_report.id = t_inspection_instrument.id
+		left join t_instrument_result on t_inspection_instrument.id = t_instrument_result.rid
         <where>
-            t_inspection_instrument.${tStatistics.singlePass} ='不合格'
-                   <if test="tInspectionReport.cllx != null and tInspectionReport.cllx != ''">
-                and cllx = #{tInspectionReport.cllx}
+            t_instrument_result.jgpd ='不合格'
+            and t_instrument_result.jyxm like concat(concat('%',#{concat1}),'%')
+			<if test="concat2 != null and concat2 != ''">
+			or t_instrument_result.jyxm like concat(concat('%',#{concat2}),'%')
+			</if>
+            <if test="tInspectionReport.cllx != null and tInspectionReport.cllx != ''">
+                and t_inspection_report.cllx = #{tInspectionReport.cllx}
             </if>
             <if test="tInspectionReport.ppxh != null and tInspectionReport.ppxh != ''">
-                and ppxh like concat(concat(#{tInspectionReport.ppxh}),'%')
+                and t_inspection_report.ppxh like concat(concat(#{tInspectionReport.ppxh}),'%')
             </if>
             <if test="tInspectionReport.jyjgmc != null and tInspectionReport.jyjgmc != ''">
-                and jyjgmc = #{tInspectionReport.jyjgmc}
+                and t_inspection_report.jyjgmc = #{tInspectionReport.jyjgmc}
             </if>
             <if test="tInspectionReport.rllb != null and tInspectionReport.rllb != ''">
-                and rllb = #{tInspectionReport.rllb}
+                and t_inspection_report.rllb = #{tInspectionReport.rllb}
             </if>
             <if test="tInspectionReport.jyjl != null and tInspectionReport.jyjl != ''">
-                and jyjl = #{tInspectionReport.jyjl}
+                and t_inspection_report.jyjl = #{tInspectionReport.jyjl}
             </if>
             <if test="tInspectionReport.syxz != null and tInspectionReport.syxz != ''">
-                and syxz = #{tInspectionReport.syxz}
+                and t_inspection_report.syxz = #{tInspectionReport.syxz}
             </if>
             <if test="tStatistics.startDate != null">
-                and TO_DAYS(jyrq) &gt;= TO_DAYS(#{tStatistics.startDate})
+                and TO_DAYS(t_inspection_report.jyrq) &gt;= TO_DAYS(#{tStatistics.startDate})
             </if>
             <if test="tStatistics.endDate != null">
-                and TO_DAYS(jyrq) &lt;= TO_DAYS(#{tStatistics.endDate})
+                and TO_DAYS(t_inspection_report.jyrq) &lt;= TO_DAYS(#{tStatistics.endDate})
             </if>
         </where>
     </select>
     <!-- 按等级划分车辆数-->
     <select id="jcjlByAllNow" resultMap="BaseResultMap">
         select
-            COUNT(*) as clzs,jyjl
+            COUNT(*) as clzs,t_inspection_report.jyjl
         from t_inspection_report
         left join t_inspection_instrument on t_inspection_report.id = t_inspection_instrument.id
         where t_inspection_instrument.zjcs = "1 "
-		group by jyjl
+		group by t_inspection_report.jyjl
     </select>
 
     <!-- 按使用性质划分合格率-->

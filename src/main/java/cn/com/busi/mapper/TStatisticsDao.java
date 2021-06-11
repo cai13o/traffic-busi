@@ -84,7 +84,7 @@ public interface TStatisticsDao {
      * @param tInspectionReport 实例对象
      * @return 对象列表
      */
-    List<TStatistics> singleSelectNow(@Param("tInspectionReport") TInspectionReport tInspectionReport ,@Param("tStatistics") TStatistics tStatistics);
+    List<TStatistics> singleSelectNow(@Param("tInspectionReport") TInspectionReport tInspectionReport, @Param("tStatistics") TStatistics tStatistics, @Param("concat1") String concat1, @Param("concat2") String concat2);
 
     List<Map>  cllxStatisticsNow();
 
@@ -99,8 +99,8 @@ public interface TStatisticsDao {
     Integer firstNow( @Param("tInspectionReport") TInspectionReport tInspectionReport,@Param("tStatistics") TStatistics tStatistics);
     Integer firstNoNow( @Param("tInspectionReport") TInspectionReport tInspectionReport ,@Param("tStatistics") TStatistics tStatistics);
 
-    Integer singleNow( @Param("tInspectionReport") TInspectionReport tInspectionReport,@Param("tStatistics") TStatistics tStatistics);
-    Integer singleNoNow( @Param("tInspectionReport") TInspectionReport tInspectionReport ,@Param("tStatistics") TStatistics tStatistics);
+    Integer singleNow(@Param("tInspectionReport") TInspectionReport tInspectionReport, @Param("tStatistics") TStatistics tStatistics, @Param("concat1") String concat1, @Param("concat2") String concat2);
+    Integer singleNoNow(@Param("tInspectionReport") TInspectionReport tInspectionReport, @Param("tStatistics") TStatistics tStatistics, @Param("concat1") String concat1, @Param("concat2") String concat2);
 
     List<TStatistics> jcjlByAllNow();
     List<TStatistics> syxzByAllNow();

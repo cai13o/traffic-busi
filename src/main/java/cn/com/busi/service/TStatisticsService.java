@@ -67,4 +67,7 @@ public interface TStatisticsService {
      */
     List<TStatistics> singleSelectNow(TInspectionReport tInspectionReport, String startDate, String endDate, String singlePass);
 
+    Map firstorNoNow(TInspectionReport tInspectionReport,String startDate, String endDate);
+    Map singleorNoNow(TInspectionReport tInspectionReport,String startDate, String endDate,String singlePass);
+
 }

@@ -15,7 +15,7 @@ public class TSintypeNow implements Serializable {
     private String name;
 
     @ApiModelProperty(value="")
-    private String num;
+    private Integer num;
 
     private static final long serialVersionUID = 1L;
 }

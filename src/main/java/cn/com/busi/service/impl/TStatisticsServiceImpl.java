@@ -181,7 +181,6 @@ public class TStatisticsServiceImpl implements TStatisticsService {
     @Override
     public List<TStatistics> singleSelect(TReport tReport, String startDate, String endDate, String singlePass) {
         TStatistics tStatistics = new TStatistics();
-//       System.out.println("".equals(xzqy.trim()));
         tStatistics.setSinglePass(singlePass);
         if (null != tReport.getXzqy()) {
             if (!tReport.getXzqy().trim().isEmpty()) {
@@ -442,6 +441,55 @@ public class TStatisticsServiceImpl implements TStatisticsService {
     @Override
     public List<TStatistics> singleSelectNow(TInspectionReport tInspectionReport, String startDate, String endDate, String singlePass) {
         TStatistics tStatistics = new TStatistics();
+        String concat1 = "";
+        String concat2 = "";
+        if(singlePass.equals("kzzdxczd1")){
+            tStatistics.setSinglePass("'/',1");
+            concat1 = "一轴制动率";
+            concat2 = "一轴，行车制动率";
+        }else if(singlePass.equals("kzzdxczd2")){
+            tStatistics.setSinglePass("'/',1");
+            concat1 = "二轴制动率";
+            concat2 = "二轴，行车制动率";
+        }else if(singlePass.equals("kzzdxczd3")){
+            tStatistics.setSinglePass("'/',1");
+            concat1 = "三轴制动率";
+            concat2 = "三轴，行车制动率";
+        }else if(singlePass.equals("kzzdxczd4")){
+            tStatistics.setSinglePass("'/',1");
+            concat1 = "四轴制动率";
+            concat2 = "四轴，行车制动率";
+        }else if(singlePass.equals("kzzdbphl1")){
+            tStatistics.setSinglePass("'/',-1");
+            concat1 = "一轴不平衡率";
+            concat2 = "一轴，不平衡率";
+        }else if(singlePass.equals("kzzdbphl2")){
+            tStatistics.setSinglePass("'/',-1");
+            concat1 = "二轴不平衡率";
+            concat2 = "二轴，不平衡率";
+        }else if(singlePass.equals("kzzdbphl3")){
+            tStatistics.setSinglePass("'/',-1");
+            concat1 = "三轴不平衡率";
+            concat2 = "三轴，不平衡率";
+        }else if(singlePass.equals("kzzdbphl4")){
+            tStatistics.setSinglePass("'/',-1");
+            concat1 = "四轴不平衡率";
+            concat2 = "四轴，不平衡率";
+        }else if(singlePass.equals("chA1")){
+            tStatistics.setSinglePass("'o',-1");
+            concat1 = "侧滑";
+        }else if(singlePass.equals("zhuxmpd")){
+            tStatistics.setSinglePass("'o',-1");
+            concat1 = "驻车制动率";
+        }else if(singlePass.equals("zhexmpd")){
+            tStatistics.setSinglePass("'o',-1");
+            concat1 = "整车制动率";
+        }else if(singlePass.equals("zwdxmpd")){
+            tStatistics.setSinglePass("'o',-1");
+            concat1 = "左";
+            concat2 = "灯";
+        }
+
         if (null != tInspectionReport.getJyjgmc()) {
             if (!tInspectionReport.getJyjgmc().trim().isEmpty()) {
                 tStatistics.setJcjgmc("jyjgmc");
@@ -491,12 +539,12 @@ public class TStatisticsServiceImpl implements TStatisticsService {
                 }
             }
         }
-        List list = new ArrayList();
+
         if ((tInspectionReport.getSyxz() == null || "".equals(tInspectionReport.getSyxz().trim())) && (tInspectionReport.getCllx() == null || "".equals(tInspectionReport.getCllx().trim())) && (tInspectionReport.getPpxh() == null || "".equals(tInspectionReport.getPpxh().trim())) && (tInspectionReport.getJyjgmc() == null || "".equals(tInspectionReport.getJyjgmc().trim())) && (tInspectionReport.getRllb() == null || "".equals(tInspectionReport.getRllb().trim())) && (startDate == null || "".equals(startDate.trim())) && (endDate == null || "".equals(endDate.trim()))) {
             System.out.println("返回空");
-            return list;
+            return null;
         }
-        List<TStatistics> tStatisticses = this.tStatisticsDao.singleSelectNow(tInspectionReport, tStatistics);
+        List<TStatistics> tStatisticses = this.tStatisticsDao.singleSelectNow(tInspectionReport, tStatistics, concat1, concat2);
         if(null != tInspectionReport.getPpxh()) {
             if (!tInspectionReport.getPpxh().trim().isEmpty()) {
                 for (int i = 0; i < tStatisticses.size(); i++) {
@@ -506,6 +554,97 @@ public class TStatisticsServiceImpl implements TStatisticsService {
         }
 
         return tStatisticses;
+    }
+
+    @Override
+    public Map firstorNoNow(TInspectionReport tInspectionReport, String startDate, String endDate) {
+        TStatistics statistics = new TStatistics();
+        HashMap map = new HashMap();
+        try {
+            if (null != startDate && null != endDate) {
+                if (!startDate.trim().isEmpty() && !endDate.trim().isEmpty()) {
+                    statistics.setStartDate(new SimpleDateFormat("yyyy-MM-dd").parse(startDate));
+                    statistics.setEndDate(new SimpleDateFormat("yyyy-MM-dd").parse(endDate));
+                }
+            }
+            Integer first = this.tStatisticsDao.firstNow(tInspectionReport, statistics);
+            Integer firstNo = this.tStatisticsDao.firstNoNow(tInspectionReport, statistics);
+            map.put("first",first);
+            map.put("firstNo",firstNo);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
+
+    @Override
+    public Map singleorNoNow(TInspectionReport tInspectionReport, String startDate, String endDate, String singlePass) {
+        TStatistics tStatistics = new TStatistics();
+        tStatistics.setSinglePass(singlePass);
+        String concat1 = "";
+        String concat2 = "";
+        if(singlePass.equals("kzzdxczd1")){
+            tStatistics.setSinglePass("'/',1");
+            concat1 = "一轴制动率";
+            concat2 = "一轴，行车制动率";
+        }else if(singlePass.equals("kzzdxczd2")){
+            tStatistics.setSinglePass("'/',1");
+            concat1 = "二轴制动率";
+            concat2 = "二轴，行车制动率";
+        }else if(singlePass.equals("kzzdxczd3")){
+            tStatistics.setSinglePass("'/',1");
+            concat1 = "三轴制动率";
+            concat2 = "三轴，行车制动率";
+        }else if(singlePass.equals("kzzdxczd4")){
+            tStatistics.setSinglePass("'/',1");
+            concat1 = "四轴制动率";
+            concat2 = "四轴，行车制动率";
+        }else if(singlePass.equals("kzzdbphl1")){
+            tStatistics.setSinglePass("'/',-1");
+            concat1 = "一轴不平衡率";
+            concat2 = "一轴，不平衡率";
+        }else if(singlePass.equals("kzzdbphl2")){
+            tStatistics.setSinglePass("'/',-1");
+            concat1 = "二轴不平衡率";
+            concat2 = "二轴，不平衡率";
+        }else if(singlePass.equals("kzzdbphl3")){
+            tStatistics.setSinglePass("'/',-1");
+            concat1 = "三轴不平衡率";
+            concat2 = "三轴，不平衡率";
+        }else if(singlePass.equals("kzzdbphl4")){
+            tStatistics.setSinglePass("'/',-1");
+            concat1 = "四轴不平衡率";
+            concat2 = "四轴，不平衡率";
+        }else if(singlePass.equals("chA1")){
+            tStatistics.setSinglePass("'o',-1");
+            concat1 = "侧滑";
+        }else if(singlePass.equals("zhuxmpd")){
+            tStatistics.setSinglePass("'o',-1");
+            concat1 = "驻车制动率";
+        }else if(singlePass.equals("zhexmpd")){
+            tStatistics.setSinglePass("'o',-1");
+            concat1 = "整车制动率";
+        }else if(singlePass.equals("zwdxmpd")){
+            tStatistics.setSinglePass("'o',-1");
+            concat1 = "左";
+            concat2 = "灯";
+        }
+        HashMap map = new HashMap();
+        try {
+            if (null != startDate && null != endDate) {
+                if (!startDate.trim().isEmpty() && !endDate.trim().isEmpty()) {
+                    tStatistics.setStartDate(new SimpleDateFormat("yyyy-MM-dd").parse(startDate));
+                    tStatistics.setEndDate(new SimpleDateFormat("yyyy-MM-dd").parse(endDate));
+                }
+            }
+            Integer first = this.tStatisticsDao.singleNow(tInspectionReport, tStatistics,concat1,concat2);
+            Integer firstNo = this.tStatisticsDao.singleNoNow(tInspectionReport, tStatistics,concat1,concat2);
+            map.put("first",first);
+            map.put("firstNo",firstNo);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return map;
     }
 
 }

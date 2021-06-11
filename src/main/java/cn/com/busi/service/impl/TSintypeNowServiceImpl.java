@@ -5,6 +5,9 @@ import javax.annotation.Resource;
 import cn.com.busi.entity.TSintypeNow;
 import cn.com.busi.mapper.TSintypeNowMapper;
 import cn.com.busi.service.TSintypeNowService;
+
+import java.util.List;
+
 @Service
 public class TSintypeNowServiceImpl implements TSintypeNowService{
 
@@ -39,6 +42,11 @@ public class TSintypeNowServiceImpl implements TSintypeNowService{
     @Override
     public int updateByPrimaryKey(TSintypeNow record) {
         return tSintypeNowMapper.updateByPrimaryKey(record);
+    }
+
+    @Override
+    public List<TSintypeNow> findByAll(TSintypeNow tSintypeNow) {
+        return tSintypeNowMapper.findByAll(tSintypeNow);
     }
 
 }

@@ -38,17 +38,8 @@ public class TStatisticsController {
         Map map = new HashMap();
         Integer intPage = Integer.parseInt(page);
         Integer intLimit = Integer.parseInt(limit);
-        int offset = (intPage - 1) * intPage;
         PageHelper.startPage(intPage, intLimit);
         List<TStatistics> list = this.tStatisticsService.carAll(tReport,startDate,endDate);
-//        Set set = new HashSet();
-//        if(list == null){
-//            for (Map m:list) {
-//                set.add(m.get("cllx"));
-//            }
-//            map.put("cllx", set);
-//        }
-        //将查询到的数据封装到PageInfo对象
         PageInfo<TInstInfo> pageInfo = new PageInfo(list, intLimit);
         map.put("code", "20000");
         map.put("data", list);
@@ -65,8 +56,6 @@ public class TStatisticsController {
         PageHelper.startPage(intPage, intLimit);
         List<TStatistics> list = this.tStatisticsService.firstSelect(tReport,startDate,endDate);
         List<TStatistics> total = this.tStatisticsService.carAll(tReport,startDate,endDate);
-        //将查询到的数据封装到PageInfo对象
-//        PageInfo<TInstInfo> pageInfo = new PageInfo(list, intLimit);
         PageInfo<TInstInfo> pageInfo0 = new PageInfo(total, intLimit);
         map.put("code", "20000");
         map.put("data", list);
@@ -82,8 +71,6 @@ public class TStatisticsController {
         PageHelper.startPage(intPage, intLimit);
         List<TStatistics> list = this.tStatisticsService.singleSelect(tReport,startDate,endDate,singlePass);
         List<TStatistics> total = this.tStatisticsService.carAll(tReport,startDate,endDate);
-        //将查询到的数据封装到PageInfo对象
-//        PageInfo<TInstInfo> pageInfo = new PageInfo(list, intLimit);
         PageInfo<TInstInfo> pageInfo0 = new PageInfo(total, intLimit);
         map.put("code", "20000");
         map.put("data", list);
@@ -99,6 +86,7 @@ public class TStatisticsController {
         map.put("data", this.tStatisticsService.count(table));
         return map;
     }
+
     //初检合格不合格数量提示
     @GetMapping("first")
     public Object count(String startDate, String endDate, TReport tReport) {

@@ -1,6 +1,9 @@
 package cn.com.busi.service;
 
 import cn.com.busi.entity.TSintypeNow;
+
+import java.util.List;
+
 public interface TSintypeNowService{
 
 
@@ -16,4 +19,5 @@ public interface TSintypeNowService{
 
     int updateByPrimaryKey(TSintypeNow record);
 
+    List<TSintypeNow> findByAll(TSintypeNow tSintypeNow);
 }
