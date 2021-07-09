@@ -35,6 +35,9 @@ public class HomePageServiceImpl implements HomePageService {
     @Resource
     private TSintypeNowMapper tSintypeNowMapper;
 
+    @Resource
+    private TInstPersonDao instPersonDao;
+
     /**
      * 首页数据
      * @return
@@ -50,6 +53,7 @@ public class HomePageServiceImpl implements HomePageService {
         Integer[] firstNotStatistics = this.tStatisticsDao.firstNotStatistics();
         List<TStatistics> jcjlByAll = this.tStatisticsDao.jcjlByAll();
         List<TStatistics> syxzByAll = this.tStatisticsDao.syxzByAll();
+        List<Map> countByRecode = instPersonDao.countByRecode();
         Map map = new HashMap();
 
         //单项合格数量统计
@@ -79,6 +83,9 @@ public class HomePageServiceImpl implements HomePageService {
         map.put("jcjlByAll", jcjlByAll);
 
         map.put("syxzByAll", syxzByAll);
+
+        //按学历统计
+        map.put("countByRecode", countByRecode);
 
         return map;
     }
@@ -120,17 +127,66 @@ public class HomePageServiceImpl implements HomePageService {
         Integer[] firstNotStatistics = this.tStatisticsDao.firstNotStatisticsNow();
         List<TStatistics> jcjlByAll = this.tStatisticsDao.jcjlByAllNow();
         List<TStatistics> syxzByAll = this.tStatisticsDao.syxzByAllNow();
-        Map map = new HashMap();
-
-        //单项合格数量统计
+        List<Map> countByRecode = instPersonDao.countByRecode();
         TSintypeNow sintype = new TSintypeNow();
         List<TSintypeNow> tSintypeNows = this.tSintypeNowMapper.findByAll(sintype);
+        Map<String,Object> map = new HashMap(2);
+        map.put("code","20000");
+        //单项合格数量统计
+        String concat1 = "";
+        String concat2 = "";
+        String concat3 = "";
         for(TSintypeNow ts:tSintypeNows){
-            Integer[] arr = this.tStatisticsDao.singleStatisticsNow(ts);
+            if(ts.getId().equals("kzzdxczd1")){
+                concat3 = "'/',1";
+                concat1 = "一轴制动率";
+                concat2 = "一轴，行车制动率";
+            }else if(ts.getId().equals("kzzdxczd2")){
+                concat3 = "'/',1";
+                concat1 = "二轴制动率";
+                concat2 = "二轴，行车制动率";
+            }else if(ts.getId().equals("kzzdxczd3")){
+                concat3 = "'/',1";
+                concat1 = "三轴制动率";
+                concat2 = "三轴，行车制动率";
+            }else if(ts.getId().equals("kzzdxczd4")){
+                concat3 = "'/',1";
+                concat1 = "四轴制动率";
+                concat2 = "四轴，行车制动率";
+            }else if(ts.getId().equals("kzzdbphl1")){
+                concat3 = "'/', -1";
+                concat1 = "一轴不平衡率";
+                concat2 = "一轴，不平衡率";
+            }else if(ts.getId().equals("kzzdbphl2")){
+                concat3 = "'/', -1";
+                concat1 = "二轴不平衡率";
+                concat2 = "二轴，不平衡率";
+            }else if(ts.getId().equals("kzzdbphl3")){
+                concat3 = "'/', -1";
+                concat1 = "三轴不平衡率";
+                concat2 = "三轴，不平衡率";
+            }else if(ts.getId().equals("kzzdbphl4")){
+                concat3 = "'/', -1";
+                concat1 = "四轴不平衡率";
+                concat2 = "四轴，不平衡率";
+            }else if(ts.getId().equals("chA1")){
+                concat3 = "'o',-1";
+                concat1 = "侧滑";
+            }else if(ts.getId().equals("zhuxmpd")){
+                concat3 = "'o',-1";
+                concat1 = "驻车制动率";
+            }else if(ts.getId().equals("zhexmpd")){
+                concat3 = "'o',-1";
+                concat1 = "整车制动率";
+            }else if(ts.getId().equals("zwdxmpd")){
+                concat3 = "'o',-1";
+                concat1 = "左";
+                concat2 = "灯";
+            }
+            Integer[] arr = this.tStatisticsDao.singleStatisticsNow(concat1,concat2,concat3);
             map.put(ts.getId(),arr);
         }
 
-        map.put("code","20000");
         //检测机构数量
         map.put("infoCount" , tInstInfo.getName());
         //机构人员数量
@@ -150,6 +206,9 @@ public class HomePageServiceImpl implements HomePageService {
 
         map.put("syxzByAll", syxzByAll);
 
+        //按学历统计
+        map.put("countByRecode", countByRecode);
+
         return map;
     }
 
@@ -157,7 +216,6 @@ public class HomePageServiceImpl implements HomePageService {
     public Map syxzByAllNow() {
         List<TStatistics> syxzByAll = this.tStatisticsDao.syxzByAllNow();
         Map map = new HashMap();
-
         map.put("code","20000");
         map.put("syxzByAll", syxzByAll);
 
@@ -167,13 +225,9 @@ public class HomePageServiceImpl implements HomePageService {
     @Override
     public Map jcjlByAllNow() {
         List<TStatistics> jcjlByAll = this.tStatisticsDao.jcjlByAllNow();
-
         Map map = new HashMap();
-
         map.put("code","20000");
-
         map.put("jcjlByAll", jcjlByAll);
-
         return map;
     }
 }

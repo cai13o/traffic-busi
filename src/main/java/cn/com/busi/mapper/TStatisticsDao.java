@@ -92,7 +92,7 @@ public interface TStatisticsDao {
 
     Integer[] firstNotStatisticsNow();
 
-    Integer[] singleStatisticsNow(@Param("tSintype") TSintypeNow tSintype);
+    Integer[] singleStatisticsNow(@Param("concat1") String concat1, @Param("concat2") String concat2, @Param("concat3") String concat3);
 
     Integer countNow(@Param("table") String table);
 

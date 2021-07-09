@@ -303,21 +303,21 @@ public class TStatisticsServiceImpl implements TStatisticsService {
     @Override
     public List<TStatistics> carAllNow(TInspectionReport tInspectionReport, String startDate, String endDate) {
         TStatistics tStatistics = new TStatistics();
-        if (null != tInspectionReport.getJyjgmc()) {
-            if (!tInspectionReport.getJyjgmc().trim().isEmpty()) {
+        if (null != tInspectionReport.getJcjgmc()) {
+            if (!tInspectionReport.getJcjgmc().trim().isEmpty()) {
                 tStatistics.setJcjgmc("jyjgmc");
-                tInspectionReport.setJyjgmc(tInspectionReport.getJyjgmc().trim());
+                tInspectionReport.setJyjgmc(tInspectionReport.getJcjgmc().trim());
             }
         }
-        if (null != tInspectionReport.getJyjl()) {
-            if (!tInspectionReport.getJyjl().trim().isEmpty()) {
+        if (null != tInspectionReport.getJcjl()) {
+            if (!tInspectionReport.getJcjl().trim().isEmpty()) {
                 tStatistics.setJcjl("jyjl");
-                tInspectionReport.setJyjl(tInspectionReport.getJyjl().trim());
+                tInspectionReport.setJyjl(tInspectionReport.getJcjl().trim());
             }
         }
         if (null != tInspectionReport.getRllb()) {
             if (!tInspectionReport.getRllb().trim().isEmpty()) {
-                tStatistics.setClrllb("rllb");
+                tStatistics.setRllb("rllb");
                 tInspectionReport.setRllb(tInspectionReport.getRllb().trim());
             }
         }
@@ -372,10 +372,10 @@ public class TStatisticsServiceImpl implements TStatisticsService {
     @Override
     public List<TStatistics> firstSelectNow(TInspectionReport tInspectionReport, String startDate, String endDate) {
         TStatistics tStatistics = new TStatistics();
-        if (null != tInspectionReport.getJyjgmc()) {
-            if (!tInspectionReport.getJyjgmc().trim().isEmpty()) {
+        if (null != tInspectionReport.getJcjgmc()) {
+            if (!tInspectionReport.getJcjgmc().trim().isEmpty()) {
                 tStatistics.setJcjgmc("jyjgmc");
-                tInspectionReport.setJyjgmc(tInspectionReport.getJyjgmc().trim());
+                tInspectionReport.setJyjgmc(tInspectionReport.getJcjgmc().trim());
             }
         }
         if (null != tInspectionReport.getJyjl()) {
@@ -386,7 +386,7 @@ public class TStatisticsServiceImpl implements TStatisticsService {
         }
         if (null != tInspectionReport.getRllb()) {
             if (!tInspectionReport.getRllb().trim().isEmpty()) {
-                tStatistics.setClrllb("rllb");
+                tStatistics.setRllb("rllb");
                 tInspectionReport.setRllb(tInspectionReport.getRllb().trim());
             }
         }
@@ -490,10 +490,10 @@ public class TStatisticsServiceImpl implements TStatisticsService {
             concat2 = "灯";
         }
 
-        if (null != tInspectionReport.getJyjgmc()) {
-            if (!tInspectionReport.getJyjgmc().trim().isEmpty()) {
+        if (null != tInspectionReport.getJcjgmc()) {
+            if (!tInspectionReport.getJcjgmc().trim().isEmpty()) {
                 tStatistics.setJcjgmc("jyjgmc");
-                tInspectionReport.setJyjgmc(tInspectionReport.getJyjgmc().trim());
+                tInspectionReport.setJyjgmc(tInspectionReport.getJcjgmc().trim());
             }
         }
         if (null != tInspectionReport.getJyjl()) {
@@ -504,7 +504,7 @@ public class TStatisticsServiceImpl implements TStatisticsService {
         }
         if (null != tInspectionReport.getRllb()) {
             if (!tInspectionReport.getRllb().trim().isEmpty()) {
-                tStatistics.setClrllb("rllb");
+                tStatistics.setRllb("rllb");
                 tInspectionReport.setRllb(tInspectionReport.getRllb().trim());
             }
         }

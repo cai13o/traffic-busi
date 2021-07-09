@@ -8,6 +8,7 @@
         <result property="jcjl" column="jyjl" jdbcType="VARCHAR"/>
         <result property="clzs" column="clzs" jdbcType="VARCHAR"/>
         <result property="syxz" column="syxz" jdbcType="VARCHAR"/>
+        <result property="jcjgmc" column="jcjgmc" jdbcType="VARCHAR"/>
     </resultMap>
 
     <!--车辆总数查询-->
@@ -500,14 +501,14 @@
             <if test="tStatistics.ppxh != null and tStatistics.ppxh != ''">
                 t_inspection_report.${tStatistics.ppxh},
             </if>
-            <if test="tStatistics.clrllb != null and tStatistics.clrllb != ''">
-                t_inspection_report.${tStatistics.clrllb},
+            <if test="tStatistics.rllb != null and tStatistics.rllb != ''">
+                t_inspection_instrument.${tStatistics.rllb} clrllb,
             </if>
             <if test="tStatistics.jcjgmc != null and tStatistics.jcjgmc != ''">
-                t_inspection_report.${tStatistics.jcjgmc},
+                t_inspection_report.${tStatistics.jcjgmc} jcjgmc,
             </if>
             <if test="tStatistics.jcjl != null and tStatistics.jcjl != ''">
-                t_inspection_report.${tStatistics.jcjl},
+                t_inspection_report.${tStatistics.jcjl} jcjl,
             </if>
             <if test="tStatistics.syxz != null and tStatistics.syxz != ''">
                 t_inspection_report.${tStatistics.syxz},
@@ -527,13 +528,13 @@
                 and t_inspection_report.ppxh like concat(concat(#{tInspectionReport.ppxh}),'%')
             </if>
             <if test="tInspectionReport.jyjgmc != null and tInspectionReport.jyjgmc != ''">
-                and t_inspection_report.jcjgmc like concat(concat('%',#{tInspectionReport.jyjgmc}),'%')
+                and t_inspection_report.jyjgmc like concat(concat('%',#{tInspectionReport.jyjgmc}),'%')
             </if>
             <if test="tInspectionReport.rllb != null and tInspectionReport.rllb != ''">
-                and t_inspection_report.clrllb like concat(concat('%',#{tInspectionReport.rllb}),'%')
+                and t_inspection_instrument.rllb like concat(concat('%',#{tInspectionReport.rllb}),'%')
             </if>
             <if test="tInspectionReport.jyjl != null and tInspectionReport.jyjl != ''">
-                and t_inspection_report.jcjl = #{tInspectionReport.jyjl}
+                and t_inspection_report.jyjl = #{tInspectionReport.jyjl}
             </if>
             <if test="tInspectionReport.syxz != null and tInspectionReport.syxz != ''">
                 and t_inspection_report.syxz like concat(concat('%',#{tInspectionReport.syxz}),'%')
@@ -549,8 +550,8 @@
             <if test="tStatistics.cllx != null and tStatistics.cllx != ''">
                 t_inspection_report.${tStatistics.cllx},
             </if>
-            <if test="tStatistics.clrllb != null and tStatistics.clrllb != ''">
-                t_inspection_report.${tStatistics.clrllb},
+            <if test="tStatistics.rllb != null and tStatistics.rllb != ''">
+                t_inspection_instrument.${tStatistics.rllb},
             </if>
             <if test="tStatistics.jcjgmc != null and tStatistics.jcjgmc != ''">
                 t_inspection_report.${tStatistics.jcjgmc},
@@ -575,11 +576,11 @@
             <if test="tStatistics.ppxh != null and tStatistics.ppxh != ''">
                 t_inspection_report.${tStatistics.ppxh},
             </if>
-            <if test="tStatistics.clrllb != null and tStatistics.clrllb != ''">
-                t_inspection_report.${tStatistics.clrllb},
+            <if test="tStatistics.rllb != null and tStatistics.rllb != ''">
+                t_inspection_instrument.${tStatistics.rllb} clrllb,
             </if>
             <if test="tStatistics.jcjgmc != null and tStatistics.jcjgmc != ''">
-                t_inspection_report.${tStatistics.jcjgmc},
+                t_inspection_report.${tStatistics.jcjgmc} jcjgmc,
             </if>
             <if test="tStatistics.syxz != null and tStatistics.syxz != ''">
                 t_inspection_report.${tStatistics.syxz},
@@ -599,10 +600,10 @@
                 and t_inspection_report.ppxh like concat(concat(#{tInspectionReport.ppxh}),'%')
             </if>
             <if test="tInspectionReport.jyjgmc != null and tInspectionReport.jyjgmc != ''">
-                and t_inspection_report.jcjgmc like concat(concat('%',#{tInspectionReport.jyjgmc}),'%')
+                and t_inspection_report.jyjgmc like concat(concat('%',#{tInspectionReport.jyjgmc}),'%')
             </if>
             <if test="tInspectionReport.rllb != null and tInspectionReport.rllb != ''">
-                and t_inspection_report.clrllb like concat(concat('%',#{tInspectionReport.rllb}),'%')
+                and t_inspection_instrument.rllb like concat(concat('%',#{tInspectionReport.rllb}),'%')
             </if>
             <if test="tInspectionReport.jyjl != null and tInspectionReport.jyjl != ''">
                 and t_inspection_report.jcjl = #{tInspectionReport.jyjl}
@@ -621,8 +622,8 @@
             <if test="tStatistics.cllx != null and tStatistics.cllx != ''">
                 t_inspection_report.${tStatistics.cllx},
             </if>
-            <if test="tStatistics.clrllb != null and tStatistics.clrllb != ''">
-                t_inspection_report.${tStatistics.clrllb},
+            <if test="tStatistics.rllb != null and tStatistics.rllb != ''">
+                t_inspection_instrument.${tStatistics.rllb},
             </if>
             <if test="tStatistics.jcjgmc != null and tStatistics.jcjgmc != ''">
                 t_inspection_report.${tStatistics.jcjgmc},
@@ -648,14 +649,14 @@
             <if test="tStatistics.ppxh != null and tStatistics.ppxh != ''">
                 t_inspection_report.${tStatistics.ppxh},
             </if>
-            <if test="tStatistics.clrllb != null and tStatistics.clrllb != ''">
-                t_inspection_report.${tStatistics.clrllb},
+            <if test="tStatistics.rllb != null and tStatistics.rllb != ''">
+                t_inspection_instrument.${tStatistics.rllb} clrllb,
             </if>
             <if test="tStatistics.jcjgmc != null and tStatistics.jcjgmc != ''">
-                t_inspection_report.${tStatistics.jcjgmc},
+                t_inspection_report.${tStatistics.jcjgmc} jcjgmc,
             </if>
             <if test="tStatistics.jcjl != null and tStatistics.jcjl != ''">
-                t_inspection_instrument.${tStatistics.jcjl},
+                t_inspection_instrument.${tStatistics.jcjl} jcjl,
             </if>
             <if test="tStatistics.syxz != null and tStatistics.syxz != ''">
                 t_inspection_report.${tStatistics.syxz},
@@ -669,10 +670,11 @@
 		left join t_instrument_result on t_inspection_instrument.id = t_instrument_result.rid
         <where>
             t_inspection_instrument.ccdjrq >= DATE_SUB(NOW(),INTERVAL 3 MONTH) or (t_instrument_result.jgpd !='-' AND t_instrument_result.jgpd !='')
-			and t_instrument_result.jyxm like concat(concat('%',#{concat1}),'%')
+			and (
 			<if test="concat2 != null and concat2 != ''">
-			or t_instrument_result.jyxm like concat(concat('%',#{concat2}),'%')
+			t_instrument_result.jyxm like concat(concat('%',#{concat2}),'%') OR
 			</if>
+			t_instrument_result.jyxm like concat(concat('%',#{concat1}),'%'))
             <if test="tInspectionReport.cllx != null and tInspectionReport.cllx != ''">
                 and t_inspection_report.cllx like concat(concat('%',#{tInspectionReport.cllx}),'%')
             </if>
@@ -680,10 +682,10 @@
                 and t_inspection_report.ppxh like concat(concat(#{tInspectionReport.ppxh}),'%')
             </if>
             <if test="tInspectionReport.jyjgmc != null and tInspectionReport.jyjgmc != ''">
-                and t_inspection_report.jcjgmc like concat(concat('%',#{tInspectionReport.jyjgmc}),'%')
+                and t_inspection_report.jyjgmc like concat(concat('%',#{tInspectionReport.jyjgmc}),'%')
             </if>
             <if test="tInspectionReport.rllb != null and tInspectionReport.rllb != ''">
-                and t_inspection_report.clrllb like concat(concat('%',#{tInspectionReport.rllb}),'%')
+                and t_inspection_instrument.rllb like concat(concat('%',#{tInspectionReport.rllb}),'%')
             </if>
             <if test="tInspectionReport.jyjl != null and tInspectionReport.jyjl != ''">
                 and t_inspection_report.jyjl = #{tInspectionReport.jyjl}
@@ -702,8 +704,8 @@
             <if test="tStatistics.cllx != null and tStatistics.cllx != ''">
                 t_inspection_report.${tStatistics.cllx},
             </if>
-            <if test="tStatistics.clrllb != null and tStatistics.clrllb != ''">
-                t_inspection_report.${tStatistics.clrllb},
+            <if test="tStatistics.rllb != null and tStatistics.rllb != ''">
+                t_inspection_instrument.${tStatistics.rllb},
             </if>
             <if test="tStatistics.jcjgmc != null and tStatistics.jcjgmc != ''">
                 t_inspection_report.${tStatistics.jcjgmc},
@@ -764,21 +766,24 @@
 
     <!-- 单项合格数量统计 -->
     <select id="singleStatisticsNow" resultType="java.lang.Integer">
-        SELECT
-	        count(${tSintype.id}) AS num
-        FROM
-	        (
-            select year(Now())-2 as years
-            union
-            select year(Now())-1 as years
-            union
-            select year(Now()) as years
-	        ) AS years
-        LEFT JOIN t_inspection_report ON YEAR(jyrq) = years.years
-        left join t_inspection_instrument on t_inspection_report.id = t_inspection_instrument.id
-        and t_inspection_instrument.${tSintype.id} != "不合格" and t_inspection_instrument.${tSintype.id} != "-"  and t_inspection_instrument.${tSintype.id} !=""
-        GROUP BY
-	        years.years
+    SELECT
+	COUNT(
+	CASE
+			WHEN substring_index( t_instrument_result.jgpd,${concat3}) = '合格' THEN
+				1 ELSE NULL
+			END
+			) AS num
+		FROM
+			( SELECT YEAR ( Now())- 2 AS years UNION SELECT YEAR ( Now())- 1 AS years UNION SELECT YEAR ( Now()) AS years ) AS years
+			LEFT JOIN t_inspection_instrument ON YEAR ( t_inspection_instrument.jyrq ) = years.years
+			LEFT JOIN t_instrument_result ON t_inspection_instrument.id = t_instrument_result.rid
+			AND (
+			<if test="concat2 != null and concat2 != ''">
+			t_instrument_result.jyxm like concat(concat('%',#{concat2}),'%') OR
+			</if>
+			t_instrument_result.jyxm like concat(concat('%',#{concat1}),'%'))
+	GROUP BY
+	years.years
     </select>
 
     <!-- 合格不合格统计 -->
@@ -800,7 +805,7 @@
                 and t_inspection_report.jyjgmc = #{tInspectionReport.jyjgmc}
             </if>
             <if test="tInspectionReport.rllb != null and tInspectionReport.rllb != ''">
-                and t_inspection_report.rllb = #{tInspectionReport.rllb}
+                and t_inspection_instrument.rllb = #{tInspectionReport.rllb}
             </if>
             <if test="tInspectionReport.jyjl != null and tInspectionReport.jyjl != ''">
                 and t_inspection_report.jyjl = #{tInspectionReport.jyjl}
@@ -835,7 +840,7 @@
                 and t_inspection_report.jyjgmc = #{tInspectionReport.jyjgmc}
             </if>
             <if test="tInspectionReport.rllb != null and tInspectionReport.rllb != ''">
-                and t_inspection_report.rllb = #{tInspectionReport.rllb}
+                and t_inspection_instrument.rllb = #{tInspectionReport.rllb}
             </if>
             <if test="tInspectionReport.jyjl != null and tInspectionReport.jyjl != ''">
                 and t_inspection_report.jyjl = #{tInspectionReport.jyjl}
@@ -856,18 +861,20 @@
     <!-- 单项合格不合格统计 -->
     <select id="singleNow" resultType="java.lang.Integer">
         SELECT
-        count(t_inspection_report.jyjl) AS num
+        COUNT(CASE
+			WHEN substring_index( t_instrument_result.jgpd,${tStatistics.singlePass}) = '合格' THEN
+				1 ELSE NULL
+			END
+			) AS num
         from t_inspection_report
         left join t_inspection_instrument on t_inspection_report.id = t_inspection_instrument.id
 		left join t_instrument_result on t_inspection_instrument.id = t_instrument_result.rid
         <where>
-            t_instrument_result.jgpd !='不合格'
-            and t_instrument_result.jgpd !='-'
-            and t_instrument_result.jgpd !=''
-            and t_instrument_result.jyxm like concat(concat('%',#{concat1}),'%')
+            (
 			<if test="concat2 != null and concat2 != ''">
-			or t_instrument_result.jyxm like concat(concat('%',#{concat2}),'%')
+			t_instrument_result.jyxm like concat(concat('%',#{concat2}),'%') OR
 			</if>
+			t_instrument_result.jyxm like concat(concat('%',#{concat1}),'%'))
             <if test="tInspectionReport.cllx != null and tInspectionReport.cllx != ''">
                 and t_inspection_report.cllx = #{tInspectionReport.cllx}
             </if>
@@ -878,7 +885,7 @@
                 and t_inspection_report.jyjgmc = #{tInspectionReport.jyjgmc}
             </if>
             <if test="tInspectionReport.rllb != null and tInspectionReport.rllb != ''">
-                and t_inspection_report.rllb = #{tInspectionReport.rllb}
+                and t_inspection_instrument.rllb = #{tInspectionReport.rllb}
             </if>
             <if test="tInspectionReport.jyjl != null and tInspectionReport.jyjl != ''">
                 and t_inspection_report.jyjl = #{tInspectionReport.jyjl}
@@ -897,16 +904,20 @@
 
     <select id="singleNoNow" resultType="java.lang.Integer">
         SELECT
-        count(t_inspection_report.jyjl) AS num
+        COUNT(CASE
+			WHEN substring_index( t_instrument_result.jgpd,${tStatistics.singlePass}) = '不合格' THEN
+				1 ELSE NULL
+			END
+			) AS num
         from t_inspection_report
         left join t_inspection_instrument on t_inspection_report.id = t_inspection_instrument.id
 		left join t_instrument_result on t_inspection_instrument.id = t_instrument_result.rid
         <where>
-            t_instrument_result.jgpd ='不合格'
-            and t_instrument_result.jyxm like concat(concat('%',#{concat1}),'%')
+            (
 			<if test="concat2 != null and concat2 != ''">
-			or t_instrument_result.jyxm like concat(concat('%',#{concat2}),'%')
+			t_instrument_result.jyxm like concat(concat('%',#{concat2}),'%') OR
 			</if>
+			t_instrument_result.jyxm like concat(concat('%',#{concat1}),'%'))
             <if test="tInspectionReport.cllx != null and tInspectionReport.cllx != ''">
                 and t_inspection_report.cllx = #{tInspectionReport.cllx}
             </if>
@@ -917,7 +928,7 @@
                 and t_inspection_report.jyjgmc = #{tInspectionReport.jyjgmc}
             </if>
             <if test="tInspectionReport.rllb != null and tInspectionReport.rllb != ''">
-                and t_inspection_report.rllb = #{tInspectionReport.rllb}
+                and t_inspection_instrument.rllb = #{tInspectionReport.rllb}
             </if>
             <if test="tInspectionReport.jyjl != null and tInspectionReport.jyjl != ''">
                 and t_inspection_report.jyjl = #{tInspectionReport.jyjl}

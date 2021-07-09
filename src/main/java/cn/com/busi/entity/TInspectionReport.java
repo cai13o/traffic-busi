@@ -58,6 +58,7 @@ public class TInspectionReport implements Serializable {
      */
     @ApiModelProperty(value = "	检验机构名称	 ")
     private String jyjgmc;
+    private String jcjgmc;
 
     /**
      * 号牌号码
@@ -160,6 +161,7 @@ public class TInspectionReport implements Serializable {
      */
     @ApiModelProperty(value = "	检验结论	 ")
     private String jyjl;
+    private String jcjl;
 
     /**
      * 授权签字人

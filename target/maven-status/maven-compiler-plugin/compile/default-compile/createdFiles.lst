@@ -135,7 +135,6 @@ cn\com\busi\entity\TInspectionInstrument.class
 cn\com\busi\service\TCautionService.class
 cn\com\busi\common\LoginInterceptor.class
 cn\com\busi\entity\TInspectionReportExample$GeneratedCriteria.class
-cn\com\busi\controller\statisticsController.class
 cn\com\busi\entity\TDetail.class
 cn\com\busi\controller\TUserController.class
 cn\com\busi\utils\HttpContextUtils.class
@@ -153,6 +152,7 @@ cn\com\busi\entity\TInspectionReportExample$Criterion.class
 cn\com\busi\entity\TResourceCenter.class
 cn\com\busi\entity\TInspectionInstrumentExample.class
 cn\com\busi\service\HomePageService.class
+cn\com\busi\controller\StatisticsController.class
 cn\com\busi\mapper\TInspectionArtificialMapper.class
 cn\com\busi\mapper\TInspectionReportMapper.class
 cn\com\busi\controller\TRecordController.class

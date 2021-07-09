@@ -12,6 +12,7 @@ public class TStatistics {
     private String cllx;
     private String ppxh;
     private String clrllb;
+    private String rllb;
     private String jcjgmc;
     private String jcjl;
     private String jyrq;

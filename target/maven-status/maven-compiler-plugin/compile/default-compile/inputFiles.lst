@@ -9,7 +9,7 @@ D:\traffic-busi\src\main\java\cn\com\busi\entity\TInspectionReportExample.java
 D:\traffic-busi\src\main\java\cn\com\busi\mapper\TInstrumentResultMapper.java
 D:\traffic-busi\src\main\java\cn\com\busi\mapper\TPictureMapper.java
 D:\traffic-busi\src\main\java\cn\com\busi\entity\TResourceCenter.java
-D:\traffic-busi\src\main\java\cn\com\busi\controller\statisticsController.java
+D:\traffic-busi\src\main\java\cn\com\busi\controller\StatisticsController.java
 D:\traffic-busi\src\main\java\cn\com\busi\entity\TLicensePlate.java
 D:\traffic-busi\src\main\java\cn\com\busi\entity\TStatistics.java
 D:\traffic-busi\src\main\java\cn\com\busi\service\TStatisticsService.java

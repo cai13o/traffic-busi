@@ -4,6 +4,7 @@ import cn.com.busi.entity.TInstPerson;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
+import java.util.Map;
 
 /**
  * (TInstPerson)表数据库访问层
@@ -67,4 +68,7 @@ public interface TInstPersonDao {
     TInstPerson count();
 
     TInstPerson countByName(@Param("institution") String institution);
+
+    List<Map> countByRecode();
+
 }

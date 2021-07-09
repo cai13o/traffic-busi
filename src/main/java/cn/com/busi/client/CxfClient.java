@@ -49,8 +49,8 @@ public class CxfClient {
     public static void main2() {
         // 创建动态客户端
         JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
-//        Client client = dcf.createClient("http://1.85.14.166:19071/services/webService?wsdl");
-        Client client = dcf.createClient("http://localhost:8889/services/webService?wsdl");
+        Client client = dcf.createClient("http://1.85.14.166:8889/services/webService?wsdl");
+//        Client client = dcf.createClient("http://localhost:8889/services/webService?wsdl");
         //  Client client = dcf.createClient("http://1.85.14.166:829/TransportWebService.asmx?wsdl");
 
         // 需要密码的情况需要加上用户名和密码
