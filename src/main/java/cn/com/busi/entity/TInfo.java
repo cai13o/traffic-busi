@@ -52,5 +52,4 @@ public class TInfo implements Serializable {
 	private String dlxjygw;
 	private String tDetail;
 
-
 }
