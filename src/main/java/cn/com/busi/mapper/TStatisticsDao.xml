@@ -7,6 +7,7 @@
         <result property="jcjl" column="jcjl" jdbcType="VARCHAR"/>
         <result property="jcjl" column="jyjl" jdbcType="VARCHAR"/>
         <result property="clzs" column="clzs" jdbcType="VARCHAR"/>
+        <result property="clzcs" column="clzcs" jdbcType="VARCHAR"/>
         <result property="syxz" column="syxz" jdbcType="VARCHAR"/>
         <result property="jcjgmc" column="jcjgmc" jdbcType="VARCHAR"/>
     </resultMap>
@@ -249,7 +250,7 @@
             <if test="tStatistics.jcjgmc != null  and tStatistics.jcjgmc != ''">
                 ${tStatistics.jcjgmc},
             </if>
-             <if test="tStatistics.syxz != null  and tStatistics.syxz != ''">
+            <if test="tStatistics.syxz != null  and tStatistics.syxz != ''">
                 ${tStatistics.syxz},
             </if>
         </trim>
@@ -263,39 +264,39 @@
 
     <select id="firstStatistics" resultType="java.lang.Integer">
         SELECT
-	        count(t_report.jcjl) AS num
+            count(t_report.jcjl) AS num
         FROM
-	        (
-            select year(Now())-2 as years
-            union
-            select year(Now())-1 as years
-            union
-            select year(Now()) as years
-	        ) AS years
-        LEFT JOIN t_report ON YEAR(jcrq) = years.years and  t_report.jcjl !="不合格" and t_report.zjcs = "1"
+            (
+                select year(Now())-2 as years
+                union
+                select year(Now())-1 as years
+                union
+                select year(Now()) as years
+            ) AS years
+                LEFT JOIN t_report ON YEAR(jcrq) = years.years and  t_report.jcjl !="不合格" and t_report.zjcs = "1"
         GROUP BY
-	        years.years
+            years.years
     </select>
 
     <select id="firstNotStatistics" resultType="java.lang.Integer">
         SELECT
-	        count(t_report.jcjl) AS num
+            count(t_report.jcjl) AS num
         FROM
-	        (
-            select year(Now())-2 as years
-            union
-            select year(Now())-1 as years
-            union
-            select year(Now()) as years
-	        ) AS years
-        LEFT JOIN t_report ON YEAR(jcrq) = years.years and  t_report.jcjl ="不合格" and t_report.zjcs = "1"
+            (
+                select year(Now())-2 as years
+                union
+                select year(Now())-1 as years
+                union
+                select year(Now()) as years
+            ) AS years
+                LEFT JOIN t_report ON YEAR(jcrq) = years.years and  t_report.jcjl ="不合格" and t_report.zjcs = "1"
         GROUP BY
-	        years.years
+            years.years
     </select>
 
     <select id="count" resultType="java.lang.Integer" statementType="PREPARED">
         SELECT
-	        count(*) AS num
+            count(*) AS num
         FROM
             ${table}
     </select>
@@ -303,26 +304,26 @@
     <!-- 单项合格数量统计 -->
     <select id="singleStatistics" resultType="java.lang.Integer">
         SELECT
-	        count(${tSintype.id}) AS num
+            count(${tSintype.id}) AS num
         FROM
-	        (
-            select year(Now())-2 as years
-            union
-            select year(Now())-1 as years
-            union
-            select year(Now()) as years
-	        ) AS years
-        LEFT JOIN t_report ON YEAR(jcrq) = years.years and ${tSintype.id} != "不合格" and ${tSintype.id} != "-"  and ${tSintype.id} !=""
+            (
+                select year(Now())-2 as years
+                union
+                select year(Now())-1 as years
+                union
+                select year(Now()) as years
+            ) AS years
+                LEFT JOIN t_report ON YEAR(jcrq) = years.years and ${tSintype.id} != "不合格" and ${tSintype.id} != "-"  and ${tSintype.id} !=""
         GROUP BY
-	        years.years
+            years.years
     </select>
 
     <!-- 合格不合格统计 -->
     <select id="first" resultType="java.lang.Integer">
         SELECT
-	        count(t_report.jcjl) AS num
+        count(t_report.jcjl) AS num
         FROM
-	        t_report
+        t_report
         <where>
             t_report.jcjl !="不合格" and t_report.zjcs = "1"
             <if test="tReport.xzqy != null and tReport.xzqy != ''">
@@ -357,9 +358,9 @@
 
     <select id="firstNo" resultType="java.lang.Integer">
         SELECT
-	        count(t_report.jcjl) AS num
+        count(t_report.jcjl) AS num
         FROM
-	        t_report
+        t_report
         <where>
             t_report.jcjl ="不合格" and t_report.zjcs = "1"
             <if test="tReport.xzqy != null and tReport.xzqy != ''">
@@ -473,7 +474,7 @@
             COUNT(*) as clzs,jcjl
         from t_report
         where zjcs = "1 "
-		group by jcjl
+        group by jcjl
     </select>
 
     <!-- 按使用性质划分合格率-->
@@ -483,166 +484,217 @@
         from t_report
         where
             zjcs = "1"
-		GROUP BY syxz
-		ORDER BY hgl
+        GROUP BY syxz
+        ORDER BY hgl
     </select>
 
 
     <!-- ================================================================================================================================= -->
+    <select id="createTempTable" resultType="Map" >
+        SELECT
+        t_inspection_report.xzqy,
+        t_inspection_report.cllx,
+        t_inspection_report.ppxh,
+        t_inspection_instrument.rllb,
+        t_inspection_report.syxz,
+        t_inspection_report.jyrq,
+        t_inspection_report.jyjgmc,
+        t_inspection_report.jyjl,
+        t_inspection_instrument.zjcs
+        FROM
+        t_inspection_report
+        left join t_inspection_instrument ON t_inspection_report.id = t_inspection_instrument.id
+    </select>
 
     <!--车辆总数查询-->
     <select id="carAllNow" resultMap="BaseResultMap">
         select
-        COUNT(*) as clzs
+        COUNT(*) as clzcs,COUNT(case when t_inspection.zjcs ='1' then 1 else null end) as clzs
         <trim prefix="," suffixOverrides=",">
             <if test="tStatistics.cllx != null and tStatistics.cllx != ''">
-                t_inspection_report.${tStatistics.cllx},
+                ${tStatistics.cllx},
             </if>
             <if test="tStatistics.ppxh != null and tStatistics.ppxh != ''">
-                t_inspection_report.${tStatistics.ppxh},
+                ${tStatistics.ppxh},
             </if>
             <if test="tStatistics.rllb != null and tStatistics.rllb != ''">
-                t_inspection_instrument.${tStatistics.rllb} clrllb,
+                ${tStatistics.rllb} clrllb,
             </if>
             <if test="tStatistics.jcjgmc != null and tStatistics.jcjgmc != ''">
-                t_inspection_report.${tStatistics.jcjgmc} jcjgmc,
+                ${tStatistics.jcjgmc} jcjgmc,
             </if>
             <if test="tStatistics.jcjl != null and tStatistics.jcjl != ''">
-                t_inspection_report.${tStatistics.jcjl} jcjl,
+                ${tStatistics.jcjl} jcjl,
             </if>
             <if test="tStatistics.syxz != null and tStatistics.syxz != ''">
-                t_inspection_report.${tStatistics.syxz},
+                ${tStatistics.syxz},
             </if>
             <if test="tStatistics.jyrq != null">
-                t_inspection_report.${tStatistics.jyrq},
+                ${tStatistics.jyrq},
+            </if>
+            <if test="tStatistics.xzqy != null">
+                ${tStatistics.xzqy},
             </if>
         </trim>
-        from t_inspection_report
-        left join t_inspection_instrument on t_inspection_report.id = t_inspection_instrument.id
+        from t_inspection
         <where>
-            1 = 1 and t_inspection_instrument.zjcs = "1 "
             <if test="tInspectionReport.cllx != null and tInspectionReport.cllx != ''">
-                and t_inspection_report.cllx like concat(concat('%',#{tInspectionReport.cllx}),'%')
+                and cllx in ('${tInspectionReport.cllx}')
             </if>
             <if test="tInspectionReport.ppxh != null and tInspectionReport.ppxh != ''">
-                and t_inspection_report.ppxh like concat(concat(#{tInspectionReport.ppxh}),'%')
+                and ppxh like concat(concat(#{tInspectionReport.ppxh}),'%')
             </if>
             <if test="tInspectionReport.jyjgmc != null and tInspectionReport.jyjgmc != ''">
-                and t_inspection_report.jyjgmc like concat(concat('%',#{tInspectionReport.jyjgmc}),'%')
+                and jyjgmc like concat(concat('%',#{tInspectionReport.jyjgmc}),'%')
             </if>
             <if test="tInspectionReport.rllb != null and tInspectionReport.rllb != ''">
-                and t_inspection_instrument.rllb like concat(concat('%',#{tInspectionReport.rllb}),'%')
+                and rllb like concat(concat('%',#{tInspectionReport.rllb}),'%')
             </if>
             <if test="tInspectionReport.jyjl != null and tInspectionReport.jyjl != ''">
-                and t_inspection_report.jyjl = #{tInspectionReport.jyjl}
+                and jyjl = #{tInspectionReport.jyjl}
             </if>
             <if test="tInspectionReport.syxz != null and tInspectionReport.syxz != ''">
-                and t_inspection_report.syxz like concat(concat('%',#{tInspectionReport.syxz}),'%')
+                and syxz like concat(concat('%',#{tInspectionReport.syxz}),'%')
+            </if>
+            <if test="tInspectionReport.xzqy != null and tInspectionReport.xzqy != ''">
+                and xzqy like concat(concat('%',#{tInspectionReport.xzqy}),'%')
             </if>
             <if test="tStatistics.startDate != null">
-                and TO_DAYS(t_inspection_report.jyrq) &gt;= TO_DAYS(#{tStatistics.startDate})
+                and TO_DAYS(jyrq) &gt;= TO_DAYS(#{tStatistics.startDate})
             </if>
             <if test="tStatistics.endDate != null">
-                and TO_DAYS(t_inspection_report.jyrq) &lt;= TO_DAYS(#{tStatistics.endDate})
+                and TO_DAYS(jyrq) &lt;= TO_DAYS(#{tStatistics.endDate})
             </if>
         </where>
         <trim prefix="group by" suffixOverrides=",">
-            <if test="tStatistics.cllx != null and tStatistics.cllx != ''">
-                t_inspection_report.${tStatistics.cllx},
-            </if>
             <if test="tStatistics.rllb != null and tStatistics.rllb != ''">
-                t_inspection_instrument.${tStatistics.rllb},
+                ${tStatistics.rllb},
             </if>
             <if test="tStatistics.jcjgmc != null and tStatistics.jcjgmc != ''">
-                t_inspection_report.${tStatistics.jcjgmc},
+                ${tStatistics.jcjgmc},
             </if>
             <if test="tStatistics.jcjl != null and tStatistics.jcjl != ''">
-                t_inspection_report.${tStatistics.jcjl},
+                ${tStatistics.jcjl},
             </if>
             <if test="tStatistics.syxz != null and tStatistics.syxz != ''">
-                t_inspection_report.${tStatistics.syxz},
+                ${tStatistics.syxz},
             </if>
+
         </trim>
     </select>
 
     <!--初审合格率查询-->
     <select id="firstSelectNow" resultMap="BaseResultMap">
         select
-        COUNT(case when t_inspection_report.jyjl !='不合格' then 1 else null end)/COUNT(*) as hgl
+        COUNT(case when jyjl !='不合格' then 1 else null end)/COUNT(*) as hgl
         <trim prefix="," suffixOverrides=",">
+            <if test="tStatistics.xzqy != null and tStatistics.xzqy != ''">
+                ${tStatistics.xzqy},
+            </if>
             <if test="tStatistics.cllx != null and tStatistics.cllx != ''">
-                t_inspection_report.${tStatistics.cllx},
+                ${tStatistics.cllx},
             </if>
             <if test="tStatistics.ppxh != null and tStatistics.ppxh != ''">
-                t_inspection_report.${tStatistics.ppxh},
+                ${tStatistics.ppxh},
             </if>
             <if test="tStatistics.rllb != null and tStatistics.rllb != ''">
-                t_inspection_instrument.${tStatistics.rllb} clrllb,
+                ${tStatistics.rllb} clrllb,
             </if>
             <if test="tStatistics.jcjgmc != null and tStatistics.jcjgmc != ''">
-                t_inspection_report.${tStatistics.jcjgmc} jcjgmc,
+                ${tStatistics.jcjgmc} jcjgmc,
             </if>
             <if test="tStatistics.syxz != null and tStatistics.syxz != ''">
-                t_inspection_report.${tStatistics.syxz},
+                ${tStatistics.syxz},
             </if>
             <if test="tStatistics.jyrq != null">
-                t_inspection_report.${tStatistics.jyrq},
+                ${tStatistics.jyrq},
             </if>
         </trim>
-        from t_inspection_report
-        left join t_inspection_instrument on t_inspection_report.id = t_inspection_instrument.id
+        from t_inspection
         <where>
-            t_inspection_instrument.zjcs = "1"
+            zjcs = "1"
+            <if test="tInspectionReport.xzqy != null and tInspectionReport.xzqy != ''">
+                and xzqy like concat(concat('%',#{tInspectionReport.xzqy}),'%')
+            </if>
             <if test="tInspectionReport.cllx != null and tInspectionReport.cllx != ''">
-                and t_inspection_report.cllx like concat(concat('%',#{tInspectionReport.cllx}),'%')
+                and cllx in ('${tInspectionReport.cllx}')
             </if>
             <if test="tInspectionReport.ppxh != null and tInspectionReport.ppxh != ''">
-                and t_inspection_report.ppxh like concat(concat(#{tInspectionReport.ppxh}),'%')
+                and ppxh like concat(concat(#{tInspectionReport.ppxh}),'%')
             </if>
             <if test="tInspectionReport.jyjgmc != null and tInspectionReport.jyjgmc != ''">
-                and t_inspection_report.jyjgmc like concat(concat('%',#{tInspectionReport.jyjgmc}),'%')
+                and jyjgmc like concat(concat('%',#{tInspectionReport.jyjgmc}),'%')
             </if>
             <if test="tInspectionReport.rllb != null and tInspectionReport.rllb != ''">
-                and t_inspection_instrument.rllb like concat(concat('%',#{tInspectionReport.rllb}),'%')
+                and rllb like concat(concat('%',#{tInspectionReport.rllb}),'%')
             </if>
             <if test="tInspectionReport.jyjl != null and tInspectionReport.jyjl != ''">
-                and t_inspection_report.jcjl = #{tInspectionReport.jyjl}
+                and jcjl = #{tInspectionReport.jyjl}
             </if>
             <if test="tInspectionReport.syxz != null and tInspectionReport.syxz != ''">
-                and t_inspection_report.syxz like concat(concat('%',#{tInspectionReport.syxz}),'%')
+                and syxz like concat(concat('%',#{tInspectionReport.syxz}),'%')
             </if>
             <if test="tStatistics.startDate != null">
-                and TO_DAYS(t_inspection_report.jyrq) &gt;= TO_DAYS(#{tStatistics.startDate})
+                and TO_DAYS(jyrq) &gt;= TO_DAYS(#{tStatistics.startDate})
             </if>
             <if test="tStatistics.endDate != null">
-                and TO_DAYS(t_inspection_report.jyrq) &lt;= TO_DAYS(#{tStatistics.endDate})
+                and TO_DAYS(jyrq) &lt;= TO_DAYS(#{tStatistics.endDate})
             </if>
         </where>
         <trim prefix="group by" suffixOverrides=",">
-            <if test="tStatistics.cllx != null and tStatistics.cllx != ''">
-                t_inspection_report.${tStatistics.cllx},
-            </if>
             <if test="tStatistics.rllb != null and tStatistics.rllb != ''">
-                t_inspection_instrument.${tStatistics.rllb},
+                ${tStatistics.rllb},
             </if>
             <if test="tStatistics.jcjgmc != null and tStatistics.jcjgmc != ''">
-                t_inspection_report.${tStatistics.jcjgmc},
+                ${tStatistics.jcjgmc},
             </if>
             <if test="tStatistics.jcjl != null and tStatistics.jcjl != ''">
-                t_inspection_report.${tStatistics.jcjl},
+                ${tStatistics.jcjl},
             </if>
             <if test="tStatistics.syxz != null and tStatistics.syxz != ''">
-                t_inspection_report.${tStatistics.syxz},
+                ${tStatistics.syxz},
             </if>
         </trim>
     </select>
 
     <!--单项合格率查询查询-->
     <select id="singleSelectNow" resultMap="BaseResultMap">
-        select
-        COUNT(case when substring_index(t_instrument_result.jgpd,${tStatistics.singlePass}) !='不合格' then 1 else null
-        end)/COUNT(*) as hgl
+        SELECT
+        COUNT(case when substring_index(jgpd,${tStatistics.singlePass}) !='不合格' then 1 else null end)/COUNT(*) as hgl
         <trim prefix="," suffixOverrides=",">
+            <if test="tStatistics.xzqy != null and tStatistics.xzqy != ''">
+                xzqy,
+            </if>
+            <if test="tStatistics.cllx != null and tStatistics.cllx != ''">
+                cllx,
+            </if>
+            <if test="tStatistics.ppxh != null and tStatistics.ppxh != ''">
+                ppxh,
+            </if>
+            <if test="tStatistics.rllb != null and tStatistics.rllb != ''">
+                clrllb,
+            </if>
+            <if test="tStatistics.jcjgmc != null and tStatistics.jcjgmc != ''">
+                jcjgmc,
+            </if>
+            <if test="tStatistics.jcjl != null and tStatistics.jcjl != ''">
+                jcjl,
+            </if>
+            <if test="tStatistics.syxz != null and tStatistics.syxz != ''">
+                syxz,
+            </if>
+            <if test="tStatistics.jyrq != null ">
+                jyrq,
+            </if>
+        </trim>
+        FROM
+        (
+        select
+        t_instrument_result.jgpd
+        <trim prefix="," suffixOverrides=",">
+            <if test="tStatistics.xzqy != null and tStatistics.xzqy != ''">
+                t_inspection_report.${tStatistics.xzqy},
+            </if>
             <if test="tStatistics.cllx != null and tStatistics.cllx != ''">
                 t_inspection_report.${tStatistics.cllx},
             </if>
@@ -667,16 +719,20 @@
         </trim>
         from t_inspection_report
         left join t_inspection_instrument on t_inspection_report.id = t_inspection_instrument.id
-		left join t_instrument_result on t_inspection_instrument.id = t_instrument_result.rid
+        left join t_instrument_result on t_inspection_instrument.id = t_instrument_result.rid
         <where>
-            t_inspection_instrument.ccdjrq >= DATE_SUB(NOW(),INTERVAL 3 MONTH) or (t_instrument_result.jgpd !='-' AND t_instrument_result.jgpd !='')
-			and (
-			<if test="concat2 != null and concat2 != ''">
-			t_instrument_result.jyxm like concat(concat('%',#{concat2}),'%') OR
-			</if>
-			t_instrument_result.jyxm like concat(concat('%',#{concat1}),'%'))
+            t_instrument_result.jgpd !='-' AND t_instrument_result.jgpd !='' AND t_instrument_result.jyxm like concat(concat('%',#{concat1}),'%')
+            <if test="concat2 != null and concat2 != ''">
+                AND t_instrument_result.jyxm like concat(concat('%',#{concat2}),'%')
+            </if>
+            <if test="concat3 != null and concat3 != ''">
+                AND t_instrument_result.jyxm like concat(concat('%',#{concat3}),'%')
+            </if>
+            <if test="tInspectionReport.xzqy != null and tInspectionReport.xzqy != ''">
+                and t_inspection_report.xzqy like concat(concat('%',#{tInspectionReport.xzqy}),'%')
+            </if>
             <if test="tInspectionReport.cllx != null and tInspectionReport.cllx != ''">
-                and t_inspection_report.cllx like concat(concat('%',#{tInspectionReport.cllx}),'%')
+                and t_inspection_report.cllx in ('${tInspectionReport.cllx}')
             </if>
             <if test="tInspectionReport.ppxh != null and tInspectionReport.ppxh != ''">
                 and t_inspection_report.ppxh like concat(concat(#{tInspectionReport.ppxh}),'%')
@@ -701,8 +757,8 @@
             </if>
         </where>
         <trim prefix="group by" suffixOverrides=",">
-            <if test="tStatistics.cllx != null and tStatistics.cllx != ''">
-                t_inspection_report.${tStatistics.cllx},
+            <if test="tStatistics.xzqy != null and tStatistics.xzqy != ''">
+                t_inspection_report.${tStatistics.xzqy},
             </if>
             <if test="tStatistics.rllb != null and tStatistics.rllb != ''">
                 t_inspection_instrument.${tStatistics.rllb},
@@ -710,89 +766,181 @@
             <if test="tStatistics.jcjgmc != null and tStatistics.jcjgmc != ''">
                 t_inspection_report.${tStatistics.jcjgmc},
             </if>
-             <if test="tStatistics.syxz != null and tStatistics.syxz != ''">
-                t_inspection_report.${tStatistics.syxz},
-            </if>
+            t_instrument_result.rid
         </trim>
+        ORDER BY
+        t_instrument_result.jgpd
+        ) a
     </select>
 
-     <select id="cllxStatisticsNow" resultType="java.util.Map">
+    <!--制动性能合格率查询查询-->
+    <select id="brakingAbilitySelect" resultMap="BaseResultMap">
+        SELECT
+        COUNT(CASE WHEN jgpd = '合格' THEN 1 ELSE NULL END) / COUNT(*) AS hgl
+        <trim prefix="," suffixOverrides=",">
+            <if test="tStatistics.xzqy != null and tStatistics.xzqy != ''">
+                xzqy,
+            </if>
+            <if test="tStatistics.cllx != null and tStatistics.cllx != ''">
+                cllx,
+            </if>
+            <if test="tStatistics.ppxh != null and tStatistics.ppxh != ''">
+                ppxh,
+            </if>
+            <if test="tStatistics.rllb != null and tStatistics.rllb != ''">
+                clrllb,
+            </if>
+            <if test="tStatistics.jcjgmc != null and tStatistics.jcjgmc != ''">
+                jcjgmc,
+            </if>
+            <if test="tStatistics.syxz != null and tStatistics.syxz != ''">
+                syxz,
+            </if>
+        </trim>
+        FROM
+        (
+        SELECT
+        t_instrument_result.id,
+        t_instrument_result.jyxm,
+        t_instrument_result.jyjg,
+        t_instrument_result.bzxz,
+        MIN( t_instrument_result.jgpd ) jgpd,
+        t_instrument_result.bz,
+        t_instrument_result.rid,
+        t_inspection_report.xzqy,
+        t_inspection_report.cllx,
+        t_inspection_report.ppxh,
+        t_inspection_instrument.rllb clrllb,
+        t_inspection_report.jyjgmc jcjgmc,
+        t_inspection_report.syxz
+        FROM
+        t_instrument_result
+        LEFT JOIN t_inspection_instrument ON t_inspection_instrument.id = t_instrument_result.rid
+        LEFT JOIN t_inspection_report ON t_inspection_instrument.id = t_inspection_report.id
+        <where>
+            t_instrument_result.jyxm NOT LIKE '%灯%' AND t_instrument_result.jyxm NOT LIKE '%侧滑%'
+            <if test="tInspectionReport.xzqy != null and tInspectionReport.xzqy != ''">
+                and t_inspection_report.xzqy like concat(concat('%',#{tInspectionReport.xzqy}),'%')
+            </if>
+            <if test="tInspectionReport.cllx != null and tInspectionReport.cllx != ''">
+                and t_inspection_report.cllx in ('${tInspectionReport.cllx}')
+            </if>
+            <if test="tInspectionReport.ppxh != null and tInspectionReport.ppxh != ''">
+                and t_inspection_report.ppxh like concat(concat(#{tInspectionReport.ppxh}),'%')
+            </if>
+            <if test="tInspectionReport.jyjgmc != null and tInspectionReport.jyjgmc != ''">
+                and t_inspection_report.jyjgmc like concat(concat('%',#{tInspectionReport.jyjgmc}),'%')
+            </if>
+            <if test="tInspectionReport.rllb != null and tInspectionReport.rllb != ''">
+                and t_inspection_instrument.rllb like concat(concat('%',#{tInspectionReport.rllb}),'%')
+            </if>
+            <if test="tInspectionReport.jyjl != null and tInspectionReport.jyjl != ''">
+                and t_inspection_report.jyjl = #{tInspectionReport.jyjl}
+            </if>
+            <if test="tInspectionReport.syxz != null and tInspectionReport.syxz != ''">
+                and t_inspection_report.syxz like concat(concat('%',#{tInspectionReport.syxz}),'%')
+            </if>
+            <if test="tStatistics.startDate != null ">
+                and TO_DAYS(t_inspection_report.jyrq) &gt;= TO_DAYS(#{tStatistics.startDate})
+            </if>
+            <if test="tStatistics.endDate != null ">
+                and TO_DAYS(t_inspection_report.jyrq) &lt;= TO_DAYS(#{tStatistics.endDate})
+            </if>
+        </where>
+        GROUP BY
+        rid
+        ) a
+    </select>
+
+    <select id="cllxStatisticsNow" resultType="java.util.Map">
         SELECT count(1) num,cllx FROM t_inspection_report  GROUP BY cllx
     </select>
 
 
     <select id="firstStatisticsNow" resultType="java.lang.Integer">
         SELECT
-	        count(t_inspection_report.jyjl) AS num
+            count( jyrq ) AS num
         FROM
-	        (
-            select year(Now())-2 as years
-            union
-            select year(Now())-1 as years
-            union
-            select year(Now()) as years
-	        ) AS years
-        LEFT JOIN t_inspection_report ON YEAR(jyrq) = years.years and  t_inspection_report.jyjl !="不合格"
-        left join t_inspection_instrument on t_inspection_report.id = t_inspection_instrument.id
-        and t_inspection_instrument.zjcs = "1"
+            (
+                SELECT YEAR
+                    ( Now( ) ) - 2 AS years UNION
+                SELECT YEAR
+                    ( Now( ) ) - 1 AS years UNION
+                SELECT YEAR
+                    ( Now( ) ) AS years
+            ) AS years
+                LEFT JOIN (
+                SELECT
+                    t_inspection_instrument.jyrq
+                FROM
+                    t_inspection_report
+                        LEFT JOIN t_inspection_instrument ON t_inspection_report.id = t_inspection_instrument.id
+                WHERE
+                    t_inspection_instrument.zjcs = "1"
+                  AND t_inspection_report.jyjl != "不合格"
+            ) a ON YEAR ( a.jyrq ) = years.years
         GROUP BY
-	        years.years
+            years.years
     </select>
 
     <select id="firstNotStatisticsNow" resultType="java.lang.Integer">
         SELECT
-	        count(t_inspection_report.jyjl) AS num
+            count( jyrq ) AS num
         FROM
-	        (
-            select year(Now())-2 as years
-            union
-            select year(Now())-1 as years
-            union
-            select year(Now()) as years
-	        ) AS years
-        LEFT JOIN t_inspection_report ON YEAR(jyrq) = years.years and  t_inspection_report.jyjl ="不合格"
-        left join t_inspection_instrument on t_inspection_report.id = t_inspection_instrument.id
-        and t_inspection_instrument.zjcs = "1"
+            (
+                SELECT YEAR
+                    ( Now( ) ) - 2 AS years UNION
+                SELECT YEAR
+                    ( Now( ) ) - 1 AS years UNION
+                SELECT YEAR
+                    ( Now( ) ) AS years
+            ) AS years
+                LEFT JOIN (
+                SELECT
+                    t_inspection_instrument.jyrq
+                FROM
+                    t_inspection_report
+                        LEFT JOIN t_inspection_instrument ON t_inspection_report.id = t_inspection_instrument.id
+                WHERE
+                    t_inspection_instrument.zjcs = "1"
+                  AND t_inspection_report.jyjl = "不合格"
+            ) a ON YEAR ( a.jyrq ) = years.years
         GROUP BY
-	        years.years
+            years.years
     </select>
 
     <select id="countNow" resultType="java.lang.Integer" statementType="PREPARED">
         SELECT
-	        count(*) AS num
+            count(*) AS num
         FROM
             ${table}
     </select>
 
     <!-- 单项合格数量统计 -->
     <select id="singleStatisticsNow" resultType="java.lang.Integer">
-    SELECT
-	COUNT(
-	CASE
-			WHEN substring_index( t_instrument_result.jgpd,${concat3}) = '合格' THEN
-				1 ELSE NULL
-			END
-			) AS num
-		FROM
-			( SELECT YEAR ( Now())- 2 AS years UNION SELECT YEAR ( Now())- 1 AS years UNION SELECT YEAR ( Now()) AS years ) AS years
-			LEFT JOIN t_inspection_instrument ON YEAR ( t_inspection_instrument.jyrq ) = years.years
-			LEFT JOIN t_instrument_result ON t_inspection_instrument.id = t_instrument_result.rid
-			AND (
-			<if test="concat2 != null and concat2 != ''">
-			t_instrument_result.jyxm like concat(concat('%',#{concat2}),'%') OR
-			</if>
-			t_instrument_result.jyxm like concat(concat('%',#{concat1}),'%'))
-	GROUP BY
-	years.years
+        SELECT
+            count( jyrq ) num
+        FROM
+            (
+                SELECT YEAR
+                    ( Now( ) ) - 2 AS years UNION
+                SELECT YEAR
+                    ( Now( ) ) - 1 AS years UNION
+                SELECT YEAR
+                    ( Now( ) ) AS years
+            ) AS years
+                LEFT JOIN t_inspection_instrument ON YEAR ( t_inspection_instrument.jyrq ) = years.years
+        GROUP BY
+            years.years
     </select>
 
     <!-- 合格不合格统计 -->
     <select id="firstNow" resultType="java.lang.Integer">
         SELECT
-	        count(t_inspection_report.jyjl) AS num
+        count(t_inspection_report.jyjl) AS num
         FROM
-	        t_inspection_report
-	    left join t_inspection_instrument on t_inspection_report.id = t_inspection_instrument.id
+        t_inspection_report
+        left join t_inspection_instrument on t_inspection_report.id = t_inspection_instrument.id
         <where>
             t_inspection_report.jyjl !="不合格" and t_inspection_instrument.zjcs = "1"
             <if test="tInspectionReport.cllx != null and tInspectionReport.cllx != ''">
@@ -813,6 +961,9 @@
             <if test="tInspectionReport.syxz != null and tInspectionReport.syxz != ''">
                 and t_inspection_report.syxz = #{tInspectionReport.syxz}
             </if>
+            <if test="tInspectionReport.xzqy != null and tInspectionReport.xzqy != ''">
+                and t_inspection_report.xzqy like concat(concat('%',#{tInspectionReport.xzqy}),'%')
+            </if>
             <if test="tStatistics.startDate != null">
                 and TO_DAYS(t_inspection_report.jyrq) &gt;= TO_DAYS(#{tStatistics.startDate})
             </if>
@@ -824,13 +975,13 @@
 
     <select id="firstNoNow" resultType="java.lang.Integer">
         SELECT
-	        count(t_inspection_report.jyjl) AS num
+        count(t_inspection_report.jyjl) AS num
         FROM
-	        t_inspection_report
-	    left join t_inspection_instrument on t_inspection_report.id = t_inspection_instrument.id
+        t_inspection_report
+        left join t_inspection_instrument on t_inspection_report.id = t_inspection_instrument.id
         <where>
             t_inspection_report.jyjl ="不合格" and t_inspection_instrument.zjcs = "1"
-                   <if test="tInspectionReport.cllx != null and tInspectionReport.cllx != ''">
+            <if test="tInspectionReport.cllx != null and tInspectionReport.cllx != ''">
                 and t_inspection_report.cllx = #{tInspectionReport.cllx}
             </if>
             <if test="tInspectionReport.ppxh != null and tInspectionReport.ppxh != ''">
@@ -847,6 +998,9 @@
             </if>
             <if test="tInspectionReport.syxz != null and tInspectionReport.syxz != ''">
                 and t_inspection_report.syxz = #{tInspectionReport.syxz}
+            </if>
+            <if test="tInspectionReport.xzqy != null and tInspectionReport.xzqy != ''">
+                and t_inspection_report.xzqy like concat(concat('%',#{tInspectionReport.xzqy}),'%')
             </if>
             <if test="tStatistics.startDate != null">
                 and TO_DAYS(t_inspection_report.jyrq) &gt;= TO_DAYS(#{tStatistics.startDate})
@@ -861,20 +1015,23 @@
     <!-- 单项合格不合格统计 -->
     <select id="singleNow" resultType="java.lang.Integer">
         SELECT
-        COUNT(CASE
-			WHEN substring_index( t_instrument_result.jgpd,${tStatistics.singlePass}) = '合格' THEN
-				1 ELSE NULL
-			END
-			) AS num
+        COUNT(CASE WHEN substring_index( jgpd,${tStatistics.singlePass}) = '合格' THEN 1 ELSE NULL END) AS num
+        FROM
+        (
+        SELECT
+        t_instrument_result.jgpd
         from t_inspection_report
         left join t_inspection_instrument on t_inspection_report.id = t_inspection_instrument.id
-		left join t_instrument_result on t_inspection_instrument.id = t_instrument_result.rid
+        left join t_instrument_result on t_inspection_instrument.id = t_instrument_result.rid
         <where>
             (
-			<if test="concat2 != null and concat2 != ''">
-			t_instrument_result.jyxm like concat(concat('%',#{concat2}),'%') OR
-			</if>
-			t_instrument_result.jyxm like concat(concat('%',#{concat1}),'%'))
+            <if test="concat2 != null and concat2 != ''">
+                t_instrument_result.jyxm like concat(concat('%',#{concat2}),'%') and
+            </if>
+            <if test="concat3 != null and concat3 != ''">
+                t_instrument_result.jyxm like concat(concat('%',#{concat3}),'%') and
+            </if>
+            t_instrument_result.jyxm like concat(concat('%',#{concat1}),'%'))
             <if test="tInspectionReport.cllx != null and tInspectionReport.cllx != ''">
                 and t_inspection_report.cllx = #{tInspectionReport.cllx}
             </if>
@@ -893,6 +1050,9 @@
             <if test="tInspectionReport.syxz != null and tInspectionReport.syxz != ''">
                 and t_inspection_report.syxz = #{tInspectionReport.syxz}
             </if>
+            <if test="tInspectionReport.xzqy != null and tInspectionReport.xzqy != ''">
+                and t_inspection_report.xzqy like concat(concat('%',#{tInspectionReport.xzqy}),'%')
+            </if>
             <if test="tStatistics.startDate != null">
                 and TO_DAYS(t_inspection_report.jyrq) &gt;= TO_DAYS(#{tStatistics.startDate})
             </if>
@@ -900,24 +1060,32 @@
                 and TO_DAYS(t_inspection_report.jyrq) &lt;= TO_DAYS(#{tStatistics.endDate})
             </if>
         </where>
+        GROUP BY
+        t_instrument_result.rid
+        ORDER BY
+        t_instrument_result.jgpd
+        ) a
     </select>
 
     <select id="singleNoNow" resultType="java.lang.Integer">
         SELECT
-        COUNT(CASE
-			WHEN substring_index( t_instrument_result.jgpd,${tStatistics.singlePass}) = '不合格' THEN
-				1 ELSE NULL
-			END
-			) AS num
+        COUNT(CASE WHEN substring_index( jgpd,${tStatistics.singlePass}) = '不合格' THEN 1 ELSE NULL END) AS num
+        FROM
+        (
+        SELECT
+        t_instrument_result.jgpd
         from t_inspection_report
         left join t_inspection_instrument on t_inspection_report.id = t_inspection_instrument.id
-		left join t_instrument_result on t_inspection_instrument.id = t_instrument_result.rid
+        left join t_instrument_result on t_inspection_instrument.id = t_instrument_result.rid
         <where>
             (
-			<if test="concat2 != null and concat2 != ''">
-			t_instrument_result.jyxm like concat(concat('%',#{concat2}),'%') OR
-			</if>
-			t_instrument_result.jyxm like concat(concat('%',#{concat1}),'%'))
+            <if test="concat2 != null and concat2 != ''">
+                t_instrument_result.jyxm like concat(concat('%',#{concat2}),'%') and
+            </if>
+            <if test="concat3 != null and concat3 != ''">
+                t_instrument_result.jyxm like concat(concat('%',#{concat3}),'%') and
+            </if>
+            t_instrument_result.jyxm like concat(concat('%',#{concat1}),'%'))
             <if test="tInspectionReport.cllx != null and tInspectionReport.cllx != ''">
                 and t_inspection_report.cllx = #{tInspectionReport.cllx}
             </if>
@@ -936,6 +1104,9 @@
             <if test="tInspectionReport.syxz != null and tInspectionReport.syxz != ''">
                 and t_inspection_report.syxz = #{tInspectionReport.syxz}
             </if>
+            <if test="tInspectionReport.xzqy != null and tInspectionReport.xzqy != ''">
+                and t_inspection_report.xzqy like concat(concat('%',#{tInspectionReport.xzqy}),'%')
+            </if>
             <if test="tStatistics.startDate != null">
                 and TO_DAYS(t_inspection_report.jyrq) &gt;= TO_DAYS(#{tStatistics.startDate})
             </if>
@@ -943,15 +1114,20 @@
                 and TO_DAYS(t_inspection_report.jyrq) &lt;= TO_DAYS(#{tStatistics.endDate})
             </if>
         </where>
+        GROUP BY
+        t_instrument_result.rid
+        ORDER BY
+        t_instrument_result.jgpd
+        ) a
     </select>
     <!-- 按等级划分车辆数-->
     <select id="jcjlByAllNow" resultMap="BaseResultMap">
         select
             COUNT(*) as clzs,t_inspection_report.jyjl
         from t_inspection_report
-        left join t_inspection_instrument on t_inspection_report.id = t_inspection_instrument.id
+                 left join t_inspection_instrument on t_inspection_report.id = t_inspection_instrument.id
         where t_inspection_instrument.zjcs = "1 "
-		group by t_inspection_report.jyjl
+        group by t_inspection_report.jyjl
     </select>
 
     <!-- 按使用性质划分合格率-->
@@ -959,10 +1135,12 @@
         select
             COUNT(case when jyjl !='不合格' then 1 else null end)/COUNT(*) as hgl,syxz
         from t_inspection_report
-        left join t_inspection_instrument on t_inspection_report.id = t_inspection_instrument.id
+                 left join t_inspection_instrument on t_inspection_report.id = t_inspection_instrument.id
         where
             t_inspection_instrument.zjcs = "1"
-		GROUP BY syxz
-		ORDER BY hgl
+        GROUP BY syxz
+        ORDER BY hgl
     </select>
+
+
 </mapper>

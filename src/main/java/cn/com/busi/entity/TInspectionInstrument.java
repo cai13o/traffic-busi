@@ -1208,5 +1208,11 @@ public class TInspectionInstrument implements Serializable {
     @ApiModelProperty(value = "四轴制动力曲线")
     private String fzzdlqx;
 
+    @ApiModelProperty(value = "车辆轴数")
+    private String clzs;
+
+    @ApiModelProperty(value = "行政区域")
+    private String xzqy;
+
     private static final long serialVersionUID = 1L;
 }

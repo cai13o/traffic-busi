@@ -10,6 +10,7 @@ cn\com\busi\controller\TInstPersonController.class
 cn\com\busi\mapper\TSintypeNowMapper.class
 cn\com\busi\entity\TCartype.class
 cn\com\busi\entity\TNew.class
+cn\com\busi\entity\TMaintainFuelCategory.class
 cn\com\busi\entity\TSintypeNow.class
 cn\com\busi\service\TInspectionInstrumentService.class
 cn\com\busi\client\CxfClient.class
@@ -94,6 +95,7 @@ cn\com\busi\entity\TUnqualifiedItemsExample$Criteria.class
 cn\com\busi\service\TRoleService.class
 cn\com\busi\service\TSintypeService.class
 cn\com\busi\service\TInstInfoService.class
+cn\com\busi\mapper\TMaintainVehicleTypeDao.class
 cn\com\busi\service\impl\TStatisticsServiceImpl.class
 cn\com\busi\service\impl\TRecordServiceImpl.class
 cn\com\busi\entity\TPgroup.class
@@ -110,11 +112,13 @@ cn\com\busi\service\TInstDeviceService.class
 cn\com\busi\entity\TNewExample$GeneratedCriteria.class
 cn\com\busi\service\impl\TResourceCenterServiceImpl.class
 cn\com\busi\service\impl\TSysLogServiceImpl.class
+cn\com\busi\mapper\TMaintainFuelCategoryDao.class
 cn\com\busi\service\impl\TUnqualifiedItemsServiceImpl.class
 cn\com\busi\mapper\TResourceCenterMapper.class
 cn\com\busi\service\impl\TInspectionArtificialServiceImpl.class
 cn\com\busi\entity\TArtificialResultExample$GeneratedCriteria.class
 cn\com\busi\mapper\TInstDeviceDao.class
+cn\com\busi\service\TCacheService.class
 cn\com\busi\mapper\TRecordDao.class
 cn\com\busi\enums\BusiEnum.class
 cn\com\busi\service\TRecordService.class
@@ -122,7 +126,9 @@ cn\com\busi\service\impl\TPictureServiceImpl.class
 cn\com\busi\common\BusinessConstant.class
 cn\com\busi\mapper\TPgroupDao.class
 cn\com\busi\entity\TPictureExample$Criteria.class
+cn\com\busi\entity\TMaintainVehicleType.class
 cn\com\busi\mapper\TInfoMapper.class
+cn\com\busi\entity\TCache.class
 cn\com\busi\entity\TUnqualifiedItems.class
 cn\com\busi\service\TSysLogService.class
 cn\com\busi\controller\TPgroupController.class
@@ -157,6 +163,7 @@ cn\com\busi\mapper\TInspectionArtificialMapper.class
 cn\com\busi\mapper\TInspectionReportMapper.class
 cn\com\busi\controller\TRecordController.class
 cn\com\busi\service\TInspectionArtificialService.class
+cn\com\busi\mapper\TCacheMapper.class
 cn\com\busi\service\impl\TPgroupServiceImpl.class
 cn\com\busi\service\impl\TSintypeNowServiceImpl.class
 cn\com\busi\annotation\PassToken.class
@@ -171,14 +178,17 @@ cn\com\busi\entity\TConsultExample.class
 cn\com\busi\controller\TRoleController.class
 cn\com\busi\mapper\TInstPersonDao.class
 cn\com\busi\entity\SysLog.class
+cn\com\busi\mapper\TInspectionMapper.class
 cn\com\busi\entity\TInstrumentResultExample$GeneratedCriteria.class
 cn\com\busi\aspect\LogAspect.class
 cn\com\busi\mapper\TUnqualifiedItemsMapper.class
 cn\com\busi\service\TrfficWebService.class
+cn\com\busi\entity\TInspection.class
 cn\com\busi\utils\DateTimeUtil.class
 cn\com\busi\controller\TInstDeviceController.class
 cn\com\busi\service\TStatisticsService.class
 cn\com\busi\service\TSintypeNowService.class
+cn\com\busi\service\impl\TCacheServiceImpl.class
 cn\com\busi\config\InterceptorConfig.class
 cn\com\busi\entity\TConsultExample$GeneratedCriteria.class
 cn\com\busi\utils\GetLatAndLngByBaidu.class

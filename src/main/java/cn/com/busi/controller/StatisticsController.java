@@ -4,6 +4,7 @@ import cn.com.busi.entity.TInspectionReport;
 import cn.com.busi.entity.TInstInfo;
 import cn.com.busi.entity.TReport;
 import cn.com.busi.entity.TStatistics;
+import cn.com.busi.mapper.TStatisticsDao;
 import cn.com.busi.service.TStatisticsService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -25,6 +26,7 @@ public class StatisticsController {
     @Resource
     private TStatisticsService tStatisticsService;
 
+
     @GetMapping("carAll")
     public Object carAll(String page, String limit, String startDate, String endDate, TInspectionReport tInspectionReport) {
 
@@ -32,9 +34,11 @@ public class StatisticsController {
         Integer intLimit = Integer.parseInt(limit);
         PageHelper.startPage(intPage, intLimit);
         List<TStatistics> datalist = this.tStatisticsService.carAllNow(tInspectionReport, startDate, endDate);
+        String clzcs = datalist.get(0).getClzcs();
         Map<String,Object> map = new HashMap<>(3);
         map.put("code", "20000");
         map.put("data", datalist);
+        map.put("clzcs",clzcs);
         map.put("total",new PageInfo(datalist, intLimit).getTotal());
         return map;
     }
@@ -45,10 +49,10 @@ public class StatisticsController {
         Integer intLimit = Integer.parseInt(limit);
         PageHelper.startPage(intPage, intLimit);
         List<TStatistics> datalist = this.tStatisticsService.firstSelectNow(tInspectionReport,startDate,endDate);
-        List<TStatistics> total = this.tStatisticsService.carAllNow(tInspectionReport,startDate,endDate);
         Map<String,Object> map = new HashMap<>(3);
         map.put("code", "20000");
         map.put("data", datalist);
+
         map.put("total",new PageInfo(datalist, intLimit).getTotal());
         return map;
     }
@@ -64,6 +68,19 @@ public class StatisticsController {
         map.put("code", "20000");
         map.put("data", datalist);
         map.put("total",new PageInfo(datalist, intLimit).getTotal());
+        return map;
+    }
+
+    @GetMapping("brakingAbilitySelect")
+    public Object brakingAbilitySelect(String page, String limit, String startDate, String endDate, TInspectionReport tInspectionReport) {
+        Integer intPage = Integer.parseInt(page);
+        Integer intLimit = Integer.parseInt(limit);
+        PageHelper.startPage(intPage, intLimit);
+        List<TStatistics> datalist = this.tStatisticsService.brakingAbilitySelect(tInspectionReport, startDate, endDate);
+        Map<String, Object> map = new HashMap(3);
+        map.put("code", "20000");
+        map.put("data", datalist);
+        map.put("total", (new PageInfo(datalist, intLimit)).getTotal());
         return map;
     }
 
@@ -84,5 +101,6 @@ public class StatisticsController {
         map.put("data", this.tStatisticsService.singleorNoNow(tInspectionReport,startDate,endDate,singlePass));
         return map;
     }
+
 
 }

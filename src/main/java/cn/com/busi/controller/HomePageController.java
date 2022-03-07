@@ -1,11 +1,14 @@
 package cn.com.busi.controller;
 
+import cn.com.busi.entity.TCache;
 import cn.com.busi.entity.TCaution;
 import cn.com.busi.entity.TInstInfo;
 import cn.com.busi.service.HomePageService;
+import cn.com.busi.service.TCacheService;
 import cn.com.busi.service.TCautionService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.google.gson.Gson;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,7 +32,8 @@ public class HomePageController {
      */
     @Resource
     private HomePageService homePageService;
-
+    @Resource
+    private TCacheService tCacheService;
 
     @GetMapping("page")
     public Object selectOne(String id) {
@@ -48,16 +52,23 @@ public class HomePageController {
 //------------------------------------------------------------------------------
     @GetMapping("pageNow")
     public Object selectOneNow(String id) {
-        return this.homePageService.queryAllNow();
+        TCache tCache = this.tCacheService.selectByPrimaryKey("pageNow");
+        System.out.println(tCache.getResult().replaceAll(" ",""));
+        Gson gson = new Gson();
+        Map<String, Object> map = new HashMap<String, Object>();
+        map = gson.fromJson(tCache.getResult().replaceAll(" ",""), map.getClass());
+        return map;
     }
 
     @GetMapping("syxzByAllNow")
     public Object syxzByAllNow() {
-        return this.homePageService.syxzByAllNow();
+        TCache tCache = this.tCacheService.selectByPrimaryKey("syxzByAllNow");
+        return tCache.getResult();
     }
 
     @GetMapping("jcjlByAllNow")
     public Object jcjlByAllNow() {
-        return this.homePageService.jcjlByAllNow();
+        TCache tCache = this.tCacheService.selectByPrimaryKey("jcjlByAllNow");
+        return tCache.getResult();
     }
 }

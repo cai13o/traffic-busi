@@ -39,7 +39,7 @@ public class TInstDeviceController {
         return this.tInstDeviceService.queryById(id);
     }
 
-    @GetMapping("selectAll")
+    @GetMapping("selectAllNow")
     public Object selectAll(String page, String limit, String institution, String nextdate) {
         Integer intPage = Integer.parseInt(page);
         Integer intLimit = Integer.parseInt(limit);

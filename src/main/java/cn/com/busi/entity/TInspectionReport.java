@@ -208,5 +208,8 @@ public class TInspectionReport implements Serializable {
     @ApiModelProperty(value = "")
     private String tDetail;
 
+    @ApiModelProperty(value = "行政区域")
+    private String xzqy;
+
     private static final long serialVersionUID = 1L;
 }

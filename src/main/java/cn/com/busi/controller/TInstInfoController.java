@@ -48,7 +48,7 @@ public class TInstInfoController {
      * @param limit 查询条数
      * @return 对象列表
      */
-    @GetMapping("selectAll")
+    @GetMapping("selectAllNow")
     public Object selectAll(String page, String limit, String area, String name ,String owner) {
         Integer intPage = Integer.parseInt(page);
         Integer intLimit = Integer.parseInt(limit);

@@ -4,6 +4,7 @@ import cn.com.busi.entity.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -84,7 +85,9 @@ public interface TStatisticsDao {
      * @param tInspectionReport 实例对象
      * @return 对象列表
      */
-    List<TStatistics> singleSelectNow(@Param("tInspectionReport") TInspectionReport tInspectionReport, @Param("tStatistics") TStatistics tStatistics, @Param("concat1") String concat1, @Param("concat2") String concat2);
+    List<TStatistics> singleSelectNow(@Param("tInspectionReport") TInspectionReport tInspectionReport, @Param("tStatistics") TStatistics tStatistics, @Param("concat1") String concat1, @Param("concat2") String concat2, @Param("concat3") String concat3);
+
+    List<TStatistics> brakingAbilitySelect(@Param("tInspectionReport") TInspectionReport tInspectionReport, @Param("tStatistics") TStatistics tStatistics);
 
     List<Map>  cllxStatisticsNow();
 
@@ -92,16 +95,17 @@ public interface TStatisticsDao {
 
     Integer[] firstNotStatisticsNow();
 
-    Integer[] singleStatisticsNow(@Param("concat1") String concat1, @Param("concat2") String concat2, @Param("concat3") String concat3);
+    Integer[] singleStatisticsNow(@Param("concat1") String concat1, @Param("concat2") String concat2, @Param("concat3") String concat3, @Param("concat4") String concat4);
 
     Integer countNow(@Param("table") String table);
 
     Integer firstNow( @Param("tInspectionReport") TInspectionReport tInspectionReport,@Param("tStatistics") TStatistics tStatistics);
     Integer firstNoNow( @Param("tInspectionReport") TInspectionReport tInspectionReport ,@Param("tStatistics") TStatistics tStatistics);
 
-    Integer singleNow(@Param("tInspectionReport") TInspectionReport tInspectionReport, @Param("tStatistics") TStatistics tStatistics, @Param("concat1") String concat1, @Param("concat2") String concat2);
-    Integer singleNoNow(@Param("tInspectionReport") TInspectionReport tInspectionReport, @Param("tStatistics") TStatistics tStatistics, @Param("concat1") String concat1, @Param("concat2") String concat2);
+    Integer singleNow(@Param("tInspectionReport") TInspectionReport tInspectionReport, @Param("tStatistics") TStatistics tStatistics, @Param("concat1") String concat1, @Param("concat2") String concat2, @Param("concat3") String concat3);
+    Integer singleNoNow(@Param("tInspectionReport") TInspectionReport tInspectionReport, @Param("tStatistics") TStatistics tStatistics, @Param("concat1") String concat1, @Param("concat2") String concat2, @Param("concat3") String concat3);
 
     List<TStatistics> jcjlByAllNow();
     List<TStatistics> syxzByAllNow();
+
 }

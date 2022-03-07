@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.busi.mapper.TInspectionMapper">
+  <resultMap id="BaseResultMap" type="cn.com.busi.entity.TInspection">
+    <!--@mbg.generated-->
+    <!--@Table t_inspection_report-->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="xzqy" jdbcType="VARCHAR" property="xzqy" />
+    <result column="cllx" jdbcType="VARCHAR" property="cllx" />
+    <result column="ppxh" jdbcType="VARCHAR" property="ppxh" />
+    <result column="rllb" jdbcType="VARCHAR" property="rllb" />
+    <result column="syxz" jdbcType="VARCHAR" property="syxz" />
+    <result column="jyrq" jdbcType="VARCHAR" property="jyrq" />
+    <result column="jyjgmc" jdbcType="VARCHAR" property="jyjgmc" />
+    <result column="jyjl" jdbcType="VARCHAR" property="jyjl" />
+    <result column="zjcs" jdbcType="VARCHAR" property="zjcs" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, xzqy, cllx, ppxh, rllb, syxz, jyrq, jyjgmc, jyjl, zjcs
+  </sql>
+  <insert id="insert" parameterType="cn.com.busi.entity.TInspection">
+    <!--@mbg.generated-->
+    insert into t_inspection (id, xzqy, cllx, ppxh, rllb, syxz, jyrq, jyjgmc, jyjl, zjcs)
+    values (#{id,jdbcType=VARCHAR}, #{xzqy,jdbcType=VARCHAR}, #{cllx,jdbcType=VARCHAR},
+    #{ppxh,jdbcType=VARCHAR}, #{rllb,jdbcType=VARCHAR}, #{syxz,jdbcType=VARCHAR},
+    #{jyrq,jdbcType=VARCHAR}, #{jyjgmc,jdbcType=VARCHAR}, #{jyjl,jdbcType=VARCHAR},
+    #{zjcs,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.busi.entity.TInspectionReport">
+    <!--@mbg.generated-->
+    insert into t_inspection
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="xzqy != null">
+        xzqy,
+      </if>
+      <if test="cllx != null">
+        cllx,
+      </if>
+      <if test="ppxh != null">
+        ppxh,
+      </if>
+      <if test="rllb != null">
+        rllb,
+      </if>
+      <if test="syxz != null">
+        syxz,
+      </if>
+      <if test="jyrq != null">
+        jyrq,
+      </if>
+      <if test="jyjgmc != null">
+        jyjgmc,
+      </if>
+      <if test="jyjl != null">
+        jyjl,
+      </if>
+      <if test="zjcs != null">
+        zjcs,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="xzqy != null">
+        #{xzqy,jdbcType=VARCHAR},
+      </if>
+      <if test="cllx != null">
+        #{cllx,jdbcType=VARCHAR},
+      </if>
+      <if test="ppxh != null">
+        #{ppxh,jdbcType=VARCHAR},
+      </if>
+      <if test="rllb != null">
+        #{rllb,jdbcType=VARCHAR},
+      </if>
+      <if test="syxz != null">
+        #{syxz,jdbcType=VARCHAR},
+      </if>
+      <if test="jyrq != null">
+        #{jyrq,jdbcType=VARCHAR},
+      </if>
+      <if test="jyjgmc != null">
+        #{jyjgmc,jdbcType=VARCHAR},
+      </if>
+      <if test="jyjl != null">
+        #{jyjl,jdbcType=VARCHAR},
+      </if>
+      <if test="zjcs != null">
+        #{zjcs,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <select id="createTempTable" resultMap="BaseResultMap" >
+    truncate table t_inspection;
+    SELECT
+      t_inspection_report.id id,
+      t_inspection_report.xzqy xzqy ,
+      t_inspection_report.cllx cllx,
+      t_inspection_report.ppxh ppxh,
+      t_inspection_instrument.rllb rllb,
+      t_inspection_report.syxz syxz,
+      t_inspection_report.jyrq jyrq,
+      t_inspection_report.jyjgmc jyjgmc,
+      t_inspection_report.jyjl jyjl,
+      t_inspection_instrument.zjcs
+    FROM
+      t_inspection_report
+        left join t_inspection_instrument ON t_inspection_report.id = t_inspection_instrument.id
+  </select>
+</mapper>

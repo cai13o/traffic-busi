@@ -42,6 +42,16 @@ public interface TReportService {
     List<TReport> queryAll(TReport tReport,String startDate, String endDate,String ssqy,String singlePass);
 
     /**
+     * 燃料类别维护查询
+     *
+     */
+    List<String> maintainVehicleType();
+    /**
+     * 车辆类别维护查询
+     *
+     */
+    List<String> maintainFuelCategory();
+    /**
      * 新增数据
      *
      * @param tReport 实例对象

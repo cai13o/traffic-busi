@@ -83,17 +83,12 @@ public class TReportController {
 
     @GetMapping("typeCount")
     public Object typeCount(TReport tReport,String startDate, String endDate,String ssqy,String s) {
-        List<TReport> list = this.tReportService.queryAll(tReport,startDate,endDate,ssqy,s);
-        Set set = new HashSet();
-        Set set2 = new HashSet();
-        for (TReport t:list) {
-            set.add(t.getClrllb());
-            set2.add(t.getCllx());
-        }
+        List<String> maintainFuelCategory = this.tReportService.maintainFuelCategory();
+        List<String> maintainVehicleType = this.tReportService.maintainVehicleType();
         Map map = new HashMap();
         map.put("code", "20000");
-        map.put("clrllb", set);
-        map.put("cllx", set2);
+        map.put("clrllb", maintainFuelCategory);
+        map.put("cllx", maintainVehicleType);
         return map;
     }
 

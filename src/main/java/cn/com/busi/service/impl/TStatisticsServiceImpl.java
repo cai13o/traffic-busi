@@ -9,10 +9,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * (TStatistics)表服务实现类
@@ -324,6 +321,7 @@ public class TStatisticsServiceImpl implements TStatisticsService {
         if (null != tInspectionReport.getCllx()) {
             if (!tInspectionReport.getCllx().trim().isEmpty()) {
                 tStatistics.setCllx("cllx");
+                tInspectionReport.setCllx(tInspectionReport.getCllx().replace(",", "','").replace(" ",""));
                 tInspectionReport.setCllx(tInspectionReport.getCllx().trim());
             }
         }
@@ -357,11 +355,20 @@ public class TStatisticsServiceImpl implements TStatisticsService {
             System.out.println("返回空");
             return list;
         }
+
         List<TStatistics> tStatisticses = this.tStatisticsDao.carAllNow(tInspectionReport, tStatistics);
         if(null != tInspectionReport.getPpxh()) {
             if (!tInspectionReport.getPpxh().trim().isEmpty()) {
                 for (int i = 0; i < tStatisticses.size(); i++) {
                     tStatisticses.get(i).setPpxh(tInspectionReport.getPpxh());
+                    tStatisticses.get(i).setCllx(tInspectionReport.getCllx().replace("'",""));
+                }
+            }
+        }
+        if(null != tInspectionReport.getCllx()) {
+            if (!tInspectionReport.getCllx().trim().isEmpty()) {
+                for (int i = 0; i < tStatisticses.size(); i++) {
+                    tStatisticses.get(i).setCllx(tInspectionReport.getCllx().replace("'",""));
                 }
             }
         }
@@ -394,6 +401,7 @@ public class TStatisticsServiceImpl implements TStatisticsService {
             if (!tInspectionReport.getCllx().trim().isEmpty()) {
                 tStatistics.setCllx("cllx");
                 tInspectionReport.setCllx(tInspectionReport.getCllx().trim());
+                tInspectionReport.setCllx(tInspectionReport.getCllx().replace(",", "','").replace(" ",""));
             }
         }
         if (null != tInspectionReport.getPpxh()) {
@@ -431,6 +439,14 @@ public class TStatisticsServiceImpl implements TStatisticsService {
             if (!tInspectionReport.getPpxh().trim().isEmpty()) {
                 for (int i = 0; i < tStatisticses.size(); i++) {
                     tStatisticses.get(i).setPpxh(tInspectionReport.getPpxh());
+                    tStatisticses.get(i).setCllx(tInspectionReport.getCllx().replace("'",""));
+                }
+            }
+        }
+        if(null != tInspectionReport.getCllx()) {
+            if (!tInspectionReport.getCllx().trim().isEmpty()) {
+                for (int i = 0; i < tStatisticses.size(); i++) {
+                    tStatisticses.get(i).setCllx(tInspectionReport.getCllx().replace("'",""));
                 }
             }
         }
@@ -443,51 +459,91 @@ public class TStatisticsServiceImpl implements TStatisticsService {
         TStatistics tStatistics = new TStatistics();
         String concat1 = "";
         String concat2 = "";
-        if(singlePass.equals("kzzdxczd1")){
+        String concat3 = "";
+        if (singlePass.equals("kzzdxczd1")) {
             tStatistics.setSinglePass("'/',1");
-            concat1 = "一轴制动率";
-            concat2 = "一轴，行车制动率";
-        }else if(singlePass.equals("kzzdxczd2")){
+            concat1 = "一轴";
+            concat2 = "制动";
+        } else if (singlePass.equals("kzzdxczd2")) {
             tStatistics.setSinglePass("'/',1");
-            concat1 = "二轴制动率";
-            concat2 = "二轴，行车制动率";
-        }else if(singlePass.equals("kzzdxczd3")){
+            concat1 = "二轴";
+            concat2 = "制动";
+        } else if (singlePass.equals("kzzdxczd3")) {
             tStatistics.setSinglePass("'/',1");
-            concat1 = "三轴制动率";
-            concat2 = "三轴，行车制动率";
-        }else if(singlePass.equals("kzzdxczd4")){
+            concat1 = "三轴";
+            concat2 = "制动";
+        } else if (singlePass.equals("kzzdxczd4")) {
             tStatistics.setSinglePass("'/',1");
-            concat1 = "四轴制动率";
-            concat2 = "四轴，行车制动率";
-        }else if(singlePass.equals("kzzdbphl1")){
+            concat1 = "四轴";
+            concat2 = "制动";
+        } else if (singlePass.equals("kzzdbphl1")) {
             tStatistics.setSinglePass("'/',-1");
-            concat1 = "一轴不平衡率";
-            concat2 = "一轴，不平衡率";
-        }else if(singlePass.equals("kzzdbphl2")){
+            concat1 = "一轴";
+            concat2 = "不平衡";
+        } else if (singlePass.equals("kzzdbphl2")) {
             tStatistics.setSinglePass("'/',-1");
-            concat1 = "二轴不平衡率";
-            concat2 = "二轴，不平衡率";
-        }else if(singlePass.equals("kzzdbphl3")){
+            concat1 = "二轴";
+            concat2 = "不平衡";
+        } else if (singlePass.equals("kzzdbphl3")) {
             tStatistics.setSinglePass("'/',-1");
-            concat1 = "三轴不平衡率";
-            concat2 = "三轴，不平衡率";
-        }else if(singlePass.equals("kzzdbphl4")){
+            concat1 = "三轴";
+            concat2 = "不平衡";
+        } else if (singlePass.equals("kzzdbphl4")) {
             tStatistics.setSinglePass("'/',-1");
-            concat1 = "四轴不平衡率";
-            concat2 = "四轴，不平衡率";
-        }else if(singlePass.equals("chA1")){
-            tStatistics.setSinglePass("'o',-1");
+            concat1 = "四轴";
+            concat2 = "不平衡";
+        } else if (singlePass.equals("chA1")) {
+            tStatistics.setSinglePass("'/',-1");
             concat1 = "侧滑";
-        }else if(singlePass.equals("zhuxmpd")){
-            tStatistics.setSinglePass("'o',-1");
-            concat1 = "驻车制动率";
-        }else if(singlePass.equals("zhexmpd")){
-            tStatistics.setSinglePass("'o',-1");
-            concat1 = "整车制动率";
-        }else if(singlePass.equals("zwdxmpd")){
-            tStatistics.setSinglePass("'o',-1");
-            concat1 = "左";
-            concat2 = "灯";
+        } else if (singlePass.equals("zhuxmpd")) {
+            tStatistics.setSinglePass("'/',-1");
+            concat1 = "驻车";
+        } else if (singlePass.equals("zhexmpd")) {
+            tStatistics.setSinglePass("'/',-1");
+            concat1 = "整车";
+        } else if (singlePass.equals("zwdxmpd")) {
+            tStatistics.setSinglePass("'/',-1");
+            concat1 = "灯";
+        } else if (singlePass.equals("jzxczd1")) {
+            tStatistics.setSinglePass("'/',1");
+            concat1 = "一轴";
+            concat2 = "加载";
+            concat3 = "制动";
+        } else if (singlePass.equals("jzxczd2")) {
+            tStatistics.setSinglePass("'/',1");
+            concat1 = "二轴";
+            concat2 = "加载";
+            concat3 = "制动";
+        } else if (singlePass.equals("jzxczd3")) {
+            tStatistics.setSinglePass("'/',1");
+            concat1 = "三轴";
+            concat2 = "加载";
+            concat3 = "制动";
+        } else if (singlePass.equals("jzxczd4")) {
+            tStatistics.setSinglePass("'/',1");
+            concat1 = "四轴";
+            concat2 = "加载";
+            concat3 = "制动";
+        } else if (singlePass.equals("jzbphl1")) {
+            tStatistics.setSinglePass("'/',-1");
+            concat1 = "一轴";
+            concat2 = "加载";
+            concat3 = "不平衡";
+        } else if (singlePass.equals("jzbphl2")) {
+            tStatistics.setSinglePass("'/',-1");
+            concat1 = "二轴";
+            concat2 = "加载";
+            concat3 = "不平衡";
+        } else if (singlePass.equals("jzbphl3")) {
+            tStatistics.setSinglePass("'/',-1");
+            concat1 = "三轴";
+            concat2 = "加载";
+            concat3 = "不平衡";
+        } else if (singlePass.equals("jzbphl4")) {
+            tStatistics.setSinglePass("'/',-1");
+            concat1 = "四轴";
+            concat2 = "加载";
+            concat3 = "不平衡";
         }
 
         if (null != tInspectionReport.getJcjgmc()) {
@@ -512,6 +568,7 @@ public class TStatisticsServiceImpl implements TStatisticsService {
             if (!tInspectionReport.getCllx().trim().isEmpty()) {
                 tStatistics.setCllx("cllx");
                 tInspectionReport.setCllx(tInspectionReport.getCllx().trim());
+                tInspectionReport.setCllx(tInspectionReport.getCllx().replace(",", "','").replace(" ",""));
             }
         }
         if (null != tInspectionReport.getPpxh()) {
@@ -544,16 +601,96 @@ public class TStatisticsServiceImpl implements TStatisticsService {
             System.out.println("返回空");
             return null;
         }
-        List<TStatistics> tStatisticses = this.tStatisticsDao.singleSelectNow(tInspectionReport, tStatistics, concat1, concat2);
+        List<TStatistics> tStatisticses = this.tStatisticsDao.singleSelectNow(tInspectionReport, tStatistics, concat1, concat2, concat3);
         if(null != tInspectionReport.getPpxh()) {
             if (!tInspectionReport.getPpxh().trim().isEmpty()) {
                 for (int i = 0; i < tStatisticses.size(); i++) {
                     tStatisticses.get(i).setPpxh(tInspectionReport.getPpxh());
+
                 }
             }
         }
-
+        if(null != tInspectionReport.getCllx()) {
+            if (!tInspectionReport.getCllx().trim().isEmpty()) {
+                for (int i = 0; i < tStatisticses.size(); i++) {
+                    tStatisticses.get(i).setCllx(tInspectionReport.getCllx().replace("'",""));
+                }
+            }
+        }
         return tStatisticses;
+    }
+
+    @Override
+    public List<TStatistics> brakingAbilitySelect(TInspectionReport tInspectionReport, String startDate, String endDate) {
+        TStatistics tStatistics = new TStatistics();
+        if (null != tInspectionReport.getXzqy() && !tInspectionReport.getXzqy().trim().isEmpty()) {
+            tStatistics.setXzqy("xzqy");
+            tInspectionReport.setXzqy(tInspectionReport.getXzqy().trim());
+        }
+
+        if (null != tInspectionReport.getJcjgmc() && !tInspectionReport.getJcjgmc().trim().isEmpty()) {
+            tStatistics.setJcjgmc("jyjgmc");
+            tInspectionReport.setJyjgmc(tInspectionReport.getJcjgmc().trim());
+        }
+
+        if (null != tInspectionReport.getJyjl() && !tInspectionReport.getJyjl().trim().isEmpty()) {
+            tStatistics.setJcjl("jyjl");
+            tInspectionReport.setJyjl(tInspectionReport.getJyjl().trim());
+        }
+
+        if (null != tInspectionReport.getRllb() && !tInspectionReport.getRllb().trim().isEmpty()) {
+            tStatistics.setRllb("rllb");
+            tInspectionReport.setRllb(tInspectionReport.getRllb().trim());
+        }
+
+        if (null != tInspectionReport.getCllx() && !tInspectionReport.getCllx().trim().isEmpty()) {
+            tStatistics.setCllx("cllx");
+            tInspectionReport.setCllx(tInspectionReport.getCllx().trim());
+            tInspectionReport.setCllx(tInspectionReport.getCllx().replace(",", "','").replace(" ",""));
+        }
+
+        if (null != tInspectionReport.getPpxh() && !tInspectionReport.getPpxh().trim().isEmpty()) {
+            tStatistics.setPpxh("ppxh");
+            tInspectionReport.setPpxh(tInspectionReport.getPpxh().trim());
+        }
+
+        if (null != tInspectionReport.getSyxz() && !tInspectionReport.getSyxz().trim().isEmpty()) {
+            tStatistics.setSyxz("syxz");
+            tInspectionReport.setSyxz(tInspectionReport.getSyxz().trim());
+        }
+
+        if (null != startDate && null != endDate && !startDate.trim().isEmpty() && !endDate.trim().isEmpty()) {
+            try {
+                tStatistics.setStartDate((new SimpleDateFormat("yyyy-MM-dd")).parse(startDate));
+                tStatistics.setEndDate((new SimpleDateFormat("yyyy-MM-dd")).parse(endDate));
+                tStatistics.setJyrq("jyrq");
+            } catch (ParseException var8) {
+                var8.printStackTrace();
+            }
+        }
+
+        List list = new ArrayList();
+        if ((tInspectionReport.getXzqy() == null || "".equals(tInspectionReport.getXzqy().trim())) && (tInspectionReport.getSyxz() == null || "".equals(tInspectionReport.getSyxz().trim())) && (tInspectionReport.getCllx() == null || "".equals(tInspectionReport.getCllx().trim())) && (tInspectionReport.getPpxh() == null || "".equals(tInspectionReport.getPpxh().trim())) && (tInspectionReport.getJyjgmc() == null || "".equals(tInspectionReport.getJyjgmc().trim())) && (tInspectionReport.getRllb() == null || "".equals(tInspectionReport.getRllb().trim())) && (startDate == null || "".equals(startDate.trim())) && (endDate == null || "".equals(endDate.trim()))) {
+            System.out.println("返回空");
+            return list;
+        } else {
+            List<TStatistics> tStatisticses = this.tStatisticsDao.brakingAbilitySelect(tInspectionReport, tStatistics);
+            int i;
+            if (null != tInspectionReport.getPpxh() && !tInspectionReport.getPpxh().trim().isEmpty()) {
+                for(i = 0; i < tStatisticses.size(); ++i) {
+                    ((TStatistics)tStatisticses.get(i)).setPpxh(tInspectionReport.getPpxh());
+                }
+            }
+
+            if (null != tInspectionReport.getXzqy() && !tInspectionReport.getXzqy().trim().isEmpty()) {
+                for(i = 0; i < tStatisticses.size(); ++i) {
+                    ((TStatistics)tStatisticses.get(i)).setXzqy(tInspectionReport.getXzqy());
+                }
+            }
+
+
+            return tStatisticses;
+        }
     }
 
     @Override
@@ -583,51 +720,91 @@ public class TStatisticsServiceImpl implements TStatisticsService {
         tStatistics.setSinglePass(singlePass);
         String concat1 = "";
         String concat2 = "";
-        if(singlePass.equals("kzzdxczd1")){
+        String concat3 = "";
+        if (singlePass.equals("kzzdxczd1")) {
             tStatistics.setSinglePass("'/',1");
-            concat1 = "一轴制动率";
-            concat2 = "一轴，行车制动率";
-        }else if(singlePass.equals("kzzdxczd2")){
+            concat1 = "一轴";
+            concat2 = "制动";
+        } else if (singlePass.equals("kzzdxczd2")) {
             tStatistics.setSinglePass("'/',1");
-            concat1 = "二轴制动率";
-            concat2 = "二轴，行车制动率";
-        }else if(singlePass.equals("kzzdxczd3")){
+            concat1 = "二轴";
+            concat2 = "制动";
+        } else if (singlePass.equals("kzzdxczd3")) {
             tStatistics.setSinglePass("'/',1");
-            concat1 = "三轴制动率";
-            concat2 = "三轴，行车制动率";
-        }else if(singlePass.equals("kzzdxczd4")){
+            concat1 = "三轴";
+            concat2 = "制动";
+        } else if (singlePass.equals("kzzdxczd4")) {
             tStatistics.setSinglePass("'/',1");
-            concat1 = "四轴制动率";
-            concat2 = "四轴，行车制动率";
-        }else if(singlePass.equals("kzzdbphl1")){
+            concat1 = "四轴";
+            concat2 = "制动";
+        } else if (singlePass.equals("kzzdbphl1")) {
             tStatistics.setSinglePass("'/',-1");
-            concat1 = "一轴不平衡率";
-            concat2 = "一轴，不平衡率";
-        }else if(singlePass.equals("kzzdbphl2")){
+            concat1 = "一轴";
+            concat2 = "不平衡";
+        } else if (singlePass.equals("kzzdbphl2")) {
             tStatistics.setSinglePass("'/',-1");
-            concat1 = "二轴不平衡率";
-            concat2 = "二轴，不平衡率";
-        }else if(singlePass.equals("kzzdbphl3")){
+            concat1 = "二轴";
+            concat2 = "不平衡";
+        } else if (singlePass.equals("kzzdbphl3")) {
             tStatistics.setSinglePass("'/',-1");
-            concat1 = "三轴不平衡率";
-            concat2 = "三轴，不平衡率";
-        }else if(singlePass.equals("kzzdbphl4")){
+            concat1 = "三轴";
+            concat2 = "不平衡";
+        } else if (singlePass.equals("kzzdbphl4")) {
             tStatistics.setSinglePass("'/',-1");
-            concat1 = "四轴不平衡率";
-            concat2 = "四轴，不平衡率";
-        }else if(singlePass.equals("chA1")){
-            tStatistics.setSinglePass("'o',-1");
+            concat1 = "四轴";
+            concat2 = "不平衡";
+        } else if (singlePass.equals("chA1")) {
+            tStatistics.setSinglePass("'/',-1");
             concat1 = "侧滑";
-        }else if(singlePass.equals("zhuxmpd")){
-            tStatistics.setSinglePass("'o',-1");
-            concat1 = "驻车制动率";
-        }else if(singlePass.equals("zhexmpd")){
-            tStatistics.setSinglePass("'o',-1");
-            concat1 = "整车制动率";
-        }else if(singlePass.equals("zwdxmpd")){
-            tStatistics.setSinglePass("'o',-1");
-            concat1 = "左";
-            concat2 = "灯";
+        } else if (singlePass.equals("zhuxmpd")) {
+            tStatistics.setSinglePass("'/',-1");
+            concat1 = "驻车";
+        } else if (singlePass.equals("zhexmpd")) {
+            tStatistics.setSinglePass("'/',-1");
+            concat1 = "整车";
+        } else if (singlePass.equals("zwdxmpd")) {
+            tStatistics.setSinglePass("'/',-1");
+            concat1 = "灯";
+        } else if (singlePass.equals("jzxczd1")) {
+            tStatistics.setSinglePass("'/',1");
+            concat1 = "一轴";
+            concat2 = "加载";
+            concat3 = "制动";
+        } else if (singlePass.equals("jzxczd2")) {
+            tStatistics.setSinglePass("'/',1");
+            concat1 = "二轴";
+            concat2 = "加载";
+            concat3 = "制动";
+        } else if (singlePass.equals("jzxczd3")) {
+            tStatistics.setSinglePass("'/',1");
+            concat1 = "三轴";
+            concat2 = "加载";
+            concat3 = "制动";
+        } else if (singlePass.equals("jzxczd4")) {
+            tStatistics.setSinglePass("'/',1");
+            concat1 = "四轴";
+            concat2 = "加载";
+            concat3 = "制动";
+        } else if (singlePass.equals("jzbphl1")) {
+            tStatistics.setSinglePass("'/',-1");
+            concat1 = "一轴";
+            concat2 = "加载";
+            concat3 = "不平衡";
+        } else if (singlePass.equals("jzbphl2")) {
+            tStatistics.setSinglePass("'/',-1");
+            concat1 = "二轴";
+            concat2 = "加载";
+            concat3 = "不平衡";
+        } else if (singlePass.equals("jzbphl3")) {
+            tStatistics.setSinglePass("'/',-1");
+            concat1 = "三轴";
+            concat2 = "加载";
+            concat3 = "不平衡";
+        } else if (singlePass.equals("jzbphl4")) {
+            tStatistics.setSinglePass("'/',-1");
+            concat1 = "四轴";
+            concat2 = "加载";
+            concat3 = "不平衡";
         }
         HashMap map = new HashMap();
         try {
@@ -637,8 +814,8 @@ public class TStatisticsServiceImpl implements TStatisticsService {
                     tStatistics.setEndDate(new SimpleDateFormat("yyyy-MM-dd").parse(endDate));
                 }
             }
-            Integer first = this.tStatisticsDao.singleNow(tInspectionReport, tStatistics,concat1,concat2);
-            Integer firstNo = this.tStatisticsDao.singleNoNow(tInspectionReport, tStatistics,concat1,concat2);
+            Integer first = this.tStatisticsDao.singleNow(tInspectionReport, tStatistics,concat1,concat2, concat3);
+            Integer firstNo = this.tStatisticsDao.singleNoNow(tInspectionReport, tStatistics,concat1,concat2, concat3);
             map.put("first",first);
             map.put("firstNo",firstNo);
         } catch (ParseException e) {
@@ -646,5 +823,6 @@ public class TStatisticsServiceImpl implements TStatisticsService {
         }
         return map;
     }
+
 
 }

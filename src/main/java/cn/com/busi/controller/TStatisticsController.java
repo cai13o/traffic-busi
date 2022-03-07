@@ -4,6 +4,7 @@ import cn.com.busi.entity.TInstInfo;
 import cn.com.busi.entity.TRecord;
 import cn.com.busi.entity.TReport;
 import cn.com.busi.entity.TStatistics;
+import cn.com.busi.mapper.TStatisticsDao;
 import cn.com.busi.service.TReportService;
 import cn.com.busi.service.TStatisticsService;
 import com.github.pagehelper.PageHelper;
@@ -30,6 +31,8 @@ public class TStatisticsController {
      */
     @Resource
     private TStatisticsService tStatisticsService;
+
+
 
 
 
@@ -104,4 +107,9 @@ public class TStatisticsController {
         map.put("data", this.tStatisticsService.singleorNo(tReport,startDate,endDate,singlePass));
         return map;
     }
+
+
+
+
+
 }

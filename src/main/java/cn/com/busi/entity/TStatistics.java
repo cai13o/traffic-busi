@@ -24,4 +24,5 @@ public class TStatistics {
     private String num;
     private String clzs;
     private String syxz;
+    private String clzcs;
 }

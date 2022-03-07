@@ -21,8 +21,10 @@ import java.util.Map;
  */
 @Service("tInstInfoService")
 public class TInstInfoServiceImpl implements TInstInfoService {
+
     @Resource
     private TInstInfoDao tInstInfoDao;
+
     @Resource
     private TInstPersonDao tInstPersonDao;
 

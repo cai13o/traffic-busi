@@ -36,16 +36,17 @@
     <result column="yrsfdjedg" jdbcType="VARCHAR" property="yrsfdjedg" />
     <result column="rllb" jdbcType="VARCHAR" property="rllb" />
     <result column="t_detail" jdbcType="VARCHAR" property="tDetail" />
+    <result column="xzqy" jdbcType="VARCHAR" property="xzqy" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    id, jgdh, xh, dz, lxdh, zzrdzsbh, jybgbh, jyjgmc, cphm, syr, cllx, ppxh, syxz, dlyszh, 
-    zcdjrq, ccrq, jyrq, vin, fdjhm, qddjhm, jylb, model, ccbh, jyjl, sqqzr, dwmc, seal, 
-    jy, ewtm, yrsfdjedg, rllb, t_detail
+    id, jgdh, xh, dz, lxdh, zzrdzsbh, jybgbh, jyjgmc, cphm, syr, cllx, ppxh, syxz, dlyszh,
+    zcdjrq, ccrq, jyrq, vin, fdjhm, qddjhm, jylb, model, ccbh, jyjl, sqqzr, dwmc, seal,
+    jy, ewtm, yrsfdjedg, rllb, t_detail, xzqy
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     <!--@mbg.generated-->
-    select 
+    select
     <include refid="Base_Column_List" />
     from t_inspection_report
     where id = #{id,jdbcType=VARCHAR}
@@ -57,26 +58,26 @@
   </delete>
   <insert id="insert" parameterType="cn.com.busi.entity.TInspectionReport">
     <!--@mbg.generated-->
-    insert into t_inspection_report (id, jgdh, xh, 
-      dz, lxdh, zzrdzsbh, 
-      jybgbh, jyjgmc, cphm, 
-      syr, cllx, ppxh, syxz, 
-      dlyszh, zcdjrq, ccrq, jyrq, 
-      vin, fdjhm, qddjhm, 
-      jylb, model, ccbh, 
-      jyjl, sqqzr, dwmc, 
-      seal, jy, ewtm, yrsfdjedg, 
-      rllb, t_detail)
-    values (#{id,jdbcType=VARCHAR}, #{jgdh,jdbcType=VARCHAR}, #{xh,jdbcType=VARCHAR}, 
-      #{dz,jdbcType=VARCHAR}, #{lxdh,jdbcType=VARCHAR}, #{zzrdzsbh,jdbcType=VARCHAR}, 
-      #{jybgbh,jdbcType=VARCHAR}, #{jyjgmc,jdbcType=VARCHAR}, #{cphm,jdbcType=VARCHAR}, 
-      #{syr,jdbcType=VARCHAR}, #{cllx,jdbcType=VARCHAR}, #{ppxh,jdbcType=VARCHAR}, #{syxz,jdbcType=VARCHAR}, 
-      #{dlyszh,jdbcType=VARCHAR}, #{zcdjrq,jdbcType=DATE}, #{ccrq,jdbcType=DATE}, #{jyrq,jdbcType=DATE}, 
-      #{vin,jdbcType=VARCHAR}, #{fdjhm,jdbcType=VARCHAR}, #{qddjhm,jdbcType=VARCHAR}, 
-      #{jylb,jdbcType=VARCHAR}, #{model,jdbcType=VARCHAR}, #{ccbh,jdbcType=VARCHAR}, 
-      #{jyjl,jdbcType=VARCHAR}, #{sqqzr,jdbcType=VARCHAR}, #{dwmc,jdbcType=VARCHAR}, 
-      #{seal,jdbcType=VARCHAR}, #{jy,jdbcType=VARCHAR}, #{ewtm,jdbcType=VARCHAR}, #{yrsfdjedg,jdbcType=VARCHAR}, 
-      #{rllb,jdbcType=VARCHAR}, #{tDetail,jdbcType=VARCHAR})
+    insert into t_inspection_report (id, jgdh, xh,
+    dz, lxdh, zzrdzsbh,
+    jybgbh, jyjgmc, cphm,
+    syr, cllx, ppxh, syxz,
+    dlyszh, zcdjrq, ccrq, jyrq,
+    vin, fdjhm, qddjhm,
+    jylb, model, ccbh,
+    jyjl, sqqzr, dwmc,
+    seal, jy, ewtm, yrsfdjedg,
+    rllb, t_detail, xzqy)
+    values (#{id,jdbcType=VARCHAR}, #{jgdh,jdbcType=VARCHAR}, #{xh,jdbcType=VARCHAR},
+    #{dz,jdbcType=VARCHAR}, #{lxdh,jdbcType=VARCHAR}, #{zzrdzsbh,jdbcType=VARCHAR},
+    #{jybgbh,jdbcType=VARCHAR}, #{jyjgmc,jdbcType=VARCHAR}, #{cphm,jdbcType=VARCHAR},
+    #{syr,jdbcType=VARCHAR}, #{cllx,jdbcType=VARCHAR}, #{ppxh,jdbcType=VARCHAR}, #{syxz,jdbcType=VARCHAR},
+    #{dlyszh,jdbcType=VARCHAR}, #{zcdjrq,jdbcType=DATE}, #{ccrq,jdbcType=DATE}, #{jyrq,jdbcType=DATE},
+    #{vin,jdbcType=VARCHAR}, #{fdjhm,jdbcType=VARCHAR}, #{qddjhm,jdbcType=VARCHAR},
+    #{jylb,jdbcType=VARCHAR}, #{model,jdbcType=VARCHAR}, #{ccbh,jdbcType=VARCHAR},
+    #{jyjl,jdbcType=VARCHAR}, #{sqqzr,jdbcType=VARCHAR}, #{dwmc,jdbcType=VARCHAR},
+    #{seal,jdbcType=VARCHAR}, #{jy,jdbcType=VARCHAR}, #{ewtm,jdbcType=VARCHAR}, #{yrsfdjedg,jdbcType=VARCHAR},
+    #{rllb,jdbcType=VARCHAR}, #{tDetail,jdbcType=VARCHAR}, #{xzqy,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cn.com.busi.entity.TInspectionReport">
     <!--@mbg.generated-->
@@ -178,6 +179,9 @@
       <if test="tDetail != null">
         t_detail,
       </if>
+      <if test="xzqy != null">
+        xzqy,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -275,6 +279,9 @@
       </if>
       <if test="tDetail != null">
         #{tDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="xzqy != null">
+        #{xzqy,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -382,107 +389,109 @@
     <!--@mbg.generated-->
     update t_inspection_report
     set jgdh = #{jgdh,jdbcType=VARCHAR},
-      xh = #{xh,jdbcType=VARCHAR},
-      dz = #{dz,jdbcType=VARCHAR},
-      lxdh = #{lxdh,jdbcType=VARCHAR},
-      zzrdzsbh = #{zzrdzsbh,jdbcType=VARCHAR},
-      jybgbh = #{jybgbh,jdbcType=VARCHAR},
-      jyjgmc = #{jyjgmc,jdbcType=VARCHAR},
-      cphm = #{cphm,jdbcType=VARCHAR},
-      syr = #{syr,jdbcType=VARCHAR},
-      cllx = #{cllx,jdbcType=VARCHAR},
-      ppxh = #{ppxh,jdbcType=VARCHAR},
-      syxz = #{syxz,jdbcType=VARCHAR},
-      dlyszh = #{dlyszh,jdbcType=VARCHAR},
-      zcdjrq = #{zcdjrq,jdbcType=DATE},
-      ccrq = #{ccrq,jdbcType=DATE},
-      jyrq = #{jyrq,jdbcType=DATE},
-      vin = #{vin,jdbcType=VARCHAR},
-      fdjhm = #{fdjhm,jdbcType=VARCHAR},
-      qddjhm = #{qddjhm,jdbcType=VARCHAR},
-      jylb = #{jylb,jdbcType=VARCHAR},
-      model = #{model,jdbcType=VARCHAR},
-      ccbh = #{ccbh,jdbcType=VARCHAR},
-      jyjl = #{jyjl,jdbcType=VARCHAR},
-      sqqzr = #{sqqzr,jdbcType=VARCHAR},
-      dwmc = #{dwmc,jdbcType=VARCHAR},
-      seal = #{seal,jdbcType=VARCHAR},
-      jy = #{jy,jdbcType=VARCHAR},
-      ewtm = #{ewtm,jdbcType=VARCHAR},
-      yrsfdjedg = #{yrsfdjedg,jdbcType=VARCHAR},
-      rllb = #{rllb,jdbcType=VARCHAR},
-      t_detail = #{tDetail,jdbcType=VARCHAR}
+    xh = #{xh,jdbcType=VARCHAR},
+    dz = #{dz,jdbcType=VARCHAR},
+    lxdh = #{lxdh,jdbcType=VARCHAR},
+    zzrdzsbh = #{zzrdzsbh,jdbcType=VARCHAR},
+    jybgbh = #{jybgbh,jdbcType=VARCHAR},
+    jyjgmc = #{jyjgmc,jdbcType=VARCHAR},
+    cphm = #{cphm,jdbcType=VARCHAR},
+    syr = #{syr,jdbcType=VARCHAR},
+    cllx = #{cllx,jdbcType=VARCHAR},
+    ppxh = #{ppxh,jdbcType=VARCHAR},
+    syxz = #{syxz,jdbcType=VARCHAR},
+    dlyszh = #{dlyszh,jdbcType=VARCHAR},
+    zcdjrq = #{zcdjrq,jdbcType=DATE},
+    ccrq = #{ccrq,jdbcType=DATE},
+    jyrq = #{jyrq,jdbcType=DATE},
+    vin = #{vin,jdbcType=VARCHAR},
+    fdjhm = #{fdjhm,jdbcType=VARCHAR},
+    qddjhm = #{qddjhm,jdbcType=VARCHAR},
+    jylb = #{jylb,jdbcType=VARCHAR},
+    model = #{model,jdbcType=VARCHAR},
+    ccbh = #{ccbh,jdbcType=VARCHAR},
+    jyjl = #{jyjl,jdbcType=VARCHAR},
+    sqqzr = #{sqqzr,jdbcType=VARCHAR},
+    dwmc = #{dwmc,jdbcType=VARCHAR},
+    seal = #{seal,jdbcType=VARCHAR},
+    jy = #{jy,jdbcType=VARCHAR},
+    ewtm = #{ewtm,jdbcType=VARCHAR},
+    yrsfdjedg = #{yrsfdjedg,jdbcType=VARCHAR},
+    rllb = #{rllb,jdbcType=VARCHAR},
+    t_detail = #{tDetail,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
-<!--auto generated by MybatisCodeHelper on 2021-02-01-->
+  <!--auto generated by MybatisCodeHelper on 2021-02-01-->
   <select id="findByAll" resultMap="BaseResultMap">
     select <include refid="Base_Column_List"/>
     from t_inspection_report
     <where>
-<if test="id != null">
- and id=#{id,jdbcType=VARCHAR}</if>
-<if test="jgdh != null">
- and jgdh=#{jgdh,jdbcType=VARCHAR}</if>
-<if test="xh != null">
- and xh=#{xh,jdbcType=VARCHAR}</if>
-<if test="dz != null">
- and dz=#{dz,jdbcType=VARCHAR}</if>
-<if test="lxdh != null">
- and lxdh=#{lxdh,jdbcType=VARCHAR}</if>
-<if test="zzrdzsbh != null">
- and zzrdzsbh=#{zzrdzsbh,jdbcType=VARCHAR}</if>
-<if test="jybgbh != null">
- and jybgbh=#{jybgbh,jdbcType=VARCHAR}</if>
-<if test="jyjgmc != null">
- and jyjgmc=#{jyjgmc,jdbcType=VARCHAR}</if>
-<if test="cphm != null">
- and cphm=#{cphm,jdbcType=VARCHAR}</if>
-<if test="syr != null">
- and syr=#{syr,jdbcType=VARCHAR}</if>
-<if test="cllx != null">
- and cllx=#{cllx,jdbcType=VARCHAR}</if>
-<if test="ppxh != null">
- and ppxh=#{ppxh,jdbcType=VARCHAR}</if>
-<if test="syxz != null">
- and syxz=#{syxz,jdbcType=VARCHAR}</if>
-<if test="dlyszh != null">
- and dlyszh=#{dlyszh,jdbcType=VARCHAR}</if>
-<if test="zcdjrq != null">
- and zcdjrq=#{zcdjrq,jdbcType=DATE}</if>
-<if test="ccrq != null">
- and ccrq=#{ccrq,jdbcType=DATE}</if>
-<if test="jyrq != null">
- and jyrq=#{jyrq,jdbcType=TIMESTAMP}</if>
-<if test="vin != null">
- and vin=#{vin,jdbcType=VARCHAR}</if>
-<if test="fdjhm != null">
- and fdjhm=#{fdjhm,jdbcType=VARCHAR}</if>
-<if test="qddjhm != null">
- and qddjhm=#{qddjhm,jdbcType=VARCHAR}</if>
-<if test="jylb != null">
- and jylb=#{jylb,jdbcType=VARCHAR}</if>
-<if test="model != null">
- and model=#{model,jdbcType=VARCHAR}</if>
-<if test="ccbh != null">
- and ccbh=#{ccbh,jdbcType=VARCHAR}</if>
-<if test="jyjl != null">
- and jyjl=#{jyjl,jdbcType=VARCHAR}</if>
-<if test="sqqzr != null">
- and sqqzr=#{sqqzr,jdbcType=VARCHAR}</if>
-<if test="dwmc != null">
- and dwmc=#{dwmc,jdbcType=VARCHAR}</if>
-<if test="seal != null">
- and seal=#{seal,jdbcType=VARCHAR}</if>
-<if test="jy != null">
- and jy=#{jy,jdbcType=VARCHAR}</if>
-<if test="ewtm != null">
- and ewtm=#{ewtm,jdbcType=VARCHAR}</if>
-<if test="yrsfdjedg != null">
- and yrsfdjedg=#{yrsfdjedg,jdbcType=VARCHAR}</if>
-<if test="rllb != null">
- and rllb=#{rllb,jdbcType=VARCHAR}</if>
-<if test="tDetail != null">
- and t_detail=#{tDetail,jdbcType=VARCHAR}</if>
+      <if test="id != null">
+        and id=#{id,jdbcType=VARCHAR}</if>
+      <if test="jgdh != null">
+        and jgdh=#{jgdh,jdbcType=VARCHAR}</if>
+      <if test="xh != null">
+        and xh=#{xh,jdbcType=VARCHAR}</if>
+      <if test="dz != null">
+        and dz=#{dz,jdbcType=VARCHAR}</if>
+      <if test="lxdh != null">
+        and lxdh=#{lxdh,jdbcType=VARCHAR}</if>
+      <if test="zzrdzsbh != null">
+        and zzrdzsbh=#{zzrdzsbh,jdbcType=VARCHAR}</if>
+      <if test="jybgbh != null">
+        and jybgbh like concat(concat('%',#{jybgbh}),'%')</if>
+      <if test="jyjgmc != null">
+        and jyjgmc like concat(concat('%',#{jyjgmc}),'%')</if>
+      <if test="cphm != null">
+        and cphm like concat(concat('%',#{cphm}),'%')</if>
+      <if test="syr != null">
+        and syr=#{syr,jdbcType=VARCHAR}</if>
+      <if test="cllx != null">
+        and cllx=#{cllx,jdbcType=VARCHAR}</if>
+      <if test="ppxh != null">
+        and ppxh like concat(concat('%',#{ppxh}),'%')</if>
+      <if test="syxz != null">
+        and syxz=#{syxz,jdbcType=VARCHAR}</if>
+      <if test="dlyszh != null">
+        and dlyszh=#{dlyszh,jdbcType=VARCHAR}</if>
+      <if test="zcdjrq != null">
+        and zcdjrq=#{zcdjrq,jdbcType=DATE}</if>
+      <if test="ccrq != null">
+        and ccrq=#{ccrq,jdbcType=DATE}</if>
+      <if test="jyrq != null">
+        and jyrq=#{jyrq,jdbcType=TIMESTAMP}</if>
+      <if test="vin != null">
+        and vin=#{vin,jdbcType=VARCHAR}</if>
+      <if test="fdjhm != null">
+        and fdjhm=#{fdjhm,jdbcType=VARCHAR}</if>
+      <if test="qddjhm != null">
+        and qddjhm=#{qddjhm,jdbcType=VARCHAR}</if>
+      <if test="jylb != null">
+        and jylb=#{jylb,jdbcType=VARCHAR}</if>
+      <if test="model != null">
+        and model=#{model,jdbcType=VARCHAR}</if>
+      <if test="ccbh != null">
+        and ccbh=#{ccbh,jdbcType=VARCHAR}</if>
+      <if test="jyjl != null">
+        and jyjl=#{jyjl,jdbcType=VARCHAR}</if>
+      <if test="sqqzr != null">
+        and sqqzr=#{sqqzr,jdbcType=VARCHAR}</if>
+      <if test="dwmc != null">
+        and dwmc=#{dwmc,jdbcType=VARCHAR}</if>
+      <if test="seal != null">
+        and seal=#{seal,jdbcType=VARCHAR}</if>
+      <if test="jy != null">
+        and jy=#{jy,jdbcType=VARCHAR}</if>
+      <if test="ewtm != null">
+        and ewtm=#{ewtm,jdbcType=VARCHAR}</if>
+      <if test="yrsfdjedg != null">
+        and yrsfdjedg=#{yrsfdjedg,jdbcType=VARCHAR}</if>
+      <if test="rllb != null">
+        and rllb=#{rllb,jdbcType=VARCHAR}</if>
+      <if test="xzqy != null">
+        and xzqy=#{xzqy,jdbcType=VARCHAR}</if>
+      <if test="tDetail != null">
+        and Year(ccrq)=#{tDetail}</if>
     </where>
   </select>
 </mapper>

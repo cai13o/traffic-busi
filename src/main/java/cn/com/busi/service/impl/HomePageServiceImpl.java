@@ -136,54 +136,94 @@ public class HomePageServiceImpl implements HomePageService {
         String concat1 = "";
         String concat2 = "";
         String concat3 = "";
+        String concat4 = "";
         for(TSintypeNow ts:tSintypeNows){
-            if(ts.getId().equals("kzzdxczd1")){
+            if (ts.getId().equals("kzzdxczd1")) {
                 concat3 = "'/',1";
-                concat1 = "一轴制动率";
-                concat2 = "一轴，行车制动率";
-            }else if(ts.getId().equals("kzzdxczd2")){
+                concat1 = "一轴";
+                concat2 = "制动";
+            } else if (ts.getId().equals("kzzdxczd2")) {
                 concat3 = "'/',1";
-                concat1 = "二轴制动率";
-                concat2 = "二轴，行车制动率";
-            }else if(ts.getId().equals("kzzdxczd3")){
+                concat1 = "二轴";
+                concat2 = "制动";
+            } else if (ts.getId().equals("kzzdxczd3")) {
                 concat3 = "'/',1";
-                concat1 = "三轴制动率";
-                concat2 = "三轴，行车制动率";
-            }else if(ts.getId().equals("kzzdxczd4")){
+                concat1 = "三轴";
+                concat2 = "制动";
+            } else if (ts.getId().equals("kzzdxczd4")) {
                 concat3 = "'/',1";
-                concat1 = "四轴制动率";
-                concat2 = "四轴，行车制动率";
-            }else if(ts.getId().equals("kzzdbphl1")){
-                concat3 = "'/', -1";
-                concat1 = "一轴不平衡率";
-                concat2 = "一轴，不平衡率";
-            }else if(ts.getId().equals("kzzdbphl2")){
-                concat3 = "'/', -1";
-                concat1 = "二轴不平衡率";
-                concat2 = "二轴，不平衡率";
-            }else if(ts.getId().equals("kzzdbphl3")){
-                concat3 = "'/', -1";
-                concat1 = "三轴不平衡率";
-                concat2 = "三轴，不平衡率";
-            }else if(ts.getId().equals("kzzdbphl4")){
-                concat3 = "'/', -1";
-                concat1 = "四轴不平衡率";
-                concat2 = "四轴，不平衡率";
-            }else if(ts.getId().equals("chA1")){
-                concat3 = "'o',-1";
+                concat1 = "四轴";
+                concat2 = "制动";
+            } else if (ts.getId().equals("kzzdbphl1")) {
+                concat3 = "'/',-1";
+                concat1 = "一轴";
+                concat2 = "不平衡";
+            } else if (ts.getId().equals("kzzdbphl2")) {
+                concat3 = "'/',-1";
+                concat1 = "二轴";
+                concat2 = "不平衡";
+            } else if (ts.getId().equals("kzzdbphl3")) {
+                concat3 = "'/',-1";
+                concat1 = "三轴";
+                concat2 = "不平衡";
+            } else if (ts.getId().equals("kzzdbphl4")) {
+                concat3 = "'/',-1";
+                concat1 = "四轴";
+                concat2 = "不平衡";
+            } else if (ts.getId().equals("chA1")) {
+                concat3 = "'/',-1";
                 concat1 = "侧滑";
-            }else if(ts.getId().equals("zhuxmpd")){
-                concat3 = "'o',-1";
-                concat1 = "驻车制动率";
-            }else if(ts.getId().equals("zhexmpd")){
-                concat3 = "'o',-1";
-                concat1 = "整车制动率";
-            }else if(ts.getId().equals("zwdxmpd")){
-                concat3 = "'o',-1";
-                concat1 = "左";
-                concat2 = "灯";
+            } else if (ts.getId().equals("zhuxmpd")) {
+                concat3 = "'/',-1";
+                concat1 = "驻车";
+            } else if (ts.getId().equals("zhexmpd")) {
+                concat3 = "'/',-1";
+                concat1 = "整车";
+            } else if (ts.getId().equals("zwdxmpd")) {
+                concat3 = "'/',-1";
+                concat1 = "灯";
+            } else if (ts.getId().equals("jzxczd1")) {
+                concat3 = "'/',1";
+                concat1 = "一轴";
+                concat2 = "加载";
+                concat4 = "制动";
+            } else if (ts.getId().equals("jzxczd2")) {
+                concat3 = "'/',1";
+                concat1 = "二轴";
+                concat2 = "加载";
+                concat4 = "制动";
+            } else if (ts.getId().equals("jzxczd3")) {
+                concat3 = "'/',1";
+                concat1 = "三轴";
+                concat2 = "加载";
+                concat4 = "制动";
+            } else if (ts.getId().equals("jzxczd4")) {
+                concat3 = "'/',1";
+                concat1 = "四轴";
+                concat2 = "加载";
+                concat4 = "制动";
+            } else if (ts.getId().equals("jzbphl1")) {
+                concat3 = "'/',-1";
+                concat1 = "一轴";
+                concat2 = "加载";
+                concat4 = "不平衡";
+            } else if (ts.getId().equals("jzbphl2")) {
+                concat3 = "'/',-1";
+                concat1 = "二轴";
+                concat2 = "加载";
+                concat4 = "不平衡";
+            } else if (ts.getId().equals("jzbphl3")) {
+                concat3 = "'/',-1";
+                concat1 = "三轴";
+                concat2 = "加载";
+                concat4 = "不平衡";
+            } else if (ts.getId().equals("jzbphl4")) {
+                concat3 = "'/',-1";
+                concat1 = "四轴";
+                concat2 = "加载";
+                concat4 = "不平衡";
             }
-            Integer[] arr = this.tStatisticsDao.singleStatisticsNow(concat1,concat2,concat3);
+            Integer[] arr = this.tStatisticsDao.singleStatisticsNow(concat1,concat2,concat3,concat4);
             map.put(ts.getId(),arr);
         }
 

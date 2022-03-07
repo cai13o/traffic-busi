@@ -96,7 +96,8 @@ public class NewController {
     @RequestMapping(value = "/accessory", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public Map sendMessage(@RequestParam("fileUpload") MultipartFile[] fileUpload) {
         System.out.println(fileUpload.length);
-        String format = String.valueOf(new Date().getTime());
+        String format = String.valueOf(System.currentTimeMillis());
+
         List<Object> list = new ArrayList<>();
         for (MultipartFile multipartFile : fileUpload) {
             System.out.println("文件" + multipartFile.getOriginalFilename());

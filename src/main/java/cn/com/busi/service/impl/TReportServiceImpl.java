@@ -3,6 +3,8 @@ package cn.com.busi.service.impl;
 import cn.com.busi.entity.TRecord;
 import cn.com.busi.entity.TReport;
 import cn.com.busi.entity.TStatistics;
+import cn.com.busi.mapper.TMaintainFuelCategoryDao;
+import cn.com.busi.mapper.TMaintainVehicleTypeDao;
 import cn.com.busi.mapper.TReportDao;
 import cn.com.busi.service.TReportService;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,11 @@ public class TReportServiceImpl implements TReportService {
     @Resource
     private TReportDao tReportDao;
 
+    @Resource
+    private TMaintainVehicleTypeDao tMaintainVehicleTypeDao;
+
+    @Resource
+    private TMaintainFuelCategoryDao tMaintainFuelCategoryDao;
     /**
      * 通过ID查询单条数据
      *
@@ -54,6 +61,24 @@ public class TReportServiceImpl implements TReportService {
     @Override
     public List<TReport> queryAll(TReport tReport,String startDate, String endDate,String ssqy,String singlePass) {
         return this.tReportDao.queryAll(tReport,startDate,endDate,ssqy,singlePass);
+    }
+
+    /**
+     * 车辆类别维护
+     *
+     */
+    @Override
+    public List<String> maintainVehicleType() {
+        return this.tMaintainVehicleTypeDao.queryAll();
+    }
+
+    /**
+     * 燃料类别维护
+     *
+     */
+    @Override
+    public List<String> maintainFuelCategory() {
+        return this.tMaintainFuelCategoryDao.queryAll();
     }
 
     /**

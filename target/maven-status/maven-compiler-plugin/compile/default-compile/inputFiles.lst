@@ -8,7 +8,9 @@ D:\traffic-busi\src\main\java\cn\com\busi\service\impl\TStatisticsServiceImpl.ja
 D:\traffic-busi\src\main\java\cn\com\busi\entity\TInspectionReportExample.java
 D:\traffic-busi\src\main\java\cn\com\busi\mapper\TInstrumentResultMapper.java
 D:\traffic-busi\src\main\java\cn\com\busi\mapper\TPictureMapper.java
+D:\traffic-busi\src\main\java\cn\com\busi\entity\TMaintainVehicleType.java
 D:\traffic-busi\src\main\java\cn\com\busi\entity\TResourceCenter.java
+D:\traffic-busi\src\main\java\cn\com\busi\common\DemoComLiner.java
 D:\traffic-busi\src\main\java\cn\com\busi\controller\StatisticsController.java
 D:\traffic-busi\src\main\java\cn\com\busi\entity\TLicensePlate.java
 D:\traffic-busi\src\main\java\cn\com\busi\entity\TStatistics.java
@@ -16,6 +18,7 @@ D:\traffic-busi\src\main\java\cn\com\busi\service\TStatisticsService.java
 D:\traffic-busi\src\main\java\cn\com\busi\utils\TokenUtil.java
 D:\traffic-busi\src\main\java\cn\com\busi\service\TArtificialResultService.java
 D:\traffic-busi\src\main\java\cn\com\busi\service\impl\TrfficWebServiceImpl.java
+D:\traffic-busi\src\main\java\cn\com\busi\entity\TMaintainFuelCategory.java
 D:\traffic-busi\src\main\java\cn\com\busi\service\impl\TRecordServiceImpl.java
 D:\traffic-busi\src\main\java\cn\com\busi\entity\TInspectionInstrumentExample.java
 D:\traffic-busi\src\main\java\cn\com\busi\service\HomePageService.java
@@ -30,14 +33,17 @@ D:\traffic-busi\src\main\java\cn\com\busi\entity\TInstPerson.java
 D:\traffic-busi\src\main\java\cn\com\busi\common\BusinessConstant.java
 D:\traffic-busi\src\main\java\cn\com\busi\entity\TPicture.java
 D:\traffic-busi\src\main\java\cn\com\busi\service\TrfficWebService.java
+D:\traffic-busi\src\main\java\cn\com\busi\service\TCacheService.java
 D:\traffic-busi\src\main\java\cn\com\busi\entity\TInfo.java
 D:\traffic-busi\src\main\java\cn\com\busi\mapper\TUnqualifiedItemsMapper.java
+D:\traffic-busi\src\main\java\cn\com\busi\mapper\TMaintainVehicleTypeDao.java
 D:\traffic-busi\src\main\java\cn\com\busi\service\impl\TArtificialResultServiceImpl.java
 D:\traffic-busi\src\main\java\cn\com\busi\mapper\TInfoMapper.java
 D:\traffic-busi\src\main\java\cn\com\busi\mapper\TPgroupDao.java
 D:\traffic-busi\src\main\java\cn\com\busi\service\impl\TInstrumentResultServiceImpl.java
 D:\traffic-busi\src\main\java\cn\com\busi\controller\consultController.java
 D:\traffic-busi\src\main\java\cn\com\busi\mapper\TUserDao.java
+D:\traffic-busi\src\main\java\cn\com\busi\mapper\TCacheMapper.java
 D:\traffic-busi\src\main\java\cn\com\busi\mapper\TSysLogDao.java
 D:\traffic-busi\src\main\java\cn\com\busi\service\impl\TNewServiceImpl.java
 D:\traffic-busi\src\main\java\cn\com\busi\service\TSintypeNowService.java
@@ -53,6 +59,7 @@ D:\traffic-busi\src\main\java\cn\com\busi\service\BusiService.java
 D:\traffic-busi\src\main\java\cn\com\busi\service\TInspectionReportService.java
 D:\traffic-busi\src\main\java\cn\com\busi\mapper\TReportDao.java
 D:\traffic-busi\src\main\java\cn\com\busi\mapper\TCartypeDao.java
+D:\traffic-busi\src\main\java\cn\com\busi\entity\TCache.java
 D:\traffic-busi\src\main\java\cn\com\busi\controller\TStatisticsController.java
 D:\traffic-busi\src\main\java\cn\com\busi\service\TPgroupService.java
 D:\traffic-busi\src\main\java\cn\com\busi\controller\TUserController.java
@@ -77,8 +84,10 @@ D:\traffic-busi\src\main\java\cn\com\busi\service\impl\TPictureServiceImpl.java
 D:\traffic-busi\src\main\java\cn\com\busi\annotation\PassToken.java
 D:\traffic-busi\src\main\java\cn\com\busi\entity\TSintype.java
 D:\traffic-busi\src\main\java\cn\com\busi\mapper\TResourceCenterMapper.java
+D:\traffic-busi\src\main\java\cn\com\busi\mapper\TInspectionMapper.java
 D:\traffic-busi\src\main\java\cn\com\busi\mapper\TInstDeviceDao.java
 D:\traffic-busi\src\main\java\cn\com\busi\service\impl\TRoleServiceImpl.java
+D:\traffic-busi\src\main\java\cn\com\busi\entity\TInspection.java
 D:\traffic-busi\src\main\java\cn\com\busi\controller\TRoleController.java
 D:\traffic-busi\src\main\java\cn\com\busi\config\PageHelperConfig.java
 D:\traffic-busi\src\main\java\cn\com\busi\entity\TConsult.java
@@ -94,6 +103,7 @@ D:\traffic-busi\src\main\java\cn\com\busi\mapper\TInspectionInstrumentMapper.jav
 D:\traffic-busi\src\main\java\cn\com\busi\client\GetLatAndLngByBaidu.java
 D:\traffic-busi\src\main\java\cn\com\busi\config\TomcatConfig.java
 D:\traffic-busi\src\main\java\cn\com\busi\service\impl\TPgroupServiceImpl.java
+D:\traffic-busi\src\main\java\cn\com\busi\mapper\TMaintainFuelCategoryDao.java
 D:\traffic-busi\src\main\java\cn\com\busi\utils\HttpContextUtils.java
 D:\traffic-busi\src\main\java\cn\com\busi\service\impl\TSintypeNowServiceImpl.java
 D:\traffic-busi\src\main\java\cn\com\busi\service\impl\TInspectionReportServiceImpl.java
@@ -127,6 +137,7 @@ D:\traffic-busi\src\main\java\cn\com\busi\utils\GetLatAndLngByBaidu.java
 D:\traffic-busi\src\main\java\cn\com\busi\entity\PageInfo.java
 D:\traffic-busi\src\main\java\cn\com\busi\mapper\TStatisticsDao.java
 D:\traffic-busi\src\main\java\cn\com\busi\entity\TInspectionArtificialExample.java
+D:\traffic-busi\src\main\java\cn\com\busi\service\impl\TCacheServiceImpl.java
 D:\traffic-busi\src\main\java\cn\com\busi\service\impl\TInstPersonServiceImpl.java
 D:\traffic-busi\src\main\java\cn\com\busi\service\TInstInfoService.java
 D:\traffic-busi\src\main\java\cn\com\busi\common\LoginInterceptor.java

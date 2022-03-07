@@ -39,7 +39,7 @@ public class TInstPersonController {
         return this.tInstPersonService.queryById(id);
     }
 
-    @GetMapping("selectAll")
+    @GetMapping("selectAllNow")
     public Object selectAll(String page, String limit, String institution, String enddate , String name) {
         Integer intPage = Integer.parseInt(page);
         Integer intLimit = Integer.parseInt(limit);

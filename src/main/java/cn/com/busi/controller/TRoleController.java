@@ -46,7 +46,6 @@ public class TRoleController {
         map.put("code","20000");
         map.put("data",this.tRoleService.queryById("admin"));
         return map;
-
     }
 
     /**
